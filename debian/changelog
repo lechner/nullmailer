@@ -1,3 +1,15 @@
+nullmailer (1.00RC7-22) unstable; urgency=high
+
+  * The "let's make aba happy" release.
+  * Damn nullmailer! You aren't compatible with the LSB.
+  * Conflict with lsb and document the LSB incompatibility in the packages
+    description.
+  * This change is related to #271662, which will stay open after this package
+    is uploaded. When the package hits the archive, the severity of this bug
+    will be downgraded to wishlist.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 26 Sep 2004 11:26:35 +0200
+
 nullmailer (1.00RC7-21) unstable; urgency=low
 
   * Removed backport information from package description (closes: #215938).
@@ -13,7 +25,6 @@ nullmailer (1.00RC7-20) unstable; urgency=low
 nullmailer (1.00RC7-19) unstable; urgency=low
 
   * New Maintainer (closes: #210405).
-  * New Co-Maintainer, Ondrej Sury <ondrej@sury.org>.
 
  -- Norbert Tretkowski <nobse@debian.org>  Sat, 20 Sep 2003 19:51:11 +0200
 
