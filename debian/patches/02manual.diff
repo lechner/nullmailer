@@ -1,0 +1,98 @@
+--- nullmailer-1.00RC7/lib/hostname.cc
++++ nullmailer-1.00RC7/lib/hostname.cc
+@@ -33,7 +33,9 @@
+ {
+   int nome;
+   nome = 0;
+-  if (!config_read("me", me)) {
++  // introduced as bufix for #120660, #157259, #158412 in 1.00RC5-17;
++  // still there since it's more appropriate for Debian systems
++  if (!config_read("../mailname", me)) {
+     nome = 1;
+     me = "me";
+   }
+--- nullmailer-1.00RC7.orig/doc/nullmailer-send.8
++++ nullmailer-1.00RC7/doc/nullmailer-send.8
+@@ -76,16 +76,16 @@
+ Blank lines and lines starting with a pound are ignored.
+ .SH FILES
+ .TP
+-.B /var/nullmailer/queue
++.B /var/spool/nullmailer/queue
+ The message queue.
+ .TP
+-.B /var/nullmailer/trigger
++.B /var/spool/nullmailer/trigger
+ A trigger file to cause immediate delivery.
+ .TP
+-.B /usr/local/etc/nullmailer
++.B /etc/nullmailer
+ The configuration directory.
+ .TP
+-.B /usr/local/libexec/nullmailer
++.B /usr/lib/nullmailer
+ The protocol program directory.
+ .SH SEE ALSO
+ nullmailer-queue(8),
+--- nullmailer-1.00RC7.orig/doc/nullmailer-queue.8
++++ nullmailer-1.00RC7/doc/nullmailer-queue.8
+@@ -22,21 +22,21 @@
+ .TP
+ .B adminaddr
+ If this file is not empty, all recipients to users at either
+-"localhost" (the literal string) or the canonical host name (from the
+-.I me
+-control file) are remapped to this address.
++"localhost" (the literal string) or the canonical host name (from
++.IR /etc/mailname )
++are remapped to this address.
+ This is provided to allow local daemons to be able to send email to
+ "somebody@localhost" and have it go somewhere sensible instead of
+ being bounced by your relay host.
+ .SH OTHER FILES
+ .TP
+-.B /var/nullmailer/queue
++.B /var/spool/nullmailer/queue
+ The directory into which the completed messages are moved.
+ .TP
+-.B /var/nullmailer/tmp
++.B /var/spool/nullmailer/tmp
+ The directory in which messages are formed temporarily.
+ .TP
+-.B /var/nullmailer/trigger
++.B /var/spool/nullmailer/trigger
+ A pipe used to trigger
+ .BR nullmailer-send
+ to immediately start sending the message from the queue.
+--- nullmailer-1.00RC7.orig/doc/nullmailer-inject.1
++++ nullmailer-1.00RC7/doc/nullmailer-inject.1
+@@ -218,16 +218,16 @@
+ and
+ .BR idhost .
+ Defaults to the value of the
+-.I me
+-control file, if it exists, otherwise the literal name
++.I /etc/mailname
++system file, if it exists, otherwise the literal name
+ .IR defauldomain .
+ .TP
+ .B defaulthost
+ The content of this file is appended to any address that is missing a
+ host name.
+ Defaults to the value of the
+-.I me
+-control file, if it exists, otherwise the literal name
++.I /etc/mailname
++system file, if it exists, otherwise the literal name
+ .IR defaulthost .
+ .TP
+ .B idhost
+@@ -236,7 +236,7 @@
+ Defaults to the canonicalized value of
+ .BR defaulthost .
+ .TP
+-.B me
++.B /etc/mailname
+ The fully-qualifiled host name of the computer running nullmailer.
+ Defaults to the literal name
+ .IR me .

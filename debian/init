@@ -1,0 +1,58 @@
+#!/bin/sh
+
+set -e
+
+PATH="/bin:/usr/bin:/sbin:/usr/sbin"
+DAEMON="/usr/sbin/nullmailer-send"
+ARGS="-d"
+
+help () {
+	echo "Usage: /etc/init.d/nullmailer { start | stop | restart | force-reload }" >&2
+}
+
+if [ ! -x "$DAEMON" ]; then
+#	echo "Cannot execute nullmailer: program not found." >&2
+#	exit 5 # LSB: program is not installed
+	exit 0 # Debian policy: exit quietly, see #206928
+fi
+
+if [ "$2" ]; then
+	help
+	exit 2 # LSB: invalid or excess argument(s)
+fi
+
+case "$1" in
+start)
+	echo -n "Starting mail-transport-agent: nullmailer"
+	if [ ! -c /var/spool/nullmailer/trigger ]; then
+		rm -f /var/spool/nullmailer/trigger
+		mkfifo /var/spool/nullmailer/trigger
+	fi
+	chown mail:root /var/spool/nullmailer/trigger
+	chmod 0622 /var/spool/nullmailer/trigger
+	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $ARGS
+	;;
+stop)
+	echo -n "Stopping mail-transport-agent: nullmailer"
+	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
+	;;
+restart|force-reload)
+	echo -n "Restarting mail-transport-agent: nullmailer"
+	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
+	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" -- $ARGS
+	;;
+reload)
+	help
+	exit 3 # LSB: unimplemented feature
+	;;
+status)
+	help
+	exit 4 # LSB: program or service status is unknown
+	;;
+*)
+	help
+	exit 2 # LSB: invalid or excess argument(s)
+esac
+echo "."
+
+exit 0

@@ -1,0 +1,5 @@
+Tag: incorrect-file-perms
+Data: usr/bin/mailq|usr/sbin/nullmailer-queue
+
+Tag: non-standard-dir-perm
+Data: var/spool/nullmailer

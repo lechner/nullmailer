@@ -1,12 +1,41 @@
-#!/bin/sh -e
+#!/bin/sh
+
+set -e
 
 . /usr/share/debconf/confmodule
+db_version 2.0
+db_capb backup
 
-#DEBCONF_DEBUG=1
-#export DEBCONF_DEBUG
+db_get shared/mailname
+if [ -z "$RET" ]; then
+	if [ -e /etc/mailname ]; then
+		db_set shared/mailname "`cat /etc/mailname`"
+	else
+		db_set shared/mailname "`hostname --fqdn`"
+	fi
+fi
 
-db_input high nullmailer/fqdn || :
-db_go
+db_get nullmailer/relayhost
+if [ -z "$RET" ]; then
+	db_set nullmailer/relayhost "mail.`hostname --domain`"
+fi
 
-db_input high nullmailer/relayhost || :
-db_go
+state=1
+while [ "$state" -ge 1 -a "$state" -le 3 ]; do
+	case "$state" in
+	1)	db_input high shared/mailname || true
+		;;
+	2)	db_input high nullmailer/relayhost || true
+		;;
+	3)	db_input medium nullmailer/adminaddr || true
+		;;
+	esac
+	if db_go; then
+		state=$(($state + 1))
+	else
+		state=$(($state - 1))
+	fi
+done
+
+db_stop
+exit 0

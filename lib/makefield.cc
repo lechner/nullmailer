@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,9 +21,8 @@
 
 #include "config.h"
 #include "defines.h"
-#include <sys/time.h>
-#include <time.h>
 #include <unistd.h>
+#include "ac/time.h"
 #include "itoa.h"
 #include "mystring/mystring.h"
 

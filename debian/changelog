@@ -1,3 +1,253 @@
+nullmailer (1.00RC7-21) unstable; urgency=low
+
+  * Removed backport information from package description (closes: #215938).
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat,  8 Nov 2003 16:36:01 +0100
+
+nullmailer (1.00RC7-20) unstable; urgency=low
+
+  * D'OH, forgot to change maintainer field in debian/control.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Fri, 26 Sep 2003 20:56:49 +0200
+
+nullmailer (1.00RC7-19) unstable; urgency=low
+
+  * New Maintainer (closes: #210405).
+  * New Co-Maintainer, Ondrej Sury <ondrej@sury.org>.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 20 Sep 2003 19:51:11 +0200
+
+nullmailer (1.00RC7-18) unstable; urgency=low
+
+  * Fixed init script policy compliance, closes: #206928.
+  * Updated standards version.
+
+ -- Martin A. Godisch <godisch@debian.org>  Sun, 24 Aug 2003 23:10:24 +0200
+
+nullmailer (1.00RC7-17) unstable; urgency=low
+
+  * Simplified ucf handling, see bug #199233, adjusted ucf dependency.
+  * Simplified configuration, added debconf dependency.
+  * Provided default values for /etc/mailname and /etc/nullmailer/remotes.
+  * Fixed removal of /etc/nullmailer on --purge.
+  * Converted debian/changelog to UTF-8.
+  * Updated standards version.
+  * Thanks to Martin Pitt for co-maintaining.
+
+ -- Martin A. Godisch <godisch@debian.org>  Mon, 21 Jul 2003 15:32:30 +0200
+
+nullmailer (1.00RC7-16) unstable; urgency=low
+
+  * Fixed config failure on fresh installations, closes: #199171.
+  * Improved ucf transition, closes: #199163. Added UCF_FORCE_CONFFNEW
+    when the new file is identical to the current one.
+  * Removed defaultdomain from debconf handling because ucf needs an empty
+    new defaultdomain file when the new value is empty. Since nullmailer
+    interprets an empty file not the same way as a missing file I see no
+    sensible way to handle defaultdomain using debconf and ucf. nullmailer
+    doesn't depend on defaultdomain, it will fall back to /etc/mailname.
+  * Fixed handling of empty adminaddr.
+
+ -- Martin A. Godisch <godisch@debian.org>  Sun, 29 Jun 2003 09:14:50 +0200
+
+nullmailer (1.00RC7-15) unstable; urgency=low
+
+  * Added ucf support, closes: #198583.
+
+ -- Martin A. Godisch <godisch@debian.org>  Fri, 27 Jun 2003 07:56:05 +0200
+
+nullmailer (1.00RC7-14) unstable; urgency=low
+
+  * Added warning note about incompatible init scripts, closes: #197742.
+  * Updated French debconf translation, closes: #197940, thanks to
+    Philippe Batailler.
+  * Replaced /usr/bin/newaliases with a symbolic link to /bin/true.
+  * Added patch to build-dependencies.
+
+ -- Martin A. Godisch <godisch@debian.org>  Wed, 18 Jun 2003 18:50:20 +0200
+
+nullmailer (1.00RC7-13) unstable; urgency=low
+
+  * Updated and fixed deb'configuration, closes: #195167. The first question
+    is whether to configure at all, removed comparison of files and database
+    in the config script. debconf is now optional, adjusted dependencies and
+    Linitan overrides.
+  * Updated standards version.
+
+ -- Martin A. Godisch <godisch@debian.org>  Thu, 29 May 2003 08:56:15 +0200
+
+nullmailer (1.00RC7-12) unstable; urgency=low
+
+  * Improved syslog patch, closes: #191451. Added command line options
+    --daemon and --syslog for protocol.cc and send.cc, see nullmailer-send(8).
+    Default behavior is not to make use of these which is how upstream
+    works. However, Debian's (default) init script makes use of these.
+  * Fixed reverse patching.
+
+ -- Martin A. Godisch <godisch@debian.org>  Thu, 01 May 2003 09:18:55 +0200
+
+nullmailer (1.00RC7-11) unstable; urgency=low
+
+  * Fixed SMTP violation, closes: #188391.
+  * Moved patching into debian/rules.
+  * Updated logcheck configuration.
+
+ -- Martin A. Godisch <godisch@debian.org>  Thu, 10 Apr 2003 06:57:45 +0200
+
+nullmailer (1.00RC7-10) unstable; urgency=low
+
+  * Fixed protocols/protocols.cc (Debian specific), closes: #188376.
+  * Updated debconf dependency and package description.
+
+ -- Martin A. Godisch <godisch@debian.org>  Wed, 09 Apr 2003 21:52:45 +0200
+
+nullmailer (1.00RC7-9) unstable; urgency=low
+
+  * Made init script LSB compliant, closes: #187248.
+  * Added portuguese debconf translation, closes: #185679.
+    Thanks to André Luís Lopes.
+  * Added debconf backup capability.
+  * Updated package description.
+  * Updated README.Debian.
+
+ -- Martin A. Godisch <godisch@debian.org>  Wed, 02 Apr 2003 23:04:50 +0200
+
+nullmailer (1.00RC7-8) unstable; urgency=low
+
+  * Added german debconf translation, closes: #184898.
+
+ -- Martin A. Godisch <godisch@debian.org>  Sun, 16 Mar 2003 07:52:05 +0100
+
+nullmailer (1.00RC7-7) unstable; urgency=low
+
+  * Added french debconf translation, closes: #184313.
+    Thanks to Philippe Batailler <philippe.batailler@free.fr>.
+  * Updated standards version.
+
+ -- Martin A. Godisch <godisch@debian.org>  Tue, 11 Mar 2003 16:30:51 +0100
+
+nullmailer (1.00RC7-6) unstable; urgency=low
+
+  * Transition to po-debconf, updated build-dependencies.
+  * Updated debconf questions, closes: #183587.
+  * Updated maintainer scripts, added configuration for adminaddr.
+
+ -- Martin A. Godisch <godisch@debian.org>  Thu, 06 Mar 2003 11:10:20 +0100
+
+nullmailer (1.00RC7-5) unstable; urgency=low
+
+  * Updated debian/patches/a.diff to upstream version, fixed
+    some line numbers in other patches.
+  * Removed build-dependency on debhelper, debian/ cleanup.
+  * Let debian/prerm remove /var/spool/nullmailer/trigger.
+  * Updated debian/README.Debian and maintainer email address.
+
+ -- Martin A. Godisch <godisch@debian.org>  Sat, 22 Feb 2003 12:20:12 +0100
+
+nullmailer (1.00RC7-4) unstable; urgency=low
+
+  * Fixed blocking when syslog is unavailable.
+  * Fixed nullmailer-inject.1, closes #180956.
+  * Improved README.Debian, thanks to Osamu Aoki <osamu@debian.org>.
+  * Removed HOWTO from debian/docs.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Fri, 14 Feb 2003 10:10:12 +0100
+
+nullmailer (1.00RC7-3) unstable; urgency=low
+
+  * Fixed priority and conflicts, added provides, recommends.
+    nullmailer shares files with other MTA's, hence the conflict
+    and therefore priority extra.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Mon, 03 Feb 2003 17:08:38 +0100
+
+nullmailer (1.00RC7-2) unstable; urgency=low
+
+  * Added /usr/bin/newaliases, closes: #177683.
+  * Fixed debian/rules, updated debian/control.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Mon, 27 Jan 2003 10:17:14 +0100
+
+nullmailer (1.00RC7-1) unstable; urgency=low
+
+  * New upstream release.
+  * Dropped some patches wich are now in upstream.
+  * Separated applied patches into debian/patches.
+  * Fixed g++ 3.2 build.
+  * Fixed noopt in debian/rules.
+  * Fixed Linda overrides.
+  * Updated debian/copyright.
+  * Updated README.Debian.
+  * Moved debian/logcheck/* to debian/logcheck.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Sat, 11 Jan 2003 21:46:10 +0100
+
+nullmailer (1.00RC5-23) unstable; urgency=low
+
+  * Let sendmail exit with failure when -bs is requested, closes: #170079.
+  * Updated Debian standards version.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Sat, 23 Nov 2002 16:15:00 +0100
+
+nullmailer (1.00RC5-22) unstable; urgency=low
+
+  * Fixed nullmailer-inject domain qualification, closes: #128269.
+    Thanks to Peter Muir <iyhi@yahoo.com> for providing the patch.
+  * Fixed init script, prevents trigger recreation when nullmailer
+    is already running.
+  * Fixed depends, added debconf version (>= 1.2.9) and debhelper
+    version (>= 4.1.8), assures that dpkg-reconfigure calls prerm
+    when nullmailer is already running.
+  * Fixed German templates file.
+  * Added Linda overrides file.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Wed, 13 Nov 2002 16:38:02 +0100
+
+nullmailer (1.00RC5-21) unstable; urgency=low
+
+  * Fixed missing "|| true" in debian/config.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Thu, 31 Oct 2002 19:37:10 +0100
+
+nullmailer (1.00RC5-20) unstable; urgency=low
+
+  * Fixed handling of /etc/nullmailer/remotes in debian/config
+    and debian/postinst, closes: #167191.
+  * Fixed /etc/init.d/nullmailer force-reload.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Thu, 31 Oct 2002 11:24:44 +0100
+
+nullmailer (1.00RC5-19) unstable; urgency=low
+
+  * Added native syslog support for nullmailer-send, closes: #166797.
+  * Fixed backgrounding for nullmailer-send, closes: #166801.
+  * Changed umask in queue.cc, see #164951.
+  * Added logcheck configuration.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Tue, 29 Oct 2002 10:48:35 +0100
+
+nullmailer (1.00RC5-18) unstable; urgency=low
+
+  * Added /etc/mailname recreation according to policy, templates
+    were taken from the slrn package, closes: #163001.
+  * Added overrides file for Lintian.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Tue, 01 Oct 2002 23:16:56 +0200
+
+nullmailer (1.00RC5-17) unstable; urgency=medium
+
+  * Security fix, prevents possible denial of service attack,
+    closes: #152786, #160127.
+  * Replaced getdomainname() call with /etc/mailname lookup,
+    closes: #120660, #157259, #158412.
+  * Changed handling of empty defaulthost file, closes: #128273.
+  * Updated debian directory, closes: #149764, #161464.
+  * Enabled logging, added trigger recreation on startup.
+  * Fixed spooldir permissions and manual pages.
+  * New-maintainer upload, closes: #159894, #157258.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Mon, 23 Sep 2002 18:03:14 +0200
+
 nullmailer (1.00RC5-16.1woody2) stable-security; urgency=high
 
   * Security fix, prevents possible denial of service attack, closes: #160127.
@@ -5,13 +255,6 @@ nullmailer (1.00RC5-16.1woody2) stable-security; urgency=high
   * Set new maintainer in debian/control.
 
  -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Wed, 25 Sep 2002 07:40:05 +0200
-
-nullmailer (1.00RC5-16.1woody1) stable-security; urgency=high
-
-  * Non-maintainer upload.
-  * Security fix, prevents possible denial of service attack, see #160127.
-
- -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Thu, 19 Sep 2002 08:41:00 +0200
 
 nullmailer (1.00RC5-16) unstable; urgency=low
 

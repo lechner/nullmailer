@@ -1,17 +1,28 @@
-Template: nullmailer/fqdn
+Template: shared/mailname
 Type: string
-Description: Please enter the name of your e-mail domain:
-Description-de: Bitte geben Sie Ihren Domainnamen des
- eMail-Servers an.
+_Description: Please enter the mail name of your system:
+ This is the fully-qualified host name of the computer running nullmailer.
+ It defaults to the literal name 'me'.
 
 Template: nullmailer/relayhost
 Type: string
-Description: Please enter the name of your relay host:
- nullmailer does not deliver mail locally, it instead sends it to a
- pre-configured set of relay hosts.  If you need to enter more than one host,
- you can edit the file /etc/nullmailer/remotes.
-Description-de: Bitte geben Sie den Namen des Relayhosts an:
- nullmailer liefert eMails nicht lokal aus. Stattdessen werden
- eMails zu einer vorher definierten Relayhosts gesendet. Wenn
- Sie mehr als einen Relayhost verwenden wollen, dann können Sie
- diese in der Datei /etc/nullmailer/remotes angeben.
+_Description: Please specify your smarthosts:
+ This is a colon-separated list of remote servers to which to send each
+ message. Each entry contains a remote host name or address followed by
+ an optional protocol string 'host protocol'. The protocol name defaults
+ to smtp, and may be followed by command-line arguments for that module.
+ .
+ Examples:
+ .
+   smarthost
+   smarthost smtp --port=10025
+   smarthost:mx.domain:192.168.1.1
+
+Template: nullmailer/adminaddr
+Type: string
+_Description: To which address shall nullmailer send local emails (optional)?
+ If not empty, all recipients to users at either 'localhost' (the literal
+ string) or the canonical host name (from /etc/mailname) are remapped to
+ this address. This is provided to allow local daemons to be able to send
+ email to 'somebody@localhost' and have it go somewhere sensible instead of
+ being bounced by your relay host.

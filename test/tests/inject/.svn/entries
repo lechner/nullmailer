@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1"
+   name="svn:this_dir"
+   committed-date="2000-02-17T00:24:45.000000Z"
+   url="file:///home/subversion/nullmailer/trunk/test/tests/inject"
+   last-author="bruce"
+   kind="dir"
+   revision="76"/>
+<entry
+   committed-rev="79"
+   name="bad-headers"
+   text-time="2002-12-17T18:00:57.000000Z"
+   committed-date="2002-12-23T16:59:48.473069Z"
+   checksum="FamgloZo8VmMkTV5mJExqA=="
+   last-author="bruce"
+   kind="file"
+   revision="79"/>
+<entry
+   committed-rev="86"
+   name="sender"
+   text-time="2002-12-23T17:37:31.000000Z"
+   committed-date="2002-12-23T17:52:49.299009Z"
+   checksum="4cRQA4ucmpjVwB2y/xuJBA=="
+   last-author="bruce"
+   kind="file"
+   revision="86"/>
+<entry
+   committed-rev="86"
+   name="from"
+   text-time="2002-12-23T17:33:10.000000Z"
+   committed-date="2002-12-23T17:52:49.299009Z"
+   checksum="voqAIpYA2aDr6CjCJ6p+vg=="
+   last-author="bruce"
+   kind="file"
+   revision="86"/>
+<entry
+   committed-rev="79"
+   name="recips"
+   text-time="2002-12-17T18:01:13.000000Z"
+   committed-date="2002-12-23T16:59:48.473069Z"
+   checksum="DLbhTd5bYEQ3137CSvxAMQ=="
+   last-author="bruce"
+   kind="file"
+   revision="79"/>
+<entry
+   committed-rev="79"
+   name="return-path"
+   text-time="2002-12-17T18:01:15.000000Z"
+   committed-date="2002-12-23T16:59:48.473069Z"
+   checksum="9vYHGMKXubI+ZZz14gdMUg=="
+   last-author="bruce"
+   kind="file"
+   revision="79"/>
+<entry
+   committed-rev="79"
+   name="date"
+   text-time="2002-12-17T18:01:00.000000Z"
+   committed-date="2002-12-23T16:59:48.473069Z"
+   checksum="KXPpqau957/YufxTsaGZ8g=="
+   last-author="bruce"
+   kind="file"
+   revision="79"/>
+<entry
+   committed-rev="80"
+   name="message-id"
+   text-time="2002-12-23T17:11:08.000000Z"
+   committed-date="2002-12-23T17:22:36.924974Z"
+   checksum="VdVMKigUbWKPI9vVeNBirg=="
+   last-author="bruce"
+   kind="file"
+   revision="80"/>
+</wc-entries>

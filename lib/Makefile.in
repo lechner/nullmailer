@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -46,10 +46,9 @@ AUTOMAKE = @AUTOMAKE@
 AUTOHEADER = @AUTOHEADER@
 
 INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -68,13 +67,23 @@ RM = @RM@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
-SUBDIRS = cli fdbuf mystring
+SUBDIRS = cli++ fdbuf mystring
 noinst_LIBRARIES = libmisc.a libnullmailer.a
 noinst_HEADERS = list.h
 EXTRA_DIST = make_defines.sh listtest.cc mergelib.sh
 CLEANFILES = defines.cc
 
-libmisc_a_SOURCES =  	address.h address.cc 	canonicalize.h canonicalize.cc 	configio.h config_read.cc config_readlist.cc config_readint.cc 	connect.h tcpconnect.cc 	defines.h defines.cc 	errcodes.h errcodes.cc 	hostname.h hostname.cc 	itoa.h itoa.cc 	makefield.cc 	netstring.h netstring.cc
+libmisc_a_SOURCES = \
+	address.h address.cc \
+	canonicalize.h canonicalize.cc \
+	configio.h config_read.cc config_readlist.cc config_readint.cc \
+	connect.h tcpconnect.cc \
+	defines.h defines.cc \
+	errcodes.h errcodes.cc \
+	hostname.h hostname.cc \
+	itoa.h itoa.cc \
+	makefield.cc \
+	netstring.h netstring.cc
 
 
 libnullmailer_a_SOURCES = 
@@ -197,7 +206,7 @@ maintainer-clean-recursive:
 	dot_seen=no; \
 	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
 	  rev="$$subdir $$rev"; \
-	  test "$$subdir" = "." && dot_seen=yes; \
+	  test "$$subdir" != "." || dot_seen=yes; \
 	done; \
 	test "$$dot_seen" = "no" && rev=". $$rev"; \
 	target=`echo $@ | sed s/-recursive//`; \
@@ -279,7 +288,8 @@ distdir: $(DISTFILES)
 address.o: address.cc ../config.h canonicalize.h mystring/mystring.h \
 	mystring/rep.h mystring/iter.h mystring/join.h list.h
 canonicalize.o: canonicalize.cc ../config.h mystring/mystring.h \
-	mystring/rep.h mystring/iter.h mystring/join.h canonicalize.h
+	mystring/rep.h mystring/iter.h mystring/join.h canonicalize.h \
+	hostname.h
 config_read.o: config_read.cc ../config.h defines.h configio.h \
 	mystring/mystring.h mystring/rep.h mystring/iter.h \
 	mystring/join.h list.h fdbuf/fdbuf.h fdbuf/fdibuf.h \
@@ -295,9 +305,10 @@ config_readlist.o: config_readlist.cc ../config.h defines.h configio.h \
 defines.o: defines.cc
 errcodes.o: errcodes.cc errcodes.h
 hostname.o: hostname.cc ../config.h mystring/mystring.h mystring/rep.h \
-	mystring/iter.h mystring/join.h
+	mystring/iter.h mystring/join.h configio.h list.h hostname.h \
+	canonicalize.h
 itoa.o: itoa.cc itoa.h
-makefield.o: makefield.cc ../config.h defines.h itoa.h \
+makefield.o: makefield.cc ../config.h defines.h ac/time.h itoa.h \
 	mystring/mystring.h mystring/rep.h mystring/iter.h \
 	mystring/join.h
 netstring.o: netstring.cc ../config.h netstring.h mystring/mystring.h \
@@ -328,7 +339,7 @@ uninstall: uninstall-recursive
 all-am: Makefile $(LIBRARIES) $(HEADERS)
 all-redirect: all-recursive
 install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs: installdirs-recursive
 installdirs-am:
 

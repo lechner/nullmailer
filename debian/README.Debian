@@ -1,25 +1,56 @@
-nullmailer for Debian
-----------------------
++---------------------------+
+| logging and backgrounding |
++---------------------------+
 
-Current config does no logging.  If you wish to change this, edit the init.d
-script and redirect output elsewhere:
+On request of its users the Debian version of nullmailer-send behaves
+differently from the corresponding upstream release. It forks into the
+background on startup and it sends status output to the system log daemon
+instead to standard error. If you have no running system log daemon, output
+will be sent to /dev/console. As of 1.00RC7-12 this behavior is optional
+and needs to be requested using nullmailer-send's --daemon and --syslog
+options (Debian only), see nullmailer-send(8).
 
-case "$1" in
-    start)
-        echo -n "Starting mail-transport-agent: nullmailer"
-        sh -c "start-stop-daemon --start --quiet -c mail \
-                --exec /usr/sbin/nullmailer-send > /dev/null 2>&1 &"
+Note that the Debian version of nullmailer executes under the system account
+mail with group root. It uses /etc/mailname instead of the /etc/nullmailer/me
+control file, in compliance with the Debian Policy Manual.
 
-(change /dev/null in the above line to the file you want to log to)
 
-This package is best run using the daemontools package by Dan Bernstein, 
-which you can get at http://cr.yp.to.  You can also download a daemontools
-source package from http://flounder.net/debs/.  Future versions of this
-package may support daemontools, but this one currently doesn't.
++---------------------------+
+| /etc/aliases              |
++---------------------------+
 
-Due to the way Debian handles the domainname() call, it is recommended that you manually set the system's domain name using sysctl.  Add the following line to 
-your /etc/sysctl.conf file and run sysctl -p:
+nullmailer doesn't support /etc/aliases, the newaliases command provides a
+dummy script for policy compliance only. A catch-all alias for local users may
+be achieved using the adminaddr(5) control file.
 
-kernel.domainname=<your domain name here>
 
- -- Adam D. McKenna <adam@flounder.net>, Wed, 21 Jun 2000 19:34:27 -0400
++---------------------------+
+| nullmailer and Pine       |
++---------------------------+
+
+You cannot use Pine with nullmailer, but you can configure Pine to connect to
+your smarthost instead. To do so set the configuration option 'smtp-server' in
+your /etc/pine.conf. This will bypass nullmailer's mail queue, i.e. you'll
+need to be online while sending emails using Pine.
+
+
++---------------------------+
+| mailing lists             |
++---------------------------+
+
+There is an upstream mailing list at http://lists.em.ca/?list=nullmailer.
+While talking to upstream, please keep in mind that there are Debian specific
+differences as mentioned above. Please address Debian specific questions to
+debian-user[-<language>]@lists.debian.org or nullmailer@packages.debian.org
+instead.
+
+
++---------------------------+
+| nullmailer for woody      |
++---------------------------+
+
+Backports are available at
+http://alioth.debian.org/project/showfiles.php?group_id=68.
+
+
+ -- Martin A. Godisch <godisch@debian.org>  Thu, 29 May 2003 08:56:15 +0200

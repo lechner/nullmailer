@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+if [ -x /usr/sbin/invoke-rc.d ]; then
+	invoke-rc.d nullmailer stop
+elif [ -x /etc/init.d/nullmailer ]; then
+	/etc/init.d/nullmailer stop
+fi
+
+rm -f /var/spool/nullmailer/trigger
+
+exit 0

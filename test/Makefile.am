@@ -1,7 +1,6 @@
 noinst_PROGRAMS = address-test
 EXTRA_DIST = address-trace.cc
 
-CXXLINK = $(CC) $(CXXFLAGS) $(LDFLAGS) -o $@
 INCLUDES = -I../lib
 
 address_test_SOURCES = address-test.cc # address-trace.cc
@@ -15,7 +14,7 @@ dist-hook: test
 test: all
 	./address-test
 	@failed=0; \
-	for test in `find tests -type f | fgrep -v CVS`; do \
+	for test in `find tests -type f | fgrep -v .svn`; do \
 		echo Running test $$test...; \
 		if env - SYSCONFDIR=$(sysconfdir)/nullmailer bash $$test; \
 			then echo 'Done.'; \

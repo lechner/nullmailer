@@ -1,0 +1,15 @@
+--- nullmailer-1.00RC7.orig/protocols/smtp.cc
++++ nullmailer-1.00RC7/protocols/smtp.cc
+@@ -109,9 +109,10 @@
+ {
+   mystring tmp;
+   msg->getline(tmp);
+-  docmd("MAIL FROM: <" + tmp + ">", 200);
++  // see #188391
++  docmd("MAIL FROM:<" + tmp + ">", 200);
+   while(msg->getline(tmp) && !!tmp)
+-    docmd("RCPT TO: <" + tmp + ">", 200);
++    docmd("RCPT TO:<" + tmp + ">", 200);
+ }
+ 
+ void smtp::send_data(fdibuf* msg)

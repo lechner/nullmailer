@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -46,10 +46,9 @@ AUTOMAKE = @AUTOMAKE@
 AUTOHEADER = @AUTOHEADER@
 
 INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -73,7 +72,26 @@ EXTRA_DIST = ChangeLog iter.h join.h mystring.h rep.h trace.h
 
 INCLUDES = -I..
 
-libmystring_a_SOURCES =  	append.cc 	assign.cc 	count.cc 	fdobuf.cc 	find_first_ch.cc 	find_first_of.cc 	find_last_ch.cc 	find_last_of.cc 	iter.cc 	join.cc 	lower.cc 	lstrip.cc 	mystring.cc 	rep.cc 	rstrip.cc 	sub.cc 	subst.cc 	strip.cc 	upper.cc
+libmystring_a_SOURCES = \
+	append.cc \
+	assign.cc \
+	count.cc \
+	fdobuf.cc \
+	find_first_ch.cc \
+	find_first_of.cc \
+	find_last_ch.cc \
+	find_last_of.cc \
+	iter.cc \
+	join.cc \
+	lower.cc \
+	lstrip.cc \
+	mystring.cc \
+	rep.cc \
+	rstrip.cc \
+	sub.cc \
+	subst.cc \
+	strip.cc \
+	upper.cc
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../../config.h
@@ -257,7 +275,7 @@ uninstall: uninstall-am
 all-am: Makefile $(LIBRARIES)
 all-redirect: all-am
 install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
 
 

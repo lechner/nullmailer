@@ -1,15 +1,19 @@
 Source: nullmailer
 Section: mail
-Priority: optional
-Maintainer: Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>
-Standards-Version: 3.2.1
-Build-Depends: debhelper
+Priority: extra
+Maintainer: Norbert Tretkowski <nobse@debian.org>
+Uploaders: Ondrej Sury <ondrej@sury.org>
+Build-Depends: patch, po-debconf
+Standards-Version: 3.6.1
 
 Package: nullmailer
 Architecture: any
-Depends: ${shlibs:Depends}, debconf
+Depends: ${shlibs:Depends}, debconf (>= 0.5) | debconf-2.0, ucf (>= 0.17)
+Recommends: sysklogd | system-log-daemon
+Conflicts: mail-transport-agent, suidmanager (<< 0.52)
 Provides: mail-transport-agent
-Description: Simple relay-only mail transport agent
- This is nullmailer, a sendmail/qmail/etc replacement MTA for hosts which
- relay to a fixed set of smart relays.  It is designed to be simple to
- configure, secure, and easily extendable.
+Replaces: mail-transport-agent
+Description: simple relay-only mail transport agent
+ Nullmailer is a replacement MTA for hosts, which relay to a fixed set of
+ smart relays. It is designed to be simple to configure and especially
+ useful on slave machines and in chroots.

@@ -1,0 +1,69 @@
+--- nullmailer-1.00RC7.orig/lib/list.h
++++ nullmailer-1.00RC7/lib/list.h
+@@ -111,8 +111,9 @@
+     }
+ private:
+   const list<T>& lst;
+-  const list<T>::node* prev;
+-  const list<T>::node* curr;
++  // g++ 3.2 insists
++  const typename list<T>::node* prev;
++  const typename list<T>::node* curr;
+ };
+ 
+ template<class T>
+@@ -164,8 +165,8 @@
+     }
+ private:
+   list<T>& lst;
+-  list<T>::node* prev;
+-  list<T>::node* curr;
++  typename list<T>::node* prev;
++  typename list<T>::node* curr;
+ };
+ 
+ template<class T>
+--- nullmailer-1.00RC7.orig/src/sendmail.cc
++++ nullmailer-1.00RC7/src/sendmail.cc
+@@ -81,7 +82,7 @@
+ {
+   size_t varlen = strlen(var);
+   size_t vallen = strlen(val);
+-  char* str = malloc(varlen+vallen+2);
++  char* str = (char*)malloc(varlen+vallen+2);
+   if (str == 0) return -1;
+   memcpy(str, var, varlen);
+   str[varlen] = '=';
+--- nullmailer-1.00RC7.orig/protocols/protocol.cc
++++ nullmailer-1.00RC7/protocols/protocol.cc
+@@ -40,7 +40,7 @@
+     "Set the port number on the remote host to connect to", 0 },
+   { 'd', "daemon", cli_option::flag, 1, &daemonize,  "use syslog exclusively  (Debian only)", 0 },
+   { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog additionally (Debian only)", 0 },
+-  {0}
++  {0, 0, cli_option::flag, 0, 0, 0, 0}
+ };
+ 
+ void protocol_fail(int e, const char* msg)
+--- nullmailer-1.00RC7.orig/src/inject.cc
++++ nullmailer-1.00RC7/src/inject.cc
+@@ -66,7 +66,7 @@
+     "Send the formatted message to standard output", 0 },
+   { 'v', "show-envelope", cli_option::flag, 1, &show_envelope,
+     "Show the envelope with the message", 0 },
+-  {0},
++  {0, 0, cli_option::flag, 0, 0, 0, 0}
+ };
+ 
+ #define fail(MSG) do{ fout << "nullmailer-inject: " << MSG << endl; return false; }while(0)
+--- nullmailer-1.00RC7.orig/src/sendmail.cc
++++ nullmailer-1.00RC7/src/sendmail.cc
+@@ -69,7 +70,7 @@
+   { 'V', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
+   { 'v', 0, cli_option::flag, 0, &o_dummyi, "Ignored", 0 },
+   { 'X', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
+-  {0}
++  {0, 0, cli_option::flag, 0, 0, 0, 0}
+ };
+ 
+ #ifdef HAVE_SETENV
