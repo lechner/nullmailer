@@ -84,7 +84,7 @@ int setenv(const char* var, const char* val, int overwrite)
   str[varlen] = '=';
   memcpy(str+varlen+1, val, vallen);
   str[varlen+vallen+1] = 0;
-  return putenv(str);
+  return putenv(strdup(str));
 }
 #endif
 

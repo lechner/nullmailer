@@ -1,0 +1,17 @@
+Template: nullmailer/fqdn
+Type: string
+Description: Please enter the name of your e-mail domain:
+Description-de: Bitte geben Sie Ihren Domainnamen des
+ eMail-Servers an.
+
+Template: nullmailer/relayhost
+Type: string
+Description: Please enter the name of your relay host:
+ nullmailer does not deliver mail locally, it instead sends it to a
+ pre-configured set of relay hosts.  If you need to enter more than one host,
+ you can edit the file /etc/nullmailer/remotes.
+Description-de: Bitte geben Sie den Namen des Relayhosts an:
+ nullmailer liefert eMails nicht lokal aus. Stattdessen werden
+ eMails zu einer vorher definierten Relayhosts gesendet. Wenn
+ Sie mehr als einen Relayhost verwenden wollen, dann können Sie
+ diese in der Datei /etc/nullmailer/remotes angeben.

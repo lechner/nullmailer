@@ -1,0 +1,16 @@
+This package was debianized by Adam D. McKenna <adam@flounder.net> on
+Wed, 21 Jun 2000 19:34:27 -0400.
+
+It was downloaded from http://untroubled.org/nullmailer/
+
+Upstream Author: Bruce Guenter <bruceg@em.ca>
+
+Copyright: 
+
+This program is Copyright(C) 2000 Bruce Guenter, and may be copied
+according to the GNU GENERAL PUBLIC LICENSE (GPL) Version 2 or a later
+version.  A copy of this license is included with this package.  This
+package comes with no warranty of any kind.
+
+On Debian systems, the complete text of the GPL can be found at 
+/usr/share/common-licenses/GPL.

@@ -1,0 +1,15 @@
+Source: nullmailer
+Section: mail
+Priority: optional
+Maintainer: Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>
+Standards-Version: 3.2.1
+Build-Depends: debhelper
+
+Package: nullmailer
+Architecture: any
+Depends: ${shlibs:Depends}, debconf
+Provides: mail-transport-agent
+Description: Simple relay-only mail transport agent
+ This is nullmailer, a sendmail/qmail/etc replacement MTA for hosts which
+ relay to a fixed set of smart relays.  It is designed to be simple to
+ configure, secure, and easily extendable.

@@ -360,9 +360,6 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/tmp
 	chmod 700 $(DESTDIR)$(localstatedir)/tmp
 	$(mkinstalldirs) $(DESTDIR)$(sysconfdir)
-	$(RM) -f $(DESTDIR)$(localstatedir)/trigger
-	mkfifo $(DESTDIR)$(localstatedir)/trigger
-	chmod 600 $(DESTDIR)$(localstatedir)/trigger
 
 install-root:
 	chown nullmail $(DESTDIR)$(localstatedir)/*

@@ -1,0 +1,212 @@
+nullmailer (1.00RC5-16.1woody2) stable-security; urgency=high
+
+  * Security fix, prevents possible denial of service attack, closes: #160127.
+  * Security fix, corrected spooldir permissions.
+  * Set new maintainer in debian/control.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Wed, 25 Sep 2002 07:40:05 +0200
+
+nullmailer (1.00RC5-16.1woody1) stable-security; urgency=high
+
+  * Non-maintainer upload.
+  * Security fix, prevents possible denial of service attack, see #160127.
+
+ -- Martin A. Godisch <godisch@tcs.inf.tu-dresden.de>  Thu, 19 Sep 2002 08:41:00 +0200
+
+nullmailer (1.00RC5-16) unstable; urgency=low
+
+  * postrm now recognizes 'remove' argument. Closes: #139350
+
+ -- Adam Byrtek <alpha@debian.org>  Thu, 21 Mar 2002 18:06:05 +0100
+
+nullmailer (1.00RC5-15) unstable; urgency=low
+
+  * Added /usr/lib/sendmail symlink to conform with FHS4.4
+    Closes: #132218
+
+ -- Adam Byrtek <alpha@debian.org>  Thu,  7 Mar 2002 16:24:48 +0100
+
+nullmailer (1.00RC5-14) unstable; urgency=low
+
+  * Applied backed up patch to build on ia64, Closes: #115243
+    I see no way it can break sendmail wrapper, but in case of
+    problems feel free to post a bugreport.
+
+ -- Adam Byrtek <alpha@debian.org>  Mon,  4 Mar 2002 23:07:59 +0100
+
+nullmailer (1.00RC5-13) unstable; urgency=low
+
+  * New maintainer, I've adopted the package. Closes: #132865
+    No other changes this time...
+
+ -- Adam Byrtek <alpha@debian.org>  Mon, 25 Feb 2002 16:47:47 +0100
+
+nullmailer (1.00RC5-12) unstable; urgency=low
+
+  * fixed bug in sendmail.cc that causes nullmailer to randomly mess
+    up the sender address (Closes: Bug#112458)
+  * Backed out ia64/GCC3 patch included in last upload because it broke
+    the "-f" flag to nullmailer's sendmail wrapper. (Closes: Bug#110706)
+
+ -- Adam D. McKenna <adam@debian.org>  Mon,  3 Sep 2001 03:23:49 -0700
+
+nullmailer (1.00RC5-11) unstable; urgency=low
+
+  * Fixed debian/rules configure to fix build with GCC 3.0
+    (Closes: Bug#104903)
+  * Changed local state dir to /var/spool/nullmailer
+  * Made nullmailer files owned by user mail instead of nobody
+    (Closes: Bug#103545)
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 15 Aug 2001 00:45:58 -0700
+
+nullmailer (1.00RC5-10) unstable; urgency=low
+
+  * Added patch from Randolph Chung to build on ia-64 
+    architecture (Closes: Bug#106250)
+
+ -- Adam D. McKenna <adam@debian.org>  Tue, 14 Aug 2001 18:25:16 -0700
+
+nullmailer (1.00RC5-9) unstable; urgency=low
+
+  * Added patch for smtp.cc from upstream (Closes: Bug#100642)
+
+ -- Adam D. McKenna <adam@debian.org>  Thu, 21 Jun 2001 14:17:33 -0700
+
+nullmailer (1.00RC5-8) unstable; urgency=low
+
+  * Removed messages in config that could be confusing if the package has
+    been preconfigured (Closes: Bug#94980)
+  * Added German text to templates file. (Closes: Bug#95356)
+
+ -- Adam D. McKenna <adam@debian.org>  Tue, 29 May 2001 13:26:10 -0700
+
+nullmailer (1.00RC5-7) unstable; urgency=low
+
+  * Fixed makefield.cc to include time.h (Closes: Bug#87701)
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 25 Apr 2001 17:00:15 -0700
+
+nullmailer (1.00RC5-6) unstable; urgency=low
+
+  * Should be the final fix for postinst. (crosses fingers)
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 17 Jan 2001 03:42:20 -0500
+
+nullmailer (1.00RC5-5) unstable; urgency=low
+
+  * More futzing around with postinst.  Now we are asking for the
+    e-mail domain name instead of FQDN, since we should be able to
+    get the hostname from /etc/hostname.
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 17 Jan 2001 02:02:40 -0500
+
+nullmailer (1.00RC5-4) unstable; urgency=low
+
+  * Added /etc/nullmailer/defaultdomain
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 17 Jan 2001 01:24:33 -0500
+
+nullmailer (1.00RC5-3) unstable; urgency=low
+
+  * Fixed postrm to remove /etc/nullmailer and /var/lib/nullmailer
+    when package is purged.
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 17 Jan 2001 00:48:20 -0500
+
+nullmailer (1.00RC5-2) unstable; urgency=low
+
+  * Fixed some minor policy bugs.
+
+ -- Adam D. McKenna <adam@debian.org>  Tue, 16 Jan 2001 00:50:40 -0500
+
+nullmailer (1.00RC5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Adam D. McKenna <adam@debian.org>  Wed,  3 Jan 2001 19:20:39 -0500
+
+nullmailer (1.00RC4-10) unstable; urgency=low
+
+  * Added trigger file creation to postinst in order to stop lintian from
+    complaining.  Also added mailq to dh_undocumented.
+
+ -- Adam D. McKenna <adam@debian.org>  Thu, 14 Dec 2000 18:20:23 -0500
+
+nullmailer (1.00RC4-9) unstable; urgency=low
+
+  * Added postrm script to un-suidregister nullmailer-queue.  Thanks
+    to decklin@red-bean.com for reporting. (Closes: Bug#78331)
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 29 Nov 2000 14:15:14 -0500
+
+nullmailer (1.00RC4-8) unstable; urgency=low
+
+  * fixed suidregister problem in postinst
+
+ -- Adam D. McKenna <adam@debian.org>  Mon, 23 Oct 2000 17:46:22 -0400
+
+nullmailer (1.00RC4-7) unstable; urgency=low
+
+  * fixed problem with the source tarball.
+
+ -- Adam D. McKenna <adam@debian.org>  Mon, 23 Oct 2000 16:16:27 -0400
+
+nullmailer (1.00RC4-6) unstable; urgency=low
+
+  * fixed postinst to use suidregister
+
+ -- Adam D. McKenna <adam@debian.org>  Fri,  6 Oct 2000 16:50:46 -0400
+
+nullmailer (1.00RC4-5) unstable; urgency=low
+
+  * fixed build script to make nullmailer-queue setuid nobody.
+
+ -- Adam D. McKenna <adam@debian.org>  Fri,  6 Oct 2000 16:34:28 -0400
+
+nullmailer (1.00RC4-4) unstable; urgency=low
+
+  * for some reason chown nobody /var/lib/nullmailer/* wasn't working
+    on the trigger file.  Added an explicit chown for that file into 
+    postinst.
+
+ -- Adam D. McKenna <adam@debian.org>  Thu,  7 Sep 2000 15:34:46 -0400
+
+nullmailer (1.00RC4-3) unstable; urgency=low
+
+  * fixed problem in init.d script where nullmailer wasn't being stopped 
+    correctly.
+
+ -- Adam D. McKenna <adam@debian.org>  Thu,  7 Sep 2000 15:23:34 -0400
+
+nullmailer (1.00RC4-2) unstable; urgency=low
+
+  * fixed typo in copyright.
+
+ -- Adam D. McKenna <adam@debian.org>  Thu,  7 Sep 2000 15:11:53 -0400
+
+nullmailer (1.00RC4-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Adam D. McKenna <adam@debian.org>  Thu,  7 Sep 2000 15:07:58 -0400
+
+nullmailer (1.00RC2-1) unstable; urgency=low
+
+  * new upstream release.
+
+ -- Adam D. McKenna <adam@debian.org>  Thu,  6 Jul 2000 17:56:51 -0400
+
+nullmailer (1.00RC1-2) unstable; urgency=low
+
+  * Changed some debian-specific stuff.
+  * Fixed postinst.
+
+ -- Adam D. McKenna <adam@debian.org>  Wed,  5 Jul 2000 18:48:54 -0400
+
+nullmailer (1.00RC1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Adam D. McKenna <adam@debian.org>  Wed, 21 Jun 2000 19:34:27 -0400
+

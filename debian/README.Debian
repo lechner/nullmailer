@@ -1,0 +1,25 @@
+nullmailer for Debian
+----------------------
+
+Current config does no logging.  If you wish to change this, edit the init.d
+script and redirect output elsewhere:
+
+case "$1" in
+    start)
+        echo -n "Starting mail-transport-agent: nullmailer"
+        sh -c "start-stop-daemon --start --quiet -c mail \
+                --exec /usr/sbin/nullmailer-send > /dev/null 2>&1 &"
+
+(change /dev/null in the above line to the file you want to log to)
+
+This package is best run using the daemontools package by Dan Bernstein, 
+which you can get at http://cr.yp.to.  You can also download a daemontools
+source package from http://flounder.net/debs/.  Future versions of this
+package may support daemontools, but this one currently doesn't.
+
+Due to the way Debian handles the domainname() call, it is recommended that you manually set the system's domain name using sysctl.  Add the following line to 
+your /etc/sysctl.conf file and run sysctl -p:
+
+kernel.domainname=<your domain name here>
+
+ -- Adam D. McKenna <adam@flounder.net>, Wed, 21 Jun 2000 19:34:27 -0400

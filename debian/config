@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+. /usr/share/debconf/confmodule
+
+#DEBCONF_DEBUG=1
+#export DEBCONF_DEBUG
+
+db_input high nullmailer/fqdn || :
+db_go
+
+db_input high nullmailer/relayhost || :
+db_go
