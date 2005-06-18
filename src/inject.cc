@@ -66,7 +66,7 @@ cli_option cli_options[] = {
     "Send the formatted message to standard output", 0 },
   { 'v', "show-envelope", cli_option::flag, 1, &show_envelope,
     "Show the envelope with the message", 0 },
-  {0},
+  {0, 0, cli_option::flag, 0, 0, 0, 0}
 };
 
 #define fail(MSG) do{ fout << "nullmailer-inject: " << MSG << endl; return false; }while(0)
@@ -333,7 +333,7 @@ bool read_header()
 {
   mystring whole;
   while(fin.getline(cur_line)) {
-    if(!cur_line)
+    if(!cur_line || cur_line == "\r")
       break;
     if(!!whole && is_continuation(cur_line)) {
       //if(!whole)
@@ -349,6 +349,7 @@ bool read_header()
       if(!!whole)
 	parse_line(whole);
       whole = cur_line;
+      cur_line = "";
     }
   }
   if(!!whole)

@@ -1,19 +1,228 @@
 ------------------------------------------------------------------------
-rev 103:  bruce | 2003-01-03 15:49:25 -0600 (Fri, 03 Jan 2003) | 2 lines
+r130 | bruce | 2005-02-28 11:54:04 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/lib/Makefile.am
+
+Fixed up lib Makefile to properly dist the ac directory.
+
+------------------------------------------------------------------------
+r129 | bruce | 2005-02-28 11:49:53 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/lib/makefield.cc
+   M /trunk/src/send.cc
+
+Renamed ac/time.h to ac/systime.h to prevent #include recursion.
+
+------------------------------------------------------------------------
+r128 | bruce | 2005-02-28 11:28:34 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/README
+
+Updated dates, version, and em.ca URLs.
+
+------------------------------------------------------------------------
+r127 | bruce | 2005-02-28 11:28:11 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/HOWTO
+
+Removed note about my daemontools RPMs as they are no longer really mailtained.
+
+------------------------------------------------------------------------
+r126 | bruce | 2005-02-28 11:27:45 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/TODO
+
+Added some TODOs for protocols, I just want to get 1.00 out the door.
+
+------------------------------------------------------------------------
+r125 | bruce | 2005-02-28 11:20:39 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/makedist.in
+
+Updated links to em.ca to untroubled.org
+
+------------------------------------------------------------------------
+r124 | bruce | 2005-02-28 11:20:15 -0600 (Mon, 28 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/TODO
+
+Removed note about documentation fix.
+
+------------------------------------------------------------------------
+r123 | bruce | 2005-02-25 18:14:31 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/README
+   M /trunk/configure.in
+
+Bumped version to 1.00 (no RC status)
+
+------------------------------------------------------------------------
+r122 | bruce | 2005-02-25 18:07:54 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/TODO
+
+Removed extra TODO item as nullmailer-inject already handles it.
+
+------------------------------------------------------------------------
+r121 | bruce | 2005-02-25 18:06:16 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/TODO
+   M /trunk/src/inject.cc
+
+Fixed bug in handling headers containing CR+LF line endings.
+
+------------------------------------------------------------------------
+r120 | bruce | 2005-02-25 17:52:31 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/test/functions
+
+Use a plain grep instead of formail to extract header entries.
+
+------------------------------------------------------------------------
+r119 | bruce | 2005-02-25 17:52:15 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/test/tests/inject/recips
+   M /trunk/test/tests/inject/sender
+
+Use the "-n" argument to head and tail commands.
+
+------------------------------------------------------------------------
+r118 | bruce | 2005-02-25 17:50:11 -0600 (Fri, 25 Feb 2005) | 3 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/src/inject.cc
+
+Fixed bug in header parsing that would cause the last header line to 
+be repeated if there was no body.
+
+------------------------------------------------------------------------
+r117 | bruce | 2005-02-25 16:33:59 -0600 (Fri, 25 Feb 2005) | 2 lines
+Changed paths:
+   D /trunk/acconfig.h
+   M /trunk/acinclude.m4
+   M /trunk/configure.in
+
+Adjusted usage for newest automake 1.9 and autoconf 2.59 tools.
+
+------------------------------------------------------------------------
+r116 | bruce | 2005-02-21 16:23:55 -0600 (Mon, 21 Feb 2005) | 3 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/src/send.cc
+
+Fixed problem with multiple arguments to protocol modules.
+Thanks Sascha Silbe <sascha-ml-nullmailer@silbe.org>
+
+------------------------------------------------------------------------
+r115 | bruce | 2005-02-21 10:56:44 -0600 (Mon, 21 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/protocols/smtp.cc
+
+Fixed extraneous spaces in SMTP sender.
+
+------------------------------------------------------------------------
+r114 | bruce | 2003-02-12 17:47:07 -0600 (Wed, 12 Feb 2003) | 2 lines
+Changed paths:
+   M /trunk/doc/nullmailer.7
+
+Added reference to "me" config file in top-level documentation.
+
+------------------------------------------------------------------------
+r113 | bruce | 2003-01-15 11:34:45 -0600 (Wed, 15 Jan 2003) | 3 lines
+Changed paths:
+   M /trunk/test/address-test.cc
+
+Fixed a bug in reporting errors in the result string -- they do need a
+newline.
+
+------------------------------------------------------------------------
+r112 | bruce | 2003-01-15 11:34:08 -0600 (Wed, 15 Jan 2003) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/lib/address.cc
+   M /trunk/test/address-test.cc
+
+Fixed the address parser handling domain names with trailing periods.
+
+------------------------------------------------------------------------
+r111 | bruce | 2003-01-13 14:21:50 -0600 (Mon, 13 Jan 2003) | 3 lines
+Changed paths:
+   M /trunk/protocols/protocol.cc
+   M /trunk/src/inject.cc
+   M /trunk/src/sendmail.cc
+
+Fixed the warning on the cli_options list end marker.
+Patch from Martin Godisch <martin@godisch.de>
+
+------------------------------------------------------------------------
+r110 | bruce | 2003-01-11 22:31:15 -0600 (Sat, 11 Jan 2003) | 4 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/src/sendmail.cc
+
+Handle the "-bs" flag in the sendmail wrapper by dieing when we see it.
+http://bugs.debian.org/170079
+Patch from Martin Godisch <martin@godisch.de>
+
+------------------------------------------------------------------------
+r109 | bruce | 2003-01-11 22:27:24 -0600 (Sat, 11 Jan 2003) | 3 lines
+Changed paths:
+   M /trunk/lib/list.h
+   M /trunk/src/sendmail.cc
+
+Fixed some compile warnings.
+Patch from Martin Godisch <martin@godisch.de>
+
+------------------------------------------------------------------------
+r108 | bruce | 2003-01-11 22:25:07 -0600 (Sat, 11 Jan 2003) | 3 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/src/queue.cc
+
+Made permissions on queued files more strict.
+http://bugs.debian.org/164951
+
+------------------------------------------------------------------------
+r107 | bruce | 2003-01-11 22:24:18 -0600 (Sat, 11 Jan 2003) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/configure.in
+
+Bumped version up to 1.00RC8
+
+------------------------------------------------------------------------
+r106 | bruce | 2003-01-03 17:10:21 -0600 (Fri, 03 Jan 2003) | 2 lines
+Changed paths:
+   M /trunk/TODO
+
+Removed old items.
+
+------------------------------------------------------------------------
+r105 | bruce | 2003-01-03 17:09:46 -0600 (Fri, 03 Jan 2003) | 2 lines
+Changed paths:
+   M /trunk/HOWTO
+
+Added note about setting up the "me" config file.
+
+------------------------------------------------------------------------
+r103 | bruce | 2003-01-03 15:49:25 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    M /trunk/README
 
 Bumped up the version to 1.00RC7
 
 ------------------------------------------------------------------------
-rev 102:  bruce | 2003-01-03 15:49:13 -0600 (Fri, 03 Jan 2003) | 2 lines
+r102 | bruce | 2003-01-03 15:49:13 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    M /trunk/makedist.in
 
 Added the ChangeLog.old file to the list of extras.
 
 ------------------------------------------------------------------------
-rev 101:  bruce | 2003-01-03 15:02:46 -0600 (Fri, 03 Jan 2003) | 2 lines
+r101 | bruce | 2003-01-03 15:02:46 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    M /trunk/README
    M /trunk/lib/address-old.cc
@@ -39,7 +248,7 @@ Changed paths:
 Updated dates on copyright marks.
 
 ------------------------------------------------------------------------
-rev 100:  bruce | 2003-01-03 15:02:18 -0600 (Fri, 03 Jan 2003) | 2 lines
+r100 | bruce | 2003-01-03 15:02:18 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    D /trunk/ChangeLog
    A /trunk/ChangeLog.old (from /trunk/ChangeLog:76)
@@ -47,7 +256,7 @@ Changed paths:
 Renamed ChangeLog to allow use of svn-generated ChangeLog
 
 ------------------------------------------------------------------------
-rev 99:  bruce | 2003-01-03 14:51:59 -0600 (Fri, 03 Jan 2003) | 2 lines
+r99 | bruce | 2003-01-03 14:51:59 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/doc/nullmailer-send.8
@@ -56,14 +265,14 @@ Changed paths:
 Added a one-shot mode to nullmailer-send.
 
 ------------------------------------------------------------------------
-rev 98:  bruce | 2003-01-03 14:40:21 -0600 (Fri, 03 Jan 2003) | 2 lines
+r98 | bruce | 2003-01-03 14:40:21 -0600 (Fri, 03 Jan 2003) | 2 lines
 Changed paths:
    M /trunk/src/send.cc
 
 Reset reload_files to false when the files are reloaded.
 
 ------------------------------------------------------------------------
-rev 97:  bruce | 2002-12-27 08:28:33 -0600 (Fri, 27 Dec 2002) | 2 lines
+r97 | bruce | 2002-12-27 08:28:33 -0600 (Fri, 27 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/protocols/smtp.cc
@@ -71,7 +280,7 @@ Changed paths:
 Fixed typo in smtp.cc -- "me" should be "hh".
 
 ------------------------------------------------------------------------
-rev 96:  bruce | 2002-12-27 08:24:33 -0600 (Fri, 27 Dec 2002) | 2 lines
+r96 | bruce | 2002-12-27 08:24:33 -0600 (Fri, 27 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/configure.in
@@ -79,21 +288,21 @@ Changed paths:
 Bumped up version to 1.00RC7
 
 ------------------------------------------------------------------------
-rev 94:  bruce | 2002-12-23 14:50:55 -0600 (Mon, 23 Dec 2002) | 2 lines
+r94 | bruce | 2002-12-23 14:50:55 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/README
 
 Removed CVS note.
 
 ------------------------------------------------------------------------
-rev 93:  bruce | 2002-12-23 14:50:42 -0600 (Mon, 23 Dec 2002) | 2 lines
+r93 | bruce | 2002-12-23 14:50:42 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/README
 
 Set date to today.
 
 ------------------------------------------------------------------------
-rev 92:  bruce | 2002-12-23 12:25:01 -0600 (Mon, 23 Dec 2002) | 3 lines
+r92 | bruce | 2002-12-23 12:25:01 -0600 (Mon, 23 Dec 2002) | 3 lines
 Changed paths:
    M /trunk/NEWS
 
@@ -101,14 +310,14 @@ Added note about new protocol module messages, new control file, and
 FutureQuest sponsorship.
 
 ------------------------------------------------------------------------
-rev 91:  bruce | 2002-12-23 12:22:39 -0600 (Mon, 23 Dec 2002) | 2 lines
+r91 | bruce | 2002-12-23 12:22:39 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/protocols/protocol.cc
 
 Fixups: also show the failure message, and use the proper exit code.
 
 ------------------------------------------------------------------------
-rev 90:  bruce | 2002-12-23 12:19:58 -0600 (Mon, 23 Dec 2002) | 2 lines
+r90 | bruce | 2002-12-23 12:19:58 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/protocols/protocol.cc
    M /trunk/protocols/protocol.h
@@ -118,14 +327,14 @@ Changed paths:
 Show success messages as well.
 
 ------------------------------------------------------------------------
-rev 89:  bruce | 2002-12-23 12:14:11 -0600 (Mon, 23 Dec 2002) | 2 lines
+r89 | bruce | 2002-12-23 12:14:11 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/protocols/smtp.cc
 
 Removed the superfluous "QUIT" command.
 
 ------------------------------------------------------------------------
-rev 88:  bruce | 2002-12-23 12:11:57 -0600 (Mon, 23 Dec 2002) | 2 lines
+r88 | bruce | 2002-12-23 12:11:57 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/protocols/protocol.cc
    M /trunk/protocols/protocol.h
@@ -135,14 +344,14 @@ Changed paths:
 Output error messages when exiting with a failure code.
 
 ------------------------------------------------------------------------
-rev 87:  bruce | 2002-12-23 12:11:03 -0600 (Mon, 23 Dec 2002) | 2 lines
+r87 | bruce | 2002-12-23 12:11:03 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/src/send.cc
 
 Allow protocol modules to output their own error messages.
 
 ------------------------------------------------------------------------
-rev 86:  bruce | 2002-12-23 11:52:49 -0600 (Mon, 23 Dec 2002) | 2 lines
+r86 | bruce | 2002-12-23 11:52:49 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/test/tests/inject/from
    M /trunk/test/tests/inject/sender
@@ -150,7 +359,7 @@ Changed paths:
 Make sure to remove default{domain,host} before testing use of "me".
 
 ------------------------------------------------------------------------
-rev 85:  bruce | 2002-12-23 11:52:22 -0600 (Mon, 23 Dec 2002) | 2 lines
+r85 | bruce | 2002-12-23 11:52:22 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/doc/nullmailer-queue.8
    M /trunk/src/queue.cc
@@ -158,14 +367,14 @@ Changed paths:
 Use the "me" control as the hostname to remap with adminaddr.
 
 ------------------------------------------------------------------------
-rev 84:  bruce | 2002-12-23 11:51:17 -0600 (Mon, 23 Dec 2002) | 2 lines
+r84 | bruce | 2002-12-23 11:51:17 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/src/inject.cc
 
 Use the "me" control as the idhost, not a default file.
 
 ------------------------------------------------------------------------
-rev 83:  bruce | 2002-12-23 11:50:38 -0600 (Mon, 23 Dec 2002) | 2 lines
+r83 | bruce | 2002-12-23 11:50:38 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/doc/nullmailer-inject.1
    M /trunk/lib/hostname.cc
@@ -173,7 +382,7 @@ Changed paths:
 Fixed up and documented the default host/domain rules.
 
 ------------------------------------------------------------------------
-rev 82:  bruce | 2002-12-23 11:38:45 -0600 (Mon, 23 Dec 2002) | 3 lines
+r82 | bruce | 2002-12-23 11:38:45 -0600 (Mon, 23 Dec 2002) | 3 lines
 Changed paths:
    M /trunk/lib/canonicalize.cc
 
@@ -181,14 +390,14 @@ Only append a "." to the domain name (when appending the defaultdomain)
 if it isn't empty.
 
 ------------------------------------------------------------------------
-rev 81:  bruce | 2002-12-23 11:27:33 -0600 (Mon, 23 Dec 2002) | 2 lines
+r81 | bruce | 2002-12-23 11:27:33 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/spec
 
 Auto-create /etc/nullmailer/{me,defaultdomain} on install.
 
 ------------------------------------------------------------------------
-rev 80:  bruce | 2002-12-23 11:22:36 -0600 (Mon, 23 Dec 2002) | 2 lines
+r80 | bruce | 2002-12-23 11:22:36 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/test/functions
    M /trunk/test/tests/inject/from
@@ -200,7 +409,7 @@ Changed paths:
 Fixed up tests for the new "me" control file.
 
 ------------------------------------------------------------------------
-rev 79:  bruce | 2002-12-23 10:59:48 -0600 (Mon, 23 Dec 2002) | 2 lines
+r79 | bruce | 2002-12-23 10:59:48 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/test/functions
    M /trunk/test/tests/inject/bad-headers
@@ -214,21 +423,21 @@ Changed paths:
 Fixup the tests for the more strict bash2 syntax.
 
 ------------------------------------------------------------------------
-rev 78:  bruce | 2002-12-23 10:59:26 -0600 (Mon, 23 Dec 2002) | 2 lines
+r78 | bruce | 2002-12-23 10:59:26 -0600 (Mon, 23 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/test/Makefile.am
 
 Skip over the .svn directory instead of the CVS directory.
 
 ------------------------------------------------------------------------
-rev 77:  bruce | 2002-12-17 11:49:04 -0600 (Tue, 17 Dec 2002) | 2 lines
+r77 | bruce | 2002-12-17 11:49:04 -0600 (Tue, 17 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/configure.in
 
 Renamed lib/cli to lib/cli++
 
 ------------------------------------------------------------------------
-rev 74:  bruce | 2002-12-14 23:36:45 -0600 (Sat, 14 Dec 2002) | 2 lines
+r74 | bruce | 2002-12-14 23:36:45 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/lib/Makefile.am
    M /trunk/protocols/Makefile.am
@@ -240,21 +449,21 @@ Changed paths:
 Renamed lib/cli to lib/cli++ to match the current sources.
 
 ------------------------------------------------------------------------
-rev 73:  bruce | 2002-12-14 23:29:43 -0600 (Sat, 14 Dec 2002) | 2 lines
+r73 | bruce | 2002-12-14 23:29:43 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/TODO
 
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 72:  bruce | 2002-12-14 23:29:39 -0600 (Sat, 14 Dec 2002) | 2 lines
+r72 | bruce | 2002-12-14 23:29:39 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/test/address-test.cc
 
 Added some empty address list tests.
 
 ------------------------------------------------------------------------
-rev 71:  bruce | 2002-12-14 23:29:06 -0600 (Sat, 14 Dec 2002) | 2 lines
+r71 | bruce | 2002-12-14 23:29:06 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/doc/nullmailer-inject.1
    M /trunk/doc/nullmailer-send.8
@@ -262,7 +471,7 @@ Changed paths:
 Clarified documentation.
 
 ------------------------------------------------------------------------
-rev 70:  bruce | 2002-12-14 23:28:13 -0600 (Sat, 14 Dec 2002) | 3 lines
+r70 | bruce | 2002-12-14 23:28:13 -0600 (Sat, 14 Dec 2002) | 3 lines
 Changed paths:
    M /trunk/protocols/Makefile.am
    M /trunk/src/Makefile.am
@@ -272,7 +481,7 @@ Remove the CXXLINK hack that prevents compilation with newer versions of
 gcc.
 
 ------------------------------------------------------------------------
-rev 69:  bruce | 2002-12-14 23:27:40 -0600 (Sat, 14 Dec 2002) | 2 lines
+r69 | bruce | 2002-12-14 23:27:40 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/protocols/smtp.cc
    M /trunk/src/send.cc
@@ -280,7 +489,7 @@ Changed paths:
 Pass $HELOHOST on to the protocol modules.
 
 ------------------------------------------------------------------------
-rev 68:  bruce | 2002-12-14 23:21:51 -0600 (Sat, 14 Dec 2002) | 2 lines
+r68 | bruce | 2002-12-14 23:21:51 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/lib/canonicalize.cc
    M /trunk/lib/hostname.cc
@@ -292,49 +501,49 @@ Changed paths:
 Completed the conversion from hostname() to the new config files.
 
 ------------------------------------------------------------------------
-rev 67:  bruce | 2002-12-14 21:18:09 -0600 (Sat, 14 Dec 2002) | 2 lines
+r67 | bruce | 2002-12-14 21:18:09 -0600 (Sat, 14 Dec 2002) | 2 lines
 Changed paths:
    M /trunk/NEWS
 
 Fixed a bug in the setenv function in sendmail.cc.
 
 ------------------------------------------------------------------------
-rev 66:  bruce | 2001-09-21 23:15:29 -0600 (Fri, 21 Sep 2001) | 2 lines
+r66 | bruce | 2001-09-21 23:15:29 -0600 (Fri, 21 Sep 2001) | 2 lines
 Changed paths:
    M /trunk/src/sendmail.cc
 
 The parameter for putenv must not be automatic.
 
 ------------------------------------------------------------------------
-rev 65:  bruce | 2001-08-25 21:49:12 -0600 (Sat, 25 Aug 2001) | 2 lines
+r65 | bruce | 2001-08-25 21:49:12 -0600 (Sat, 25 Aug 2001) | 2 lines
 Changed paths:
    M /trunk/src/inject.cc
 
 Drop address header fields with blank contents.
 
 ------------------------------------------------------------------------
-rev 64:  bruce | 2001-08-25 21:46:23 -0600 (Sat, 25 Aug 2001) | 2 lines
+r64 | bruce | 2001-08-25 21:46:23 -0600 (Sat, 25 Aug 2001) | 2 lines
 Changed paths:
    M /trunk/lib/address.cc
 
 Completed handling empty address lists.
 
 ------------------------------------------------------------------------
-rev 63:  bruce | 2001-08-25 21:15:31 -0600 (Sat, 25 Aug 2001) | 2 lines
+r63 | bruce | 2001-08-25 21:15:31 -0600 (Sat, 25 Aug 2001) | 2 lines
 Changed paths:
    M /trunk/lib/address.cc
 
 Modified to properly parse an empty address field as empty.
 
 ------------------------------------------------------------------------
-rev 62:  bruce | 2001-07-09 19:39:40 -0600 (Mon, 09 Jul 2001) | 2 lines
+r62 | bruce | 2001-07-09 19:39:40 -0600 (Mon, 09 Jul 2001) | 2 lines
 Changed paths:
    M /trunk/makedist.in
 
 Updated for the new untroubled.org web site.
 
 ------------------------------------------------------------------------
-rev 61:  bruce | 2001-07-09 19:39:18 -0600 (Mon, 09 Jul 2001) | 2 lines
+r61 | bruce | 2001-07-09 19:39:18 -0600 (Mon, 09 Jul 2001) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/README
@@ -343,7 +552,7 @@ Changed paths:
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 60:  bruce | 2001-07-09 19:38:54 -0600 (Mon, 09 Jul 2001) | 3 lines
+r60 | bruce | 2001-07-09 19:38:54 -0600 (Mon, 09 Jul 2001) | 3 lines
 Changed paths:
    M /trunk/scripts/nullmailer.run
 
@@ -351,49 +560,49 @@ Redirect stderr to stdout before starting anything else to catch error
 messages.
 
 ------------------------------------------------------------------------
-rev 59:  bruce | 2001-07-09 19:38:29 -0600 (Mon, 09 Jul 2001) | 2 lines
+r59 | bruce | 2001-07-09 19:38:29 -0600 (Mon, 09 Jul 2001) | 2 lines
 Changed paths:
    M /trunk/protocols/smtp.cc
 
 Fixed a quoting bug with handling lines starting with ".".
 
 ------------------------------------------------------------------------
-rev 58:  bruce | 2001-07-09 19:37:33 -0600 (Mon, 09 Jul 2001) | 2 lines
+r58 | bruce | 2001-07-09 19:37:33 -0600 (Mon, 09 Jul 2001) | 2 lines
 Changed paths:
    M /trunk/configure.in
 
 Tidied up the library function checks.
 
 ------------------------------------------------------------------------
-rev 57:  bruce | 2001-07-09 19:36:59 -0600 (Mon, 09 Jul 2001) | 2 lines
+r57 | bruce | 2001-07-09 19:36:59 -0600 (Mon, 09 Jul 2001) | 2 lines
 Changed paths:
    M /trunk/src/sendmail.cc
 
 Added an ignored option entry from the sendmail "-m" option.
 
 ------------------------------------------------------------------------
-rev 56:  bruce | 2001-03-29 15:57:30 -0600 (Thu, 29 Mar 2001) | 2 lines
+r56 | bruce | 2001-03-29 15:57:30 -0600 (Thu, 29 Mar 2001) | 2 lines
 Changed paths:
    M /trunk/HOWTO
 
 Fixed instructions on RPM startup.
 
 ------------------------------------------------------------------------
-rev 55:  bruce | 2001-03-29 15:57:06 -0600 (Thu, 29 Mar 2001) | 2 lines
+r55 | bruce | 2001-03-29 15:57:06 -0600 (Thu, 29 Mar 2001) | 2 lines
 Changed paths:
    M /trunk/TODO
 
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 54:  bruce | 2001-03-29 15:56:36 -0600 (Thu, 29 Mar 2001) | 2 lines
+r54 | bruce | 2001-03-29 15:56:36 -0600 (Thu, 29 Mar 2001) | 2 lines
 Changed paths:
    M /trunk/spec
 
 Removed unnecessary init.d directory, and added in the man7 pages.
 
 ------------------------------------------------------------------------
-rev 53:  bruce | 2001-02-27 16:38:05 -0600 (Tue, 27 Feb 2001) | 2 lines
+r53 | bruce | 2001-02-27 16:38:05 -0600 (Tue, 27 Feb 2001) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/configure.in
@@ -403,7 +612,7 @@ Changed paths:
 Fixed some include file problems with sys/time.h.
 
 ------------------------------------------------------------------------
-rev 52:  bruce | 2001-02-07 15:45:32 -0600 (Wed, 07 Feb 2001) | 2 lines
+r52 | bruce | 2001-02-07 15:45:32 -0600 (Wed, 07 Feb 2001) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/README
@@ -411,14 +620,14 @@ Changed paths:
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 51:  bruce | 2001-02-07 15:45:13 -0600 (Wed, 07 Feb 2001) | 2 lines
+r51 | bruce | 2001-02-07 15:45:13 -0600 (Wed, 07 Feb 2001) | 2 lines
 Changed paths:
    M /trunk/src/send.cc
 
 Modified to always attempt to send everything in the queue.
 
 ------------------------------------------------------------------------
-rev 50:  bruce | 2001-02-01 20:30:36 -0600 (Thu, 01 Feb 2001) | 2 lines
+r50 | bruce | 2001-02-01 20:30:36 -0600 (Thu, 01 Feb 2001) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -428,7 +637,7 @@ Changed paths:
 Bumped up version number to 1.00RC6.
 
 ------------------------------------------------------------------------
-rev 49:  bruce | 2001-02-01 20:28:53 -0600 (Thu, 01 Feb 2001) | 2 lines
+r49 | bruce | 2001-02-01 20:28:53 -0600 (Thu, 01 Feb 2001) | 2 lines
 Changed paths:
    M /trunk/lib/hostname.cc
    M /trunk/src/send.cc
@@ -436,14 +645,14 @@ Changed paths:
 Added a missing include.
 
 ------------------------------------------------------------------------
-rev 48:  bruce | 2000-12-30 04:22:46 -0600 (Sat, 30 Dec 2000) | 2 lines
+r48 | bruce | 2000-12-30 04:22:46 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
 
 Added 1.00RC5 release notes.
 
 ------------------------------------------------------------------------
-rev 47:  bruce | 2000-12-30 04:18:42 -0600 (Sat, 30 Dec 2000) | 2 lines
+r47 | bruce | 2000-12-30 04:18:42 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/makedist.in
    M /trunk/spec
@@ -451,14 +660,14 @@ Changed paths:
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 46:  bruce | 2000-12-30 04:16:46 -0600 (Sat, 30 Dec 2000) | 2 lines
+r46 | bruce | 2000-12-30 04:16:46 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/spec
 
 Make the service directory.
 
 ------------------------------------------------------------------------
-rev 45:  bruce | 2000-12-30 04:12:45 -0600 (Sat, 30 Dec 2000) | 2 lines
+r45 | bruce | 2000-12-30 04:12:45 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/README
    M /trunk/configure.in
@@ -466,35 +675,35 @@ Changed paths:
 Bumped up version number.
 
 ------------------------------------------------------------------------
-rev 44:  bruce | 2000-12-30 03:47:26 -0600 (Sat, 30 Dec 2000) | 2 lines
+r44 | bruce | 2000-12-30 03:47:26 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    D /trunk/scripts/nullmailer.init
 
 Removed unnecessary init script.
 
 ------------------------------------------------------------------------
-rev 43:  bruce | 2000-12-30 03:47:17 -0600 (Sat, 30 Dec 2000) | 2 lines
+r43 | bruce | 2000-12-30 03:47:17 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/spec
 
 Modified to use supervise-scripts 3.
 
 ------------------------------------------------------------------------
-rev 42:  bruce | 2000-12-30 03:41:21 -0600 (Sat, 30 Dec 2000) | 2 lines
+r42 | bruce | 2000-12-30 03:41:21 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/protocols/smtp.cc
 
 Return proper error codes for permanent and temporary SMTP failures.
 
 ------------------------------------------------------------------------
-rev 41:  bruce | 2000-12-30 03:41:02 -0600 (Sat, 30 Dec 2000) | 2 lines
+r41 | bruce | 2000-12-30 03:41:02 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/lib/hostname.cc
 
 Fixed the prototype for getdomainname.
 
 ------------------------------------------------------------------------
-rev 40:  bruce | 2000-12-30 03:40:44 -0600 (Sat, 30 Dec 2000) | 2 lines
+r40 | bruce | 2000-12-30 03:40:44 -0600 (Sat, 30 Dec 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/HOWTO
@@ -502,21 +711,21 @@ Changed paths:
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 39:  bruce | 2000-08-30 14:58:37 -0600 (Wed, 30 Aug 2000) | 2 lines
+r39 | bruce | 2000-08-30 14:58:37 -0600 (Wed, 30 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/lib/hostname.cc
 
 Moved extern declaration of getdomainname out of the function.
 
 ------------------------------------------------------------------------
-rev 38:  bruce | 2000-08-28 23:11:45 -0600 (Mon, 28 Aug 2000) | 2 lines
+r38 | bruce | 2000-08-28 23:11:45 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/Makefile.am
 
 Added missing INSTALL dist file.
 
 ------------------------------------------------------------------------
-rev 37:  bruce | 2000-08-28 23:11:09 -0600 (Mon, 28 Aug 2000) | 2 lines
+r37 | bruce | 2000-08-28 23:11:09 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    D /trunk/scripts/init
    A /trunk/scripts/nullmailer-log.run
@@ -529,14 +738,14 @@ Changed paths:
 Renamed the script files.
 
 ------------------------------------------------------------------------
-rev 36:  bruce | 2000-08-28 18:07:50 -0600 (Mon, 28 Aug 2000) | 2 lines
+r36 | bruce | 2000-08-28 18:07:50 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
 
 Fixed up forgotten ChangeLog entries.
 
 ------------------------------------------------------------------------
-rev 35:  bruce | 2000-08-28 18:00:15 -0600 (Mon, 28 Aug 2000) | 2 lines
+r35 | bruce | 2000-08-28 18:00:15 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/README
@@ -544,21 +753,21 @@ Changed paths:
 Final RC4 update.
 
 ------------------------------------------------------------------------
-rev 34:  bruce | 2000-08-28 17:58:38 -0600 (Mon, 28 Aug 2000) | 2 lines
+r34 | bruce | 2000-08-28 17:58:38 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/test/address-test.cc
 
 Test addresses with trailing periods.
 
 ------------------------------------------------------------------------
-rev 33:  bruce | 2000-08-28 17:57:43 -0600 (Mon, 28 Aug 2000) | 2 lines
+r33 | bruce | 2000-08-28 17:57:43 -0600 (Mon, 28 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/lib/address.cc
 
 Fixed to handle addresses with trailing periods.
 
 ------------------------------------------------------------------------
-rev 32:  bruce | 2000-08-15 19:28:46 -0600 (Tue, 15 Aug 2000) | 3 lines
+r32 | bruce | 2000-08-15 19:28:46 -0600 (Tue, 15 Aug 2000) | 3 lines
 Changed paths:
    M /trunk/lib/hostname.cc
 
@@ -566,7 +775,7 @@ Added extern declaration of getdomainname for systems that don't declare
 it.
 
 ------------------------------------------------------------------------
-rev 31:  bruce | 2000-08-15 19:28:25 -0600 (Tue, 15 Aug 2000) | 2 lines
+r31 | bruce | 2000-08-15 19:28:25 -0600 (Tue, 15 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -575,7 +784,7 @@ Changed paths:
 *** empty log message ***
 
 ------------------------------------------------------------------------
-rev 30:  bruce | 2000-08-15 19:21:22 -0600 (Tue, 15 Aug 2000) | 3 lines
+r30 | bruce | 2000-08-15 19:21:22 -0600 (Tue, 15 Aug 2000) | 3 lines
 Changed paths:
    M /trunk/HOWTO
    D /trunk/INSTALL
@@ -586,21 +795,21 @@ Updated install instructions in HOWTO, removed the modified INSTALL
 document.
 
 ------------------------------------------------------------------------
-rev 29:  bruce | 2000-08-15 19:13:24 -0600 (Tue, 15 Aug 2000) | 2 lines
+r29 | bruce | 2000-08-15 19:13:24 -0600 (Tue, 15 Aug 2000) | 2 lines
 Changed paths:
    A /trunk/INSTALL
 
 Added custom INSTALL instructions.
 
 ------------------------------------------------------------------------
-rev 28:  bruce | 2000-08-15 16:45:39 -0600 (Tue, 15 Aug 2000) | 2 lines
+r28 | bruce | 2000-08-15 16:45:39 -0600 (Tue, 15 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/acinclude.m4
 
 Ignore warnings from compile output.
 
 ------------------------------------------------------------------------
-rev 27:  bruce | 2000-08-14 15:05:51 -0600 (Mon, 14 Aug 2000) | 2 lines
+r27 | bruce | 2000-08-14 15:05:51 -0600 (Mon, 14 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/acinclude.m4
@@ -609,7 +818,7 @@ Changed paths:
 Fixed the reversed named pipe bug logic.
 
 ------------------------------------------------------------------------
-rev 26:  bruce | 2000-08-11 05:10:25 -0600 (Fri, 11 Aug 2000) | 2 lines
+r26 | bruce | 2000-08-11 05:10:25 -0600 (Fri, 11 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -619,14 +828,14 @@ Changed paths:
 1.00RC3 release checkin.
 
 ------------------------------------------------------------------------
-rev 25:  bruce | 2000-08-11 05:09:41 -0600 (Fri, 11 Aug 2000) | 2 lines
+r25 | bruce | 2000-08-11 05:09:41 -0600 (Fri, 11 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/test/address-test.cc
 
 Fixed a problem with multiple use of itoa.
 
 ------------------------------------------------------------------------
-rev 24:  bruce | 2000-08-10 18:48:19 -0600 (Thu, 10 Aug 2000) | 2 lines
+r24 | bruce | 2000-08-10 18:48:19 -0600 (Thu, 10 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -638,28 +847,28 @@ Changed paths:
 Added configure test for named pipe bug.
 
 ------------------------------------------------------------------------
-rev 23:  bruce | 2000-08-10 18:47:53 -0600 (Thu, 10 Aug 2000) | 2 lines
+r23 | bruce | 2000-08-10 18:47:53 -0600 (Thu, 10 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/src/inject.cc
 
 Fixed header parsing logic.
 
 ------------------------------------------------------------------------
-rev 22:  bruce | 2000-08-08 05:09:35 -0600 (Tue, 08 Aug 2000) | 2 lines
+r22 | bruce | 2000-08-08 05:09:35 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/src/send.cc
 
 Added code to handle systems that require a writer on the named pipe.
 
 ------------------------------------------------------------------------
-rev 21:  bruce | 2000-08-08 05:08:43 -0600 (Tue, 08 Aug 2000) | 2 lines
+r21 | bruce | 2000-08-08 05:08:43 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/src/sendmail.cc
 
 Added a handler for the -L sendmail option (ignored).
 
 ------------------------------------------------------------------------
-rev 20:  bruce | 2000-08-08 05:08:08 -0600 (Tue, 08 Aug 2000) | 2 lines
+r20 | bruce | 2000-08-08 05:08:08 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/doc/Makefile.am
    A /trunk/doc/sendmail.1
@@ -667,7 +876,7 @@ Changed paths:
 Added man page for the sendmail emulator.
 
 ------------------------------------------------------------------------
-rev 19:  bruce | 2000-08-08 04:43:47 -0600 (Tue, 08 Aug 2000) | 2 lines
+r19 | bruce | 2000-08-08 04:43:47 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/doc/Makefile.am
    A /trunk/doc/nullmailer.7
@@ -675,21 +884,21 @@ Changed paths:
 Added an overall man page for nullmailer.
 
 ------------------------------------------------------------------------
-rev 18:  bruce | 2000-08-08 04:31:02 -0600 (Tue, 08 Aug 2000) | 2 lines
+r18 | bruce | 2000-08-08 04:31:02 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/Makefile.am
 
 Fixed a typo in the root-install chmods.
 
 ------------------------------------------------------------------------
-rev 17:  bruce | 2000-08-08 04:16:13 -0600 (Tue, 08 Aug 2000) | 2 lines
+r17 | bruce | 2000-08-08 04:16:13 -0600 (Tue, 08 Aug 2000) | 2 lines
 Changed paths:
    M /trunk/lib/tcpconnect.cc
 
 Fixed some typos.
 
 ------------------------------------------------------------------------
-rev 16:  bruce | 2000-07-07 18:21:53 -0600 (Fri, 07 Jul 2000) | 2 lines
+r16 | bruce | 2000-07-07 18:21:53 -0600 (Fri, 07 Jul 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -698,7 +907,7 @@ Changed paths:
 Fixed up release notes.
 
 ------------------------------------------------------------------------
-rev 15:  bruce | 2000-07-04 03:37:35 -0600 (Tue, 04 Jul 2000) | 2 lines
+r15 | bruce | 2000-07-04 03:37:35 -0600 (Tue, 04 Jul 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/lib/hostname.cc
@@ -706,7 +915,7 @@ Changed paths:
 Fixed typo in lib/hostname.cc
 
 ------------------------------------------------------------------------
-rev 14:  bruce | 2000-06-28 15:27:46 -0600 (Wed, 28 Jun 2000) | 2 lines
+r14 | bruce | 2000-06-28 15:27:46 -0600 (Wed, 28 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/NEWS
@@ -717,7 +926,7 @@ Changed paths:
 Added utsname tests to configure.
 
 ------------------------------------------------------------------------
-rev 13:  bruce | 2000-06-28 15:26:44 -0600 (Wed, 28 Jun 2000) | 2 lines
+r13 | bruce | 2000-06-28 15:26:44 -0600 (Wed, 28 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/lib/hostname.cc
    M /trunk/lib/mergelib.sh
@@ -725,14 +934,14 @@ Changed paths:
 Fixed domain name determination bug, and portability fix in mergelib.sh
 
 ------------------------------------------------------------------------
-rev 12:  bruce | 2000-06-28 15:26:05 -0600 (Wed, 28 Jun 2000) | 2 lines
+r12 | bruce | 2000-06-28 15:26:05 -0600 (Wed, 28 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/protocols/smtp.cc
 
 Fixed response number bug.
 
 ------------------------------------------------------------------------
-rev 11:  bruce | 2000-06-19 19:47:50 -0600 (Mon, 19 Jun 2000) | 2 lines
+r11 | bruce | 2000-06-19 19:47:50 -0600 (Mon, 19 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
    M /trunk/lib/tcpconnect.cc
@@ -740,21 +949,21 @@ Changed paths:
 Fixed a minor type bug.
 
 ------------------------------------------------------------------------
-rev 10:  bruce | 2000-06-15 15:26:49 -0600 (Thu, 15 Jun 2000) | 2 lines
+r10 | bruce | 2000-06-15 15:26:49 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
 
 Final release 1.00RC1 check in.
 
 ------------------------------------------------------------------------
-rev 9:  bruce | 2000-06-15 15:22:13 -0600 (Thu, 15 Jun 2000) | 2 lines
+r9 | bruce | 2000-06-15 15:22:13 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
 
 Final 1.00RC1 check in.
 
 ------------------------------------------------------------------------
-rev 8:  bruce | 2000-06-15 15:20:59 -0600 (Thu, 15 Jun 2000) | 2 lines
+r8 | bruce | 2000-06-15 15:20:59 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/README
@@ -763,7 +972,7 @@ Changed paths:
 Fixed up NEWS and README to reflect new version number.
 
 ------------------------------------------------------------------------
-rev 7:  bruce | 2000-06-15 15:13:53 -0600 (Thu, 15 Jun 2000) | 2 lines
+r7 | bruce | 2000-06-15 15:13:53 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/lib/address-old.cc
    M /trunk/lib/address.cc
@@ -787,21 +996,21 @@ Changed paths:
 Fixed up copyright notices.
 
 ------------------------------------------------------------------------
-rev 6:  bruce | 2000-06-15 15:13:42 -0600 (Thu, 15 Jun 2000) | 2 lines
+r6 | bruce | 2000-06-15 15:13:42 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/ChangeLog
 
 Added note on bug fix to lib/makefields.cc
 
 ------------------------------------------------------------------------
-rev 5:  bruce | 2000-06-15 14:59:15 -0600 (Thu, 15 Jun 2000) | 2 lines
+r5 | bruce | 2000-06-15 14:59:15 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    D /trunk/test/address-test
 
 Removed compiled binary file address-test.
 
 ------------------------------------------------------------------------
-rev 4:  bruce | 2000-06-15 14:58:41 -0600 (Thu, 15 Jun 2000) | 2 lines
+r4 | bruce | 2000-06-15 14:58:41 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/protocols/Makefile.am
    M /trunk/protocols/protocol.h
@@ -819,7 +1028,7 @@ Changed paths:
 Fixed include file paths.
 
 ------------------------------------------------------------------------
-rev 3:  bruce | 2000-06-15 14:58:12 -0600 (Thu, 15 Jun 2000) | 3 lines
+r3 | bruce | 2000-06-15 14:58:12 -0600 (Thu, 15 Jun 2000) | 3 lines
 Changed paths:
    M /trunk/lib/Makefile.am
    M /trunk/lib/address.cc
@@ -844,7 +1053,7 @@ Fixed include file paths, added missing shell scripts and removed some
 unnecessary headers.
 
 ------------------------------------------------------------------------
-rev 2:  bruce | 2000-06-15 14:57:32 -0600 (Thu, 15 Jun 2000) | 2 lines
+r2 | bruce | 2000-06-15 14:57:32 -0600 (Thu, 15 Jun 2000) | 2 lines
 Changed paths:
    M /trunk/NEWS
    M /trunk/README
@@ -854,7 +1063,7 @@ Changed paths:
 Bumped the version number, and touched up the README and NEWS.
 
 ------------------------------------------------------------------------
-rev 1:  bruce | 2000-02-16 18:24:45 -0600 (Wed, 16 Feb 2000) | 2 lines
+r1 | bruce | 2000-02-16 18:24:45 -0600 (Wed, 16 Feb 2000) | 2 lines
 Changed paths:
    A /trunk
    A /trunk/AUTHORS

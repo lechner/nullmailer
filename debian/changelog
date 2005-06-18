@@ -1,3 +1,9 @@
+nullmailer (1:1.00-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 18 Jun 2005 23:16:25 +0200
+
 nullmailer (1.00RC7-22) unstable; urgency=high
 
   * The "let's make aba happy" release.
