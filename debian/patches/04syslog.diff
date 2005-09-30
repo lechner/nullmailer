@@ -1,6 +1,6 @@
 diff -Nur nullmailer-1.00.orig/doc/nullmailer-send.8 nullmailer-1.00/doc/nullmailer-send.8
---- nullmailer-1.00.orig/doc/nullmailer-send.8	2003-01-03 20:50:07.000000000 +0000
-+++ nullmailer-1.00/doc/nullmailer-send.8	2005-06-18 21:31:43.996264176 +0000
+--- nullmailer-1.00.orig/doc/nullmailer-send.8	2005-09-30 11:50:33.000000000 +0200
++++ nullmailer-1.00/doc/nullmailer-send.8	2005-09-30 11:51:22.000000000 +0200
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -16,18 +16,18 @@ diff -Nur nullmailer-1.00.orig/doc/nullmailer-send.8 nullmailer-1.00/doc/nullmai
 +.SH OPTIONS
 +.TP
 +.BR \-d ,\  \-\-daemon
-+Fork into the background (Debian only), implies --syslog.
++Fork into the background, implies --syslog.
 +.TP
 +.BR \-s ,\  \-\-syslog
-+Use syslog for error and log messages (Debian only).
++Use syslog for error and log messages.
 +With --daemon, syslog will be used exclusively, without --daemon,
 +syslog will be used additionally.
  .SH CONTROL FILES
  All the control files are reread each time the queue is run.
  .TP
 diff -Nur nullmailer-1.00.orig/protocols/protocol.cc nullmailer-1.00/protocols/protocol.cc
---- nullmailer-1.00.orig/protocols/protocol.cc	2003-01-13 20:19:36.000000000 +0000
-+++ nullmailer-1.00/protocols/protocol.cc	2005-06-18 21:35:37.390782816 +0000
+--- nullmailer-1.00.orig/protocols/protocol.cc	2005-09-30 11:50:33.000000000 +0200
++++ nullmailer-1.00/protocols/protocol.cc	2005-09-30 11:51:22.000000000 +0200
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -44,32 +44,30 @@ diff -Nur nullmailer-1.00.orig/protocols/protocol.cc nullmailer-1.00/protocols/p
  const char* cli_help_suffix = "";
  const char* cli_args_usage = "remote-address < mail-file";
  const int cli_args_min = 1;
-@@ -34,23 +38,35 @@
- cli_option cli_options[] = {
-   { 'p', "port", cli_option::integer, 0, &port,
+@@ -36,23 +40,35 @@
      "Set the port number on the remote host to connect to", 0 },
-+  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "use syslog exclusively  (Debian only)", 0 },
-+  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog additionally (Debian only)", 0 },
+   { 'a', "auth", cli_option::string, 0, &auth,
+     "Set the user and password for authentication (user,pass)", 0 },
++  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "use syslog exclusively ", 0 },
++  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog additionally", 0 },
    {0, 0, cli_option::flag, 0, 0, 0, 0}
  };
  
  void protocol_fail(int e, const char* msg)
  {
--  ferr << cli_program << ": Failed: " << msg << endl;
 +  if (use_syslog)
 +    syslog(LOG_ERR, "%s: Failed: %s", cli_program, msg);
 +  if (!daemonize)
-+    ferr << cli_program << ": Failed: " << msg << endl;
+   ferr << cli_program << ": Failed: " << msg << endl;
    exit(e);
  }
  
  void protocol_succ(const char* msg)
  {
--  ferr << cli_program << ": Succeeded: " << msg << endl;
 +  if (use_syslog)
 +    syslog(LOG_ERR, "%s: Succeeded: %s", cli_program, msg);
 +  if (!daemonize)
-+    ferr << cli_program << ": Succeeded: " << msg << endl;
+   ferr << cli_program << ": Succeeded: " << msg << endl;
    exit(0);
  }
  
@@ -83,18 +81,25 @@ diff -Nur nullmailer-1.00.orig/protocols/protocol.cc nullmailer-1.00/protocols/p
    fdibuf in(0, true);
    protocol_prep(&in);
 diff -Nur nullmailer-1.00.orig/src/Makefile.in nullmailer-1.00/src/Makefile.in
---- nullmailer-1.00.orig/src/Makefile.in	2005-02-28 17:39:50.000000000 +0000
-+++ nullmailer-1.00/src/Makefile.in	2005-06-18 21:31:43.998263872 +0000
+--- nullmailer-1.00.orig/src/Makefile.in	2005-02-28 18:39:50.000000000 +0100
++++ nullmailer-1.00/src/Makefile.in	2005-09-30 11:51:22.000000000 +0200
 @@ -65,7 +65,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
  nullmailer_send_OBJECTS = $(am_nullmailer_send_OBJECTS)
 -nullmailer_send_DEPENDENCIES = ../lib/libnullmailer.a
-+nullmailer_send_DEPENDENCIES =  ../lib/cli++/libcli++.a ../lib/libnullmailer.a
++nullmailer_send_DEPENDENCIES = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
  am_sendmail_OBJECTS = sendmail.$(OBJEXT)
  sendmail_OBJECTS = $(am_sendmail_OBJECTS)
  sendmail_DEPENDENCIES = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
-@@ -179,7 +179,7 @@
+@@ -173,13 +173,13 @@
+ #noinst_PROGRAMS = address
+ INCLUDES = -I../lib -I../lib/cli++
+ mailq_SOURCES = mailq.cc
+-mailq_LDADD = ../lib/libnullmailer.a
++mailq_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
+ nullmailer_inject_SOURCES = inject.cc
+ nullmailer_inject_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
  nullmailer_queue_SOURCES = queue.cc
  nullmailer_queue_LDADD = ../lib/libnullmailer.a
  nullmailer_send_SOURCES = send.cc
@@ -104,8 +109,8 @@ diff -Nur nullmailer-1.00.orig/src/Makefile.in nullmailer-1.00/src/Makefile.in
  sendmail_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
  all: all-am
 diff -Nur nullmailer-1.00.orig/src/send.cc nullmailer-1.00/src/send.cc
---- nullmailer-1.00.orig/src/send.cc	2005-02-28 17:48:54.000000000 +0000
-+++ nullmailer-1.00/src/send.cc	2005-06-18 21:31:43.999263720 +0000
+--- nullmailer-1.00.orig/src/send.cc	2005-02-28 18:48:54.000000000 +0100
++++ nullmailer-1.00/src/send.cc	2005-09-30 11:51:22.000000000 +0200
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
@@ -134,8 +139,8 @@ diff -Nur nullmailer-1.00.orig/src/send.cc nullmailer-1.00/src/send.cc
 +const int cli_args_min = 0;
 +const int cli_args_max = 0;
 +cli_option cli_options[] = {
-+  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "daemonize  (Debian only), implies --syslog", 0 },
-+  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog (Debian only)", 0 },
++  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "daemonize , implies --syslog", 0 },
++  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog", 0 },
 +  { 0, 0, cli_option::flag, 0, 0, 0, 0 }
 +};
 +
@@ -160,10 +165,10 @@ diff -Nur nullmailer-1.00.orig/src/send.cc nullmailer-1.00/src/send.cc
  {
 -  if(close(0) == -1 || dup2(fd, 0) == -1 || close(fd) == -1)
 +  if (!daemonize && close(STDIN_FILENO) < 0)
-     return;
++    return;
 +  if (fd != STDIN_FILENO)
 +    if (dup2(fd, STDIN_FILENO) < 0 || close(fd) < 0)
-+      return;
+     return;
    mystring program = PROTOCOL_DIR + remote.proto;
 -  const char* args[3+remote.options.count()];
 +  const char* args[5+remote.options.count()];

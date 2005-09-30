@@ -3,11 +3,11 @@ Section: mail
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
 Build-Depends: patch, po-debconf
-Standards-Version: 3.6.1.1
+Standards-Version: 3.6.2
 
 Package: nullmailer
 Architecture: any
-Depends: ${shlibs:Depends}, debconf (>= 0.5) | debconf-2.0, ucf (>= 0.17)
+Depends: ${shlibs:Depends}, debconf (>= 0.5) | debconf-2.0, ucf (>= 0.17), lsb-base
 Recommends: sysklogd | system-log-daemon
 Conflicts: mail-transport-agent, suidmanager (<< 0.52), lsb
 Provides: mail-transport-agent
@@ -17,5 +17,5 @@ Description: simple relay-only mail transport agent
  smart relays. It is designed to be simple to configure and especially
  useful on slave machines and in chroots.
  .
- This packages sendmail interface doesn't provide the -bs switch. That means
+ This packages sendmail interface doesn't provide the -bs switch, hence
  it's not LSB compatible!

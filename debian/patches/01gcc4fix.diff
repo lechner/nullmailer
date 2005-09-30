@@ -1,0 +1,26 @@
+diff -Nur nullmailer-1.00.orig/lib/fdbuf/fdobuf.h nullmailer-1.00/lib/fdbuf/fdobuf.h
+--- nullmailer-1.00.orig/lib/fdbuf/fdobuf.h	2000-08-28 19:57:22.000000000 +0200
++++ nullmailer-1.00/lib/fdbuf/fdobuf.h	2005-09-30 11:36:30.000000000 +0200
+@@ -17,6 +17,8 @@
+ #ifndef FDBUF__FDOBUF__H__
+ #define FDBUF__FDOBUF__H__
+ 
++#include <pwd.h>
++
+ class fdobuf : protected fdbuf
+ {
+ public:
+diff -Nur nullmailer-1.00.orig/lib/list.h nullmailer-1.00/lib/list.h
+--- nullmailer-1.00.orig/lib/list.h	2003-01-12 05:26:19.000000000 +0100
++++ nullmailer-1.00/lib/list.h	2005-09-30 11:36:30.000000000 +0200
+@@ -18,8 +18,8 @@
+   typedef list_node<T> node;
+   typedef list_iterator<T> iter;
+   typedef const_list_iterator<T> const_iter;
+-  friend class iter;
+-  friend class const_iter;
++  friend class list_iterator<T>;;
++  friend class const_list_iterator<T>;;
+   
+   list()
+     : head(0), tail(0), cnt(0)

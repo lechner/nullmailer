@@ -2,6 +2,8 @@
 
 set -e
 
+. /lib/lsb/init-functions
+
 PATH="/bin:/usr/bin:/sbin:/usr/sbin"
 DAEMON="/usr/sbin/nullmailer-send"
 ARGS="-d"
@@ -23,6 +25,7 @@ fi
 
 case "$1" in
 start)
+	log_begin_msg "Starting mail-transport-agent: nullmailer..."
 	echo -n "Starting mail-transport-agent: nullmailer"
 	if [ ! -c /var/spool/nullmailer/trigger ]; then
 		rm -f /var/spool/nullmailer/trigger
@@ -31,15 +34,18 @@ start)
 	chown mail:root /var/spool/nullmailer/trigger
 	chmod 0622 /var/spool/nullmailer/trigger
 	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $ARGS
+	log_end_msg 0
 	;;
 stop)
-	echo -n "Stopping mail-transport-agent: nullmailer"
+	log_begin_msg "Stopping mail-transport-agent: nullmailer..."
 	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
+	log_end_msg 0
 	;;
 restart|force-reload)
-	echo -n "Restarting mail-transport-agent: nullmailer"
+	log_begin_msg "Restarting mail-transport-agent: nullmailer..."
 	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
 	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" -- $ARGS
+	log_end_msg 0
 	;;
 reload)
 	help
