@@ -26,6 +26,7 @@ fi
 case "$1" in
 start)
 	log_begin_msg "Starting mail-transport-agent: nullmailer..."
+	echo -n "Starting mail-transport-agent: nullmailer"
 	if [ ! -c /var/spool/nullmailer/trigger ]; then
 		rm -f /var/spool/nullmailer/trigger
 		mkfifo /var/spool/nullmailer/trigger

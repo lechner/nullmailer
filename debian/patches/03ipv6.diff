@@ -1,0 +1,97 @@
+diff -u -r nullmailer-1.00.orig/configure.in nullmailer-1.00/configure.in
+--- nullmailer-1.00.orig/configure.in	2005-10-23 13:05:12.610696760 +0100
++++ nullmailer-1.00/configure.in	2005-10-23 13:05:18.755762568 +0100
+@@ -47,6 +47,24 @@
+ dnl AC_CHECK_FUNCS(gettimeofday mkdir putenv rmdir socket)
+ AC_CHECK_FUNCS(setenv srandom)
+ 
++AC_MSG_CHECKING(for getaddrinfo)
++AC_TRY_COMPILE([#include <sys/types.h>
++#include <sys/socket.h>
++#include <netdb.h>], [getaddrinfo(NULL, NULL, NULL, NULL)], has_getaddrinfo=yes, has_getaddrinfo=no)
++if test "$has_getaddrinfo" = yes; then
++  AC_MSG_RESULT(yes)
++else
++  AC_MSG_RESULT(no)
++fi
++
++if test x-$has_getaddrinfo = "x-no" ; then
++  AC_MSG_RESULT(disabled: getaddrinfo missing)
++else
++  AC_DEFINE(HAVE_GETADDRINFO,,[getaddrinfo code enabled])
++fi
++
++AC_SUBST(HAVE_GETADDRINFO)
++
+ AC_DEFINE(BUFSIZE, 4096, [Generic buffer size])
+ AM_CONDITIONAL(FDBUF_NO_MYSTRING, false)
+ 
+diff -u -r nullmailer-1.00.orig/lib/tcpconnect.cc nullmailer-1.00/lib/tcpconnect.cc
+--- nullmailer-1.00.orig/lib/tcpconnect.cc	2005-10-23 13:05:12.595699040 +0100
++++ nullmailer-1.00/lib/tcpconnect.cc	2005-10-23 13:05:24.110948456 +0100
+@@ -28,7 +28,11 @@
+ #include <netinet/in.h>
+ #include "errcodes.h"
+ #include "connect.h"
++#ifdef HAVE_GETADDRINFO
++#include "lib/itoa.h"
++#endif
+ 
++#ifndef HAVE_GETADDRINFO
+ static int sethostbyname(const mystring& hostname, struct sockaddr_in& sa)
+ {
+   struct hostent *he = gethostbyname(hostname.c_str());
+@@ -44,13 +48,46 @@
+   memcpy(&sa.sin_addr, he->h_addr, he->h_length);
+   return 0;
+ }
++#endif
+ 
+ int tcpconnect(const mystring& hostname, int port)
+ {
++#ifdef HAVE_GETADDRINFO
++  struct addrinfo req, *res, *orig_res;
++  const char *service = itoa(port, 6);
++  
++  memset(&req, 0, sizeof(req));
++  req.ai_flags = AI_NUMERICSERV;
++  req.ai_socktype = SOCK_STREAM;
++  int e = getaddrinfo(hostname.c_str(), service, &req, &res);
++#else
+   struct sockaddr_in sa;
+   memset(&sa, 0, sizeof(sa));
+   int e = sethostbyname(hostname, sa);
++#endif
+   if(e) return e;
++#ifdef HAVE_GETADDRINFO
++  int s;
++  orig_res = res;
++
++  for (; res; res = res->ai_next ) {
++    s = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
++
++    if(s < 0)
++	continue;
++
++    if(connect(s, res->ai_addr, res->ai_addrlen) != 0)
++	continue;
++
++    /* sucessful connection */
++    break;
++  }
++
++  freeaddrinfo(orig_res);
++
++  if(s < 0)
++    return -ERR_CONN_FAILED;
++#else
+   sa.sin_family = AF_INET;
+   sa.sin_port = htons(port);
+   int s = socket(PF_INET, SOCK_STREAM, 0);
+@@ -64,5 +101,6 @@
+     default: return -ERR_CONN_FAILED;
+     }
+   }
++#endif
+   return s;
+ }
