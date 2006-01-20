@@ -1,3 +1,4 @@
+/* $Id: trace.h 616 2005-08-19 20:11:01Z bruce $ */
 #include "mystring.h"
 
 #ifdef MYSTRING_TRACE

@@ -1,3 +1,12 @@
+nullmailer (1:1.02-1) unstable; urgency=low
+
+  * New upstream release. (closes: #348798)
+  * Removed backported patches (added in 1:1.00-2) which are part of this new
+    release.
+  * Really enabled IPv6 support. (closes: #340063)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Fri, 20 Jan 2006 14:52:09 +0100
+
 nullmailer (1:1.00-3) unstable; urgency=low
 
   * New patch to support IPv6 from Alexander Clouter. (closes: #336348)

@@ -1,4 +1,5 @@
-// Copyright (C) 1999,2000 Bruce Guenter <bruceg@em.ca>
+/* $Id: mystring.h 635 2005-11-02 17:37:50Z bruce $ */
+// Copyright (C) 1999,2000 Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -32,8 +33,6 @@ protected:
   void dupnil();
   void dup(const char*, size_t);
   void dup(const char*);
-  void append(const char*);
-  void append(const char*, size_t);
   void assign(const char*);
   void assign(const char*, size_t);
 public:
@@ -96,6 +95,9 @@ public:
 
   unsigned count(char ch) const;
   
+  void append(const char*);
+  void append(const char*, size_t);
+
   void operator+=(const mystring& str) {append(str.rep->buf, str.rep->length);}
   void operator+=(const char* str) { append(str); }
   void operator+=(char ch)

@@ -1,3 +1,5 @@
+- Add support for SMTP AUTH CRAM-MD5
+
 - Document proto/smtp use $HELOHOST for the HELO string.
 
 - Convert all proto modules to use timedout reads.

@@ -37,9 +37,12 @@ clean:
 	-cat `ls -r debian/patches/*.diff` /dev/null | patch -RENtp1 -r debian/rejected --no-backup-if-mismatch
 	rm -f  debian/files debian/rejected debian/substvars
 	rm -rf debian/nullmailer
+	-test -r /usr/share/misc/config.sub && cp -f /usr/share/misc/config.sub config.sub
+	-test -r /usr/share/misc/config.guess && cp -f /usr/share/misc/config.guess config.guess
 
 configure-stamp: configure
 	$(testdir)
+	autoconf
 	-cat debian/patches/*.diff | patch -Ntp1 -r debian/rejected --no-backup-if-mismatch
 	./configure $(CONFFLAGS) --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var/spool --mandir=/usr/share/man
 	touch configure-stamp

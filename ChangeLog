@@ -1,4 +1,47 @@
 ------------------------------------------------------------------------
+r135 | bruce | 2005-11-02 11:52:21 -0600 (Wed, 02 Nov 2005) | 3 lines
+Changed paths:
+   M /trunk/TODO
+   M /trunk/lib/Makefile.am
+   A /trunk/lib/base64.cc (from /trunk/protocols/smtp.cc:134)
+   A /trunk/lib/base64.h
+   M /trunk/protocols/smtp.cc
+
+Broken the base64 conversion out of protocols/smtp.cc (and simplified it
+greatly in the process).
+
+------------------------------------------------------------------------
+r134 | bruce | 2005-11-02 11:11:22 -0600 (Wed, 02 Nov 2005) | 3 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/TODO
+   M /trunk/doc/nullmailer-send.8
+   M /trunk/protocols/protocol.cc
+   M /trunk/protocols/protocol.h
+   M /trunk/protocols/qmqp.cc
+   M /trunk/protocols/smtp.cc
+
+Added support for SMTP AUTH PLAIN
+Thanks Ace Jones <ace.j@hotpop.com>
+
+------------------------------------------------------------------------
+r133 | bruce | 2005-11-02 10:50:37 -0600 (Wed, 02 Nov 2005) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/lib/list.h
+
+Fixed compile error in lib/list.h
+
+------------------------------------------------------------------------
+r132 | bruce | 2005-11-02 10:50:11 -0600 (Wed, 02 Nov 2005) | 2 lines
+Changed paths:
+   M /trunk/NEWS
+   M /trunk/README
+   M /trunk/configure.in
+
+Bumped version to 1.01
+
+------------------------------------------------------------------------
 r130 | bruce | 2005-02-28 11:54:04 -0600 (Mon, 28 Feb 2005) | 2 lines
 Changed paths:
    M /trunk/lib/Makefile.am

@@ -1,13 +1,13 @@
 Name: nullmailer
 Summary: Simple relay-only mail transport agent
-Version: 1.00
+Version: 1.02
 Release: 1
 Copyright: GPL
 Group: Networking/Daemons
-Source: http://em.ca/~bruceg/nullmailer/archive/%{version}/nullmailer-%{version}.tar.gz
+Source: http://untroubled.org/nullmailer/archive/%{version}/nullmailer-%{version}.tar.gz
 BuildRoot: /tmp/nullmailer-root
-URL: http://em.ca/~bruceg/nullmailer/
-Packager: Bruce Guenter <bruceg@em.ca>
+URL: http://untroubled.org/nullmailer/
+Packager: Bruce Guenter <bruce@untroubled.org>
 Provides: smtpdaemon
 Conflicts: sendmail
 Conflicts: qmail
