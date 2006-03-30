@@ -1,3 +1,10 @@
+nullmailer (1:1.02-2) unstable; urgency=low
+
+  * Fixed 05syslog.diff so successfully sent mails are no longer logged as
+    failures. (closes: #351021)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Thu, 30 Mar 2006 18:03:25 +0200
+
 nullmailer (1:1.02-1) unstable; urgency=low
 
   * New upstream release. (closes: #348798)

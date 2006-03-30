@@ -1,6 +1,6 @@
 diff -Nur nullmailer-1.02.orig/doc/nullmailer-send.8 nullmailer-1.02/doc/nullmailer-send.8
---- nullmailer-1.02.orig/doc/nullmailer-send.8	2006-01-21 19:42:26.000000000 +0000
-+++ nullmailer-1.02/doc/nullmailer-send.8	2006-01-21 19:42:58.000000000 +0000
+--- nullmailer-1.02.orig/doc/nullmailer-send.8	2006-03-30 16:08:37.000000000 +0000
++++ nullmailer-1.02/doc/nullmailer-send.8	2006-03-30 16:08:55.000000000 +0000
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -27,7 +27,7 @@ diff -Nur nullmailer-1.02.orig/doc/nullmailer-send.8 nullmailer-1.02/doc/nullmai
  .TP
 diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/protocol.cc
 --- nullmailer-1.02.orig/protocols/protocol.cc	2005-11-10 16:11:12.000000000 +0000
-+++ nullmailer-1.02/protocols/protocol.cc	2006-01-21 19:45:32.000000000 +0000
++++ nullmailer-1.02/protocols/protocol.cc	2006-03-30 16:10:03.000000000 +0000
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -44,7 +44,7 @@ diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/p
  const char* user = 0;
  const char* pass = 0;
  const char* cli_help_suffix = "";
-@@ -40,6 +44,8 @@
+@@ -40,23 +44,35 @@
      "Set the user name for authentication", 0 },
    { 0, "pass", cli_option::string, 0, &pass,
      "Set the password for authentication", 0 },
@@ -53,12 +53,19 @@ diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/p
    {0, 0, cli_option::flag, 0, 0, 0, 0}
  };
  
-@@ -51,12 +57,19 @@
+ void protocol_fail(int e, const char* msg)
+ {
++  if (use_syslog)                                                                                                                                            
++    syslog(LOG_ERR, "%s: Failed: %s", cli_program, msg);                                                                                                     
++  if (!daemonize)                                                                                                                                            
+   ferr << cli_program << ": Failed: " << msg << endl;
+   exit(e);
+ }
  
  void protocol_succ(const char* msg)
  {
 +  if (use_syslog)
-+    syslog(LOG_ERR, "%s: Failed: %s", cli_program, msg);
++    syslog(LOG_ERR, "%s: Succeeded: %s", cli_program, msg);
 +  if (!daemonize)
    ferr << cli_program << ": Succeeded: " << msg << endl;
    exit(0);
@@ -75,7 +82,7 @@ diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/p
    protocol_prep(&in);
 diff -Nur nullmailer-1.02.orig/src/Makefile.in nullmailer-1.02/src/Makefile.in
 --- nullmailer-1.02.orig/src/Makefile.in	2005-12-07 22:35:01.000000000 +0000
-+++ nullmailer-1.02/src/Makefile.in	2006-01-21 19:42:58.000000000 +0000
++++ nullmailer-1.02/src/Makefile.in	2006-03-30 16:08:55.000000000 +0000
 @@ -63,7 +63,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
@@ -103,7 +110,7 @@ diff -Nur nullmailer-1.02.orig/src/Makefile.in nullmailer-1.02/src/Makefile.in
  all: all-am
 diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
 --- nullmailer-1.02.orig/src/send.cc	2005-11-10 16:11:12.000000000 +0000
-+++ nullmailer-1.02/src/send.cc	2006-01-21 19:42:58.000000000 +0000
++++ nullmailer-1.02/src/send.cc	2006-03-30 16:08:55.000000000 +0000
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
