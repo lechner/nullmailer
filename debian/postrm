@@ -1,32 +1,24 @@
-#!/bin/sh
+#! /bin/sh
 
 set -e
 
-[ "$1" = purge ] || exit 0
+case "$1" in
+       purge)
 
-update-rc.d nullmailer remove > /dev/null
+		rm -f \
+			/etc/nullmailer/defaultdomain \
+			/etc/nullmailer/defaultdomain.dpkg-* \
+			/etc/nullmailer/remotes \
+			/etc/nullmailer/remotes.dpkg-* \
+			/etc/nullmailer/adminaddr \
+			/etc/nullmailer/adminaddr.dpkg-* \
+			/etc/nullmailer/defaulthost \
+			/etc/nullmailer/defaulthost.dpkg-*
 
-rm -f \
-	/etc/nullmailer/defaultdomain \
-	/etc/nullmailer/defaultdomain.dpkg-* \
-	/etc/nullmailer/remotes \
-	/etc/nullmailer/remotes.dpkg-* \
-	/etc/nullmailer/adminaddr \
-	/etc/nullmailer/adminaddr.dpkg-* \
-	/etc/nullmailer/defaulthost \
-	/etc/nullmailer/defaulthost.dpkg-*
-if ! rmdir /etc/nullmailer 2> /dev/null; then
-	echo "Cannot remove /etc/nullmailer, please do it manually." > /dev/tty
-fi
+        ;;
 
-if [ -e /usr/share/debconf/confmodule ]; then
-	. /usr/share/debconf/confmodule
-	db_purge
-fi
+esac
 
-ucf --purge /etc/mailname < /dev/tty
-ucf --purge /etc/nullmailer/defaultdomain < /dev/tty
-ucf --purge /etc/nullmailer/remotes < /dev/tty
-ucf --purge /etc/nullmailer/adminaddr < /dev/tty
+#DEBHELPER#
 
 exit 0

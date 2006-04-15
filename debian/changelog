@@ -1,3 +1,12 @@
+nullmailer (1:1.02-3) unstable; urgency=low
+
+  * Complete rewrite of build-sytem:
+    + Switched to debhelper and dpatch.
+    + Added support for smtp auth via debconf. (closes: #349485)
+    + Removed ucf support. (closes: #333313)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 15 Apr 2006 17:13:20 +0200
+
 nullmailer (1:1.02-2) unstable; urgency=low
 
   * Fixed 05syslog.diff so successfully sent mails are no longer logged as

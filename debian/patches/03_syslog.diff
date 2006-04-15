@@ -1,3 +1,19 @@
+#! /bin/sh -e
+if [ $# -ne 1 ]; then 
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1  
+fi
+case "$1" in 
+    -patch) patch -f --no-backup-if-mismatch -p1 < $0;;
+    -unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+    *)
+        echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+        exit 1;;
+esac
+
+exit 0
+
+@DPATCH@
 diff -Nur nullmailer-1.02.orig/doc/nullmailer-send.8 nullmailer-1.02/doc/nullmailer-send.8
 --- nullmailer-1.02.orig/doc/nullmailer-send.8	2006-03-30 16:08:37.000000000 +0000
 +++ nullmailer-1.02/doc/nullmailer-send.8	2006-03-30 16:08:55.000000000 +0000

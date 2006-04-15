@@ -1,49 +1,52 @@
-#!/bin/sh
+#! /bin/sh
+# postinst script for nullmailer
+#
+# see: dh_installdeb(1)
 
 set -e
-
-[ "$1" = configure ] || exit 0
 
 . /usr/share/debconf/confmodule
 db_version 2.0
 
 umask 022
 
-db_get shared/mailname
-echo "$RET" > /etc/mailname.new
-ucf /etc/mailname.new /etc/mailname < /dev/tty
-rm -f /etc/mailname.new
+case "$1" in
+    configure)
 
-db_get nullmailer/relayhost
-echo "$RET" | tr ':' '\n' > /etc/nullmailer/remotes.new
-ucf /etc/nullmailer/remotes.new /etc/nullmailer/remotes < /dev/tty
-rm -f /etc/nullmailer/remotes.new
+		if [ -x /usr/bin/ucf ]; then
+			ucf --purge /etc/mailname < /dev/tty
+			ucf --purge /etc/nullmailer/defaultdomain < /dev/tty
+			ucf --purge /etc/nullmailer/remotes < /dev/tty
+			ucf --purge /etc/nullmailer/adminaddr < /dev/tty
+		fi
 
-db_get nullmailer/adminaddr
-if [ "$RET" ]; then
-	echo "$RET" > /etc/nullmailer/adminaddr.new
-else
-	echo -n > /etc/nullmailer/adminaddr.new
-fi
-ucf /etc/nullmailer/adminaddr.new /etc/nullmailer/adminaddr < /dev/tty
-rm -f /etc/nullmailer/adminaddr.new
+		db_get shared/mailname
+		echo "$RET" > /etc/mailname
 
-db_stop
+		db_get nullmailer/relayhost
+		echo "$RET" | tr ':' '\n' > /etc/nullmailer/remotes
 
-# for compatibility < 1.00RC5-11
-[ -d /var/lib/nullmailer ] && cp -a /var/lib/nullmailer /var/spool && rm -rf /var/lib/nullmailer || true
+		db_get nullmailer/adminaddr
+		if [ "$RET" ]; then
+        		echo "$RET" > /etc/nullmailer/adminaddr
+		else
+		        echo -n > /etc/nullmailer/adminaddr
+		fi
 
-# sanity checks
-chmod 0755 /var/spool/nullmailer
-chmod 0750 /var/spool/nullmailer/queue
-chmod 0750 /var/spool/nullmailer/tmp
-chown -R mail:root /var/spool/nullmailer
+		db_stop
 
-update-rc.d nullmailer defaults > /dev/null
-if [ -x /usr/sbin/invoke-rc.d ]; then
-	invoke-rc.d nullmailer start
-elif [ -x /etc/init.d/nullmailer ]; then
-	/etc/init.d/nullmailer start
-fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
 
 exit 0

@@ -1,13 +1,19 @@
-#!/bin/sh
+#! /bin/sh
 
 set -e
 
-if [ -x /usr/sbin/invoke-rc.d ]; then
-	invoke-rc.d nullmailer stop
-elif [ -x /etc/init.d/nullmailer ]; then
-	/etc/init.d/nullmailer stop
-fi
+case "$1" in
+    remove|upgrade|deconfigure)
+		rm -f /var/spool/nullmailer/trigger
+        ;;
+    failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
 
-rm -f /var/spool/nullmailer/trigger
+#DEBHELPER#
 
 exit 0

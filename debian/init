@@ -1,62 +1,43 @@
-#!/bin/sh
+#! /bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/nullmailer-send
+NAME=nullmailer
+DESC=mail-transfer-agent
+DAEMON_OPTS=-d
 
-set -e
+test -x $DAEMON || exit 0
 
 . /lib/lsb/init-functions
 
-PATH="/bin:/usr/bin:/sbin:/usr/sbin"
-DAEMON="/usr/sbin/nullmailer-send"
-ARGS="-d"
-
-help () {
-	echo "Usage: /etc/init.d/nullmailer { start | stop | restart | force-reload }" >&2
-}
-
-if [ ! -x "$DAEMON" ]; then
-#	echo "Cannot execute nullmailer: program not found." >&2
-#	exit 5 # LSB: program is not installed
-	exit 0 # Debian policy: exit quietly, see #206928
-fi
-
-if [ "$2" ]; then
-	help
-	exit 2 # LSB: invalid or excess argument(s)
-fi
+set -e
 
 case "$1" in
-start)
-	log_begin_msg "Starting mail-transport-agent: nullmailer..."
-	if [ ! -c /var/spool/nullmailer/trigger ]; then
-		rm -f /var/spool/nullmailer/trigger
-		mkfifo /var/spool/nullmailer/trigger
-	fi
+  start)
+	log_begin_msg "Starting $DESC:" "$NAME"
+    if [ ! -c /var/spool/nullmailer/trigger ]; then                                                                                                        
+            rm -f /var/spool/nullmailer/trigger                                                                                                            
+            mkfifo /var/spool/nullmailer/trigger                                                                                                           
+    fi                                                                                                                                                     
 	chown mail:root /var/spool/nullmailer/trigger
 	chmod 0622 /var/spool/nullmailer/trigger
-	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $ARGS
-	log_end_msg 0
+	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $DAEMON_OPTS
+	log_end_msg $?
 	;;
-stop)
-	log_begin_msg "Stopping mail-transport-agent: nullmailer..."
+  stop)
+	log_begin_msg "Stopping $DESC:" "$NAME"
 	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
-	log_end_msg 0
+	log_end_msg $?
 	;;
-restart|force-reload)
-	log_begin_msg "Restarting mail-transport-agent: nullmailer..."
-	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
-	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" -- $ARGS
-	log_end_msg 0
+  restart|reload|force-reload)
+	$0 stop
+	sleep 1
+	$0 start
 	;;
-reload)
-	help
-	exit 3 # LSB: unimplemented feature
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+	exit 1
 	;;
-status)
-	help
-	exit 4 # LSB: program or service status is unknown
-	;;
-*)
-	help
-	exit 2 # LSB: invalid or excess argument(s)
 esac
 
 exit 0

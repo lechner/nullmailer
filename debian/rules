@@ -1,135 +1,118 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
 
-BUILDDIR = debian/nullmailer
-DEBDIR   = $(BUILDDIR)/DEBIAN
-DOCDIR   = $(BUILDDIR)/usr/share/doc/nullmailer
-MANDIR   = $(BUILDDIR)/usr/share/man
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/dpatch/dpatch.make
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+BUILDDIR = $(CURDIR)/debian/nullmailer
 SPOOLDIR = $(BUILDDIR)/var/spool/nullmailer
-testdir  = test -f src/send.cc -a -f debian/rules
-testroot = test x`whoami` = xroot
 
-# FOR AUTOCONF 2.13 ONLY
-ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
-	CONFFLAGS += $(DEB_HOST_GNU_TYPE)
-else
-	CONFFLAGS += --host $(DEB_BUILD_GNU_TYPE) --build $(DEB_HOST_GNU_TYPE)
-endif
+CFLAGS = -Wall -g
 
-# FOR AUTOCONF 2.52 AND NEWER ONLY
-#ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
-#	CONFFLAGS += --build $(DEB_HOST_GNU_TYPE)
-#else
-#	CONFFLAGS += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
-#endif
-
-CXXFLAGS = -Wall -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CXXFLAGS += -O0
+	CFLAGS += -O0
 else
-	CXXFLAGS += -O2
+	CFLAGS += -O2
 endif
-export CXXFLAGS
 
-clean:
-	$(testdir)
-	rm -f configure-stamp build-stamp
-	-$(MAKE) -i distclean
-	-cat `ls -r debian/patches/*.diff` /dev/null | patch -RENtp1 -r debian/rejected --no-backup-if-mismatch
-	rm -f  debian/files debian/rejected debian/substvars
-	rm -rf debian/nullmailer
-	-test -r /usr/share/misc/config.sub && cp -f /usr/share/misc/config.sub config.sub
-	-test -r /usr/share/misc/config.guess && cp -f /usr/share/misc/config.guess config.guess
+config.status: configure
+	dh_testdir
+	# Add here commands to configure the package.
+	CFLAGS="$(CFLAGS) -Wl,-z,defs" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var/spool
 
-configure-stamp: configure
-	$(testdir)
-	autoconf
-	-cat debian/patches/*.diff | patch -Ntp1 -r debian/rejected --no-backup-if-mismatch
-	./configure $(CONFFLAGS) --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var/spool --mandir=/usr/share/man
-	touch configure-stamp
 
 build: build-stamp
-build-stamp: configure-stamp
-	$(testdir)
+
+build-stamp: patch config.status
+	dh_testdir
+
+	# Add here commands to compile the package.
 	$(MAKE)
+	#docbook-to-man debian/nullmailer.sgml > nullmailer.1
+
 	touch build-stamp
 
-binary: binary-arch
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp 
 
-binary-indep:
-
-binary-arch: build install
-	$(testdir)
-	$(testroot)
-	-rm -rf debian/nullmailer
-
-	$(MAKE) DESTDIR=$(CURDIR)/debian/nullmailer install
-	find $(BUILDDIR) -type d -print0 | xargs -0 chmod 0755
-
-	# installing binaries
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	find $(BUILDDIR)/usr -type f -perm -100 -print0 | xargs -0 strip -R .comment -R .note
+	# Add here commands to clean up after the build process.
+	-$(MAKE) distclean
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
 endif
-	chown mail $(BUILDDIR)/usr/sbin/nullmailer-queue
-	chmod 4755 $(BUILDDIR)/usr/sbin/nullmailer-queue
-	chown mail $(BUILDDIR)/usr/bin/mailq
-	chmod 4755 $(BUILDDIR)/usr/bin/mailq
-	ln -s ../sbin/sendmail $(BUILDDIR)/usr/lib/sendmail
-	chown root:root $(BUILDDIR)/usr/lib/sendmail
-	ln -s /bin/true $(BUILDDIR)/usr/bin/newaliases
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
 
-	# installing spool directories
+
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	# Add here commands to install the package into debian/nullmailer.
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/nullmailer
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs ChangeLog
+	dh_installdocs
+	dh_installexamples
+	dh_install
+#	dh_installmenu
+	dh_installdebconf	
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+	dh_installinit
+#	dh_installcron
+#	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+
+	chown mail $(BUILDDIR)/usr/sbin/nullmailer-queue $(BUILDDIR)/usr/bin/mailq
+	chmod 4755 $(BUILDDIR)/usr/sbin/nullmailer-queue $(BUILDDIR)/usr/bin/mailq
+
 	chown -R mail:root $(SPOOLDIR)
-	chmod 0750 $(SPOOLDIR)/queue
-	chmod 0750 $(SPOOLDIR)/tmp
-	rm -f $(BUILDDIR)/var/spool/nullmailer/trigger
+	chmod 0755 $(SPOOLDIR)
+	chmod 0750 $(SPOOLDIR)/queue $(SPOOLDIR)/tmp
+	rm -f $(SPOOLDIR)/trigger
 
-	# installing shared files
-	install -D -o root -g root -m 0644 debian/linda    $(BUILDDIR)/usr/share/linda/overrides/nullmailer
-	install -D -o root -g root -m 0644 debian/lintian  $(BUILDDIR)/usr/share/lintian/overrides/nullmailer
-	install -D -o root -g root -m 0644 debian/logcheck $(BUILDDIR)/etc/logcheck/ignore.d.paranoid/nullmailer
-	install -D -o root -g root -m 0644 debian/logcheck $(BUILDDIR)/etc/logcheck/ignore.d.server/nullmailer
-	install -D -o root -g root -m 0644 debian/logcheck $(BUILDDIR)/etc/logcheck/ignore.d.workstation/nullmailer
+#	dh_perl
+#	dh_python
+#	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
 
-	# installing manuals
-	install -o root -g root -m 0644 debian/newaliases.1 $(MANDIR)/man1
-	find $(MANDIR) -type f -print0 | xargs -0 gzip -9
-	install -d -o root -g root -m 0755 $(MANDIR)/man5
-	ln -s ../man8/nullmailer-queue.8.gz  $(MANDIR)/man5/adminaddr.5.gz
-	ln -s ../man1/nullmailer-inject.1.gz $(MANDIR)/man5/defaultdomain.5.gz
-	ln -s ../man1/nullmailer-inject.1.gz $(MANDIR)/man5/defaulthost.5.gz
-	ln -s ../man1/nullmailer-inject.1.gz $(MANDIR)/man5/idhost.5.gz
-	ln -s ../man8/nullmailer-send.8.gz   $(MANDIR)/man5/pausetime.5.gz
-	ln -s ../man8/nullmailer-send.8.gz   $(MANDIR)/man5/remotes.5.gz
-	ln -s ../man7/nullmailer.7.gz        $(MANDIR)/man1/mailq.1.gz
-
-	# installing documentation
-	install -d -o root -g root -m 0755 $(DOCDIR)
-	install    -o root -g root -m 0644 BUGS NEWS README TODO debian/copyright debian/README.Debian $(DOCDIR)
-	install -D -o root -g root -m 0644 ChangeLog $(DOCDIR)/changelog
-	install -D -o root -g root -m 0644 debian/changelog $(DOCDIR)/changelog.Debian
-#	install -D -o root -g root -m 0644 debian/NEWS $(DOCDIR)/NEWS.Debian
-	find $(DOCDIR) -type f \( -size +8 -o -name 'changelog*' -o -name NEWS.Debian \) -print0 | xargs -0 gzip -9
-
-	# installing config files
-	install -D -m 0755 debian/init $(BUILDDIR)/etc/init.d/nullmailer
-
-	# installing packaging information
-	install -o root -g root -d $(DEBDIR)
-	install -o root -g root -m 0755 debian/config   $(DEBDIR)
-	install -o root -g root -m 0644 debian/control  $(DEBDIR)
-	install -o root -g root -m 0755 debian/preinst  $(DEBDIR)
-	install -o root -g root -m 0755 debian/postinst $(DEBDIR)
-	install -o root -g root -m 0755 debian/prerm    $(DEBDIR)
-	install -o root -g root -m 0755 debian/postrm   $(DEBDIR)
-	cd $(BUILDDIR) && find usr -type f -print0 | xargs -0 md5sum > DEBIAN/md5sums
-	cd $(BUILDDIR) && find ./etc -type f | cut -c 2- > DEBIAN/conffiles
-	po2debconf debian/templates > $(DEBDIR)/templates
-	chmod 0644 $(DEBDIR)/md5sums $(DEBDIR)/conffiles $(DEBDIR)/templates
-
-	# building Debian package
-	find $(BUILDDIR)/usr -type f -perm -100 -print0 | xargs -0 dpkg-shlibdeps
-	dpkg-gencontrol -isp -pnullmailer -P$(BUILDDIR)
-	dpkg --build $(BUILDDIR) ..
-	# binary target finished
-
-.PHONY: clean build install binary binary-indep binary-arch
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install unpatch
