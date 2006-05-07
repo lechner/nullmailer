@@ -3,7 +3,7 @@ Section: mail
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
 Build-Depends: debhelper, po-debconf, autotools-dev, dpatch
-Standards-Version: 3.6.2
+Standards-Version: 3.7.2.0
 
 Package: nullmailer
 Architecture: any

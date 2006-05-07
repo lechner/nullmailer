@@ -16,7 +16,7 @@ _Description: Please specify your smarthosts:
  .
    smarthost
    smarthost smtp --port=10025
-   smarthost:mx.domain:192.168.1.1
+   smarthost smtp --user=foo --pass=bar
 
 Template: nullmailer/adminaddr
 Type: string
