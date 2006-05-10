@@ -6,18 +6,28 @@ set -e
 db_version 2.0
 db_capb backup
 
-db_get shared/mailname
-if [ -z "$RET" ]; then
-	if [ -e /etc/mailname ]; then
-		db_set shared/mailname "`cat /etc/mailname`"
-	else
+if [ -e /etc/mailname ]; then
+	db_set shared/mailname "`cat /etc/mailname`"
+else
+	db_get shared/mailname
+	if [ -z "$RET" ]; then
 		db_set shared/mailname "`hostname --fqdn`"
 	fi
 fi
 
-db_get nullmailer/relayhost
-if [ -z "$RET" ]; then
-	db_set nullmailer/relayhost "mail.`hostname --domain`"
+if [ -e /etc/nullmailer/remotes ]; then
+	db_set nullmailer/relayhost "`cat /etc/nullmailer/remotes`"
+else
+	db_get nullmailer/relayhost
+	if [ -z "$RET" ]; then
+		db_set nullmailer/relayhost "mail.`hostname --domain`"
+	fi
+fi
+
+if [ -e /etc/nullmailer/adminaddr ]; then
+	db_set nullmailer/adminaddr "`cat /etc/nullmailer/adminaddr`"
+else
+	db_get nullmailer/adminaddr
 fi
 
 state=1
