@@ -15,7 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer 1.00RC7-21\n"
-"POT-Creation-Date: 2003-06-28 20:49+0200\n"
+"Report-Msgid-Bugs-To: nobse@debian.org\n"
+"POT-Creation-Date: 2006-05-13 23:14-0500\n"
 "PO-Revision-Date: 2004-01-12 22:02+0900\n"
 "Last-Translator: Hideki Yamane <henrich@samba.gr.jp>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -23,25 +24,30 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: string
 #. Description
 #: ../templates:3
-msgid "Please enter the mail name of your system:"
+#, fuzzy
+msgid "Mailname of your system:"
 msgstr "システムのメール名を入力してください:"
 
+#. Type: string
 #. Description
 #: ../templates:3
 msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"これは nullmailer を動作させているホストの完全修飾ドメイン名です。"
-"標準では リテラル名 'me' になります。"
+"これは nullmailer を動作させているホストの完全修飾ドメイン名です。標準では リ"
+"テラル名 'me' になります。"
 
+#. Type: string
 #. Description
 #: ../templates:9
-msgid "Please specify your smarthosts:"
-msgstr "smarthost を定義してください: "
+msgid "Smarthosts:"
+msgstr ""
 
+#. Type: string
 #. Description
 #: ../templates:9
 msgid ""
@@ -50,33 +56,39 @@ msgid ""
 "optional protocol string 'host protocol'. The protocol name defaults to "
 "smtp, and may be followed by command-line arguments for that module."
 msgstr ""
-"これはメッセージを送る先のリモートサーバ名をコロンで区切ったリストです。"
-"それぞれのエントリは、オプションのプロトコル文字列 'host protocol' "
-"に続けてリモートホスト名かアドレスを含みます。"
-"プロトコル名は標準では smtp で、引数指定が続きます。"
+"これはメッセージを送る先のリモートサーバ名をコロンで区切ったリストです。それ"
+"ぞれのエントリは、オプションのプロトコル文字列 'host protocol' に続けてリモー"
+"トホスト名かアドレスを含みます。プロトコル名は標準では smtp で、引数指定が続"
+"きます。"
 
-
+#. Type: string
 #. Description
 #: ../templates:9
 msgid "Examples:"
 msgstr "例: "
 
+#. Type: string
 #. Description
 #: ../templates:9
+#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
-"  smarthost:mx.domain:192.168.1.1"
+"  smarthost smtp --user=foo --pass=bar"
 msgstr ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
 "  smarthost:mx.domain:192.168.1.1"
 
+#. Type: string
 #. Description
 #: ../templates:23
-msgid "To which address shall nullmailer send local emails (optional)?"
-msgstr "nullmailer はどのアドレスにローカルのメールを送りますか? (オプションです)"
+#, fuzzy
+msgid "Where to send local emails (optional):"
+msgstr ""
+"nullmailer はどのアドレスにローカルのメールを送りますか? (オプションです)"
 
+#. Type: string
 #. Description
 #: ../templates:23
 msgid ""
@@ -86,8 +98,11 @@ msgid ""
 "'somebody@localhost' and have it go somewhere sensible instead of being "
 "bounced by your relay host."
 msgstr ""
-"この値が空で無い場合、'localhost' (リテラル文字列)、または"
-"正規のホスト名 (/etc/mailname から取得されます) のユーザ宛のメールは全て"
-"このアドレスに書き換えられます。"
-"これはローカルのデーモンに対して 'somebody@localhost' へのメールを送信可能にし、"
-"あなたが指定したリレーホストへバウンスするのではなく、別のどこかへ送ります。"
+"この値が空で無い場合、'localhost' (リテラル文字列)、または正規のホスト名 (/"
+"etc/mailname から取得されます) のユーザ宛のメールは全てこのアドレスに書き換え"
+"られます。これはローカルのデーモンに対して 'somebody@localhost' へのメールを"
+"送信可能にし、あなたが指定したリレーホストへバウンスするのではなく、別のどこ"
+"かへ送ります。"
+
+#~ msgid "Please specify your smarthosts:"
+#~ msgstr "smarthost を定義してください: "

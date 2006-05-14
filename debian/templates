@@ -1,12 +1,12 @@
 Template: shared/mailname
 Type: string
-_Description: Please enter the mail name of your system:
+_Description: Mailname of your system:
  This is the fully-qualified host name of the computer running nullmailer.
  It defaults to the literal name 'me'.
 
 Template: nullmailer/relayhost
 Type: string
-_Description: Please specify your smarthosts:
+_Description: Smarthosts:
  This is a colon-separated list of remote servers to which to send each
  message. Each entry contains a remote host name or address followed by
  an optional protocol string 'host protocol'. The protocol name defaults
@@ -20,7 +20,7 @@ _Description: Please specify your smarthosts:
 
 Template: nullmailer/adminaddr
 Type: string
-_Description: To which address shall nullmailer send local emails (optional)?
+_Description: Where to send local emails (optional):
  If not empty, all recipients to users at either 'localhost' (the literal
  string) or the canonical host name (from /etc/mailname) are remapped to
  this address. This is provided to allow local daemons to be able to send

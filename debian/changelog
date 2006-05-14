@@ -1,3 +1,9 @@
+nullmailer (1:1.02-6) unstable; urgency=low
+
+  * Launch debconf-updatepo in debian/rules. (closes: #366686)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sat, 13 May 2006 23:05:32 -0500
+
 nullmailer (1:1.02-5) unstable; urgency=medium
 
   * Preserve administrator settings when debconf is used. (closes: #366296)
