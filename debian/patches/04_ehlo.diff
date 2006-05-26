@@ -1,0 +1,39 @@
+#! /bin/sh -e
+if [ $# -ne 1 ]; then 
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1  
+fi
+case "$1" in 
+    -patch) patch -f --no-backup-if-mismatch -p1 < $0;;
+    -unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+    *)
+        echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+        exit 1;;
+esac
+
+exit 0
+
+@DPATCH@
+--- nullmailer-1.02/protocols/smtp.cc.bak	2006-05-15 23:28:09.000000000 -0500
++++ nullmailer-1.02/protocols/smtp.cc	2006-05-15 23:29:14.000000000 -0500
+@@ -143,10 +143,10 @@
+   if (!hh) protocol_fail(1, "$HELOHOST is not set");
+   smtp conn(fd);
+   conn.docmd("", 200);
+-  conn.docmd("HELO " + hh, 200);
+ 
+   if (user != 0 && pass != 0)
+   {
++    conn.docmd("EHLO " + hh, 200);
+     mystring plain(user);
+     plain += '\0';
+     plain += user;
+@@ -155,6 +155,8 @@
+     mystring encoded = "AUTH PLAIN ";
+     base64_encode(plain, encoded);
+     conn.docmd(encoded, 200);
++  } else {
++    conn.docmd("HELO " + hh, 200);
+   }
+ 
+   conn.send(in);

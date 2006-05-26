@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer 1.00RC7-6\n"
 "Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2006-05-13 23:14-0500\n"
-"PO-Revision-Date: 2003-06-14 21:54+0200\n"
+"POT-Creation-Date: 2006-05-26 19:16+0200\n"
+"PO-Revision-Date: 2006-05-13 21:16+0200\n"
 "Last-Translator: Philippe Batailler <philippe.batailler@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,8 +37,9 @@ msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"C'est le nom pleinement qualifié de la machine faisant fonctionner "
-"nullmailer. Par défaut, ce sera le nom « me » (moi, en anglais:-)."
+"Le nom de courrier du système est le nom complètement qualifié de la machine "
+"faisant fonctionner nullmailer. Par défaut, ce sera le nom « me » (moi, en "
+"anglais:-)."
 
 #. Type: string
 #. Description
@@ -55,11 +56,11 @@ msgid ""
 "optional protocol string 'host protocol'. The protocol name defaults to "
 "smtp, and may be followed by command-line arguments for that module."
 msgstr ""
-"C'est une liste de serveurs distants, séparés par des deux-points. Chaque "
-"entrée contient le nom d'un serveur distant où envoyer le courrier, ou bien "
-"une adresse suivie d'une chaîne facultative indiquant un protocole, « host "
-"protocol ». Par défaut, le protocole est smtp et il peut être suivi par des "
-"arguments de ligne de commande pour ce module."
+"Vous pouvez indiquer une liste de serveurs distants, séparés par des deux-"
+"points. Chaque entrée contient le nom d'un serveur distant où envoyer le "
+"courrier, ou bien une adresse suivie d'une chaîne facultative indiquant un "
+"protocole, « host protocol ». Par défaut, le protocole est smtp et il peut "
+"être suivi par des arguments de ligne de commande pour ce module."
 
 #. Type: string
 #. Description
@@ -70,7 +71,6 @@ msgstr "Exemples :"
 #. Type: string
 #. Description
 #: ../templates:9
-#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
@@ -78,7 +78,7 @@ msgid ""
 msgstr ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
-"  smarthost:mx.domain:192.168.1.1"
+"  smarthost smtp --user=foo --pass=bar"
 
 #. Type: string
 #. Description
@@ -99,10 +99,9 @@ msgid ""
 msgstr ""
 "Si cette adresse est donnée, tous les destinataires appartenant à la machine "
 "dont le nom est soit « localhost » soit le nom de courrier (donné par /etc/"
-"mailname) sont associés à cette adresse. Cette adresse permet que les démons "
-"locaux puissent envoyer des courriers à une adresse sensée, comme "
-"« moi@localhost », tout en évitant que le courrier ne soit renvoyé par la "
-"machine relais."
+"mailname) sont associés à cette adresse. Les démons locaux peuvent ainsi "
+"envoyer des courriers à une adresse sensée, comme « moi@localhost », tout en "
+"évitant que le courrier ne soit renvoyé par la machine relais."
 
 #~ msgid "Please specify your smarthosts:"
 #~ msgstr "Veuillez indiquer vos « smarthosts » (machines relais) :"

@@ -1,3 +1,13 @@
+nullmailer (1:1.02-7) unstable; urgency=low
+
+  * Updated french debconf translation from Philippe Batailler.
+    (closes: #366750)
+  * Added a new patch to use EHLO instead HELO when using SMTP AUTH.
+    (closes: #366685)
+  * Removed outdated informations about backports from README.Debian.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Fri, 26 May 2006 14:07:24 +0200
+
 nullmailer (1:1.02-6) unstable; urgency=low
 
   * Launch debconf-updatepo in debian/rules. (closes: #366686)
@@ -22,7 +32,7 @@ nullmailer (1:1.02-3) unstable; urgency=low
   * Complete rewrite of build-sytem:
     + Switched to debhelper and dpatch.
     + Added support for smtp auth via debconf. (closes: #349485)
-    + Removed ucf support. (closes: #333313)
+    + Removed ucf support. (closes: #311621, #333313)
 
  -- Norbert Tretkowski <nobse@debian.org>  Sat, 15 Apr 2006 17:13:20 +0200
 

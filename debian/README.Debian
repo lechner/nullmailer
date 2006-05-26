@@ -45,12 +45,4 @@ debian-user[-<language>]@lists.debian.org or nullmailer@packages.debian.org
 instead.
 
 
-+---------------------------+
-| nullmailer for woody      |
-+---------------------------+
-
-Backports are available at
-http://alioth.debian.org/project/showfiles.php?group_id=68.
-
-
- -- Martin A. Godisch <godisch@debian.org>  Thu, 29 May 2003 08:56:15 +0200
+ -- Norbert Tretkowski <nobse@debian.org>  Tue, 16 May 2006 00:45:46 -0500
