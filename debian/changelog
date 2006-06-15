@@ -1,3 +1,16 @@
+nullmailer (1:1.02-8) unstable; urgency=low
+
+  * Fixed links to manpages. (closes: #373104)
+  * Readded autoconf and automake1.9 build-depencencies to fix IPv6 support
+    again. (closes: #369743)
+  * Added patch from Marc Herbert to fix autoconf/automake madness.
+    (closes: #373267)
+  * Removed ucf handling from postinst. (closes: #369568)
+  * Updated french debconf translation from Philippe Batailler.
+    (closes: #366750)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Thu, 15 Jun 2006 23:32:48 +0200
+
 nullmailer (1:1.02-7) unstable; urgency=low
 
   * Updated french debconf translation from Philippe Batailler.

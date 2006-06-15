@@ -14,9 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer 1.00RC7-6\n"
-"Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2006-05-26 19:16+0200\n"
-"PO-Revision-Date: 2006-05-13 21:16+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-06-15 23:41+0200\n"
+"PO-Revision-Date: 2006-06-05 08:15+0200\n"
 "Last-Translator: Philippe Batailler <philippe.batailler@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,8 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:3
-#, fuzzy
 msgid "Mailname of your system:"
-msgstr "Veuillez indiquer le nom de courrier de votre système :"
+msgstr "Nom de courrier de votre système :"
 
 #. Type: string
 #. Description
@@ -45,7 +44,7 @@ msgstr ""
 #. Description
 #: ../templates:9
 msgid "Smarthosts:"
-msgstr ""
+msgstr "Machines relais :"
 
 #. Type: string
 #. Description
@@ -83,13 +82,13 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:23
-#, fuzzy
 msgid "Where to send local emails (optional):"
-msgstr "À quelle adresse nullmailer enverra-t-il les courriers locaux ?"
+msgstr "Adresse où envoyer les courriers locaux (facultatif) :"
 
 #. Type: string
 #. Description
 #: ../templates:23
+#, fuzzy
 msgid ""
 "If not empty, all recipients to users at either 'localhost' (the literal "
 "string) or the canonical host name (from /etc/mailname) are remapped to this "
@@ -100,8 +99,8 @@ msgstr ""
 "Si cette adresse est donnée, tous les destinataires appartenant à la machine "
 "dont le nom est soit « localhost » soit le nom de courrier (donné par /etc/"
 "mailname) sont associés à cette adresse. Les démons locaux peuvent ainsi "
-"envoyer des courriers à une adresse sensée, comme « moi@localhost », tout en "
-"évitant que le courrier ne soit renvoyé par la machine relais."
+"envoyer des courriers à une adresse sensée, comme « moi@localhost ». Cela "
+"évite que le courrier soit renvoyé par la machine relais."
 
 #~ msgid "Please specify your smarthosts:"
 #~ msgstr "Veuillez indiquer vos « smarthosts » (machines relais) :"

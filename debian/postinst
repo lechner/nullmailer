@@ -13,13 +13,6 @@ umask 022
 case "$1" in
     configure)
 
-		if [ -x /usr/bin/ucf ]; then
-			ucf --purge /etc/mailname < /dev/tty
-			ucf --purge /etc/nullmailer/defaultdomain < /dev/tty
-			ucf --purge /etc/nullmailer/remotes < /dev/tty
-			ucf --purge /etc/nullmailer/adminaddr < /dev/tty
-		fi
-
 		db_get shared/mailname
 		echo "$RET" > /etc/mailname
 

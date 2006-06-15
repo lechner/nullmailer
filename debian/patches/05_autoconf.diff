@@ -1,0 +1,28 @@
+#! /bin/sh -e
+if [ $# -ne 1 ]; then 
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1  
+fi
+case "$1" in 
+    -patch) patch -f --no-backup-if-mismatch -p1 < $0;;
+    -unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+    *)
+        echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+        exit 1;;
+esac
+
+exit 0
+
+@DPATCH@
+diff -Nur nullmailer-1.02.orig/Makefile.in nullmailer-1.02/Makefile.in
+--- nullmailer-1.02.orig/Makefile.in	2005-12-07 23:35:01.000000000 +0100
++++ nullmailer-1.02/Makefile.in	2006-06-15 23:35:40.000000000 +0200
+@@ -161,7 +161,7 @@
+ .SUFFIXES:
+ am--refresh:
+ 	@:
+-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
++$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+ 	    *$$dep*) \
