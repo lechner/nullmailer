@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2005  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2006  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -100,6 +100,8 @@ void smtp::docmd(mystring cmd, int range, bool show_succ)
       e = ERR_MSG_TEMPFAIL;
     else
       e = ERR_PROTO;
+    out << "QUIT\r\n";
+    out.flush();
     protocol_fail(e, msg.c_str());
   }
   else if(show_succ)
@@ -143,19 +145,30 @@ void protocol_send(fdibuf* in, int fd)
   if (!hh) protocol_fail(1, "$HELOHOST is not set");
   smtp conn(fd);
   conn.docmd("", 200);
-  conn.docmd("HELO " + hh, 200);
 
-  if (user != 0 && pass != 0)
-  {
-    mystring plain(user);
-    plain += '\0';
-    plain += user;
-    plain += '\0';
-    plain += pass;
-    mystring encoded = "AUTH PLAIN ";
-    base64_encode(plain, encoded);
-    conn.docmd(encoded, 200);
+  if (user != 0 && pass != 0) {
+    conn.docmd("EHLO " + hh, 200);
+    if (auth_method == AUTH_LOGIN) {
+      mystring encoded;
+      base64_encode(user, encoded);
+      conn.docmd("AUTH LOGIN " + encoded, 300);
+      encoded = "";
+      base64_encode(pass, encoded);
+      conn.docmd(encoded, 200);
+    }
+    else {
+      mystring plain(user);
+      plain += '\0';
+      plain += user;
+      plain += '\0';
+      plain += pass;
+      mystring encoded = "AUTH PLAIN ";
+      base64_encode(plain, encoded);
+      conn.docmd(encoded, 200);
+    }
   }
+  else
+    conn.docmd("HELO " + hh, 200);
 
   conn.send(in);
 }

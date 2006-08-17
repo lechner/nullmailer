@@ -1,5 +1,26 @@
 This file lists all the major user-visible changes to nullmailer.
 -------------------------------------------------------------------------------
+Changes in version 1.03
+
+- Fixed the SMTP protocol module to send QUIT on protocol failures.
+
+- Added support for the SMTP AUTH LOGIN method.  Thanks to Sean
+  MacLennan for the suggestion.
+
+- Fixed the SMTP protocol module to send EHLO instead of HELO when doing
+  authentication.  Thanks to Norbert Tretkowski for pointing this out.
+
+- Fixed compile breakage on Solaris due to use of setenv.
+
+- Fixed netstring length bug in QMQP sending module.
+
+- If the sender name cannot be determined from the environment
+  variables, try to pull it from /etc/passwd before using "unknown".
+  Thanks Roderick Schertler.
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
+-------------------------------------------------------------------------------
 Changes in version 1.02
 
 - Fixed bug in SMTP AUTH that would cause SMTP sending to crash with a

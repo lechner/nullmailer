@@ -17,6 +17,8 @@
 #ifndef FDBUF__FDOBUF__H__
 #define FDBUF__FDOBUF__H__
 
+#include <unistd.h>
+
 class fdobuf : protected fdbuf
 {
 public:

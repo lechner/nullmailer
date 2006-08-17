@@ -14,9 +14,9 @@ esac
 exit 0
 
 @DPATCH@
-diff -Nur nullmailer-1.02.orig/doc/nullmailer-send.8 nullmailer-1.02/doc/nullmailer-send.8
---- nullmailer-1.02.orig/doc/nullmailer-send.8	2006-03-30 16:08:37.000000000 +0000
-+++ nullmailer-1.02/doc/nullmailer-send.8	2006-03-30 16:08:55.000000000 +0000
+diff -Nur nullmailer-1.03.orig/doc/nullmailer-send.8 nullmailer-1.03/doc/nullmailer-send.8
+--- nullmailer-1.03.orig/doc/nullmailer-send.8	2006-08-17 23:32:15.000000000 +0200
++++ nullmailer-1.03/doc/nullmailer-send.8	2006-08-17 23:33:09.000000000 +0200
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -41,9 +41,9 @@ diff -Nur nullmailer-1.02.orig/doc/nullmailer-send.8 nullmailer-1.02/doc/nullmai
  .SH CONTROL FILES
  All the control files are reread each time the queue is run.
  .TP
-diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/protocol.cc
---- nullmailer-1.02.orig/protocols/protocol.cc	2005-11-10 16:11:12.000000000 +0000
-+++ nullmailer-1.02/protocols/protocol.cc	2006-03-30 16:10:03.000000000 +0000
+diff -Nur nullmailer-1.03.orig/protocols/protocol.cc nullmailer-1.03/protocols/protocol.cc
+--- nullmailer-1.03.orig/protocols/protocol.cc	2006-06-23 00:53:13.000000000 +0200
++++ nullmailer-1.03/protocols/protocol.cc	2006-08-17 23:34:36.000000000 +0200
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -59,31 +59,35 @@ diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/p
 +
  const char* user = 0;
  const char* pass = 0;
- const char* cli_help_suffix = "";
-@@ -40,23 +44,35 @@
+ int auth_method = AUTH_PLAIN;
+@@ -41,6 +45,8 @@
      "Set the user name for authentication", 0 },
    { 0, "pass", cli_option::string, 0, &pass,
      "Set the password for authentication", 0 },
 +  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "use syslog exclusively ", 0 },
 +  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog additionally", 0 },
+   { 0, "auth-login", cli_option::flag, AUTH_LOGIN, &auth_method,
+     "Use AUTH LOGIN instead of AUTH PLAIN in SMTP", 0 },
    {0, 0, cli_option::flag, 0, 0, 0, 0}
- };
+@@ -48,18 +54,28 @@
  
  void protocol_fail(int e, const char* msg)
  {
-+  if (use_syslog)                                                                                                                                            
-+    syslog(LOG_ERR, "%s: Failed: %s", cli_program, msg);                                                                                                     
-+  if (!daemonize)                                                                                                                                            
-   ferr << cli_program << ": Failed: " << msg << endl;
+-  ferr << cli_program << ": Failed: " << msg << endl;
++  if (use_syslog)
++    syslog(LOG_ERR, "%s: Failed: %s", cli_program, msg);
++  if (!daemonize)
++    ferr << cli_program << ": Failed: " << msg << endl;
    exit(e);
  }
  
  void protocol_succ(const char* msg)
  {
+-  ferr << cli_program << ": Succeeded: " << msg << endl;
 +  if (use_syslog)
 +    syslog(LOG_ERR, "%s: Succeeded: %s", cli_program, msg);
 +  if (!daemonize)
-   ferr << cli_program << ": Succeeded: " << msg << endl;
++    ferr << cli_program << ": Succeeded: " << msg << endl;
    exit(0);
  }
  
@@ -96,9 +100,9 @@ diff -Nur nullmailer-1.02.orig/protocols/protocol.cc nullmailer-1.02/protocols/p
    const char* remote = argv[0];
    fdibuf in(0, true);
    protocol_prep(&in);
-diff -Nur nullmailer-1.02.orig/src/Makefile.in nullmailer-1.02/src/Makefile.in
---- nullmailer-1.02.orig/src/Makefile.in	2005-12-07 22:35:01.000000000 +0000
-+++ nullmailer-1.02/src/Makefile.in	2006-03-30 16:08:55.000000000 +0000
+diff -Nur nullmailer-1.03.orig/src/Makefile.in nullmailer-1.03/src/Makefile.in
+--- nullmailer-1.03.orig/src/Makefile.in	2006-06-22 19:03:56.000000000 +0200
++++ nullmailer-1.03/src/Makefile.in	2006-08-17 23:35:41.000000000 +0200
 @@ -63,7 +63,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
@@ -124,9 +128,9 @@ diff -Nur nullmailer-1.02.orig/src/Makefile.in nullmailer-1.02/src/Makefile.in
  sendmail_SOURCES = sendmail.cc
  sendmail_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
  all: all-am
-diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
---- nullmailer-1.02.orig/src/send.cc	2005-11-10 16:11:12.000000000 +0000
-+++ nullmailer-1.02/src/send.cc	2006-03-30 16:08:55.000000000 +0000
+diff -Nur nullmailer-1.03.orig/src/send.cc nullmailer-1.03/src/send.cc
+--- nullmailer-1.03.orig/src/send.cc	2006-06-22 22:18:39.000000000 +0200
++++ nullmailer-1.03/src/send.cc	2006-08-17 23:43:55.000000000 +0200
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
@@ -135,10 +139,10 @@ diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
  #include <sys/types.h>
  #include <sys/wait.h>
  #include <unistd.h>
-@@ -38,11 +39,27 @@
- #include "hostname.h"
+@@ -39,11 +40,27 @@
  #include "itoa.h"
  #include "list.h"
+ #include "setenv.h"
 +#include "cli++/cli++.h"
  
  typedef list<mystring> slist;
@@ -165,26 +169,28 @@ diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
  
  struct remote
  {
-@@ -141,6 +158,9 @@
+@@ -142,7 +159,10 @@
  bool load_files()
  {
    reload_files = false;
+-  fout << "Rescanning queue." << endl;
 +  if (use_syslog)
 +    syslog(LOG_INFO, "Rescanning queue.");
 +  if (!daemonize)
-   fout << "Rescanning queue." << endl;
++    fout << "Rescanning queue." << endl;
    DIR* dir = opendir(".");
    if(!dir)
-@@ -159,12 +179,19 @@
+     fail_sys("Cannot open queue directory: ");
+@@ -160,12 +180,19 @@
  
  void exec_protocol(int fd, remote& remote)
  {
 -  if(close(0) == -1 || dup2(fd, 0) == -1 || close(fd) == -1)
 +  if (!daemonize && close(STDIN_FILENO) < 0)
-+    return;
+     return;
 +  if (fd != STDIN_FILENO)
 +    if (dup2(fd, STDIN_FILENO) < 0 || close(fd) < 0)
-     return;
++      return;
    mystring program = PROTOCOL_DIR + remote.proto;
 -  const char* args[3+remote.options.count()];
 +  const char* args[5+remote.options.count()];
@@ -197,7 +203,7 @@ diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
    for(slist::const_iter opt(remote.options); opt; opt++)
      args[i++] = strdup((*opt).c_str());
    args[i++] = remote.host.c_str();
-@@ -173,8 +200,8 @@
+@@ -174,8 +201,8 @@
  }
  
  #undef fail
@@ -208,64 +214,75 @@ diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
  
  bool catchsender(pid_t pid)
  {
-@@ -187,6 +214,9 @@
+@@ -188,7 +215,10 @@
        if(status)
  	fail2("Sending failed: ", errorstr[status]);
        else {
-+	if (use_syslog)
-+	  syslog(LOG_INFO, "Sent file.");
-+	if (!daemonize)
- 	fout << "Sent file." << endl;
+-	fout << "Sent file." << endl;
++       if (use_syslog)
++         syslog(LOG_INFO, "Sent file.");
++       if (!daemonize)
++	     fout << "Sent file." << endl;
  	return true;
        }
-@@ -200,9 +230,16 @@
+     }
+@@ -201,10 +231,17 @@
  {
    int fd = open(filename.c_str(), O_RDONLY);
    if(fd == -1) {
+-    fout << "Can't open file '" << filename << "'" << endl;
 +    if (use_syslog)
 +      syslog(LOG_ERR, "Can't open file '%s'", filename.c_str());
 +    if (!daemonize)
-     fout << "Can't open file '" << filename << "'" << endl;
++      fout << "Can't open file '" << filename << "'" << endl;
      return false;
    }
+-  fout << "Starting delivery: protocol: " << remote.proto
 +  if (use_syslog)
 +    syslog(LOG_INFO, "Starting delivery: protocol: %s host: %s file: %s",
 +      remote.proto.c_str(), remote.host.c_str(), filename.c_str());
 +  if (!daemonize)
-   fout << "Starting delivery: protocol: " << remote.proto
++    fout << "Starting delivery: protocol: " << remote.proto
         << " host: " << remote.host
         << " file: " << filename << endl;
-@@ -231,6 +268,9 @@
+   pid_t pid = fork();
+@@ -232,7 +269,10 @@
      fail("No remote hosts listed for delivery");
    if(files.count() == 0)
      return true;
+-  fout << "Starting delivery, "
 +  if (use_syslog)
 +    syslog(LOG_INFO, "Starting delivery, %d message(s) in queue.", files.count());
 +  if (!daemonize)
-   fout << "Starting delivery, "
++    fout << "Starting delivery, "
         << itoa(files.count()) << " message(s) in queue." << endl;
    for(rlist::iter remote(remotes); remote; remote++) {
-@@ -242,6 +282,9 @@
+     slist::iter file(files);
+@@ -243,7 +283,10 @@
  	file++;
      }
    }
+-  fout << "Delivery complete, "
 +  if (use_syslog)
 +    syslog(LOG_INFO, "Delivery complete, %d message(s) remain.", files.count());
 +  if (!daemonize)
-   fout << "Delivery complete, "
++    fout << "Delivery complete, "
         << itoa(files.count()) << " message(s) remain." << endl;
    return true;
-@@ -287,6 +330,9 @@
+ }
+@@ -288,7 +331,10 @@
    int s = select(trigger+1, &readfds, 0, 0,
  		 (files.count() == 0) ? 0 : &timeout);
    if(s == 1) {
+-    fout << "Trigger pulled." << endl;
 +    if (use_syslog)
 +      syslog(LOG_INFO, "Trigger pulled.");
 +    if (!daemonize)
-     fout << "Trigger pulled." << endl;
++      fout << "Trigger pulled." << endl;
      read_trigger();
      reload_files = true;
-@@ -300,21 +346,46 @@
+   }
+@@ -301,21 +347,47 @@
    return true;
  }
  
@@ -293,7 +310,7 @@ diff -Nur nullmailer-1.02.orig/src/send.cc nullmailer-1.02/src/send.cc
      return 1;
 +  }
    if(chdir(QUEUE_MSG_DIR) == -1) {
--    fout << "Could not chdir to queue message directory." << endl;
+     fout << "Could not chdir to queue message directory." << endl;
 +    if (use_syslog)
 +      syslog(LOG_CRIT, "Could not chdir to queue message directory.");
 +    if (!daemonize)

@@ -1,5 +1,4 @@
 01_manual.diff
 02_ipv6.diff
 03_syslog.diff
-04_ehlo.diff
-05_autoconf.diff
+04_autoconf.diff

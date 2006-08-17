@@ -1,3 +1,13 @@
+nullmailer (1:1.03-1) unstable; urgency=low
+
+  * New upstream release.
+    + Fixed qmqp transport. (closes: #332482)
+  * Updated french debconf translation from Florentin Duneau.
+    (closes: #366750)
+  * Removed patches added in 1:1.02-7, merged upstream.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Thu, 17 Aug 2006 23:49:51 +0200
+
 nullmailer (1:1.02-8) unstable; urgency=low
 
   * Fixed links to manpages. (closes: #373104)
@@ -7,7 +17,7 @@ nullmailer (1:1.02-8) unstable; urgency=low
     (closes: #373267)
   * Removed ucf handling from postinst. (closes: #369568)
   * Updated french debconf translation from Philippe Batailler.
-    (closes: #366750)
+    (closes: #369697)
 
  -- Norbert Tretkowski <nobse@debian.org>  Thu, 15 Jun 2006 23:32:48 +0200
 
