@@ -1,3 +1,11 @@
+nullmailer (1:1.03-2) unstable; urgency=low
+
+  * Updated french debconf translation from Florentin Duneau.
+    (closes: #375556)
+  * Updated Standards-Version to 3.7.2.1, no changes required.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Fri, 18 Aug 2006 17:01:03 +0200
+
 nullmailer (1:1.03-1) unstable; urgency=low
 
   * New upstream release.
