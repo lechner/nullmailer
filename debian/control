@@ -2,7 +2,8 @@ Source: nullmailer
 Section: mail
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
-Build-Depends: debhelper, po-debconf, automake1.9, autoconf, autotools-dev, dpatch
+Uploaders: Norbert Tretkowski <nobse@backports.org>
+Build-Depends: debhelper (>= 4), po-debconf, automake1.9, autoconf, autotools-dev, dpatch
 Standards-Version: 3.7.2.1
 
 Package: nullmailer

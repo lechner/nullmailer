@@ -1,3 +1,20 @@
+nullmailer (1:1.03-2.1~bpo.1) sarge-backports; urgency=low
+
+  * Rebuilt for sarge.
+
+ -- Norbert Tretkowski <nobse@backports.org>  Sat,  2 Sep 2006 20:44:38 +0000
+
+nullmailer (1:1.03-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload to fix problem handling debconf variables.
+  * Modified debian/config to take into account any number of hosts specified
+    in the config file.  Thanks to Maximiliano Curia for the patch.
+    (Closes: #383859).
+  * Added versioned build-depend on debhelper, so that it agrees with the
+    DH_COMPAT version. 
+
+ -- Margarita Manterola <marga@debian.org>  Sat, 26 Aug 2006 17:29:43 -0300
+
 nullmailer (1:1.03-2) unstable; urgency=low
 
   * Updated french debconf translation from Florentin Duneau.

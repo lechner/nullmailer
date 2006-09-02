@@ -16,7 +16,8 @@ else
 fi
 
 if [ -e /etc/nullmailer/remotes ]; then
-	db_set nullmailer/relayhost "`cat /etc/nullmailer/remotes`"
+	# Replace newlines with :, then fix any extra : that might turn up.
+	db_set nullmailer/relayhost "`cat /etc/nullmailer/remotes | tr '\n' ':' | sed 's/::*/:/g;s/:$//'`"
 else
 	db_get nullmailer/relayhost
 	if [ -z "$RET" ]; then
