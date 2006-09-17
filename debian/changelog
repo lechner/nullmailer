@@ -1,10 +1,19 @@
+nullmailer (1:1.03-3) unstable; urgency=low
+
+  * Acknowledge NMU 1:1.03-2.1, thanks to Margarita Manterola.
+    (closes: #383859)
+  * Added LSB formatted dependency info in init script, thanks to Petter
+    Reinholdtsen. (closes: #386635)
+
+ -- Norbert Tretkowski <nobse@debian.org>  Sun, 17 Sep 2006 12:21:35 +0200
+
 nullmailer (1:1.03-2.1) unstable; urgency=medium
 
   * Non-maintainer upload to fix problem handling debconf variables.
   * Modified debian/config to take into account any number of hosts specified
-    in the config file.  Thanks to Maximiliano Curia for the patch.
-    (Closes: #383859).
-  * Added versioned build-depend on debhelper, so that it agrees with the
+    in the config file. Thanks to Maximiliano Curia for the patch.
+    (closes: #383859)
+  * Added versioned build-dependency on debhelper, so that it agrees with the
     DH_COMPAT version. 
 
  -- Margarita Manterola <marga@debian.org>  Sat, 26 Aug 2006 17:29:43 -0300
@@ -21,8 +30,11 @@ nullmailer (1:1.03-1) unstable; urgency=low
 
   * New upstream release.
     + Fixed qmqp transport. (closes: #332482)
+    + Now tries getpwnam() before "unknown" for sender address.
+      (closes: #218326)
   * Updated french debconf translation from Florentin Duneau.
     (closes: #366750)
+  * Updated 03_syslog.diff for new release.
   * Removed patches added in 1:1.02-7, merged upstream.
 
  -- Norbert Tretkowski <nobse@debian.org>  Thu, 17 Aug 2006 23:49:51 +0200
