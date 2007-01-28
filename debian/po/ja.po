@@ -14,11 +14,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: nullmailer 1.00RC7-21\n"
+"Project-Id-Version: nullmailer 1:1.03-3\n"
 "Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2006-09-17 10:22+0000\n"
-"PO-Revision-Date: 2004-01-12 22:02+0900\n"
-"Last-Translator: Hideki Yamane <henrich@samba.gr.jp>\n"
+"POT-Creation-Date: 2007-01-29 21:29+0100\n"
+"PO-Revision-Date: 2006-10-19 00:52+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
@@ -27,9 +27,8 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Mailname of your system:"
-msgstr "システムのメール名を入力してください:"
+msgstr "システムのメール名:"
 
 #. Type: string
 #. Description
@@ -38,14 +37,14 @@ msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"これは nullmailer を動作させているホストの完全修飾ドメイン名です。標準では リ"
-"テラル名 'me' になります。"
+"これは nullmailer を動作させているホストの完全修飾ドメイン名です。標準では、"
+"定数名 'me' になります。"
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Smarthosts:"
-msgstr ""
+msgstr "スマートホスト:"
 
 #. Type: string
 #. Description
@@ -70,7 +69,6 @@ msgstr "例: "
 #. Type: string
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
@@ -78,15 +76,13 @@ msgid ""
 msgstr ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
-"  smarthost:mx.domain:192.168.1.1"
+"  smarthost smtp --user=foo --pass=bar"
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Where to send local emails (optional):"
-msgstr ""
-"nullmailer はどのアドレスにローカルのメールを送りますか? (オプションです)"
+msgstr "どのアドレスにローカルのメールを送るか (オプション):"
 
 #. Type: string
 #. Description

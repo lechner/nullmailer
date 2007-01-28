@@ -16,19 +16,18 @@ msgstr ""
 "Project-Id-Version: nullmailer\n"
 "Report-Msgid-Bugs-To: nobse@debian.org\n"
 "POT-Creation-Date: 2006-09-17 10:22+0000\n"
-"PO-Revision-Date: 2004-07-31 18:50+0200\n"
+"PO-Revision-Date: 2006-09-24 14:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
-"Language-Team: Czech <provoz@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: string
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Mailname of your system:"
-msgstr "Zadejte prosím po¹tovní jméno va¹eho poèítaèe:"
+msgstr "PoÅ¡tovnÃ­ jmÃ©no vaÅ¡eho systÃ©mu:"
 
 #. Type: string
 #. Description
@@ -37,14 +36,14 @@ msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"Zadejte plnì kvalifikované doménové jméno poèítaèe, na kterém pobì¾í "
-"nullmailer. Implicitnì se pou¾ije prosté 'já'."
+"Zadejte plnÄ› kvalifikovanÃ© domÃ©novÃ© jmÃ©no poÄÃ­taÄe, na kterÃ©m pobÄ›Å¾Ã­ "
+"nullmailer. VÃ½chozÃ­ hodnota znamenÃ¡ prostÃ© 'jÃ¡'."
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Smarthosts:"
-msgstr ""
+msgstr "ChytrÃ© poÄÃ­taÄe (smarthosts):"
 
 #. Type: string
 #. Description
@@ -55,22 +54,21 @@ msgid ""
 "optional protocol string 'host protocol'. The protocol name defaults to "
 "smtp, and may be followed by command-line arguments for that module."
 msgstr ""
-"Toto je dvojteèkami oddìlenı seznam vzdálenıch serverù, kterım se má "
-"pøedávat ve¹kerá odchozí po¹ta. Ka¾dá polo¾ka obsahuje jméno nebo adresu "
-"vzdáleného poèítaèe následovanou volitelnım názvem protokolu, tj. v podobì "
-"'poèítaè protokol'. Implicitnì se pou¾ije protokol smtp. Následovat mohou "
-"parametry daného modulu."
+"Toto je dvojteÄkami oddÄ›lenÃ½ seznam vzdÃ¡lenÃ½ch serverÅ¯, kterÃ½m se mÃ¡ "
+"pÅ™edÃ¡vat veÅ¡kerÃ¡ odchozÃ­ poÅ¡ta. KaÅ¾dÃ¡ poloÅ¾ka obsahuje jmÃ©no nebo adresu "
+"vzdÃ¡lenÃ©ho poÄÃ­taÄe nÃ¡sledovanou volitelnÃ½m nÃ¡zvem protokolu, tj. v podobÄ› "
+"'poÄÃ­taÄ protokol'. ImplicitnÄ› se pouÅ¾ije protokol smtp. NÃ¡sledovat mohou "
+"parametry danÃ©ho modulu."
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Examples:"
-msgstr "Pøíklady:"
+msgstr "PÅ™Ã­klady:"
 
 #. Type: string
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
@@ -78,14 +76,13 @@ msgid ""
 msgstr ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
-"  smarthost:mx.domena:192.168.1.1"
+"  smarthost smtp --user=foo --pass=bar"
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Where to send local emails (optional):"
-msgstr "Na kterou adresu má nullmailer posílat místní emaily (volitelné)?"
+msgstr "Kam posÃ­lat mÃ­stnÃ­ emaily (volitelnÃ©):"
 
 #. Type: string
 #. Description
@@ -97,11 +94,8 @@ msgid ""
 "'somebody@localhost' and have it go somewhere sensible instead of being "
 "bounced by your relay host."
 msgstr ""
-"Pokud je neprázdné, v¹echny emaily, jejich¾ pøíjemce je na poèítaèi "
-"'localhost' nebo na kanonickém jménì poèítaèe (bráno podle /etc/mailname), "
-"budou pøesmìrovány na zadanou adresu. To je proto, aby mohly místní programy "
-"posílat zprávy pro 'nìkdo@localhost', které nám jinak 'chytrı poèítaè' "
-"vracel zpìt."
-
-#~ msgid "Please specify your smarthosts:"
-#~ msgstr "Zadejte 'chytré poèítaèe':"
+"Pokud je neprÃ¡zdnÃ©, vÅ¡echny emaily, jejichÅ¾ pÅ™Ã­jemce je na poÄÃ­taÄi "
+"'localhost' nebo na kanonickÃ©m jmÃ©nÄ› poÄÃ­taÄe (brÃ¡no podle /etc/mailname), "
+"budou pÅ™esmÄ›rovÃ¡ny na zadanou adresu. To je proto, aby mohly mÃ­stnÃ­ programy "
+"posÃ­lat zprÃ¡vy pro 'nÄ›kdo@localhost', kterÃ© nÃ¡m jinak 'chytrÃ½ poÄÃ­taÄ' "
+"vracel zpÄ›t."
