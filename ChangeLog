@@ -1,1199 +1,1070 @@
-------------------------------------------------------------------------
-r135 | bruce | 2005-11-02 11:52:21 -0600 (Wed, 02 Nov 2005) | 3 lines
-Changed paths:
-   M /trunk/TODO
-   M /trunk/lib/Makefile.am
-   A /trunk/lib/base64.cc (from /trunk/protocols/smtp.cc:134)
-   A /trunk/lib/base64.h
-   M /trunk/protocols/smtp.cc
-
-Broken the base64 conversion out of protocols/smtp.cc (and simplified it
-greatly in the process).
-
-------------------------------------------------------------------------
-r134 | bruce | 2005-11-02 11:11:22 -0600 (Wed, 02 Nov 2005) | 3 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/TODO
-   M /trunk/doc/nullmailer-send.8
-   M /trunk/protocols/protocol.cc
-   M /trunk/protocols/protocol.h
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-
-Added support for SMTP AUTH PLAIN
-Thanks Ace Jones <ace.j@hotpop.com>
-
-------------------------------------------------------------------------
-r133 | bruce | 2005-11-02 10:50:37 -0600 (Wed, 02 Nov 2005) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/lib/list.h
-
-Fixed compile error in lib/list.h
-
-------------------------------------------------------------------------
-r132 | bruce | 2005-11-02 10:50:11 -0600 (Wed, 02 Nov 2005) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/configure.in
-
-Bumped version to 1.01
-
-------------------------------------------------------------------------
-r130 | bruce | 2005-02-28 11:54:04 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/lib/Makefile.am
-
-Fixed up lib Makefile to properly dist the ac directory.
-
-------------------------------------------------------------------------
-r129 | bruce | 2005-02-28 11:49:53 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/lib/makefield.cc
-   M /trunk/src/send.cc
-
-Renamed ac/time.h to ac/systime.h to prevent #include recursion.
-
-------------------------------------------------------------------------
-r128 | bruce | 2005-02-28 11:28:34 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/README
-
-Updated dates, version, and em.ca URLs.
-
-------------------------------------------------------------------------
-r127 | bruce | 2005-02-28 11:28:11 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/HOWTO
-
-Removed note about my daemontools RPMs as they are no longer really mailtained.
-
-------------------------------------------------------------------------
-r126 | bruce | 2005-02-28 11:27:45 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-Added some TODOs for protocols, I just want to get 1.00 out the door.
-
-------------------------------------------------------------------------
-r125 | bruce | 2005-02-28 11:20:39 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/makedist.in
-
-Updated links to em.ca to untroubled.org
-
-------------------------------------------------------------------------
-r124 | bruce | 2005-02-28 11:20:15 -0600 (Mon, 28 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-Removed note about documentation fix.
-
-------------------------------------------------------------------------
-r123 | bruce | 2005-02-25 18:14:31 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/configure.in
-
-Bumped version to 1.00 (no RC status)
-
-------------------------------------------------------------------------
-r122 | bruce | 2005-02-25 18:07:54 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-Removed extra TODO item as nullmailer-inject already handles it.
-
-------------------------------------------------------------------------
-r121 | bruce | 2005-02-25 18:06:16 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/TODO
-   M /trunk/src/inject.cc
-
-Fixed bug in handling headers containing CR+LF line endings.
-
-------------------------------------------------------------------------
-r120 | bruce | 2005-02-25 17:52:31 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/test/functions
-
-Use a plain grep instead of formail to extract header entries.
-
-------------------------------------------------------------------------
-r119 | bruce | 2005-02-25 17:52:15 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/test/tests/inject/recips
-   M /trunk/test/tests/inject/sender
-
-Use the "-n" argument to head and tail commands.
-
-------------------------------------------------------------------------
-r118 | bruce | 2005-02-25 17:50:11 -0600 (Fri, 25 Feb 2005) | 3 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/src/inject.cc
-
-Fixed bug in header parsing that would cause the last header line to 
-be repeated if there was no body.
-
-------------------------------------------------------------------------
-r117 | bruce | 2005-02-25 16:33:59 -0600 (Fri, 25 Feb 2005) | 2 lines
-Changed paths:
-   D /trunk/acconfig.h
-   M /trunk/acinclude.m4
-   M /trunk/configure.in
-
-Adjusted usage for newest automake 1.9 and autoconf 2.59 tools.
-
-------------------------------------------------------------------------
-r116 | bruce | 2005-02-21 16:23:55 -0600 (Mon, 21 Feb 2005) | 3 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/src/send.cc
-
-Fixed problem with multiple arguments to protocol modules.
-Thanks Sascha Silbe <sascha-ml-nullmailer@silbe.org>
-
-------------------------------------------------------------------------
-r115 | bruce | 2005-02-21 10:56:44 -0600 (Mon, 21 Feb 2005) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/protocols/smtp.cc
-
-Fixed extraneous spaces in SMTP sender.
-
-------------------------------------------------------------------------
-r114 | bruce | 2003-02-12 17:47:07 -0600 (Wed, 12 Feb 2003) | 2 lines
-Changed paths:
-   M /trunk/doc/nullmailer.7
-
-Added reference to "me" config file in top-level documentation.
-
-------------------------------------------------------------------------
-r113 | bruce | 2003-01-15 11:34:45 -0600 (Wed, 15 Jan 2003) | 3 lines
-Changed paths:
-   M /trunk/test/address-test.cc
-
-Fixed a bug in reporting errors in the result string -- they do need a
-newline.
-
-------------------------------------------------------------------------
-r112 | bruce | 2003-01-15 11:34:08 -0600 (Wed, 15 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/lib/address.cc
-   M /trunk/test/address-test.cc
-
-Fixed the address parser handling domain names with trailing periods.
-
-------------------------------------------------------------------------
-r111 | bruce | 2003-01-13 14:21:50 -0600 (Mon, 13 Jan 2003) | 3 lines
-Changed paths:
-   M /trunk/protocols/protocol.cc
-   M /trunk/src/inject.cc
-   M /trunk/src/sendmail.cc
-
-Fixed the warning on the cli_options list end marker.
-Patch from Martin Godisch <martin@godisch.de>
-
-------------------------------------------------------------------------
-r110 | bruce | 2003-01-11 22:31:15 -0600 (Sat, 11 Jan 2003) | 4 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/src/sendmail.cc
-
-Handle the "-bs" flag in the sendmail wrapper by dieing when we see it.
-http://bugs.debian.org/170079
-Patch from Martin Godisch <martin@godisch.de>
-
-------------------------------------------------------------------------
-r109 | bruce | 2003-01-11 22:27:24 -0600 (Sat, 11 Jan 2003) | 3 lines
-Changed paths:
-   M /trunk/lib/list.h
-   M /trunk/src/sendmail.cc
-
-Fixed some compile warnings.
-Patch from Martin Godisch <martin@godisch.de>
-
-------------------------------------------------------------------------
-r108 | bruce | 2003-01-11 22:25:07 -0600 (Sat, 11 Jan 2003) | 3 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/src/queue.cc
-
-Made permissions on queued files more strict.
-http://bugs.debian.org/164951
-
-------------------------------------------------------------------------
-r107 | bruce | 2003-01-11 22:24:18 -0600 (Sat, 11 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/configure.in
-
-Bumped version up to 1.00RC8
-
-------------------------------------------------------------------------
-r106 | bruce | 2003-01-03 17:10:21 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-Removed old items.
-
-------------------------------------------------------------------------
-r105 | bruce | 2003-01-03 17:09:46 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/HOWTO
-
-Added note about setting up the "me" config file.
-
-------------------------------------------------------------------------
-r103 | bruce | 2003-01-03 15:49:25 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/README
-
-Bumped up the version to 1.00RC7
-
-------------------------------------------------------------------------
-r102 | bruce | 2003-01-03 15:49:13 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/makedist.in
-
-Added the ChangeLog.old file to the list of extras.
-
-------------------------------------------------------------------------
-r101 | bruce | 2003-01-03 15:02:46 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/README
-   M /trunk/lib/address-old.cc
-   M /trunk/lib/address.cc
-   M /trunk/lib/canonicalize.cc
-   M /trunk/lib/config_read.cc
-   M /trunk/lib/config_readint.cc
-   M /trunk/lib/config_readlist.cc
-   M /trunk/lib/errcodes.cc
-   M /trunk/lib/hostname.cc
-   M /trunk/lib/makefield.cc
-   M /trunk/lib/tcpconnect.cc
-   M /trunk/makedist.in
-   M /trunk/protocols/protocol.cc
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-   M /trunk/src/inject.cc
-   M /trunk/src/mailq.cc
-   M /trunk/src/queue.cc
-   M /trunk/src/send.cc
-   M /trunk/src/sendmail.cc
-
-Updated dates on copyright marks.
-
-------------------------------------------------------------------------
-r100 | bruce | 2003-01-03 15:02:18 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   D /trunk/ChangeLog
-   A /trunk/ChangeLog.old (from /trunk/ChangeLog:76)
-
-Renamed ChangeLog to allow use of svn-generated ChangeLog
-
-------------------------------------------------------------------------
-r99 | bruce | 2003-01-03 14:51:59 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/doc/nullmailer-send.8
-   M /trunk/src/send.cc
-
-Added a one-shot mode to nullmailer-send.
-
-------------------------------------------------------------------------
-r98 | bruce | 2003-01-03 14:40:21 -0600 (Fri, 03 Jan 2003) | 2 lines
-Changed paths:
-   M /trunk/src/send.cc
-
-Reset reload_files to false when the files are reloaded.
-
-------------------------------------------------------------------------
-r97 | bruce | 2002-12-27 08:28:33 -0600 (Fri, 27 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/protocols/smtp.cc
-
-Fixed typo in smtp.cc -- "me" should be "hh".
-
-------------------------------------------------------------------------
-r96 | bruce | 2002-12-27 08:24:33 -0600 (Fri, 27 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/configure.in
-
-Bumped up version to 1.00RC7
-
-------------------------------------------------------------------------
-r94 | bruce | 2002-12-23 14:50:55 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/README
-
-Removed CVS note.
-
-------------------------------------------------------------------------
-r93 | bruce | 2002-12-23 14:50:42 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/README
-
-Set date to today.
-
-------------------------------------------------------------------------
-r92 | bruce | 2002-12-23 12:25:01 -0600 (Mon, 23 Dec 2002) | 3 lines
-Changed paths:
-   M /trunk/NEWS
-
-Added note about new protocol module messages, new control file, and
-FutureQuest sponsorship.
-
-------------------------------------------------------------------------
-r91 | bruce | 2002-12-23 12:22:39 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/protocols/protocol.cc
-
-Fixups: also show the failure message, and use the proper exit code.
-
-------------------------------------------------------------------------
-r90 | bruce | 2002-12-23 12:19:58 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/protocols/protocol.cc
-   M /trunk/protocols/protocol.h
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-
-Show success messages as well.
-
-------------------------------------------------------------------------
-r89 | bruce | 2002-12-23 12:14:11 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/protocols/smtp.cc
-
-Removed the superfluous "QUIT" command.
-
-------------------------------------------------------------------------
-r88 | bruce | 2002-12-23 12:11:57 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/protocols/protocol.cc
-   M /trunk/protocols/protocol.h
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-
-Output error messages when exiting with a failure code.
-
-------------------------------------------------------------------------
-r87 | bruce | 2002-12-23 12:11:03 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/src/send.cc
-
-Allow protocol modules to output their own error messages.
-
-------------------------------------------------------------------------
-r86 | bruce | 2002-12-23 11:52:49 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/test/tests/inject/from
-   M /trunk/test/tests/inject/sender
-
-Make sure to remove default{domain,host} before testing use of "me".
-
-------------------------------------------------------------------------
-r85 | bruce | 2002-12-23 11:52:22 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/doc/nullmailer-queue.8
-   M /trunk/src/queue.cc
-
-Use the "me" control as the hostname to remap with adminaddr.
-
-------------------------------------------------------------------------
-r84 | bruce | 2002-12-23 11:51:17 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/src/inject.cc
-
-Use the "me" control as the idhost, not a default file.
-
-------------------------------------------------------------------------
-r83 | bruce | 2002-12-23 11:50:38 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/doc/nullmailer-inject.1
-   M /trunk/lib/hostname.cc
-
-Fixed up and documented the default host/domain rules.
-
-------------------------------------------------------------------------
-r82 | bruce | 2002-12-23 11:38:45 -0600 (Mon, 23 Dec 2002) | 3 lines
-Changed paths:
-   M /trunk/lib/canonicalize.cc
-
-Only append a "." to the domain name (when appending the defaultdomain)
-if it isn't empty.
-
-------------------------------------------------------------------------
-r81 | bruce | 2002-12-23 11:27:33 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/spec
-
-Auto-create /etc/nullmailer/{me,defaultdomain} on install.
-
-------------------------------------------------------------------------
-r80 | bruce | 2002-12-23 11:22:36 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/test/functions
-   M /trunk/test/tests/inject/from
-   M /trunk/test/tests/inject/message-id
-   M /trunk/test/tests/inject/sender
-   M /trunk/test/tests/protocols
-   M /trunk/test/tests/queue/rewrite
-
-Fixed up tests for the new "me" control file.
-
-------------------------------------------------------------------------
-r79 | bruce | 2002-12-23 10:59:48 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/test/functions
-   M /trunk/test/tests/inject/bad-headers
-   M /trunk/test/tests/inject/date
-   M /trunk/test/tests/inject/from
-   M /trunk/test/tests/inject/message-id
-   M /trunk/test/tests/inject/recips
-   M /trunk/test/tests/inject/return-path
-   M /trunk/test/tests/inject/sender
-
-Fixup the tests for the more strict bash2 syntax.
-
-------------------------------------------------------------------------
-r78 | bruce | 2002-12-23 10:59:26 -0600 (Mon, 23 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/test/Makefile.am
-
-Skip over the .svn directory instead of the CVS directory.
-
-------------------------------------------------------------------------
-r77 | bruce | 2002-12-17 11:49:04 -0600 (Tue, 17 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/configure.in
-
-Renamed lib/cli to lib/cli++
-
-------------------------------------------------------------------------
-r74 | bruce | 2002-12-14 23:36:45 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/lib/Makefile.am
-   M /trunk/protocols/Makefile.am
-   M /trunk/protocols/protocol.cc
-   M /trunk/src/Makefile.am
-   M /trunk/src/inject.cc
-   M /trunk/src/sendmail.cc
-
-Renamed lib/cli to lib/cli++ to match the current sources.
-
-------------------------------------------------------------------------
-r73 | bruce | 2002-12-14 23:29:43 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r72 | bruce | 2002-12-14 23:29:39 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/test/address-test.cc
-
-Added some empty address list tests.
-
-------------------------------------------------------------------------
-r71 | bruce | 2002-12-14 23:29:06 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/doc/nullmailer-inject.1
-   M /trunk/doc/nullmailer-send.8
-
-Clarified documentation.
-
-------------------------------------------------------------------------
-r70 | bruce | 2002-12-14 23:28:13 -0600 (Sat, 14 Dec 2002) | 3 lines
-Changed paths:
-   M /trunk/protocols/Makefile.am
-   M /trunk/src/Makefile.am
-   M /trunk/test/Makefile.am
-
-Remove the CXXLINK hack that prevents compilation with newer versions of
-gcc.
-
-------------------------------------------------------------------------
-r69 | bruce | 2002-12-14 23:27:40 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/protocols/smtp.cc
-   M /trunk/src/send.cc
-
-Pass $HELOHOST on to the protocol modules.
-
-------------------------------------------------------------------------
-r68 | bruce | 2002-12-14 23:21:51 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/lib/canonicalize.cc
-   M /trunk/lib/hostname.cc
-   M /trunk/lib/hostname.h
-   M /trunk/protocols/smtp.cc
-   M /trunk/src/inject.cc
-   M /trunk/src/queue.cc
-
-Completed the conversion from hostname() to the new config files.
-
-------------------------------------------------------------------------
-r67 | bruce | 2002-12-14 21:18:09 -0600 (Sat, 14 Dec 2002) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-
-Fixed a bug in the setenv function in sendmail.cc.
-
-------------------------------------------------------------------------
-r66 | bruce | 2001-09-21 23:15:29 -0600 (Fri, 21 Sep 2001) | 2 lines
-Changed paths:
-   M /trunk/src/sendmail.cc
-
-The parameter for putenv must not be automatic.
-
-------------------------------------------------------------------------
-r65 | bruce | 2001-08-25 21:49:12 -0600 (Sat, 25 Aug 2001) | 2 lines
-Changed paths:
-   M /trunk/src/inject.cc
-
-Drop address header fields with blank contents.
-
-------------------------------------------------------------------------
-r64 | bruce | 2001-08-25 21:46:23 -0600 (Sat, 25 Aug 2001) | 2 lines
-Changed paths:
-   M /trunk/lib/address.cc
-
-Completed handling empty address lists.
-
-------------------------------------------------------------------------
-r63 | bruce | 2001-08-25 21:15:31 -0600 (Sat, 25 Aug 2001) | 2 lines
-Changed paths:
-   M /trunk/lib/address.cc
-
-Modified to properly parse an empty address field as empty.
-
-------------------------------------------------------------------------
-r62 | bruce | 2001-07-09 19:39:40 -0600 (Mon, 09 Jul 2001) | 2 lines
-Changed paths:
-   M /trunk/makedist.in
-
-Updated for the new untroubled.org web site.
-
-------------------------------------------------------------------------
-r61 | bruce | 2001-07-09 19:39:18 -0600 (Mon, 09 Jul 2001) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/TODO
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r60 | bruce | 2001-07-09 19:38:54 -0600 (Mon, 09 Jul 2001) | 3 lines
-Changed paths:
-   M /trunk/scripts/nullmailer.run
-
-Redirect stderr to stdout before starting anything else to catch error
-messages.
-
-------------------------------------------------------------------------
-r59 | bruce | 2001-07-09 19:38:29 -0600 (Mon, 09 Jul 2001) | 2 lines
-Changed paths:
-   M /trunk/protocols/smtp.cc
-
-Fixed a quoting bug with handling lines starting with ".".
-
-------------------------------------------------------------------------
-r58 | bruce | 2001-07-09 19:37:33 -0600 (Mon, 09 Jul 2001) | 2 lines
-Changed paths:
-   M /trunk/configure.in
-
-Tidied up the library function checks.
-
-------------------------------------------------------------------------
-r57 | bruce | 2001-07-09 19:36:59 -0600 (Mon, 09 Jul 2001) | 2 lines
-Changed paths:
-   M /trunk/src/sendmail.cc
-
-Added an ignored option entry from the sendmail "-m" option.
-
-------------------------------------------------------------------------
-r56 | bruce | 2001-03-29 15:57:30 -0600 (Thu, 29 Mar 2001) | 2 lines
-Changed paths:
-   M /trunk/HOWTO
-
-Fixed instructions on RPM startup.
-
-------------------------------------------------------------------------
-r55 | bruce | 2001-03-29 15:57:06 -0600 (Thu, 29 Mar 2001) | 2 lines
-Changed paths:
-   M /trunk/TODO
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r54 | bruce | 2001-03-29 15:56:36 -0600 (Thu, 29 Mar 2001) | 2 lines
-Changed paths:
-   M /trunk/spec
-
-Removed unnecessary init.d directory, and added in the man7 pages.
-
-------------------------------------------------------------------------
-r53 | bruce | 2001-02-27 16:38:05 -0600 (Tue, 27 Feb 2001) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/configure.in
-   M /trunk/lib/makefield.cc
-   M /trunk/src/send.cc
-
-Fixed some include file problems with sys/time.h.
-
-------------------------------------------------------------------------
-r52 | bruce | 2001-02-07 15:45:32 -0600 (Wed, 07 Feb 2001) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/README
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r51 | bruce | 2001-02-07 15:45:13 -0600 (Wed, 07 Feb 2001) | 2 lines
-Changed paths:
-   M /trunk/src/send.cc
-
-Modified to always attempt to send everything in the queue.
-
-------------------------------------------------------------------------
-r50 | bruce | 2001-02-01 20:30:36 -0600 (Thu, 01 Feb 2001) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/TODO
-   M /trunk/configure.in
-
-Bumped up version number to 1.00RC6.
-
-------------------------------------------------------------------------
-r49 | bruce | 2001-02-01 20:28:53 -0600 (Thu, 01 Feb 2001) | 2 lines
-Changed paths:
-   M /trunk/lib/hostname.cc
-   M /trunk/src/send.cc
-
-Added a missing include.
-
-------------------------------------------------------------------------
-r48 | bruce | 2000-12-30 04:22:46 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-
-Added 1.00RC5 release notes.
-
-------------------------------------------------------------------------
-r47 | bruce | 2000-12-30 04:18:42 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/makedist.in
-   M /trunk/spec
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r46 | bruce | 2000-12-30 04:16:46 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/spec
-
-Make the service directory.
-
-------------------------------------------------------------------------
-r45 | bruce | 2000-12-30 04:12:45 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/README
-   M /trunk/configure.in
-
-Bumped up version number.
-
-------------------------------------------------------------------------
-r44 | bruce | 2000-12-30 03:47:26 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   D /trunk/scripts/nullmailer.init
-
-Removed unnecessary init script.
-
-------------------------------------------------------------------------
-r43 | bruce | 2000-12-30 03:47:17 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/spec
-
-Modified to use supervise-scripts 3.
-
-------------------------------------------------------------------------
-r42 | bruce | 2000-12-30 03:41:21 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/protocols/smtp.cc
-
-Return proper error codes for permanent and temporary SMTP failures.
-
-------------------------------------------------------------------------
-r41 | bruce | 2000-12-30 03:41:02 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/hostname.cc
-
-Fixed the prototype for getdomainname.
-
-------------------------------------------------------------------------
-r40 | bruce | 2000-12-30 03:40:44 -0600 (Sat, 30 Dec 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/HOWTO
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r39 | bruce | 2000-08-30 14:58:37 -0600 (Wed, 30 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/hostname.cc
-
-Moved extern declaration of getdomainname out of the function.
-
-------------------------------------------------------------------------
-r38 | bruce | 2000-08-28 23:11:45 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/Makefile.am
-
-Added missing INSTALL dist file.
-
-------------------------------------------------------------------------
-r37 | bruce | 2000-08-28 23:11:09 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   D /trunk/scripts/init
-   A /trunk/scripts/nullmailer-log.run
-   A /trunk/scripts/nullmailer.init
-   A /trunk/scripts/nullmailer.run
-   D /trunk/scripts/run-log
-   D /trunk/scripts/run-svc
-   M /trunk/spec
-
-Renamed the script files.
-
-------------------------------------------------------------------------
-r36 | bruce | 2000-08-28 18:07:50 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-
-Fixed up forgotten ChangeLog entries.
-
-------------------------------------------------------------------------
-r35 | bruce | 2000-08-28 18:00:15 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-
-Final RC4 update.
-
-------------------------------------------------------------------------
-r34 | bruce | 2000-08-28 17:58:38 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/test/address-test.cc
-
-Test addresses with trailing periods.
-
-------------------------------------------------------------------------
-r33 | bruce | 2000-08-28 17:57:43 -0600 (Mon, 28 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/address.cc
-
-Fixed to handle addresses with trailing periods.
-
-------------------------------------------------------------------------
-r32 | bruce | 2000-08-15 19:28:46 -0600 (Tue, 15 Aug 2000) | 3 lines
-Changed paths:
-   M /trunk/lib/hostname.cc
-
-Added extern declaration of getdomainname for systems that don't declare
-it.
-
-------------------------------------------------------------------------
-r31 | bruce | 2000-08-15 19:28:25 -0600 (Tue, 15 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/TODO
-
-*** empty log message ***
-
-------------------------------------------------------------------------
-r30 | bruce | 2000-08-15 19:21:22 -0600 (Tue, 15 Aug 2000) | 3 lines
-Changed paths:
-   M /trunk/HOWTO
-   D /trunk/INSTALL
-   M /trunk/README
-   M /trunk/TODO
-
-Updated install instructions in HOWTO, removed the modified INSTALL
-document.
-
-------------------------------------------------------------------------
-r29 | bruce | 2000-08-15 19:13:24 -0600 (Tue, 15 Aug 2000) | 2 lines
-Changed paths:
-   A /trunk/INSTALL
-
-Added custom INSTALL instructions.
-
-------------------------------------------------------------------------
-r28 | bruce | 2000-08-15 16:45:39 -0600 (Tue, 15 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/acinclude.m4
-
-Ignore warnings from compile output.
-
-------------------------------------------------------------------------
-r27 | bruce | 2000-08-14 15:05:51 -0600 (Mon, 14 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/acinclude.m4
-   M /trunk/configure.in
-
-Fixed the reversed named pipe bug logic.
-
-------------------------------------------------------------------------
-r26 | bruce | 2000-08-11 05:10:25 -0600 (Fri, 11 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/makedist.in
-
-1.00RC3 release checkin.
-
-------------------------------------------------------------------------
-r25 | bruce | 2000-08-11 05:09:41 -0600 (Fri, 11 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/test/address-test.cc
-
-Fixed a problem with multiple use of itoa.
-
-------------------------------------------------------------------------
-r24 | bruce | 2000-08-10 18:48:19 -0600 (Thu, 10 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/TODO
-   M /trunk/acconfig.h
-   M /trunk/acinclude.m4
-   M /trunk/configure.in
-
-Added configure test for named pipe bug.
-
-------------------------------------------------------------------------
-r23 | bruce | 2000-08-10 18:47:53 -0600 (Thu, 10 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/src/inject.cc
-
-Fixed header parsing logic.
-
-------------------------------------------------------------------------
-r22 | bruce | 2000-08-08 05:09:35 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/src/send.cc
-
-Added code to handle systems that require a writer on the named pipe.
-
-------------------------------------------------------------------------
-r21 | bruce | 2000-08-08 05:08:43 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/src/sendmail.cc
-
-Added a handler for the -L sendmail option (ignored).
-
-------------------------------------------------------------------------
-r20 | bruce | 2000-08-08 05:08:08 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/doc/Makefile.am
-   A /trunk/doc/sendmail.1
-
-Added man page for the sendmail emulator.
-
-------------------------------------------------------------------------
-r19 | bruce | 2000-08-08 04:43:47 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/doc/Makefile.am
-   A /trunk/doc/nullmailer.7
-
-Added an overall man page for nullmailer.
-
-------------------------------------------------------------------------
-r18 | bruce | 2000-08-08 04:31:02 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/Makefile.am
-
-Fixed a typo in the root-install chmods.
-
-------------------------------------------------------------------------
-r17 | bruce | 2000-08-08 04:16:13 -0600 (Tue, 08 Aug 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/tcpconnect.cc
-
-Fixed some typos.
-
-------------------------------------------------------------------------
-r16 | bruce | 2000-07-07 18:21:53 -0600 (Fri, 07 Jul 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/TODO
-
-Fixed up release notes.
-
-------------------------------------------------------------------------
-r15 | bruce | 2000-07-04 03:37:35 -0600 (Tue, 04 Jul 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/lib/hostname.cc
-
-Fixed typo in lib/hostname.cc
-
-------------------------------------------------------------------------
-r14 | bruce | 2000-06-28 15:27:46 -0600 (Wed, 28 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/NEWS
-   M /trunk/acconfig.h
-   M /trunk/acinclude.m4
-   M /trunk/configure.in
-
-Added utsname tests to configure.
-
-------------------------------------------------------------------------
-r13 | bruce | 2000-06-28 15:26:44 -0600 (Wed, 28 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/hostname.cc
-   M /trunk/lib/mergelib.sh
-
-Fixed domain name determination bug, and portability fix in mergelib.sh
-
-------------------------------------------------------------------------
-r12 | bruce | 2000-06-28 15:26:05 -0600 (Wed, 28 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/protocols/smtp.cc
-
-Fixed response number bug.
-
-------------------------------------------------------------------------
-r11 | bruce | 2000-06-19 19:47:50 -0600 (Mon, 19 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-   M /trunk/lib/tcpconnect.cc
-
-Fixed a minor type bug.
-
-------------------------------------------------------------------------
-r10 | bruce | 2000-06-15 15:26:49 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-
-Final release 1.00RC1 check in.
-
-------------------------------------------------------------------------
-r9 | bruce | 2000-06-15 15:22:13 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-
-Final 1.00RC1 check in.
-
-------------------------------------------------------------------------
-r8 | bruce | 2000-06-15 15:20:59 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/configure.in
-
-Fixed up NEWS and README to reflect new version number.
-
-------------------------------------------------------------------------
-r7 | bruce | 2000-06-15 15:13:53 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/lib/address-old.cc
-   M /trunk/lib/address.cc
-   M /trunk/lib/canonicalize.cc
-   M /trunk/lib/config_read.cc
-   M /trunk/lib/config_readint.cc
-   M /trunk/lib/config_readlist.cc
-   M /trunk/lib/errcodes.cc
-   M /trunk/lib/hostname.cc
-   M /trunk/lib/makefield.cc
-   M /trunk/lib/tcpconnect.cc
-   M /trunk/protocols/protocol.cc
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-   M /trunk/src/inject.cc
-   M /trunk/src/mailq.cc
-   M /trunk/src/queue.cc
-   M /trunk/src/send.cc
-   M /trunk/src/sendmail.cc
-
-Fixed up copyright notices.
-
-------------------------------------------------------------------------
-r6 | bruce | 2000-06-15 15:13:42 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/ChangeLog
-
-Added note on bug fix to lib/makefields.cc
-
-------------------------------------------------------------------------
-r5 | bruce | 2000-06-15 14:59:15 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   D /trunk/test/address-test
-
-Removed compiled binary file address-test.
-
-------------------------------------------------------------------------
-r4 | bruce | 2000-06-15 14:58:41 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/protocols/Makefile.am
-   M /trunk/protocols/protocol.h
-   M /trunk/protocols/qmqp.cc
-   M /trunk/protocols/smtp.cc
-   M /trunk/src/inject.cc
-   M /trunk/src/mailq.cc
-   M /trunk/src/queue.cc
-   M /trunk/src/send.cc
-   M /trunk/src/sendmail.cc
-   M /trunk/test/Makefile.am
-   M /trunk/test/address-test
-   M /trunk/test/address-test.cc
-
-Fixed include file paths.
-
-------------------------------------------------------------------------
-r3 | bruce | 2000-06-15 14:58:12 -0600 (Thu, 15 Jun 2000) | 3 lines
-Changed paths:
-   M /trunk/lib/Makefile.am
-   M /trunk/lib/address.cc
-   M /trunk/lib/address.h
-   M /trunk/lib/canonicalize.cc
-   M /trunk/lib/canonicalize.h
-   M /trunk/lib/config_read.cc
-   M /trunk/lib/config_readint.cc
-   M /trunk/lib/config_readlist.cc
-   M /trunk/lib/configio.h
-   M /trunk/lib/connect.h
-   D /trunk/lib/defines.cc
-   D /trunk/lib/fdbuf.h
-   M /trunk/lib/hostname.cc
-   A /trunk/lib/make_defines.sh
-   M /trunk/lib/makefield.cc
-   A /trunk/lib/mergelib.sh
-   D /trunk/lib/mystring.h
-   M /trunk/lib/netstring.h
-
-Fixed include file paths, added missing shell scripts and removed some
-unnecessary headers.
-
-------------------------------------------------------------------------
-r2 | bruce | 2000-06-15 14:57:32 -0600 (Thu, 15 Jun 2000) | 2 lines
-Changed paths:
-   M /trunk/NEWS
-   M /trunk/README
-   M /trunk/configure.in
-   M /trunk/makedist.in
-
-Bumped the version number, and touched up the README and NEWS.
-
-------------------------------------------------------------------------
-r1 | bruce | 2000-02-16 18:24:45 -0600 (Wed, 16 Feb 2000) | 2 lines
-Changed paths:
-   A /trunk
-   A /trunk/AUTHORS
-   A /trunk/BUGS
-   A /trunk/ChangeLog
-   A /trunk/HOWTO
-   A /trunk/Makefile.am
-   A /trunk/NEWS
-   A /trunk/README
-   A /trunk/TODO
-   A /trunk/YEAR2000
-   A /trunk/acconfig.h
-   A /trunk/acinclude.m4
-   A /trunk/configure.in
-   A /trunk/doc
-   A /trunk/doc/Makefile.am
-   A /trunk/doc/diagram
-   A /trunk/doc/nullmailer-inject.1
-   A /trunk/doc/nullmailer-queue.8
-   A /trunk/doc/nullmailer-send.8
-   A /trunk/lib
-   A /trunk/lib/Makefile.am
-   A /trunk/lib/address-old.cc
-   A /trunk/lib/address.cc
-   A /trunk/lib/address.h
-   A /trunk/lib/canonicalize.cc
-   A /trunk/lib/canonicalize.h
-   A /trunk/lib/config_read.cc
-   A /trunk/lib/config_readint.cc
-   A /trunk/lib/config_readlist.cc
-   A /trunk/lib/configio.h
-   A /trunk/lib/connect.h
-   A /trunk/lib/defines.cc
-   A /trunk/lib/defines.h
-   A /trunk/lib/errcodes.cc
-   A /trunk/lib/errcodes.h
-   A /trunk/lib/fdbuf.h
-   A /trunk/lib/hostname.cc
-   A /trunk/lib/hostname.h
-   A /trunk/lib/itoa.cc
-   A /trunk/lib/itoa.h
-   A /trunk/lib/list.h
-   A /trunk/lib/listtest.cc
-   A /trunk/lib/makefield.cc
-   A /trunk/lib/mystring.h
-   A /trunk/lib/netstring.cc
-   A /trunk/lib/netstring.h
-   A /trunk/lib/tcpconnect.cc
-   A /trunk/makedist.in
-   A /trunk/protocols
-   A /trunk/protocols/Makefile.am
-   A /trunk/protocols/protocol.cc
-   A /trunk/protocols/protocol.h
-   A /trunk/protocols/qmqp.cc
-   A /trunk/protocols/smtp.cc
-   A /trunk/scripts
-   A /trunk/scripts/init
-   A /trunk/scripts/run-log
-   A /trunk/scripts/run-svc
-   A /trunk/spec
-   A /trunk/src
-   A /trunk/src/Makefile.am
-   A /trunk/src/address-main.cc
-   A /trunk/src/inject.cc
-   A /trunk/src/mailq.cc
-   A /trunk/src/queue.cc
-   A /trunk/src/send.cc
-   A /trunk/src/sendmail.cc
-   A /trunk/test
-   A /trunk/test/Makefile.am
-   A /trunk/test/address-test
-   A /trunk/test/address-test.cc
-   A /trunk/test/address-trace.cc
-   A /trunk/test/functions
-   A /trunk/test/tests
-   A /trunk/test/tests/inject
-   A /trunk/test/tests/inject/bad-headers
-   A /trunk/test/tests/inject/date
-   A /trunk/test/tests/inject/from
-   A /trunk/test/tests/inject/message-id
-   A /trunk/test/tests/inject/recips
-   A /trunk/test/tests/inject/return-path
-   A /trunk/test/tests/inject/sender
-   A /trunk/test/tests/protocols
-   A /trunk/test/tests/queue
-   A /trunk/test/tests/queue/rewrite
-
-Imported sources.
-
-------------------------------------------------------------------------
+commit 3f17550ee9ba94dbf5d8582929f84cc5711d6971
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 17:33:52 2007 -0600
+
+    Stamped many files with today's date/year.
+
+commit 4ca905042fff71cb1a7a674502b442b194f827dd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 17:33:39 2007 -0600
+
+    Added some missing bits needed for distribution.
+
+commit 1c5e462c86e567ff4e468656c2c26bcd246e1ce1
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:50:00 2007 -0600
+
+    Fixed up some test function includes.
+
+commit efc6fe62282ed60eee927bd272faa98293f60943
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:49:17 2007 -0600
+
+    Added a .gitignore file to let get ignore more files.
+
+commit 7bed03ab4b0f4ba72ecbf2f01b82a3a42a200124
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:48:54 2007 -0600
+
+    Updated the TODO notes a bit.
+
+commit 1a80bbef3ad9dc7451e262f681e85945702a4ceb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:48:20 2007 -0600
+
+    Added the standard GPL copying document.
+
+commit 2210203cae988833b6e468c508fb2ce52623a98f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:48:02 2007 -0600
+
+    Added a simple INSTALL document.
+
+commit f5041c11b8f8543948a09fa3bf06e147226ba382
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:47:42 2007 -0600
+
+    Removed an unneeded header from src/queue.cc
+
+commit c3dd869824827c2ddf74a5d45f7177912bdb81dd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:47:21 2007 -0600
+
+    Fixed a double space in the mailq output, and added a test script.
+
+commit bd8c99e3898710b542fd5a6f08f98ffdf3e933f8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 14:36:12 2007 -0600
+
+    Added a header for lib/makefield.cc
+
+commit c04e92eb8bcd99f16a908e48e8bee1673488ccf8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 12:13:22 2007 -0600
+
+    Do not canonicalize *@localhost addresses.
+
+commit 5038832d2067dbf30903bc2273b8673904fab11b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 10:40:29 2007 -0600
+
+    Documented the helohost config file that nullmailer-send uses.
+
+commit 357e7086733b25ab1116405502030c75993fb784
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 10:40:05 2007 -0600
+
+    Fixed nullmailer-send to reread helohost along with the other config files.
+
+commit 07300026f7dfbf889b56ce45b0dd7a8160ac8aee
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 10:38:55 2007 -0600
+
+    Make a hanging test protocol server less likely in tests/protocols.
+    
+    The previous test script set up an exit function to kill the test
+    protocol server *after* sleeping for 1 second.  If the script was
+    interrupted during that sleep, the server wouldn't get killed properly.
+
+commit 89a18d52833e65565031ed7a3cd61ff55fcfb151
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 10:08:11 2007 -0600
+
+    Added support for reporting the sender and recipients in mailq.
+
+commit bb508024b20ee63e9f99e13159969467ab7145e3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 09:09:00 2007 -0600
+
+    Report system errors in more cases in nullmailer-send.
+
+commit 695d263cb625df30c9020a03d4eeee09972a30d4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Oct 7 23:11:51 2007 -0600
+
+    Fix "missing sentinel in function call" warning in src/inject.cc
+
+commit 0c747e5e565256cd911dfaec96db8c188c462eb7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 10 00:03:25 2007 +0000
+
+    Added a send timeout in nullmailer-send, to kill sending messages that
+    stall.
+
+commit 2971ceacb9ccd75126996669a0ed92e8b9a6dc8e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 9 23:28:54 2007 +0000
+
+    Added support in nullmailer-inject for $NULLMAILER_QUEUE to name the
+    program which is used to queue messages.
+
+commit 7daab6d2e608a08b42ee61751def5b3231a5e01b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 9 16:01:16 2007 +0000
+
+    Bumped version to 1.04
+
+commit 99833fecba790016eb54869fe342205e1b8055c5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 29 22:16:35 2006 +0000
+
+    Added missing setenv.h source file.
+
+commit b5ee39825d5e5835b06bb187b4b9fdc5dd8fa126
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 29 21:04:48 2006 +0000
+
+    Test for the use of getpwnam instead of "unknown" as a last resort on
+    sender addresses.
+
+commit 2dc75a869c1d04f9fdd9a2ee20fee0edeec1ff30
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 29 19:54:12 2006 +0000
+
+    Bumped date stamp on the README
+
+commit 6ceeeffe2e118bad2407ed869e969044ee78dc15
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 29 19:53:40 2006 +0000
+
+    Revised how I want to handle bouncing messages.
+
+commit fefb4a02f65431fda75f1a93a2a3c4288ba39df8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 29 19:30:33 2006 +0000
+
+    If the sender name cannot be determined from the environment
+    variables, try to pull it from /etc/passwd before using "unknown".
+    Thanks Roderick Schertler <roderick@argon.org>
+    
+    Mail from cron gets an envelope sender address of "unknown" because it
+    doesn't set $LOGNAME or $USER in the environment.  This patch fixes it
+    by having nullmailer-inject try getpwnam() for the name if the
+    environment variables aren't set.
+    
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=218326
+
+commit 0a65f1b7513554aa4794a65b108f33ac486cd0f0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 27 23:22:42 2006 +0000
+
+    Fixed netstring length bug in QMQP sending module.
+
+commit b47012b6aab40fc900d822b2c9909e011ff4d1ab
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 27 23:22:13 2006 +0000
+
+    Fixed compile breakage on Solaris due to use of setenv.
+
+commit cde4bc394cbdb05ffebe96659fcf400b297b8251
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jun 23 18:40:00 2006 +0000
+
+    Fixed the SMTP protocol module to send EHLO instead of HELO when doing
+    authentication.  Thanks to Norbert Tretkowski <norbert@tretkowski.de>
+    for the suggestion.
+
+commit 8ac930b89d7ad4a5f1ff2db6c2dcc223e518156c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jun 23 15:20:29 2006 +0000
+
+    Added support for the SMTP AUTH LOGIN method.
+
+commit 8910fae6567878c83972a729d812330878f3af2f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 22 17:08:08 2006 +0000
+
+    Fixed the SMTP protocol module to send QUIT on protocol failures.
+
+commit f6352bb34ee4460833b436f0a42e57094f85ad11
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 22 17:07:34 2006 +0000
+
+    Bumped version to 1.03
+
+commit 5d7dc2399ce42378497cd8d601cd95800d1aa1ad
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 22 17:00:19 2006 +0000
+
+    Rename Copyright to License in spec.
+
+commit 031244d3092619ead6285b1d2eb61ba089264b80
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 10 04:31:19 2006 +0000
+
+    Bumped the date and version on the README.
+
+commit c7789de1ff5957c8db6995317947cbb7f4d5191e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Dec 7 22:59:13 2005 +0000
+
+    Fixed bug in SMTP AUTH that would cause SMTP sending to crash with a
+    segfault when it was used.
+
+commit 185b75a8bac9dbe8be395b392de1934c459618dc
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Dec 7 22:58:24 2005 +0000
+
+    Bumped version to 1.02
+
+commit 08ca3d9b16eab9d148e5963e768c41ab4b821074
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Nov 10 16:12:06 2005 +0000
+
+    Adjusted email addresses to point to untroubled.org
+
+commit d69ef12cb81402bf881f064cb0cc64c947f2bf48
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Nov 10 16:08:00 2005 +0000
+
+    Updated the release date in the README file.
+
+commit 2f121ae04b3c9345fc9594ff23b029f67908adbb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Nov 10 16:07:00 2005 +0000
+
+    Touched up note about SMTP AUTH implementation, since it has been
+    heavily modified.
+
+commit d88aa91ae567b2fb79980c72bbde94dce189795e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Nov 7 18:31:35 2005 +0000
+
+    Roll back the mistakenly increased value of cli_args_max
+    in protocols/protocol.cc
+
+commit fa37094d53833ef3c8d71a5e11ab9718f540c5a7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Nov 7 18:30:24 2005 +0000
+
+    Break up the --auth option to protocols into --user and --pass.
+
+commit a4b284f66d595dff455bf42e7c7ce0e0b5b78256
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 17:58:50 2005 +0000
+
+    Simplified the logic of breaking the "user,pass" string into its two parts.
+
+commit 203770e20d27331290ce3e01efc512c8cc9d6286
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 17:57:22 2005 +0000
+
+    Moved the common "auth" global into protocol.cc, making it default to
+    NULL instead of an empty string.
+
+commit 3cad91f34674656cbadd9f26584e968fa323aa84
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 17:52:21 2005 +0000
+
+    Broken the base64 conversion out of protocols/smtp.cc (and simplified it
+    greatly in the process).
+
+commit e6a655c635fce55aa4d365ed8d689777795ae0a4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 17:11:22 2005 +0000
+
+    Added support for SMTP AUTH PLAIN
+    Thanks Ace Jones <ace.j@hotpop.com>
+
+commit a2cfd3adb3650e4fadfda84ec6c4436035a5d889
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 16:50:37 2005 +0000
+
+    Fixed compile error in lib/list.h
+
+commit e24ff7d1187fff34bacee4b3e9f68494a3fb1f1e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Nov 2 16:50:11 2005 +0000
+
+    Bumped version to 1.01
+
+commit e96902b673a4e2494ca245d29b7bd47e67e8d8a2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:54:04 2005 +0000
+
+    Fixed up lib Makefile to properly dist the ac directory.
+
+commit 8e91d48269e281d31bb27bcfa8e08771d23bdb41
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:49:53 2005 +0000
+
+    Renamed ac/time.h to ac/systime.h to prevent #include recursion.
+
+commit 759016a2030267b6effb407e626f696db26ce9ec
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:28:34 2005 +0000
+
+    Updated dates, version, and em.ca URLs.
+
+commit 4a4da64bc6e79126d6684b9973aa4bfb1672c658
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:28:11 2005 +0000
+
+    Removed note about my daemontools RPMs as they are no longer really mailtained.
+
+commit 3fc2cc552bead7c3c2ddc797ccc4e28b786ee4f0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:27:45 2005 +0000
+
+    Added some TODOs for protocols, I just want to get 1.00 out the door.
+
+commit 2fc95aa6bdf7937dd20573e435776e66767b0639
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:20:39 2005 +0000
+
+    Updated links to em.ca to untroubled.org
+
+commit 48ed6d1ab193122319518d8969997a7634816fdf
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 28 17:20:15 2005 +0000
+
+    Removed note about documentation fix.
+
+commit e7466bbfa007c6c2507230d173f5b7fd6ed25e4f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 26 00:14:31 2005 +0000
+
+    Bumped version to 1.00 (no RC status)
+
+commit 7d747a340849ff4da7f4cfcc3dd73b15cc1f4ae5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 26 00:07:54 2005 +0000
+
+    Removed extra TODO item as nullmailer-inject already handles it.
+
+commit 7e937ae6838f4f048eada733ee3834d530a1c04a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 26 00:06:16 2005 +0000
+
+    Fixed bug in handling headers containing CR+LF line endings.
+
+commit c67c5eaad79527bce438b99040e3c2c837fbd318
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 25 23:52:31 2005 +0000
+
+    Use a plain grep instead of formail to extract header entries.
+
+commit 38b45971581c15e86248ec96e8b650653de7c2c4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 25 23:52:15 2005 +0000
+
+    Use the "-n" argument to head and tail commands.
+
+commit 0cdb3f5ea009a7ace06f1ea34721fc064e87e85c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 25 23:50:11 2005 +0000
+
+    Fixed bug in header parsing that would cause the last header line to
+    be repeated if there was no body.
+
+commit ff8d1b990502c773124ebd024a5dc027260b98dd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 25 22:33:59 2005 +0000
+
+    Adjusted usage for newest automake 1.9 and autoconf 2.59 tools.
+
+commit 02301e054d43c30b605ff6e53e020b30bf80feb4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 21 22:23:55 2005 +0000
+
+    Fixed problem with multiple arguments to protocol modules.
+    Thanks Sascha Silbe <sascha-ml-nullmailer@silbe.org>
+
+commit b6ec5afabea7bb06d19d78ac3e64e4f7ee13bc61
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Feb 21 16:56:44 2005 +0000
+
+    Fixed extraneous spaces in SMTP sender.
+
+commit 22c89ba9c04455da98b2bba073e1e74ec9bfe3cb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 12 23:47:07 2003 +0000
+
+    Added reference to "me" config file in top-level documentation.
+
+commit 1ec58eba7492a3a17bb2609e87c7080292cba95d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 15 17:34:45 2003 +0000
+
+    Fixed a bug in reporting errors in the result string -- they do need a
+    newline.
+
+commit 162bae93b1c6376d7104bd9572e80f09de40d39b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 15 17:34:08 2003 +0000
+
+    Fixed the address parser handling domain names with trailing periods.
+
+commit 499aaf4797e2fb4c007612b495324c24ccc28d57
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 13 20:21:50 2003 +0000
+
+    Fixed the warning on the cli_options list end marker.
+    Patch from Martin Godisch <martin@godisch.de>
+
+commit 9a02750cc3cbe0f1b8ef6743470b2c6b84cd29da
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Jan 12 04:31:15 2003 +0000
+
+    Handle the "-bs" flag in the sendmail wrapper by dieing when we see it.
+    http://bugs.debian.org/170079
+    Patch from Martin Godisch <martin@godisch.de>
+
+commit a1763f70cd0407894320de203ebf7541a78a7339
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Jan 12 04:27:24 2003 +0000
+
+    Fixed some compile warnings.
+    Patch from Martin Godisch <martin@godisch.de>
+
+commit 83dcee3a92c4acedd8a68f4e544d07b9e30a2561
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Jan 12 04:25:07 2003 +0000
+
+    Made permissions on queued files more strict.
+    http://bugs.debian.org/164951
+
+commit 6382e441d3a332bf170bc9eeb25186ee45bb6090
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Jan 12 04:24:18 2003 +0000
+
+    Bumped version up to 1.00RC8
+
+commit 1aeae0c1cca00e85fb620212a49c8d9b73627358
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 23:10:21 2003 +0000
+
+    Removed old items.
+
+commit 0d8c3e7333b07cfb23ab431ceb1a288a8d122301
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 23:09:46 2003 +0000
+
+    Added note about setting up the "me" config file.
+
+commit 9b80fcc1c41399f83c476bf445bbf331dbb142ec
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 21:49:25 2003 +0000
+
+    Bumped up the version to 1.00RC7
+
+commit 35d3211c2104584cc2bf3982680a452afb3e6515
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 21:49:13 2003 +0000
+
+    Added the ChangeLog.old file to the list of extras.
+
+commit ff31729908d8581446c724acb25b5571bd65f017
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 21:02:46 2003 +0000
+
+    Updated dates on copyright marks.
+
+commit 43be0087a7242853132c6fc6a53a132a5a146bf7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 21:02:18 2003 +0000
+
+    Renamed ChangeLog to allow use of svn-generated ChangeLog
+
+commit 376394e1af0f25e8ea0b168da70a79e9cffa6b08
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 20:51:59 2003 +0000
+
+    Added a one-shot mode to nullmailer-send.
+
+commit ab8a90edce7c7f445e9729489b76e571f337f226
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 3 20:40:21 2003 +0000
+
+    Reset reload_files to false when the files are reloaded.
+
+commit f2291a8bcc42973f02ba8f1d09e4cb46cb6c6862
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Dec 27 14:28:33 2002 +0000
+
+    Fixed typo in smtp.cc -- "me" should be "hh".
+
+commit b8c300ae4d5f6ee27c133a61d463ea0dd75ecad0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Dec 27 14:24:33 2002 +0000
+
+    Bumped up version to 1.00RC7
+
+commit b39514ec1935d22571c94ccd187a3c7f7d04c834
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 20:50:55 2002 +0000
+
+    Removed CVS note.
+
+commit 4731fbd50f1e8ce9891cef664098a7f28def057f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 20:50:42 2002 +0000
+
+    Set date to today.
+
+commit 851cbab77a8f6018052d3a4df4a370b1eb7fd4b0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:25:01 2002 +0000
+
+    Added note about new protocol module messages, new control file, and
+    FutureQuest sponsorship.
+
+commit 8dc1b3d69d0192db41f9bafc7b8a0cc7d8d8c178
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:22:39 2002 +0000
+
+    Fixups: also show the failure message, and use the proper exit code.
+
+commit 7868ecfff640373774da7aa88f74ed0aaf6a183d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:19:58 2002 +0000
+
+    Show success messages as well.
+
+commit d66b1aec1546c236dfc033ee69e815a99147df50
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:14:11 2002 +0000
+
+    Removed the superfluous "QUIT" command.
+
+commit 3f030145f445adbbda33670f1ee620a776c4959a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:11:57 2002 +0000
+
+    Output error messages when exiting with a failure code.
+
+commit cf5c0011a4b88eb89582b1f61d5b0f7916f59000
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 18:11:03 2002 +0000
+
+    Allow protocol modules to output their own error messages.
+
+commit c284b3127232e5f3b125d6577b39cb8fa5c0e00d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:52:49 2002 +0000
+
+    Make sure to remove default{domain,host} before testing use of "me".
+
+commit dde9fa660686a66ae8ef11ce8dff3b5f4f95d51f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:52:22 2002 +0000
+
+    Use the "me" control as the hostname to remap with adminaddr.
+
+commit 25c573a9cbdf65536e2804759544d5d7404fae4b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:51:17 2002 +0000
+
+    Use the "me" control as the idhost, not a default file.
+
+commit 45943686ddb59555396a93757150f903de3c89a5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:50:38 2002 +0000
+
+    Fixed up and documented the default host/domain rules.
+
+commit f6c69210eb981915189202e545691b867e82dfbd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:38:45 2002 +0000
+
+    Only append a "." to the domain name (when appending the defaultdomain)
+    if it isn't empty.
+
+commit ecde7805dd7a5a81a9a72e3efcc5b3c7bdeea7a8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:27:33 2002 +0000
+
+    Auto-create /etc/nullmailer/{me,defaultdomain} on install.
+
+commit 9d9cf4abe2823f064490353e65050454e03ec5dd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 17:22:36 2002 +0000
+
+    Fixed up tests for the new "me" control file.
+
+commit 2dcada1a8420f0cd2071f7d5400d36d90da9168f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 16:59:48 2002 +0000
+
+    Fixup the tests for the more strict bash2 syntax.
+
+commit a608374d86fa96f1684ac9a97e20ee5ad905c797
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Dec 23 16:59:26 2002 +0000
+
+    Skip over the .svn directory instead of the CVS directory.
+
+commit b969ad0011e096337e1df8b726a4dab31009ac5e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Dec 17 17:49:04 2002 +0000
+
+    Renamed lib/cli to lib/cli++
+
+commit beec6d81cdddd0e97075f0376a7695f8eace77d8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:36:45 2002 +0000
+
+    Renamed lib/cli to lib/cli++ to match the current sources.
+
+commit 6236adb6505b8de30d84cd21c77e2fde431813ef
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:29:43 2002 +0000
+
+    *** empty log message ***
+
+commit d61f752fbb528a39e25dee76318ee0710c86761e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:29:39 2002 +0000
+
+    Added some empty address list tests.
+
+commit f6bd9e96236bc9d15ace31b3a9bcf8f417bd2453
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:29:06 2002 +0000
+
+    Clarified documentation.
+
+commit da5599048065408b11898be922d8666b9ac42fb3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:28:13 2002 +0000
+
+    Remove the CXXLINK hack that prevents compilation with newer versions of
+    gcc.
+
+commit 7b404a44924cab6728dce8b44ad87148ab12a3a4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:27:40 2002 +0000
+
+    Pass $HELOHOST on to the protocol modules.
+
+commit da880344f08b66367f1017eb5963450d5c916e91
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 05:21:51 2002 +0000
+
+    Completed the conversion from hostname() to the new config files.
+
+commit abf914f1e1c9c0f083760a2ac5fc4dc474ebce12
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Dec 15 03:18:09 2002 +0000
+
+    Fixed a bug in the setenv function in sendmail.cc.
+
+commit 6d6b72544f4f345a6b811fcb18035eedb848a612
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Sep 22 05:15:29 2001 +0000
+
+    The parameter for putenv must not be automatic.
+
+commit 0bfd0e7986ed7eef63c763723a13beb5cb0aac6e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Aug 26 03:49:12 2001 +0000
+
+    Drop address header fields with blank contents.
+
+commit 0eb76674d28ec00176cda2e21e04c8eacf825450
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Aug 26 03:46:23 2001 +0000
+
+    Completed handling empty address lists.
+
+commit da92f1e915dfceb6502047b3f0388e90987a303f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Aug 26 03:15:31 2001 +0000
+
+    Modified to properly parse an empty address field as empty.
+
+commit f9623df6d301f8092e033e1506defa51f9428189
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:39:40 2001 +0000
+
+    Updated for the new untroubled.org web site.
+
+commit 432fea67613a7a32218d4ae3b6826b74182c7b67
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:39:18 2001 +0000
+
+    *** empty log message ***
+
+commit 853dabd29822cc4b25dd56a652bd028d888e0199
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:38:54 2001 +0000
+
+    Redirect stderr to stdout before starting anything else to catch error
+    messages.
+
+commit dbb47f9cecb13595241cd7daeb3bc6af27a930e9
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:38:29 2001 +0000
+
+    Fixed a quoting bug with handling lines starting with ".".
+
+commit f353c7acadf52776286d3ff59406a20513570b90
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:37:33 2001 +0000
+
+    Tidied up the library function checks.
+
+commit dacc07ea5f76fc94775e60b8e724754647383c97
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 10 01:36:59 2001 +0000
+
+    Added an ignored option entry from the sendmail "-m" option.
+
+commit efbb131064feceb37660df104c68fd1bf4c525b5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Mar 29 21:57:30 2001 +0000
+
+    Fixed instructions on RPM startup.
+
+commit 6398dc58e24a54ee71115d6f2cabaee8d067646d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Mar 29 21:57:06 2001 +0000
+
+    *** empty log message ***
+
+commit b1e425291726b6fa8cc437e06f440991a0fe770d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Mar 29 21:56:36 2001 +0000
+
+    Removed unnecessary init.d directory, and added in the man7 pages.
+
+commit 45dbeb96ea19ca1a64f9edd16ad12e2714772ae8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Feb 27 22:38:05 2001 +0000
+
+    Fixed some include file problems with sys/time.h.
+
+commit 7cdfa39c46ee4b934d7ad21ba7414e38cf135194
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 7 21:45:32 2001 +0000
+
+    *** empty log message ***
+
+commit 29bf85c4dd9fb2f27c27fd94c48df4389c3ba9b8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 7 21:45:13 2001 +0000
+
+    Modified to always attempt to send everything in the queue.
+
+commit 74e72decb13a35cad74750daf08a23d2f7c71c85
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 2 02:30:36 2001 +0000
+
+    Bumped up version number to 1.00RC6.
+
+commit 4a6ad6d42872d58eaac0604e28c05fd852ee52e3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 2 02:28:53 2001 +0000
+
+    Added a missing include.
+
+commit 29e1d10faada18b867f5ffa0b84abaa38625c189
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 10:22:46 2000 +0000
+
+    Added 1.00RC5 release notes.
+
+commit 11a605944d897d9bfb51abcbc5a65af9db673b84
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 10:18:42 2000 +0000
+
+    *** empty log message ***
+
+commit 841ccae483442aba48ad0d9b8312beea0a4bb5f0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 10:16:46 2000 +0000
+
+    Make the service directory.
+
+commit b5a02d72560f8a58149d907408b6d6d55759879e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 10:12:45 2000 +0000
+
+    Bumped up version number.
+
+commit 0a0590220eacca1bb7965d414d2aab2ca26b4675
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 09:47:26 2000 +0000
+
+    Removed unnecessary init script.
+
+commit adad7709bf7490eb355ff5eeede0a1d3b60be3e5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 09:47:17 2000 +0000
+
+    Modified to use supervise-scripts 3.
+
+commit d62e97b74d464bb7863fb755272a7fa33c3b8578
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 09:41:21 2000 +0000
+
+    Return proper error codes for permanent and temporary SMTP failures.
+
+commit c6654636d6e2812e371ee1193e815412ea117a20
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 09:41:02 2000 +0000
+
+    Fixed the prototype for getdomainname.
+
+commit ef0704b64da065036a7193dbfd5141043ac00aad
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Dec 30 09:40:44 2000 +0000
+
+    *** empty log message ***
+
+commit 3adb189998e0f75e03129a017fbc1d399739303e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Aug 30 20:58:37 2000 +0000
+
+    Moved extern declaration of getdomainname out of the function.
+
+commit 5cede356e41da63b71a1efa0d8a5887dbe847a18
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 29 05:11:45 2000 +0000
+
+    Added missing INSTALL dist file.
+
+commit 37b555d7173f83a89bdfdb7324a041d8d39c281a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 29 05:11:09 2000 +0000
+
+    Renamed the script files.
+
+commit 195f92e0b52b263cf908701fa929a277eb14ca12
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 29 00:07:50 2000 +0000
+
+    Fixed up forgotten ChangeLog entries.
+
+commit 9685b2cccd7befeb33631da041d93544b5425fe7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 29 00:00:15 2000 +0000
+
+    Final RC4 update.
+
+commit 46994cdeb5a3d6331e9e6a069273677ed5ffb694
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Aug 28 23:58:38 2000 +0000
+
+    Test addresses with trailing periods.
+
+commit b7deddd27024f40efb9605d8db0e3bba11233377
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Aug 28 23:57:43 2000 +0000
+
+    Fixed to handle addresses with trailing periods.
+
+commit 022a4edce2341a45836c75492f0bf33f45b5e281
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Aug 16 01:28:46 2000 +0000
+
+    Added extern declaration of getdomainname for systems that don't declare
+    it.
+
+commit d13669d5bec5b7d2d451b35429cb72371e4fe876
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Aug 16 01:28:25 2000 +0000
+
+    *** empty log message ***
+
+commit 5dd4e7c4559d934c603b7440f56f8b9c65d0c7b1
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Aug 16 01:21:22 2000 +0000
+
+    Updated install instructions in HOWTO, removed the modified INSTALL
+    document.
+
+commit d45b24c27720452fd0c7102a1a6e88bfca4a4b7d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Aug 16 01:13:24 2000 +0000
+
+    Added custom INSTALL instructions.
+
+commit b868ae6ecebc1030a20befbf2619529ed57a775a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 15 22:45:39 2000 +0000
+
+    Ignore warnings from compile output.
+
+commit 88f19c732b2ed6f8fdc91a140b4b1076a0f6ef71
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Aug 14 21:05:51 2000 +0000
+
+    Fixed the reversed named pipe bug logic.
+
+commit e11b9203bf2b7fb2ae57e6f91d3e72349b700fd8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Aug 11 11:10:25 2000 +0000
+
+    1.00RC3 release checkin.
+
+commit 294e5aa230f8e6557574c4e6417c5435c738822c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Aug 11 11:09:41 2000 +0000
+
+    Fixed a problem with multiple use of itoa.
+
+commit 75c881a04cc16ae09c60938fe950c0c0ac9ef560
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Aug 11 00:48:19 2000 +0000
+
+    Added configure test for named pipe bug.
+
+commit be2db683e5cb28ebd4701c9554650a3ca6eb4681
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Aug 11 00:47:53 2000 +0000
+
+    Fixed header parsing logic.
+
+commit 5852e4eb6e687c16f4f242fe957de709e554e3c4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 11:09:35 2000 +0000
+
+    Added code to handle systems that require a writer on the named pipe.
+
+commit 7c8ee6dd883babf00442b3082bda73b50cb05c5a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 11:08:43 2000 +0000
+
+    Added a handler for the -L sendmail option (ignored).
+
+commit f45ce51c6178a7e4b799781166c70a1a897457e4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 11:08:08 2000 +0000
+
+    Added man page for the sendmail emulator.
+
+commit c40bd02e6cf8c0a6c3706503ac3f88489f1c0678
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 10:43:47 2000 +0000
+
+    Added an overall man page for nullmailer.
+
+commit 914c03a6dbbb4e1052090939ee89b91b9cf44cf2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 10:31:02 2000 +0000
+
+    Fixed a typo in the root-install chmods.
+
+commit 169c32515a18966632adc2d23df19c83324f3c61
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 8 10:16:13 2000 +0000
+
+    Fixed some typos.
+
+commit 4c0ee03eb407127c4ba741d2240defaeeb95cbc2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Jul 8 00:21:53 2000 +0000
+
+    Fixed up release notes.
+
+commit 72e2c21a123deb0636e99f7c140dbb06ce45ecb5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jul 4 09:37:35 2000 +0000
+
+    Fixed typo in lib/hostname.cc
+
+commit 9110a039f500dcdb7158f21a8023a569967d541a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jun 28 21:27:46 2000 +0000
+
+    Added utsname tests to configure.
+
+commit 7407ffc714f0ae8b7be3e144b26586b241747ec5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jun 28 21:26:44 2000 +0000
+
+    Fixed domain name determination bug, and portability fix in mergelib.sh
+
+commit ac5526eb24b95b6f39ee009104da2f2c867913c0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jun 28 21:26:05 2000 +0000
+
+    Fixed response number bug.
+
+commit b0e7a7464abe860551226e0870dd3f37f6ddc365
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 20 01:47:50 2000 +0000
+
+    Fixed a minor type bug.
+
+commit b9d8016c91144d1986029bc1bb7ad539c251b233
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 21:26:49 2000 +0000
+
+    Final release 1.00RC1 check in.
+
+commit 4a07e155c61694340e6f797b55bbf48a941dbafa
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 21:22:13 2000 +0000
+
+    Final 1.00RC1 check in.
+
+commit fcae2ba8b7bac005c7b0de960663f6e20c37deb6
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 21:20:59 2000 +0000
+
+    Fixed up NEWS and README to reflect new version number.
+
+commit bf50ea12ddf8170cf5d2cc87bfeee4175d2d617f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 21:13:53 2000 +0000
+
+    Fixed up copyright notices.
+
+commit 81cbaafd9f3054a18c3b47fe43e8300473b2db21
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 21:13:42 2000 +0000
+
+    Added note on bug fix to lib/makefields.cc
+
+commit ef8870f75cfb67b2e4745a43ab9cf008fff17165
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 20:59:15 2000 +0000
+
+    Removed compiled binary file address-test.
+
+commit e4438a9a7ee6c094b0fa7aa3d07a864482f2e5b5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 20:58:41 2000 +0000
+
+    Fixed include file paths.
+
+commit 528cc2d62f77e9d5024494e087b06f194b13411e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 20:58:12 2000 +0000
+
+    Fixed include file paths, added missing shell scripts and removed some
+    unnecessary headers.
+
+commit 2c137077a1f079c8e3073dee5c45faf172391faf
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 15 20:57:32 2000 +0000
+
+    Bumped the version number, and touched up the README and NEWS.
+
+commit e2dc08d88ac995de9541b544b88e46e393a7079a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Feb 17 00:24:45 2000 +0000
+
+    Imported sources.

@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999-2003  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include "defines.h"
 #include "fdbuf/fdbuf.h"
 #include "itoa.h"
+#include "mystring/mystring.h"
 #include <dirent.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -33,6 +34,8 @@
 
 int main(int, char*[])
 {
+  mystring line;
+
   if(chdir(QUEUE_MSG_DIR))
     fail("Cannot change directory to queue.");
   DIR* dir = opendir(QUEUE_MSG_DIR);
@@ -45,14 +48,21 @@ int main(int, char*[])
       continue;
     time_t time = atoi(name);
     char timebuf[100];
-    strftime(timebuf, 100, "%Y-%m-%d %H:%M:%S  ", localtime(&time));
+    strftime(timebuf, 100, "%Y-%m-%d %H:%M:%S ", localtime(&time));
     fout << timebuf;
     struct stat statbuf;
     if(stat(name, &statbuf) == -1) 
       fout << "?????";
     else
       fout << itoa(statbuf.st_size);
-    fout << " bytes" << endl;
+    fout << " bytes";
+    fdibuf in(name);
+    if (in.getline(line)) {
+      fout << " from <" << line << '>';
+      while (in.getline(line) && !!line)
+	fout << "\n  to <" << line << '>';
+    }
+    fout << endl;
   }
   closedir(dir);
   return 0;

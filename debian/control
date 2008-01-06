@@ -3,7 +3,8 @@ Section: mail
 Priority: extra
 Maintainer: Norbert Tretkowski <nobse@debian.org>
 Build-Depends: debhelper (>= 4), po-debconf, automake1.9, autoconf, autotools-dev, dpatch
-Standards-Version: 3.7.2.1
+Standards-Version: 3.7.3
+Homepage: http://untroubled.org/nullmailer/
 
 Package: nullmailer
 Architecture: any

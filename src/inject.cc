@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999-2003  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 #include "canonicalize.h"
 #include "configio.h"
 #include "cli++/cli++.h"
+#include "makefield.h"
 
 enum {
   use_args, use_both, use_either, use_header
@@ -78,22 +79,30 @@ typedef list<mystring> slist;
 // static bool do_debug = false;
 
 static mystring cur_line;
+static mystring nqueue;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Configuration
 ///////////////////////////////////////////////////////////////////////////////
-mystring idhost;
+static mystring idhost;
 
 extern void canonicalize(mystring& domain);
 
 void read_config()
 {
+  const char* env;
   mystring tmp;
   read_hostnames();
   if(!config_read("idhost", idhost))
     idhost = me;
   else
     canonicalize(idhost);
+  if ((env = getenv("NULLMAILER_QUEUE")) != 0)
+    nqueue = env;
+  else {
+    nqueue = SBIN_DIR;
+    nqueue += "/nullmailer-queue";
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -362,9 +371,6 @@ bool read_header()
   return !header_has_errors;
 }
 
-extern mystring make_messageid();
-extern mystring make_date();
-
 mystring make_recipient_list()
 {
   mystring result;
@@ -386,7 +392,7 @@ bool fix_header()
     if(!header_has_date)
       headers.append("Date: " + make_date());
     if(!header_has_mid)
-      headers.append("Message-Id: " + make_messageid());
+      headers.append("Message-Id: " + make_messageid(idhost));
     if(!header_has_from)
       headers.append("From: " + from);
     if(!header_has_to && !header_has_cc && header_add_to &&
@@ -399,7 +405,7 @@ bool fix_header()
     if(!header_has_rdate)
       headers.append("Resent-Date: " + make_date());
     if(!header_has_rmid)
-      headers.append("Resent-Message-Id: " + make_messageid());
+      headers.append("Resent-Message-Id: " + make_messageid(idhost));
     if(!header_has_rfrom)
       headers.append("Resent-From: " + from);
     if(!header_has_rto && !header_has_rcc && header_add_to &&
@@ -421,14 +427,8 @@ static pid_t pid = 0;
 
 void exec_queue()
 {
-  if(chdir(SBIN_DIR) == -1) {
-    fout << "nullmailer-inject: Could not change directory to " << SBIN_DIR
-	 << ": " << strerror(errno) << endl;
-    exit(1);
-  }
-  else
-    execl("nullmailer-queue", "nullmailer-queue", 0);
-  fout << "nullmailer-inject: Could not exec nullmailer-queue: "
+  execl(nqueue.c_str(), nqueue.c_str(), NULL);
+  fout << "nullmailer-inject: Could not exec " << nqueue << ": "
        << strerror(errno) << endl;
   exit(1);
 }

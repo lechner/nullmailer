@@ -14,9 +14,9 @@ esac
 exit 0
 
 @DPATCH@
-diff -u -r nullmailer-1.00.orig/configure.in nullmailer-1.00/configure.in
---- nullmailer-1.00.orig/configure.in	2005-10-23 13:05:12.610696760 +0100
-+++ nullmailer-1.00/configure.in	2005-10-23 13:05:18.755762568 +0100
+diff -u -d -r nullmailer-1.03.orig/configure.in nullmailer-1.03/configure.in
+--- nullmailer-1.03.orig/configure.in	2007-07-22 14:18:18.245274645 +0100
++++ nullmailer-1.03/configure.in	2007-07-22 14:18:52.240088523 +0100
 @@ -47,6 +47,24 @@
  dnl AC_CHECK_FUNCS(gettimeofday mkdir putenv rmdir socket)
  AC_CHECK_FUNCS(setenv srandom)
@@ -42,9 +42,10 @@ diff -u -r nullmailer-1.00.orig/configure.in nullmailer-1.00/configure.in
  AC_DEFINE(BUFSIZE, 4096, [Generic buffer size])
  AM_CONDITIONAL(FDBUF_NO_MYSTRING, false)
  
-diff -u -r nullmailer-1.00.orig/lib/tcpconnect.cc nullmailer-1.00/lib/tcpconnect.cc
---- nullmailer-1.00.orig/lib/tcpconnect.cc	2005-10-23 13:05:12.595699040 +0100
-+++ nullmailer-1.00/lib/tcpconnect.cc	2005-10-23 13:05:24.110948456 +0100
+Only in nullmailer-1.03/debian: patched
+diff -u -d -r nullmailer-1.03.orig/lib/tcpconnect.cc nullmailer-1.03/lib/tcpconnect.cc
+--- nullmailer-1.03.orig/lib/tcpconnect.cc	2007-07-22 14:18:18.245274645 +0100
++++ nullmailer-1.03/lib/tcpconnect.cc	2007-07-22 14:19:20.735741332 +0100
 @@ -28,7 +28,11 @@
  #include <netinet/in.h>
  #include "errcodes.h"
@@ -57,7 +58,7 @@ diff -u -r nullmailer-1.00.orig/lib/tcpconnect.cc nullmailer-1.00/lib/tcpconnect
  static int sethostbyname(const mystring& hostname, struct sockaddr_in& sa)
  {
    struct hostent *he = gethostbyname(hostname.c_str());
-@@ -44,13 +48,46 @@
+@@ -44,13 +48,48 @@
    memcpy(&sa.sin_addr, he->h_addr, he->h_length);
    return 0;
  }
@@ -89,8 +90,10 @@ diff -u -r nullmailer-1.00.orig/lib/tcpconnect.cc nullmailer-1.00/lib/tcpconnect
 +    if(s < 0)
 +	continue;
 +
-+    if(connect(s, res->ai_addr, res->ai_addrlen) != 0)
++    if(connect(s, res->ai_addr, res->ai_addrlen) != 0) {
++    	s = -1;
 +	continue;
++    }
 +
 +    /* sucessful connection */
 +    break;
@@ -104,7 +107,7 @@ diff -u -r nullmailer-1.00.orig/lib/tcpconnect.cc nullmailer-1.00/lib/tcpconnect
    sa.sin_family = AF_INET;
    sa.sin_port = htons(port);
    int s = socket(PF_INET, SOCK_STREAM, 0);
-@@ -64,5 +101,6 @@
+@@ -64,5 +103,6 @@
      default: return -ERR_CONN_FAILED;
      }
    }

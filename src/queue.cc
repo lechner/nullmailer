@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999-2003  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@
 #include "mystring/mystring.h"
 #include "fdbuf/fdbuf.h"
 #include "configio.h"
-#include "canonicalize.h"
 #include "hostname.h"
 
 #define fail(MSG) do{ fout << "nullmailer-queue: " << MSG << endl; return false; }while(0)
