@@ -15,19 +15,18 @@ msgstr ""
 "Project-Id-Version: nullmailer 1:1.00-2\n"
 "Report-Msgid-Bugs-To: nobse@debian.org\n"
 "POT-Creation-Date: 2007-03-18 12:14+0100\n"
-"PO-Revision-Date: 2005-10-14 16:28+0200\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"PO-Revision-Date: 2008-07-22 20:08+0100\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
+"Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: string
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Mailname of your system:"
-msgstr "Ange e-postnamnet f�r ditt system:"
+msgstr "Ange e-postnamnet fï¿½r ditt system:"
 
 #. Type: string
 #. Description
@@ -36,14 +35,14 @@ msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"Detta �r det fullt kvalificerade v�rdnamnet f�r den dator som k�r "
-"nullmailer. Standardv�rdet �r helt enkelt namnet 'me'."
+"Detta ï¿½r det fullt kvalificerade vï¿½rdnamnet fï¿½r den dator som kï¿½r "
+"nullmailer. Standardvï¿½rdet ï¿½r helt enkelt namnet 'me'."
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Smarthosts:"
-msgstr ""
+msgstr "Smarthosts:"
 
 #. Type: string
 #. Description
@@ -54,10 +53,11 @@ msgid ""
 "optional protocol string 'host protocol'. The protocol name defaults to "
 "smtp, and may be followed by command-line arguments for that module."
 msgstr ""
-"Detta �r en kolon-separerad lista av fj�rrservrar dit varje meddelande ska "
-"skickas. Varje inl�gg inneh�ller ett fj�rrv�rdnamn eller address f�ljt av en "
-"valfri protokollstr�ng 'host protocol'. Standard f�r protokollnamnet �r smtp "
-"och kan f�ljas av ett kommandoargument f�r den modulen."
+"Detta ï¿½r en kolon-separerad lista av fjï¿½rrservrar dit varje meddelande "
+"ska skickas. Varje inlï¿½gg innehï¿½ller ett fjï¿½rrvï¿½rdnamn eller address "
+"fï¿½ljt av en valfri protokollstrï¿½ng 'host protocol'. Standard fï¿½r "
+"protokollnamnet ï¿½r smtp och kan fï¿½ljas av ett kommandoargument fï¿½r den "
+"modulen."
 
 #. Type: string
 #. Description
@@ -68,7 +68,6 @@ msgstr "Exempel:"
 #. Type: string
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
@@ -81,10 +80,8 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Where to send local emails (optional):"
-msgstr ""
-"Till vilken address ska nullmailer skicka lokala e-postmeddelanden (valfri)?"
+msgstr "Till vilken address ska lokala e-postmeddelanden skickas (valfri)?"
 
 #. Type: string
 #. Description
@@ -96,11 +93,9 @@ msgid ""
 "'somebody@localhost' and have it go somewhere sensible instead of being "
 "bounced by your relay host."
 msgstr ""
-"Om den inte �r tom, kommer alla mottagare till anv�ndare p� antingen "
-"'localhost' (str�ngen literal) eller det kanoniska v�rdnamnet (fr�n /etc/"
-"mailname) att kopplas till denna address. Detta ges f�r att till�ta lokala "
-"daemoner att skicka e-post till ''vemsomhelst@localhost' och f� det att g� "
-"n�gonstans ist�llet f�r att studsas tillbaka fr�n din e-postgateway."
-
-#~ msgid "Please specify your smarthosts:"
-#~ msgstr "Ange dina smarthosts:"
+"Om den inte ï¿½r tom, kommer alla mottagare till anvï¿½ndare pï¿½ antingen "
+"'localhost' (strï¿½ngen literal) eller det kanoniska vï¿½rdnamnet (frï¿½n /"
+"etc/mailname) att kopplas till denna address. Detta ges fï¿½r att tillï¿½ta "
+"lokala daemoner att skicka e-post till ''vemsomhelst@localhost' och fï¿½ det "
+"att gï¿½ nï¿½gonstans istï¿½llet fï¿½r att studsas tillbaka frï¿½n din e-"
+"postgateway."

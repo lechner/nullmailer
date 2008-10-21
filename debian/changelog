@@ -1,3 +1,13 @@
+nullmailer (1:1.04-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Swedish. Closes: #491954
+    - Italian. Closes: #491954
+    - Russian. Closes: #502887
+
+ -- Christian Perrier <bubulle@debian.org>  Tue, 21 Oct 2008 06:16:14 +0200
+
 nullmailer (1:1.04-1) unstable; urgency=low
 
   * New upstream release. (closes: #458038)
