@@ -1,27 +1,26 @@
-# Vietnamese translation for nullmailer.
-# Copyright © 2005 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2005.
-# 
+# Vietnamese translation for Nullmailer.
+# Copyright © 2009 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: nullmailer 1/1.00-1\n"
+"Project-Id-Version: nullmailer 1:1.04-1.1\n"
 "Report-Msgid-Bugs-To: nobse@debian.org\n"
 "POT-Creation-Date: 2007-03-18 12:14+0100\n"
-"PO-Revision-Date: 2005-06-30 15:25+0930\n"
+"PO-Revision-Date: 2009-01-30 23:41+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.2.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.8\n"
 
 #. Type: string
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Mailname of your system:"
-msgstr "Hãy nhập tên thư của hệ thống bạn:"
+msgstr "Tên thư của hệ thống này:"
 
 #. Type: string
 #. Description
@@ -30,14 +29,14 @@ msgid ""
 "This is the fully-qualified host name of the computer running nullmailer. It "
 "defaults to the literal name 'me'."
 msgstr ""
-"Giá trị này là tên máy khả năng đầu đủ của máy có chạy trình nulmailer. Mặc "
-"định là tên nghĩa chữ «me» (mình)."
+"Giá trị này là tên máy khả năng đầy đủ của máy có chạy trình nullmailer. Mặc "
+"định là tên nghĩa chữ « me » (mình)."
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Smarthosts:"
-msgstr ""
+msgstr "Máy khéo :"
 
 #. Type: string
 #. Description
@@ -48,22 +47,21 @@ msgid ""
 "optional protocol string 'host protocol'. The protocol name defaults to "
 "smtp, and may be followed by command-line arguments for that module."
 msgstr ""
-"Giá trị này là một danh sách định giới bằng dấu hai chấm, của các máy phục "
-"vụ từ xa sẽ nhận mỗi thư. Mỗi mục nhập cần phải chứa một tên hay địa chỉ máy "
-"từ xa, với chuỗi giao thức «host protocol» (giao thức máy) tùy chọn theo "
-"sau. Tên giao thức mặc định là «smtp», và bạn có thể nhập một số đối số dòng "
-"lệnh cho mô-đun ấy theo sau."
+"Giá trị này là một danh sách định giới bằng dấu hai chấm chứa các máy phục "
+"vụ từ xa cho chúng cần gửi mỗi thư. Mỗi mục nhập chứa một tên máy từ xa hoặc "
+"địa chỉ, với mộ chuôi giao diện vẫn tùy chọn « host protocol ». Tên giao thức "
+"mặc định là « smtp », mà cũng chấp nhận các đối số dòng lệnh thích hợp với mô-"
+"đun đó."
 
 #. Type: string
 #. Description
 #: ../templates:2001
 msgid "Examples:"
-msgstr "Thị dụ:"
+msgstr "Ví dụ :"
 
 #. Type: string
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
@@ -71,19 +69,15 @@ msgid ""
 msgstr ""
 "  smarthost\n"
 "  smarthost smtp --port=10025\n"
-"  smarthost:mx.domain:192.168.1.1\n"
-"(smarthost: máy thông minh\n"
-"port: cổng\n"
-"domain: miền)"
+"  smarthost smtp --user=foo --pass=bar\n"
+"\n"
+"[smarthost = máy khéo]"
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Where to send local emails (optional):"
-msgstr ""
-"(tùy chọn) Bạn có muốn lập trình nullmailer gởi thư địa phương cho địa chỉ "
-"nào?"
+msgstr "Gửi thư cục bộ cho đâu (tùy chọn):"
 
 #. Type: string
 #. Description
@@ -95,11 +89,8 @@ msgid ""
 "'somebody@localhost' and have it go somewhere sensible instead of being "
 "bounced by your relay host."
 msgstr ""
-"Nếu giá trị này không rỗng thì mọi điều nhận thư được gởi cho người dùng tại "
-"hoặc «localhost» (máy địa phương) hoặc tên máy đúng tiêu chuẩn (từ «/etc/"
-"mailname») có được ảnh xạ lại với địa chỉ này. Cung cấp tùy chọn này để cho "
-"phép trình nền địa phương có khả năng gởi thư cho «người_nào@localhost» thì "
-"thư ấy đi tới một nơi có ích, thay vào nó bị từ chối bởi máy gởi lại của bạn."
-
-#~ msgid "Please specify your smarthosts:"
-#~ msgstr "Hãy ghi rõ máy thông mình của bạn:"
+"Nếu giá trị này không trống, mọi người đều nhận thư từ người dùng ở hoặc « "
+"localhost » hoặc tên máy chuẩn tắc (từ « /etc/mailman ») thì được ánh xạ tới "
+"địa chỉ này. Tính năng này được cung cấp để cho phép trình nền cục bộ gửi "
+"thư điện tử cho « người_nào@localhost » và cho nó tới một nơi có ích, thay "
+"vào bị nhảy bởi máy tiếp lại."

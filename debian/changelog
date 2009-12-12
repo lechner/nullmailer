@@ -1,3 +1,17 @@
+nullmailer (1:1.04-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Do not ignore errors from make in debian/rules
+  * Add "${misc:Depends}" to dependencies to properly cope
+    with debhelper-triggerred dependencies
+  * Versioned build dependency on debhelper to fit with
+    debhelper compatibility level
+  * Drop linda overrides
+  * Fix pending l10n issues. Debconf translations:
+    - Vietnamese (Clytie Siddall).  Closes: #513583
+
+ -- Christian Perrier <bubulle@debian.org>  Sat, 12 Dec 2009 20:17:34 +0100
+
 nullmailer (1:1.04-1.1) unstable; urgency=low
 
   * Non-maintainer upload.
