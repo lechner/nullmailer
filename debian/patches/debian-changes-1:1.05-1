@@ -1,0 +1,1126 @@
+Description: Upstream changes introduced in version 1:1.05-1
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ nullmailer (1:1.05-1) unstable; urgency=low
+ .
+   * Ack NMUs, thankyou for your care of this package.
+   * New maintainer (Closes: #461244)
+   * New upstream release (Closes: #570640, #589899).
+   * Update Policy from 3.7.3 to 3.9.2:
+     - initscript won't delete and recreate nullmailer-send trigger FIFO
+       if daemon already running.  Complements --oknodo for Policy 3.8.1.
+   * Upgrade to debhhelper 7 + dh so that Policy upgrades become easy.
+   * Update from dpatch to quilt + source format "3.0 (quilt)".
+   * Update automake build-dep to current version for current ./configure.
+   * Use CPPFLAGS instead of CFLAGS (dh 7).
+   * Don't do "set -e" in initscript (Closes: #562505).
+   * Add watch file (Closes: #583556).
+   * Set rsyslog as default system log daemon (Closes: #526921).
+   * Add 'status' support to initscript (Closes: #526813) and add Description.
+   * Use ferr instead of fout for errors (patch 05, Closes: #329970).
+   * Fix handling of null envelope sender "<>" (patch 06, Closes: #188251).
+   * Send QUIT on success as well as failure, for MTAs that care about
+     strict SMTP: see RFC 5321 s3.8 (patch 07, Closes: #375380).
+   * Fix patch 02_ipv6.diff to remove reference to debian/patched (lintian).
+   * Remove redundant configure options since we no longer use automake 1.4.
+   * Remove Conflicts: with suidmanager, the latter no longer exists.
+   * Fix some remaining manpage spelling and hyphenation issues (patch 01,03).
+   * Override lintian moans about our permissions and suid binary.
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Nick Leverton <nick@leverton.org>
+Bug-Debian: http://bugs.debian.org/188251
+Bug-Debian: http://bugs.debian.org/329970
+Bug-Debian: http://bugs.debian.org/375380
+Bug-Debian: http://bugs.debian.org/461244
+Bug-Debian: http://bugs.debian.org/526813
+Bug-Debian: http://bugs.debian.org/526921
+Bug-Debian: http://bugs.debian.org/562505
+Bug-Debian: http://bugs.debian.org/570640
+Bug-Debian: http://bugs.debian.org/583556
+Bug-Debian: http://bugs.debian.org/589899
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- /dev/null
++++ nullmailer-1.05/tags
+@@ -0,0 +1,1066 @@
++!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
++!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
++!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
++!_TAG_PROGRAM_NAME	Exuberant Ctags	//
++!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
++!_TAG_PROGRAM_VERSION	5.7	//
++ACCOUNT	lib/mystring/rep.cc	61;"	d	file:
++ACCOUNT	lib/mystring/rep.cc	65;"	d	file:
++AT	.pc/06_nullenvsender.diff/lib/address.cc	/^  AT = '@',$/;"	e	enum:node_type	file:
++AT	lib/address.cc	/^  AT = '@',$/;"	e	enum:node_type	file:
++ATOM	.pc/06_nullenvsender.diff/lib/address.cc	/^  ATOM = 'A',$/;"	e	enum:node_type	file:
++ATOM	lib/address.cc	/^  ATOM = 'A',$/;"	e	enum:node_type	file:
++AUTH_LOGIN	protocols/protocol.h	10;"	d
++AUTH_PLAIN	protocols/protocol.h	9;"	d
++COLON	.pc/06_nullenvsender.diff/lib/address.cc	/^  COLON = ':',$/;"	e	enum:node_type	file:
++COLON	lib/address.cc	/^  COLON = ':',$/;"	e	enum:node_type	file:
++COMMA	.pc/06_nullenvsender.diff/lib/address.cc	/^  COMMA = ',',$/;"	e	enum:node_type	file:
++COMMA	lib/address.cc	/^  COMMA = ',',$/;"	e	enum:node_type	file:
++COMMENT	.pc/06_nullenvsender.diff/lib/address.cc	/^  COMMENT = 'C',$/;"	e	enum:node_type	file:
++COMMENT	lib/address.cc	/^  COMMENT = 'C',$/;"	e	enum:node_type	file:
++CPPFLAGS	debian/rules	/^	CPPFLAGS="$(CPPFLAGS) -Wl,-z,defs" dh_auto_configure -- --libexecdir=\/usr\/lib --localstatedir=\/var\/spool$/;"	m
++CR	.pc/06_nullenvsender.diff/lib/address.cc	31;"	d	file:
++CR	lib/address.cc	31;"	d	file:
++DOMAIN_LITERAL	.pc/06_nullenvsender.diff/lib/address.cc	/^  DOMAIN_LITERAL = 'D',$/;"	e	enum:node_type	file:
++DOMAIN_LITERAL	lib/address.cc	/^  DOMAIN_LITERAL = 'D',$/;"	e	enum:node_type	file:
++EMPTY	.pc/06_nullenvsender.diff/lib/address.cc	/^  EMPTY = 0,$/;"	e	enum:node_type	file:
++EMPTY	lib/address.cc	/^  EMPTY = 0,$/;"	e	enum:node_type	file:
++ENTER	.pc/06_nullenvsender.diff/lib/address.cc	139;"	d	file:
++ENTER	.pc/06_nullenvsender.diff/lib/address.cc	147;"	d	file:
++ENTER	lib/address.cc	139;"	d	file:
++ENTER	lib/address.cc	147;"	d	file:
++EOT	.pc/06_nullenvsender.diff/lib/address.cc	/^  EOT = '$',$/;"	e	enum:node_type	file:
++EOT	lib/address.cc	/^  EOT = '$',$/;"	e	enum:node_type	file:
++ERR_CONN_FAILED	lib/errcodes.h	13;"	d
++ERR_CONN_REFUSED	lib/errcodes.h	10;"	d
++ERR_CONN_TIMEDOUT	lib/errcodes.h	11;"	d
++ERR_CONN_UNREACHABLE	lib/errcodes.h	12;"	d
++ERR_EXEC_FAILED	lib/errcodes.h	18;"	d
++ERR_GHBN_FATAL	lib/errcodes.h	23;"	d
++ERR_GHBN_TEMP	lib/errcodes.h	8;"	d
++ERR_HOST_NOT_FOUND	lib/errcodes.h	6;"	d
++ERR_MSG_OPEN	lib/errcodes.h	15;"	d
++ERR_MSG_PERMFAIL	lib/errcodes.h	25;"	d
++ERR_MSG_READ	lib/errcodes.h	16;"	d
++ERR_MSG_REFUSED	lib/errcodes.h	24;"	d
++ERR_MSG_TEMPFAIL	lib/errcodes.h	19;"	d
++ERR_MSG_WRITE	lib/errcodes.h	17;"	d
++ERR_NO_ADDRESS	lib/errcodes.h	7;"	d
++ERR_PERMANENT_FLAG	lib/errcodes.h	27;"	d
++ERR_PROTO	lib/errcodes.h	14;"	d
++ERR_SOCKET	lib/errcodes.h	9;"	d
++ERR_UNKNOWN	lib/errcodes.h	20;"	d
++ERR_USAGE	lib/errcodes.h	5;"	d
++ESCAPE	.pc/06_nullenvsender.diff/lib/address.cc	/^  ESCAPE = '\\\\',$/;"	e	enum:node_type	file:
++ESCAPE	lib/address.cc	/^  ESCAPE = '\\\\',$/;"	e	enum:node_type	file:
++F	.pc/05_errors_on_stderr.diff/src/inject.cc	210;"	d	file:
++F	.pc/05_errors_on_stderr.diff/src/inject.cc	241;"	d	file:
++F	.pc/06_nullenvsender.diff/src/inject.cc	210;"	d	file:
++F	.pc/06_nullenvsender.diff/src/inject.cc	241;"	d	file:
++F	src/inject.cc	217;"	d	file:
++F	src/inject.cc	248;"	d	file:
++FAIL	.pc/06_nullenvsender.diff/lib/address.cc	140;"	d	file:
++FAIL	.pc/06_nullenvsender.diff/lib/address.cc	148;"	d	file:
++FAIL	lib/address.cc	140;"	d	file:
++FAIL	lib/address.cc	148;"	d	file:
++FDBUF_SIZE	lib/fdbuf/fdbuf.h	29;"	d
++FDBUF__FDIBUF__H__	lib/fdbuf/fdibuf.h	18;"	d
++FDBUF__FDOBUF__H__	lib/fdbuf/fdobuf.h	18;"	d
++FDBUF__H__	lib/fdbuf/fdbuf.h	18;"	d
++INTLENGTH	lib/itoa.h	5;"	d
++ITOA__H__	lib/itoa.h	2;"	d
++LABRACKET	.pc/06_nullenvsender.diff/lib/address.cc	/^  LABRACKET = '<',$/;"	e	enum:node_type	file:
++LABRACKET	lib/address.cc	/^  LABRACKET = '<',$/;"	e	enum:node_type	file:
++LIST__H__	lib/list.h	2;"	d
++LPAREN	.pc/06_nullenvsender.diff/lib/address.cc	32;"	d	file:
++LPAREN	lib/address.cc	32;"	d	file:
++LSQBRACKET	.pc/06_nullenvsender.diff/lib/address.cc	28;"	d	file:
++LSQBRACKET	lib/address.cc	28;"	d	file:
++MATCHRULE	.pc/06_nullenvsender.diff/lib/address.cc	155;"	d	file:
++MATCHRULE	lib/address.cc	155;"	d	file:
++MATCHTOKEN	.pc/06_nullenvsender.diff/lib/address.cc	154;"	d	file:
++MATCHTOKEN	lib/address.cc	154;"	d	file:
++MAXSTRLEN	lib/fdbuf/fdobuf_signed.cc	20;"	d	file:
++MAXSTRLEN	lib/fdbuf/fdobuf_unsigned.cc	20;"	d	file:
++MYSTRING__H__	lib/mystring/mystring.h	19;"	d
++MYSTRING__ITER__H__	lib/mystring/iter.h	19;"	d
++MYSTRING__JOIN__H__	lib/mystring/join.h	19;"	d
++MYSTRING__REP__H__	lib/mystring/rep.h	19;"	d
++NAMLEN	lib/ac/dirent.h	4;"	d
++NAMLEN	lib/ac/dirent.h	7;"	d
++NUL	lib/mystring/mystring.h	/^  static const mystring NUL;$/;"	m	class:mystring
++NULLMAILER_BASE64__H__	lib/base64.h	2;"	d
++NULLMAILER_CONNECT__H__	lib/connect.h	2;"	d
++NULLMAILER_SELFPIPE__H__	lib/selfpipe.h	2;"	d
++NULLMAILER__ADDRESS__H__	lib/address.h	2;"	d
++NULLMAILER__CANONICALIZE__H__	lib/canonicalize.h	2;"	d
++NULLMAILER__CONFIGIO__H__	lib/configio.h	2;"	d
++NULLMAILER__DEFINES__H__	lib/defines.h	2;"	d
++NULLMAILER__ERRCODES__H__	lib/errcodes.h	2;"	d
++NULLMAILER__HOSTNAME__H__	lib/hostname.h	2;"	d
++NULLMAILER__MAKEFIELD__H__	lib/makefield.h	2;"	d
++NULLMAILER__NETSTRING__H__	lib/netstring.h	2;"	d
++NULLMAILER__PROTOCOL__H__	protocols/protocol.h	2;"	d
++NULLMAILER__SETENV__H__	lib/setenv.h	2;"	d
++OR_RULE	.pc/06_nullenvsender.diff/lib/address.cc	156;"	d	file:
++OR_RULE	lib/address.cc	156;"	d	file:
++PERIOD	.pc/06_nullenvsender.diff/lib/address.cc	/^  PERIOD = '.',$/;"	e	enum:node_type	file:
++PERIOD	lib/address.cc	/^  PERIOD = '.',$/;"	e	enum:node_type	file:
++PKGDIR	debian/rules	/^PKGDIR = $(CURDIR)\/debian\/nullmailer$/;"	m
++QUOTE	.pc/06_nullenvsender.diff/lib/address.cc	30;"	d	file:
++QUOTE	lib/address.cc	30;"	d	file:
++QUOTED_STRING	.pc/06_nullenvsender.diff/lib/address.cc	/^  QUOTED_STRING = 'Q',$/;"	e	enum:node_type	file:
++QUOTED_STRING	lib/address.cc	/^  QUOTED_STRING = 'Q',$/;"	e	enum:node_type	file:
++RABRACKET	.pc/06_nullenvsender.diff/lib/address.cc	/^  RABRACKET = '>',$/;"	e	enum:node_type	file:
++RABRACKET	lib/address.cc	/^  RABRACKET = '>',$/;"	e	enum:node_type	file:
++RETURN	.pc/06_nullenvsender.diff/lib/address.cc	142;"	d	file:
++RETURN	.pc/06_nullenvsender.diff/lib/address.cc	150;"	d	file:
++RETURN	lib/address.cc	142;"	d	file:
++RETURN	lib/address.cc	150;"	d	file:
++RETURNR	.pc/06_nullenvsender.diff/lib/address.cc	141;"	d	file:
++RETURNR	.pc/06_nullenvsender.diff/lib/address.cc	149;"	d	file:
++RETURNR	lib/address.cc	141;"	d	file:
++RETURNR	lib/address.cc	149;"	d	file:
++RPAREN	.pc/06_nullenvsender.diff/lib/address.cc	33;"	d	file:
++RPAREN	lib/address.cc	33;"	d	file:
++RSQBRACKET	.pc/06_nullenvsender.diff/lib/address.cc	29;"	d	file:
++RSQBRACKET	lib/address.cc	29;"	d	file:
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(addr_spec)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(address)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(addresses)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(domain)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(group)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(local_part)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(mailbox)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(mailboxes)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(phrase)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(route)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(route_addr) $/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(route_spec)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(sub_domain)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	/^RULE(word)$/;"	f
++RULE	.pc/06_nullenvsender.diff/lib/address.cc	153;"	d	file:
++RULE	lib/address.cc	/^RULE(addr_spec)$/;"	f
++RULE	lib/address.cc	/^RULE(address)$/;"	f
++RULE	lib/address.cc	/^RULE(addresses)$/;"	f
++RULE	lib/address.cc	/^RULE(domain)$/;"	f
++RULE	lib/address.cc	/^RULE(group)$/;"	f
++RULE	lib/address.cc	/^RULE(local_part)$/;"	f
++RULE	lib/address.cc	/^RULE(mailbox)$/;"	f
++RULE	lib/address.cc	/^RULE(mailboxes)$/;"	f
++RULE	lib/address.cc	/^RULE(null_addr) $/;"	f
++RULE	lib/address.cc	/^RULE(phrase)$/;"	f
++RULE	lib/address.cc	/^RULE(route)$/;"	f
++RULE	lib/address.cc	/^RULE(route_addr) $/;"	f
++RULE	lib/address.cc	/^RULE(route_spec)$/;"	f
++RULE	lib/address.cc	/^RULE(sub_domain)$/;"	f
++RULE	lib/address.cc	/^RULE(word)$/;"	f
++RULE	lib/address.cc	153;"	d	file:
++SEMICOLON	.pc/06_nullenvsender.diff/lib/address.cc	/^  SEMICOLON = ';',$/;"	e	enum:node_type	file:
++SEMICOLON	lib/address.cc	/^  SEMICOLON = ';',$/;"	e	enum:node_type	file:
++SPOOLDIR	debian/rules	/^SPOOLDIR = $(CURDIR)\/debian\/nullmailer\/var\/spool\/nullmailer$/;"	m
++T	.pc/05_errors_on_stderr.diff/src/inject.cc	211;"	d	file:
++T	.pc/05_errors_on_stderr.diff/src/inject.cc	242;"	d	file:
++T	.pc/06_nullenvsender.diff/src/inject.cc	211;"	d	file:
++T	.pc/06_nullenvsender.diff/src/inject.cc	242;"	d	file:
++T	src/inject.cc	218;"	d	file:
++T	src/inject.cc	249;"	d	file:
++TEST	test/address-test.cc	38;"	d	file:
++TRACE	test/address-trace.cc	1;"	d	file:
++VMAILMGR__CLIPP__CLIPP__H__	lib/cli++/cli++.h	2;"	d
++WEXITSTATUS	lib/ac/wait.h	6;"	d
++WIFEXITED	lib/ac/wait.h	9;"	d
++X	.pc/05_errors_on_stderr.diff/src/inject.cc	212;"	d	file:
++X	.pc/05_errors_on_stderr.diff/src/inject.cc	240;"	d	file:
++X	.pc/06_nullenvsender.diff/src/inject.cc	212;"	d	file:
++X	.pc/06_nullenvsender.diff/src/inject.cc	240;"	d	file:
++X	src/inject.cc	219;"	d	file:
++X	src/inject.cc	247;"	d	file:
++_rep_stats	lib/mystring/rep.cc	/^  _rep_stats()$/;"	f	struct:_rep_stats
++_rep_stats	lib/mystring/rep.cc	/^struct _rep_stats$/;"	s	file:
++add_option	lib/cli++/cli++topod.pl	/^sub add_option {$/;"	s
++addr	.pc/06_nullenvsender.diff/lib/address.cc	/^  mystring addr;$/;"	m	struct:result	file:
++addr	lib/address.cc	/^  mystring addr;$/;"	m	struct:result	file:
++adminaddr	.pc/06_nullenvsender.diff/src/queue.cc	/^mystring adminaddr;$/;"	v
++adminaddr	src/queue.cc	/^mystring adminaddr;$/;"	v
++advance	lib/mystring/iter.cc	/^void mystring_iter::advance()$/;"	f	class:mystring_iter
++alloc	lib/mystring/rep.cc	/^mystringrep* mystringrep::alloc(unsigned length)$/;"	f	class:mystringrep
++alloc_len	lib/mystring/rep.cc	/^  unsigned alloc_len;$/;"	m	struct:_rep_stats	file:
++alloc_size	lib/mystring/rep.cc	/^  unsigned alloc_size;$/;"	m	struct:_rep_stats	file:
++allocs	lib/mystring/rep.cc	/^  unsigned allocs;$/;"	m	struct:_rep_stats	file:
++anode	.pc/06_nullenvsender.diff/lib/address.cc	/^anode::anode(node_type t, bool w, mystring s)$/;"	f	class:anode
++anode	.pc/06_nullenvsender.diff/lib/address.cc	/^anode::anode(node_type t,$/;"	f	class:anode
++anode	.pc/06_nullenvsender.diff/lib/address.cc	/^struct anode : public token$/;"	s	file:
++anode	lib/address.cc	/^anode::anode(node_type t, bool w, mystring s)$/;"	f	class:anode
++anode	lib/address.cc	/^anode::anode(node_type t,$/;"	f	class:anode
++anode	lib/address.cc	/^struct anode : public token$/;"	s	file:
++append	lib/fdbuf/fdobuf.h	/^		   append=O_APPEND };$/;"	e	enum:fdobuf::openflags
++append	lib/list.h	/^  bool append(T data) $/;"	f	class:list
++append	lib/mystring/append.cc	/^void mystring::append(const char* in)$/;"	f	class:mystring
++append	lib/mystring/append.cc	/^void mystring::append(const char* str, size_t len)$/;"	f	class:mystring
++append	lib/mystring/rep.cc	/^mystringrep* mystringrep::append(const char* str, unsigned len)$/;"	f	class:mystringrep
++appends	lib/mystring/rep.cc	/^  unsigned appends;$/;"	m	struct:_rep_stats	file:
++appends_dup	lib/mystring/rep.cc	/^  unsigned appends_dup;$/;"	m	struct:_rep_stats	file:
++argv0	lib/cli++/main.cc	/^const char* argv0;$/;"	v
++argv0base	lib/cli++/main.cc	/^const char* argv0base;$/;"	v
++argv0dir	lib/cli++/main.cc	/^const char* argv0dir;$/;"	v
++as_func_failure	configure	/^as_func_failure () {$/;"	f
++as_func_ret_failure	configure	/^as_func_ret_failure () {$/;"	f
++as_func_ret_success	configure	/^as_func_ret_success () {$/;"	f
++as_func_success	configure	/^as_func_success () {$/;"	f
++assign	lib/mystring/assign.cc	/^void mystring::assign(const char* in)$/;"	f	class:mystring
++assign	lib/mystring/assign.cc	/^void mystring::assign(const char* in, size_t len)$/;"	f	class:mystring
++attach	lib/mystring/rep.cc	/^void mystringrep::attach()$/;"	f	class:mystringrep
++attach	lib/mystring/rep.h	/^inline void mystringrep::attach()$/;"	f	class:mystringrep
++auth_method	.pc/03_syslog.diff/protocols/protocol.cc	/^int auth_method = AUTH_PLAIN;$/;"	v
++auth_method	protocols/protocol.cc	/^int auth_method = AUTH_PLAIN;$/;"	v
++bad_hdr	.pc/05_errors_on_stderr.diff/src/inject.cc	76;"	d	file:
++bad_hdr	.pc/06_nullenvsender.diff/src/inject.cc	76;"	d	file:
++bad_hdr	src/inject.cc	76;"	d	file:
++base64_encode	lib/base64.cc	/^void base64_encode(const mystring& in, mystring& out)$/;"	f
++base64_encode_chunk	lib/base64.cc	/^void base64_encode_chunk(const unsigned char bin[3], unsigned len,$/;"	f
++basis	lib/base64.cc	/^static char basis[] =$/;"	v	file:
++buf	lib/fdbuf/fdbuf.h	/^  char* const buf;$/;"	m	class:fdbuf
++buf	lib/mystring/rep.h	/^  char buf[1];$/;"	m	struct:mystringrep
++buflength	lib/fdbuf/fdbuf.h	/^  unsigned buflength;		\/\/ Length of the data in the buffer$/;"	m	class:fdbuf
++bufpos	lib/fdbuf/fdobuf.h	/^  unsigned bufpos;		\/\/ Current write position in the buffer$/;"	m	class:fdobuf
++bufsize	lib/fdbuf/fdbuf.h	/^  const unsigned bufsize;	\/\/ Total buffer size$/;"	m	class:fdbuf
++bufstart	lib/fdbuf/fdbuf.h	/^  unsigned bufstart;		\/\/ Start of the data in the buffer$/;"	m	class:fdbuf
++build_options	lib/cli++/main.cc	/^static void build_options()$/;"	f	file:
++c_str	lib/mystring/mystring.h	/^  const char* c_str() const { return rep->buf; }$/;"	f	class:mystring
++calc_max_width	lib/cli++/main.cc	/^static unsigned calc_max_width()$/;"	f	file:
++canonicalize	lib/canonicalize.cc	/^void canonicalize(mystring& domain)$/;"	f
++catch_alrm	.pc/03_syslog.diff/src/send.cc	/^void catch_alrm(int)$/;"	f
++catch_alrm	src/send.cc	/^void catch_alrm(int)$/;"	f
++catcher	lib/selfpipe.cc	/^static void catcher(int sig)$/;"	f	file:
++catchsender	.pc/03_syslog.diff/src/send.cc	/^bool catchsender(pid_t pid)$/;"	f
++catchsender	src/send.cc	/^bool catchsender(pid_t pid)$/;"	f
++catchsig	lib/selfpipe.cc	/^void selfpipe::catchsig(int sig)$/;"	f	class:selfpipe
++caught	lib/selfpipe.cc	/^int selfpipe::caught()$/;"	f	class:selfpipe
++ch	lib/cli++/cli++.h	/^  char ch;$/;"	m	struct:cli_option
++chmod	lib/fdbuf/fdobuf_chownmod.cc	/^bool fdobuf::chmod(mode_t mode) const$/;"	f	class:fdobuf
++chown	lib/fdbuf/fdobuf_chownmod.cc	/^bool fdobuf::chown(uid_t uid, gid_t gid) const$/;"	f	class:fdobuf
++cli_args_max	.pc/03_syslog.diff/protocols/protocol.cc	/^const int cli_args_max = 1;$/;"	v
++cli_args_max	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const int cli_args_max = -1;$/;"	v
++cli_args_max	.pc/06_nullenvsender.diff/src/inject.cc	/^const int cli_args_max = -1;$/;"	v
++cli_args_max	lib/cli++/clitest.cc	/^const int cli_args_max = -1;$/;"	v
++cli_args_max	protocols/protocol.cc	/^const int cli_args_max = 1;$/;"	v
++cli_args_max	src/inject.cc	/^const int cli_args_max = -1;$/;"	v
++cli_args_max	src/send.cc	/^const int cli_args_max = 0;$/;"	v
++cli_args_max	src/sendmail.cc	/^const int cli_args_max = -1;$/;"	v
++cli_args_min	.pc/03_syslog.diff/protocols/protocol.cc	/^const int cli_args_min = 1;$/;"	v
++cli_args_min	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_min	.pc/06_nullenvsender.diff/src/inject.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_min	lib/cli++/clitest.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_min	protocols/protocol.cc	/^const int cli_args_min = 1;$/;"	v
++cli_args_min	src/inject.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_min	src/send.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_min	src/sendmail.cc	/^const int cli_args_min = 0;$/;"	v
++cli_args_usage	.pc/03_syslog.diff/protocols/protocol.cc	/^const char* cli_args_usage = "remote-address < mail-file";$/;"	v
++cli_args_usage	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const char* cli_args_usage = "[recipients] <message";$/;"	v
++cli_args_usage	.pc/06_nullenvsender.diff/src/inject.cc	/^const char* cli_args_usage = "[recipients] <message";$/;"	v
++cli_args_usage	lib/cli++/clitest.cc	/^const char* cli_args_usage = "";$/;"	v
++cli_args_usage	protocols/protocol.cc	/^const char* cli_args_usage = "remote-address < mail-file";$/;"	v
++cli_args_usage	src/inject.cc	/^const char* cli_args_usage = "[recipients] <message";$/;"	v
++cli_args_usage	src/send.cc	/^const char* cli_args_usage  = "";$/;"	v
++cli_args_usage	src/sendmail.cc	/^const char* cli_args_usage = "[recipients] <message";$/;"	v
++cli_error	lib/cli++/messages.cc	/^void cli_error(int exit_value,$/;"	f
++cli_funcptr	lib/cli++/cli++.h	/^typedef bool (*cli_funcptr)(void*);$/;"	t
++cli_help_prefix	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const char* cli_help_prefix = "Reformat and inject a message into the nullmailer queue\\n";$/;"	v
++cli_help_prefix	.pc/06_nullenvsender.diff/src/inject.cc	/^const char* cli_help_prefix = "Reformat and inject a message into the nullmailer queue\\n";$/;"	v
++cli_help_prefix	.pc/07_sendquit.diff/protocols/smtp.cc	/^const char* cli_help_prefix = "Send an email message via SMTP\\n";$/;"	v
++cli_help_prefix	lib/cli++/clitest.cc	/^const char* cli_help_prefix = "Does nothing but set flags\\n";$/;"	v
++cli_help_prefix	protocols/qmqp.cc	/^const char* cli_help_prefix = "Send an emal message via QMQP\\n";$/;"	v
++cli_help_prefix	protocols/smtp.cc	/^const char* cli_help_prefix = "Send an email message via SMTP\\n";$/;"	v
++cli_help_prefix	src/inject.cc	/^const char* cli_help_prefix = "Reformat and inject a message into the nullmailer queue\\n";$/;"	v
++cli_help_prefix	src/send.cc	/^const char* cli_help_prefix = "nullmailer daemon\\n";$/;"	v
++cli_help_prefix	src/sendmail.cc	/^const char* cli_help_prefix = "Nullmailer sendmail emulator\\n";$/;"	v
++cli_help_suffix	.pc/03_syslog.diff/protocols/protocol.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	.pc/06_nullenvsender.diff/src/inject.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	lib/cli++/clitest.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	protocols/protocol.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	src/inject.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	src/send.cc	/^const char* cli_help_suffix = "";$/;"	v
++cli_help_suffix	src/sendmail.cc	/^const char* cli_help_suffix = 0;$/;"	v
++cli_main	.pc/03_syslog.diff/protocols/protocol.cc	/^int cli_main(int, char* argv[])$/;"	f
++cli_main	.pc/05_errors_on_stderr.diff/src/inject.cc	/^int cli_main(int argc, char* argv[])$/;"	f
++cli_main	.pc/06_nullenvsender.diff/src/inject.cc	/^int cli_main(int argc, char* argv[])$/;"	f
++cli_main	lib/cli++/clitest.cc	/^int cli_main(int argc, char* argv[])$/;"	f
++cli_main	protocols/protocol.cc	/^int cli_main(int, char* argv[])$/;"	f
++cli_main	src/inject.cc	/^int cli_main(int argc, char* argv[])$/;"	f
++cli_main	src/send.cc	/^int cli_main(int, char*[])$/;"	f
++cli_main	src/sendmail.cc	/^int cli_main(int argc, char* argv[])$/;"	f
++cli_option	lib/cli++/cli++.h	/^struct cli_option$/;"	s
++cli_options	.pc/03_syslog.diff/protocols/protocol.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	.pc/05_errors_on_stderr.diff/src/inject.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	.pc/06_nullenvsender.diff/src/inject.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	lib/cli++/clitest.cc	/^cli_option cli_options[] = { $/;"	v
++cli_options	protocols/protocol.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	src/inject.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	src/send.cc	/^cli_option cli_options[] = {$/;"	v
++cli_options	src/sendmail.cc	/^cli_option cli_options[] = {$/;"	v
++cli_program	.pc/05_errors_on_stderr.diff/src/inject.cc	/^const char* cli_program = "nullmailer-inject";$/;"	v
++cli_program	.pc/06_nullenvsender.diff/src/inject.cc	/^const char* cli_program = "nullmailer-inject";$/;"	v
++cli_program	.pc/07_sendquit.diff/protocols/smtp.cc	/^const char* cli_program = "smtp";$/;"	v
++cli_program	lib/cli++/clitest.cc	/^const char* cli_program = "clitest";$/;"	v
++cli_program	protocols/qmqp.cc	/^const char* cli_program = "qmqp";$/;"	v
++cli_program	protocols/smtp.cc	/^const char* cli_program = "smtp";$/;"	v
++cli_program	src/inject.cc	/^const char* cli_program = "nullmailer-inject";$/;"	v
++cli_program	src/send.cc	/^const char* cli_program     = "nullmailer-send";$/;"	v
++cli_program	src/sendmail.cc	/^const char* cli_program = "sendmail";$/;"	v
++cli_stringlist	lib/cli++/cli++.h	/^  cli_stringlist(const char* s)$/;"	f	struct:cli_stringlist
++cli_stringlist	lib/cli++/cli++.h	/^struct cli_stringlist$/;"	s
++cli_warning	lib/cli++/messages.cc	/^void cli_warning(const char* a,$/;"	f
++close	lib/fdbuf/fdbuf.cc	/^bool fdbuf::close()$/;"	f	class:fdbuf
++close	lib/fdbuf/fdibuf.h	/^  bool close() { lock(); bool r = fdbuf::close(); unlock(); return r; }$/;"	f	class:fdibuf
++close	lib/fdbuf/fdobuf.cc	/^bool fdobuf::close()$/;"	f	class:fdobuf
++closed	lib/fdbuf/fdbuf.cc	/^bool fdbuf::closed() const$/;"	f	class:fdbuf
++cnt	lib/list.h	/^  unsigned cnt;$/;"	m	class:list
++comment	.pc/06_nullenvsender.diff/lib/address.cc	/^  mystring comment;$/;"	m	struct:result	file:
++comment	lib/address.cc	/^  mystring comment;$/;"	m	struct:result	file:
++compute_size	protocols/qmqp.cc	/^bool compute_size(fdibuf* msg, unsigned long& size)$/;"	f
++config_read	lib/config_read.cc	/^bool config_read(const char* filename, mystring& result)$/;"	f
++config_readint	lib/config_readint.cc	/^bool config_readint(const char* filename, int& result)$/;"	f
++config_readlist	lib/config_readlist.cc	/^bool config_readlist(const char* filename, list<mystring>& result)$/;"	f
++const_iter	lib/list.h	/^  typedef const_list_iterator<T> const_iter;$/;"	t	class:list
++const_list_iterator	lib/list.h	/^  const_list_iterator(const list<T>& l)$/;"	f	class:const_list_iterator
++const_list_iterator	lib/list.h	/^template<class T> class const_list_iterator$/;"	c
++copyenv	.pc/06_nullenvsender.diff/src/queue.cc	/^bool copyenv(fdobuf& out)$/;"	f
++copyenv	src/queue.cc	/^bool copyenv(fdobuf& out)$/;"	f
++count	lib/fdbuf/fdibuf.h	/^  unsigned count;		\/\/ Number of bytes read by last operation$/;"	m	class:fdibuf
++count	lib/fdbuf/fdobuf.h	/^  unsigned count;		\/\/ Number of bytes written by last operation$/;"	m	class:fdobuf
++count	lib/list.h	/^  unsigned count() const$/;"	f	class:list
++count	lib/mystring/count.cc	/^unsigned mystring::count(char ch) const$/;"	f	class:mystring
++counter	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++create	lib/fdbuf/fdobuf.h	/^  enum openflags { create=O_CREAT, $/;"	e	enum:fdobuf::openflags
++cstr2pod	lib/cli++/cli++topod.pl	/^sub cstr2pod {$/;"	s
++cur_line	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static mystring cur_line;$/;"	v	file:
++cur_line	.pc/06_nullenvsender.diff/src/inject.cc	/^static mystring cur_line;$/;"	v	file:
++cur_line	src/inject.cc	/^static mystring cur_line;$/;"	v	file:
++curr	lib/list.h	/^  const typename list<T>::node* curr;$/;"	m	class:const_list_iterator
++curr	lib/list.h	/^  typename list<T>::node* curr;$/;"	m	class:list_iterator
++daemonize	protocols/protocol.cc	/^static int daemonize  = 0;$/;"	v	file:
++daemonize	src/send.cc	/^static int daemonize  = 0;$/;"	v	file:
++data	lib/list.h	/^  T data;$/;"	m	struct:list_node
++dataptr	lib/cli++/cli++.h	/^  void* dataptr;$/;"	m	struct:cli_option
++default_proto	.pc/03_syslog.diff/src/send.cc	/^  static const mystring default_proto;$/;"	m	struct:remote	file:
++default_proto	.pc/03_syslog.diff/src/send.cc	/^const mystring remote::default_proto = "smtp";$/;"	m	class:remote	file:
++default_proto	src/send.cc	/^  static const mystring default_proto;$/;"	m	struct:remote	file:
++default_proto	src/send.cc	/^const mystring remote::default_proto = "smtp";$/;"	m	class:remote	file:
++defaultdomain	.pc/01_manual.diff/lib/hostname.cc	/^mystring defaultdomain;$/;"	v
++defaultdomain	lib/hostname.cc	/^mystring defaultdomain;$/;"	v
++defaultdomain	test/address-test.cc	/^mystring defaultdomain = "b.c";$/;"	v
++defaulthost	.pc/01_manual.diff/lib/hostname.cc	/^mystring defaulthost;$/;"	v
++defaulthost	lib/hostname.cc	/^mystring defaulthost;$/;"	v
++defaulthost	test/address-test.cc	/^mystring defaulthost = "a";$/;"	v
++defaultstr	lib/cli++/cli++.h	/^  const char* defaultstr;$/;"	m	struct:cli_option
++del_tokens	.pc/06_nullenvsender.diff/lib/address.cc	/^static void del_tokens(anode* node)$/;"	f	file:
++del_tokens	lib/address.cc	/^static void del_tokens(anode* node)$/;"	f	file:
++deliver	.pc/06_nullenvsender.diff/src/queue.cc	/^bool deliver()$/;"	f
++deliver	src/queue.cc	/^bool deliver()$/;"	f
++detach	lib/mystring/rep.cc	/^void mystringrep::detach()$/;"	f	class:mystringrep
++dirent	lib/ac/dirent.h	6;"	d
++do_close	lib/fdbuf/fdbuf.h	/^  const bool do_close;		\/\/ True to close on destructor$/;"	m	class:fdbuf
++do_select	.pc/03_syslog.diff/src/send.cc	/^bool do_select()$/;"	f
++do_select	src/send.cc	/^bool do_select()$/;"	f
++do_show_usage	lib/cli++/main.cc	/^static bool do_show_usage = false;$/;"	v	file:
++docmd	.pc/07_sendquit.diff/protocols/smtp.cc	/^void smtp::docmd(mystring cmd, int range, bool show_succ)$/;"	f	class:smtp
++docmd	protocols/smtp.cc	/^void smtp::docmd(mystring cmd, int range, bool show_succ)$/;"	f	class:smtp
++dump	.pc/06_nullenvsender.diff/src/queue.cc	/^bool dump(int fd)$/;"	f
++dump	src/queue.cc	/^bool dump(int fd)$/;"	f
++dup	lib/mystring/assign.cc	/^void mystring::dup(const char* in)$/;"	f	class:mystring
++dup	lib/mystring/assign.cc	/^void mystring::dup(const char* in, size_t len)$/;"	f	class:mystring
++dup	lib/mystring/rep.cc	/^mystringrep* mystringrep::dup(const char* str, unsigned length)$/;"	f	class:mystringrep
++dup	lib/mystring/rep.cc	/^mystringrep* mystringrep::dup(const char* str1, unsigned length1,$/;"	f	class:mystringrep
++dupnil	lib/mystring/assign.cc	/^void mystring::dupnil()$/;"	f	class:mystring
++empty	lib/list.h	/^  void empty()$/;"	f	class:list
++empty	lib/mystring/mystring.h	/^  bool empty() const { return rep->length == 0; }$/;"	f	class:mystring
++endl	lib/fdbuf/fdobuf.cc	/^fdobuf& endl(fdobuf& fd)$/;"	f
++eof	lib/fdbuf/fdibuf.cc	/^bool fdibuf::eof() const$/;"	f	class:fdibuf
++errnum	lib/fdbuf/fdbuf.h	/^  int errnum;			\/\/ Saved error flag$/;"	m	class:fdbuf
++error	lib/fdbuf/fdbuf.cc	/^bool fdbuf::error() const$/;"	f	class:fdbuf
++error_number	lib/fdbuf/fdibuf.h	/^  int error_number() const { return errnum; }$/;"	f	class:fdibuf
++error_number	lib/fdbuf/fdobuf.h	/^  int error_number() const { return errnum; }$/;"	f	class:fdobuf
++errorstr	lib/errcodes.cc	/^const char* errorstr(int code)$/;"	f
++excl	lib/fdbuf/fdobuf.h	/^		   excl=O_EXCL,$/;"	e	enum:fdobuf::openflags
++exec_protocol	.pc/03_syslog.diff/src/send.cc	/^void exec_protocol(int fd, remote& remote)$/;"	f
++exec_protocol	src/send.cc	/^void exec_protocol(int fd, remote& remote)$/;"	f
++exec_queue	.pc/05_errors_on_stderr.diff/src/inject.cc	/^void exec_queue()$/;"	f
++exec_queue	.pc/06_nullenvsender.diff/src/inject.cc	/^void exec_queue()$/;"	f
++exec_queue	src/inject.cc	/^void exec_queue()$/;"	f
++fail	.pc/03_syslog.diff/src/send.cc	48;"	d	file:
++fail	.pc/05_errors_on_stderr.diff/src/inject.cc	74;"	d	file:
++fail	.pc/06_nullenvsender.diff/src/inject.cc	74;"	d	file:
++fail	.pc/06_nullenvsender.diff/src/queue.cc	36;"	d	file:
++fail	src/inject.cc	74;"	d	file:
++fail	src/mailq.cc	33;"	d	file:
++fail	src/queue.cc	36;"	d	file:
++fail	src/send.cc	65;"	d	file:
++fail2	.pc/03_syslog.diff/src/send.cc	49;"	d	file:
++fail2	src/send.cc	66;"	d	file:
++fail_sys	.pc/03_syslog.diff/src/send.cc	50;"	d	file:
++fail_sys	.pc/05_errors_on_stderr.diff/src/inject.cc	75;"	d	file:
++fail_sys	.pc/06_nullenvsender.diff/src/inject.cc	75;"	d	file:
++fail_sys	src/inject.cc	75;"	d	file:
++fail_sys	src/send.cc	67;"	d	file:
++fcntl_fl_on	lib/selfpipe.cc	/^static int fcntl_fl_on(int fd, int flag)$/;"	f	file:
++fd	lib/fdbuf/fdbuf.h	/^  const int fd;$/;"	m	class:fdbuf
++fdbuf	lib/fdbuf/fdbuf.cc	/^fdbuf::fdbuf(int fdesc, bool dc, unsigned bufsz)$/;"	f	class:fdbuf
++fdbuf	lib/fdbuf/fdbuf.h	/^class fdbuf $/;"	c
++fdbuf_copy	lib/fdbuf/fdbuf_copy.cc	/^bool fdbuf_copy(fdibuf& in, fdobuf& out, bool noflush)$/;"	f
++fdibuf	lib/fdbuf/fdibuf.cc	/^fdibuf::fdibuf(const char* filename, unsigned bufsz)$/;"	f	class:fdibuf
++fdibuf	lib/fdbuf/fdibuf.cc	/^fdibuf::fdibuf(int fdesc, bool dc, unsigned bufsz)$/;"	f	class:fdibuf
++fdibuf	lib/fdbuf/fdibuf.h	/^class fdibuf : protected fdbuf$/;"	c
++fdobuf	lib/fdbuf/fdobuf.cc	/^fdobuf::fdobuf(const char* filename, int f, int mode, unsigned bufsz)$/;"	f	class:fdobuf
++fdobuf	lib/fdbuf/fdobuf.cc	/^fdobuf::fdobuf(int fdesc, bool dc, unsigned bufsz)$/;"	f	class:fdobuf
++fdobuf	lib/fdbuf/fdobuf.h	/^class fdobuf : protected fdbuf$/;"	c
++fds	lib/selfpipe.cc	/^static int fds[2] = { -1, -1 };$/;"	v	file:
++files	.pc/03_syslog.diff/src/send.cc	/^static slist files;$/;"	v	file:
++files	src/send.cc	/^static slist files;$/;"	v	file:
++fill	lib/cli++/main.cc	/^static const char* fill(unsigned i)$/;"	f	file:
++find_first	lib/mystring/find_first_ch.cc	/^int mystring::find_first(char ch, size_t offset) const$/;"	f	class:mystring
++find_first_of	lib/mystring/find_first_of.cc	/^int mystring::find_first_of(const char* setstr, size_t offset) const$/;"	f	class:mystring
++find_first_of	lib/mystring/find_first_of.cc	/^int mystring::find_first_of(const char* setstr, size_t setlen,$/;"	f	class:mystring
++find_first_of	lib/mystring/find_first_of.cc	/^int mystring::find_first_of(const mystring& setstr, size_t offset) const$/;"	f	class:mystring
++find_last	lib/mystring/find_last_ch.cc	/^int mystring::find_last(char ch, size_t offset) const$/;"	f	class:mystring
++find_last_of	lib/mystring/find_last_of.cc	/^int mystring::find_last_of(const char* setstr, size_t offset) const$/;"	f	class:mystring
++find_last_of	lib/mystring/find_last_of.cc	/^int mystring::find_last_of(const char* setstr, size_t setlen,$/;"	f	class:mystring
++find_last_of	lib/mystring/find_last_of.cc	/^int mystring::find_last_of(const mystring& setstr, size_t offset) const$/;"	f	class:mystring
++fix_header	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool fix_header()$/;"	f
++fix_header	.pc/06_nullenvsender.diff/src/inject.cc	/^bool fix_header()$/;"	f
++fix_header	src/inject.cc	/^bool fix_header()$/;"	f
++flag	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++flag_closed	lib/fdbuf/fdbuf.h	/^  enum flagbits { flag_eof=1, flag_error=2, flag_closed=4 };$/;"	e	enum:fdbuf::flagbits
++flag_eof	lib/fdbuf/fdbuf.h	/^  enum flagbits { flag_eof=1, flag_error=2, flag_closed=4 };$/;"	e	enum:fdbuf::flagbits
++flag_error	lib/fdbuf/fdbuf.h	/^  enum flagbits { flag_eof=1, flag_error=2, flag_closed=4 };$/;"	e	enum:fdbuf::flagbits
++flag_value	lib/cli++/cli++.h	/^  int flag_value;$/;"	m	struct:cli_option
++flagbits	lib/fdbuf/fdbuf.h	/^  enum flagbits { flag_eof=1, flag_error=2, flag_closed=4 };$/;"	g	class:fdbuf
++flags	lib/fdbuf/fdbuf.h	/^  unsigned flags;		\/\/ Status flags$/;"	m	class:fdbuf
++flush	lib/fdbuf/fdobuf.cc	/^bool fdobuf::flush()$/;"	f	class:fdobuf
++from	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static mystring from;$/;"	v	file:
++from	.pc/06_nullenvsender.diff/src/inject.cc	/^static mystring from;$/;"	v	file:
++from	src/inject.cc	/^static mystring from;$/;"	v	file:
++fsyncdir	.pc/06_nullenvsender.diff/src/queue.cc	/^int fsyncdir(const char* path)$/;"	f
++fsyncdir	src/queue.cc	/^int fsyncdir(const char* path)$/;"	f
++get	.pc/07_sendquit.diff/protocols/smtp.cc	/^int smtp::get(mystring& str)$/;"	f	class:smtp
++get	lib/fdbuf/fdibuf.cc	/^bool fdibuf::get(char& ch)$/;"	f	class:fdibuf
++get	protocols/smtp.cc	/^int smtp::get(mystring& str)$/;"	f	class:smtp
++getline	lib/fdbuf/fdibuf_mystring.cc	/^bool fdibuf::getline(mystring& out, char terminator)$/;"	f	class:fdibuf
++getnetstring	lib/fdbuf/fdibuf_netstring.cc	/^bool fdibuf::getnetstring(mystring& out)$/;"	f	class:fdibuf
++go_next	lib/list.h	/^  inline void go_next()$/;"	f	class:const_list_iterator
++go_next	lib/list.h	/^  inline void go_next()$/;"	f	class:list_iterator
++good	.pc/06_nullenvsender.diff/lib/address.cc	/^  bool good;$/;"	m	struct:result	file:
++good	lib/address.cc	/^  bool good;$/;"	m	struct:result	file:
++has_ws	.pc/06_nullenvsender.diff/lib/address.cc	/^  const bool has_ws;$/;"	m	struct:token	file:
++has_ws	lib/address.cc	/^  const bool has_ws;$/;"	m	struct:token	file:
++head	lib/list.h	/^  node* head;$/;"	m	class:list
++header_add_to	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool header_add_to = false;$/;"	v	file:
++header_add_to	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool header_add_to = false;$/;"	v	file:
++header_add_to	src/inject.cc	/^static bool header_add_to = false;$/;"	v	file:
++header_field	.pc/05_errors_on_stderr.diff/src/inject.cc	/^struct header_field$/;"	s	file:
++header_field	.pc/06_nullenvsender.diff/src/inject.cc	/^struct header_field$/;"	s	file:
++header_field	src/inject.cc	/^struct header_field$/;"	s	file:
++header_field_count	.pc/05_errors_on_stderr.diff/src/inject.cc	243;"	d	file:
++header_field_count	.pc/06_nullenvsender.diff/src/inject.cc	243;"	d	file:
++header_field_count	src/inject.cc	250;"	d	file:
++header_field_from	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static header_field& header_field_from = header_fields[1];$/;"	v	file:
++header_field_from	.pc/06_nullenvsender.diff/src/inject.cc	/^static header_field& header_field_from = header_fields[1];$/;"	v	file:
++header_field_from	src/inject.cc	/^static header_field& header_field_from = header_fields[1];$/;"	v	file:
++header_field_mid	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static header_field& header_field_mid = header_fields[17];$/;"	v	file:
++header_field_mid	.pc/06_nullenvsender.diff/src/inject.cc	/^static header_field& header_field_mid = header_fields[17];$/;"	v	file:
++header_field_mid	src/inject.cc	/^static header_field& header_field_mid = header_fields[17];$/;"	v	file:
++header_field_rpath	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static header_field& header_field_rpath = header_fields[3];$/;"	v	file:
++header_field_rpath	.pc/06_nullenvsender.diff/src/inject.cc	/^static header_field& header_field_rpath = header_fields[3];$/;"	v	file:
++header_field_rpath	src/inject.cc	/^static header_field& header_field_rpath = header_fields[3];$/;"	v	file:
++header_fields	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static header_field header_fields[] = {$/;"	v	file:
++header_fields	.pc/06_nullenvsender.diff/src/inject.cc	/^static header_field header_fields[] = {$/;"	v	file:
++header_fields	src/inject.cc	/^static header_field header_fields[] = {$/;"	v	file:
++header_has_cc	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_cc = header_fields[10].present;$/;"	v	file:
++header_has_cc	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_cc = header_fields[10].present;$/;"	v	file:
++header_has_cc	src/inject.cc	/^static bool& header_has_cc = header_fields[10].present;$/;"	v	file:
++header_has_date	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_date = header_fields[16].present;$/;"	v	file:
++header_has_date	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_date = header_fields[16].present;$/;"	v	file:
++header_has_date	src/inject.cc	/^static bool& header_has_date = header_fields[16].present;$/;"	v	file:
++header_has_errors	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool header_has_errors = false;$/;"	v	file:
++header_has_errors	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool header_has_errors = false;$/;"	v	file:
++header_has_errors	src/inject.cc	/^static bool header_has_errors = false;$/;"	v	file:
++header_has_from	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_from = header_fields[1].present;$/;"	v	file:
++header_has_from	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_from = header_fields[1].present;$/;"	v	file:
++header_has_from	src/inject.cc	/^static bool& header_has_from = header_fields[1].present;$/;"	v	file:
++header_has_mid	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_mid = header_fields[17].present;$/;"	v	file:
++header_has_mid	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_mid = header_fields[17].present;$/;"	v	file:
++header_has_mid	src/inject.cc	/^static bool& header_has_mid = header_fields[17].present;$/;"	v	file:
++header_has_rcc	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_rcc = header_fields[14].present;$/;"	v	file:
++header_has_rcc	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_rcc = header_fields[14].present;$/;"	v	file:
++header_has_rcc	src/inject.cc	/^static bool& header_has_rcc = header_fields[14].present;$/;"	v	file:
++header_has_rdate	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_rdate = header_fields[18].present;$/;"	v	file:
++header_has_rdate	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_rdate = header_fields[18].present;$/;"	v	file:
++header_has_rdate	src/inject.cc	/^static bool& header_has_rdate = header_fields[18].present;$/;"	v	file:
++header_has_rfrom	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_rfrom = header_fields[7].present;$/;"	v	file:
++header_has_rfrom	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_rfrom = header_fields[7].present;$/;"	v	file:
++header_has_rfrom	src/inject.cc	/^static bool& header_has_rfrom = header_fields[7].present;$/;"	v	file:
++header_has_rmid	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_rmid = header_fields[19].present;$/;"	v	file:
++header_has_rmid	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_rmid = header_fields[19].present;$/;"	v	file:
++header_has_rmid	src/inject.cc	/^static bool& header_has_rmid = header_fields[19].present;$/;"	v	file:
++header_has_rto	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_rto = header_fields[13].present;$/;"	v	file:
++header_has_rto	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_rto = header_fields[13].present;$/;"	v	file:
++header_has_rto	src/inject.cc	/^static bool& header_has_rto = header_fields[13].present;$/;"	v	file:
++header_has_to	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool& header_has_to = header_fields[9].present;$/;"	v	file:
++header_has_to	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool& header_has_to = header_fields[9].present;$/;"	v	file:
++header_has_to	src/inject.cc	/^static bool& header_has_to = header_fields[9].present;$/;"	v	file:
++header_is_resent	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool header_is_resent = false;$/;"	v	file:
++header_is_resent	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool header_is_resent = false;$/;"	v	file:
++header_is_resent	src/inject.cc	/^static bool header_is_resent = false;$/;"	v	file:
++headers	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static slist headers;$/;"	v	file:
++headers	.pc/06_nullenvsender.diff/src/inject.cc	/^static slist headers;$/;"	v	file:
++headers	src/inject.cc	/^static slist headers;$/;"	v	file:
++help_option	lib/cli++/main.cc	/^static cli_option help_option = { 'h', "help", cli_option::flag,$/;"	v	file:
++helpstr	lib/cli++/cli++.h	/^  const char* helpstr;$/;"	m	struct:cli_option
++host	.pc/03_syslog.diff/src/send.cc	/^  mystring host;$/;"	m	struct:remote	file:
++host	src/send.cc	/^  mystring host;$/;"	m	struct:remote	file:
++idhost	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static mystring idhost;$/;"	v	file:
++idhost	.pc/06_nullenvsender.diff/src/inject.cc	/^static mystring idhost;$/;"	v	file:
++idhost	src/inject.cc	/^static mystring idhost;$/;"	v	file:
++ignore	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool ignore;			\/\/ ignore means do not parse$/;"	m	struct:header_field	file:
++ignore	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool ignore;			\/\/ ignore means do not parse$/;"	m	struct:header_field	file:
++ignore	src/inject.cc	/^  bool ignore;			\/\/ ignore means do not parse$/;"	m	struct:header_field	file:
++iiter	lib/listtest.cc	/^typedef ilist::iter iiter;$/;"	t	file:
++ilist	lib/listtest.cc	/^typedef list<int> ilist;$/;"	t	file:
++in	.pc/07_sendquit.diff/protocols/smtp.cc	/^  fdibuf in;$/;"	m	class:smtp	file:
++in	protocols/qmqp.cc	/^  fdibuf in;$/;"	m	class:qmqp	file:
++in	protocols/smtp.cc	/^  fdibuf in;$/;"	m	class:smtp	file:
++indent	.pc/06_nullenvsender.diff/lib/address.cc	/^static const char* indent = indentstr + sizeof indentstr - 1;$/;"	v	file:
++indent	lib/address.cc	/^static const char* indent = indentstr + sizeof indentstr - 1;$/;"	v	file:
++indentstr	.pc/06_nullenvsender.diff/lib/address.cc	/^static const char indentstr[] = "                       ";$/;"	v	file:
++indentstr	lib/address.cc	/^static const char indentstr[] = "                       ";$/;"	v	file:
++integer	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++is_address	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool is_address;$/;"	m	struct:header_field	file:
++is_address	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool is_address;$/;"	m	struct:header_field	file:
++is_address	src/inject.cc	/^  bool is_address;$/;"	m	struct:header_field	file:
++is_continuation	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool is_continuation(const mystring& line)$/;"	f
++is_continuation	.pc/06_nullenvsender.diff/src/inject.cc	/^bool is_continuation(const mystring& line)$/;"	f
++is_continuation	src/inject.cc	/^bool is_continuation(const mystring& line)$/;"	f
++is_dir	.pc/06_nullenvsender.diff/src/queue.cc	/^bool is_dir(const char* path)$/;"	f
++is_dir	src/queue.cc	/^bool is_dir(const char* path)$/;"	f
++is_exist	.pc/06_nullenvsender.diff/src/queue.cc	/^bool is_exist(const char* path)$/;"	f
++is_exist	src/queue.cc	/^bool is_exist(const char* path)$/;"	f
++is_header	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool is_header(const mystring& line)$/;"	f
++is_header	.pc/06_nullenvsender.diff/src/inject.cc	/^bool is_header(const mystring& line)$/;"	f
++is_header	src/inject.cc	/^bool is_header(const mystring& line)$/;"	f
++is_recipient	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool is_recipient;$/;"	m	struct:header_field	file:
++is_recipient	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool is_recipient;$/;"	m	struct:header_field	file:
++is_recipient	src/inject.cc	/^  bool is_recipient;$/;"	m	struct:header_field	file:
++is_resent	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool is_resent;$/;"	m	struct:header_field	file:
++is_resent	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool is_resent;$/;"	m	struct:header_field	file:
++is_resent	src/inject.cc	/^  bool is_resent;$/;"	m	struct:header_field	file:
++is_sender	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool is_sender;$/;"	m	struct:header_field	file:
++is_sender	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool is_sender;$/;"	m	struct:header_field	file:
++is_sender	src/inject.cc	/^  bool is_sender;$/;"	m	struct:header_field	file:
++isatom	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool isatom(char ch)$/;"	f	file:
++isatom	lib/address.cc	/^static bool isatom(char ch)$/;"	f	file:
++isctl	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool isctl(char c)$/;"	f	file:
++isctl	lib/address.cc	/^static bool isctl(char c)$/;"	f	file:
++isdtext	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool isdtext(char c)$/;"	f	file:
++isdtext	lib/address.cc	/^static bool isdtext(char c)$/;"	f	file:
++isqpair	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool isqpair(const char* ptr)$/;"	f	file:
++isqpair	lib/address.cc	/^static bool isqpair(const char* ptr)$/;"	f	file:
++isqtext	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool isqtext(char c)$/;"	f	file:
++isqtext	lib/address.cc	/^static bool isqtext(char c)$/;"	f	file:
++issymbol	.pc/06_nullenvsender.diff/lib/address.cc	/^static bool issymbol(char c)$/;"	f	file:
++issymbol	lib/address.cc	/^static bool issymbol(char c)$/;"	f	file:
++iter	lib/list.h	/^  typedef list_iterator<T> iter;$/;"	t	class:list
++itoa	lib/itoa.cc	/^const char *itoa(long v, int digits)$/;"	f
++last_count	lib/fdbuf/fdibuf.h	/^  unsigned last_count() { return count; }$/;"	f	class:fdibuf
++last_count	lib/fdbuf/fdobuf.h	/^  unsigned last_count() { return count; }$/;"	f	class:fdobuf
++left	lib/mystring/sub.cc	/^mystring mystring::left(size_t offset) const$/;"	f	class:mystring
++len	lib/mystring/join.cc	/^  unsigned len;$/;"	m	struct:tmpitem	file:
++length	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  unsigned length;$/;"	m	struct:header_field	file:
++length	.pc/06_nullenvsender.diff/src/inject.cc	/^  unsigned length;$/;"	m	struct:header_field	file:
++length	lib/mystring/mystring.h	/^  size_t length() const { return rep->length; }$/;"	f	class:mystring
++length	lib/mystring/rep.h	/^  unsigned length;$/;"	m	struct:mystringrep
++length	src/inject.cc	/^  unsigned length;$/;"	m	struct:header_field	file:
++list	lib/list.h	/^  list()$/;"	f	class:list
++list	lib/list.h	/^list<T>::list(const list<T>& that)$/;"	f	class:list
++list	lib/list.h	/^template<class T> class list$/;"	c
++list_iterator	lib/list.h	/^  list_iterator(list<T>& l)$/;"	f	class:list_iterator
++list_iterator	lib/list.h	/^template<class T> class list_iterator$/;"	c
++list_node	lib/list.h	/^  list_node(T d, list_node* n = 0) : next(n), data(d) { }$/;"	f	struct:list_node
++list_node	lib/list.h	/^template<class T> struct list_node$/;"	s
++load_config	.pc/03_syslog.diff/src/send.cc	/^bool load_config()$/;"	f
++load_config	src/send.cc	/^bool load_config()$/;"	f
++load_files	.pc/03_syslog.diff/src/send.cc	/^bool load_files()$/;"	f
++load_files	src/send.cc	/^bool load_files()$/;"	f
++load_remotes	.pc/03_syslog.diff/src/send.cc	/^bool load_remotes()$/;"	f
++load_remotes	src/send.cc	/^bool load_remotes()$/;"	f
++lock	lib/fdbuf/fdbuf.cc	/^void fdbuf::lock()$/;"	f	class:fdbuf
++lock	lib/fdbuf/fdbuf.h	/^  void lock() { pthread_mutex_lock(&mutex); }$/;"	f	class:fdbuf
++lock	lib/fdbuf/fdbuf.h	/^  void lock() { }$/;"	f	class:fdbuf
++lower	lib/mystring/lower.cc	/^mystring mystring::lower() const$/;"	f	class:mystring
++lst	lib/list.h	/^  const list<T>& lst;$/;"	m	class:const_list_iterator
++lst	lib/list.h	/^  list<T>& lst;$/;"	m	class:list_iterator
++lstrip	lib/mystring/lstrip.cc	/^mystring mystring::lstrip() const$/;"	f	class:mystring
++main	.pc/03_syslog.diff/src/send.cc	/^int main(int, char*[])$/;"	f
++main	.pc/06_nullenvsender.diff/src/queue.cc	/^int main(int, char*[])$/;"	f
++main	lib/cli++/main.cc	/^int main(int argc, char* argv[])$/;"	f
++main	lib/listtest.cc	/^int main() {$/;"	f
++main	src/mailq.cc	/^int main(int, char*[])$/;"	f
++main	src/queue.cc	/^int main(int, char*[])$/;"	f
++main	test/address-test.cc	/^int main()$/;"	f
++make_date	lib/makefield.cc	/^mystring make_date()$/;"	f
++make_envelope	protocols/qmqp.cc	/^bool make_envelope(fdibuf* msg, mystring& env)$/;"	f
++make_messageid	lib/makefield.cc	/^mystring make_messageid(const mystring& idhost)$/;"	f
++make_recipient_list	.pc/05_errors_on_stderr.diff/src/inject.cc	/^mystring make_recipient_list()$/;"	f
++make_recipient_list	.pc/06_nullenvsender.diff/src/inject.cc	/^mystring make_recipient_list()$/;"	f
++make_recipient_list	src/inject.cc	/^mystring make_recipient_list()$/;"	f
++makereceived	.pc/06_nullenvsender.diff/src/queue.cc	/^bool makereceived(fdobuf& out)$/;"	f
++makereceived	src/queue.cc	/^bool makereceived(fdobuf& out)$/;"	f
++manip	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(fdobuf& (*manip)(fdobuf&))$/;"	f	class:fdobuf
++max	lib/cli++/main.cc	/^static inline unsigned max(unsigned a, unsigned b)$/;"	f	file:
++me	.pc/01_manual.diff/lib/hostname.cc	/^mystring me;$/;"	v
++me	lib/hostname.cc	/^mystring me;$/;"	v
++msg_envelope	protocols/qmqp.cc	/^static mystring msg_envelope;$/;"	v	file:
++msg_size	protocols/qmqp.cc	/^static unsigned long msg_size;$/;"	v	file:
++mutex	lib/fdbuf/fdbuf.h	/^  pthread_mutex_t mutex;$/;"	m	class:fdbuf
++mutex	lib/fdbuf/fdbuf.h	/^  unsigned mutex;$/;"	m	class:fdbuf
++mystring	lib/mystring/join.h	/^inline mystring::mystring(const mystringjoin& j)$/;"	f	class:mystring
++mystring	lib/mystring/mystring.h	/^  mystring() { dupnil(); }$/;"	f	class:mystring
++mystring	lib/mystring/mystring.h	/^  mystring(const char* s) { dup(s); }$/;"	f	class:mystring
++mystring	lib/mystring/mystring.h	/^  mystring(const char* str, size_t len) { dup(str, len); }$/;"	f	class:mystring
++mystring	lib/mystring/mystring.h	/^  mystring(const mystring& s) { dup(s.rep->buf, s.rep->length); }$/;"	f	class:mystring
++mystring	lib/mystring/mystring.h	/^class mystring$/;"	c
++mystring_iter	lib/mystring/iter.cc	/^mystring_iter::mystring_iter(const mystring& s, char e)$/;"	f	class:mystring_iter
++mystring_iter	lib/mystring/iter.h	/^class mystring_iter$/;"	c
++mystringjoin	lib/mystring/join.h	/^  mystringjoin(const char* s)$/;"	f	class:mystringjoin
++mystringjoin	lib/mystring/join.h	/^  mystringjoin(const mystring& s)$/;"	f	class:mystringjoin
++mystringjoin	lib/mystring/join.h	/^  mystringjoin(const mystringjoin& j)$/;"	f	class:mystringjoin
++mystringjoin	lib/mystring/join.h	/^  mystringjoin(const mystringjoin& p, const char* s)$/;"	f	class:mystringjoin
++mystringjoin	lib/mystring/join.h	/^  mystringjoin(const mystringjoin& p, const mystring& s)$/;"	f	class:mystringjoin
++mystringjoin	lib/mystring/join.h	/^class mystringjoin$/;"	c
++mystringrep	lib/mystring/rep.h	/^struct mystringrep$/;"	s
++name	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  const char* name;$/;"	m	struct:header_field	file:
++name	.pc/06_nullenvsender.diff/src/inject.cc	/^  const char* name;$/;"	m	struct:header_field	file:
++name	lib/cli++/cli++.h	/^  const char* name;$/;"	m	struct:cli_option
++name	src/inject.cc	/^  const char* name;$/;"	m	struct:header_field	file:
++next	.pc/06_nullenvsender.diff/lib/address.cc	/^  anode* next;$/;"	m	struct:anode	file:
++next	.pc/06_nullenvsender.diff/lib/address.cc	/^  anode* next;$/;"	m	struct:result	file:
++next	lib/address.cc	/^  anode* next;$/;"	m	struct:anode	file:
++next	lib/address.cc	/^  anode* next;$/;"	m	struct:result	file:
++next	lib/cli++/cli++.h	/^  cli_stringlist* next;$/;"	m	struct:cli_stringlist
++next	lib/list.h	/^  list_node* next;$/;"	m	struct:list_node
++nflush	lib/fdbuf/fdobuf.cc	/^bool fdobuf::nflush(bool withsync)$/;"	f	class:fdobuf
++nil	lib/mystring/rep.cc	/^mystringrep nil = { 0, 1, 1, "" };$/;"	v
++node	lib/list.h	/^  typedef list_node<T> node;$/;"	t	class:list
++node_type	.pc/06_nullenvsender.diff/lib/address.cc	/^enum node_type {$/;"	g	file:
++node_type	lib/address.cc	/^enum node_type {$/;"	g	file:
++nqpipe	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static fdobuf* nqpipe = 0;$/;"	v	file:
++nqpipe	.pc/06_nullenvsender.diff/src/inject.cc	/^static fdobuf* nqpipe = 0;$/;"	v	file:
++nqpipe	src/inject.cc	/^static fdobuf* nqpipe = 0;$/;"	v	file:
++nqueue	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static mystring nqueue;$/;"	v	file:
++nqueue	.pc/06_nullenvsender.diff/src/inject.cc	/^static mystring nqueue;$/;"	v	file:
++nqueue	src/inject.cc	/^static mystring nqueue;$/;"	v	file:
++o_dummyi	src/sendmail.cc	/^static int o_dummyi;$/;"	v	file:
++o_dummys	src/sendmail.cc	/^static const char* o_dummys;$/;"	v	file:
++o_flag	lib/cli++/clitest.cc	/^int o_flag = 0;$/;"	v
++o_from	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static const char* o_from = 0;$/;"	v	file:
++o_from	.pc/06_nullenvsender.diff/src/inject.cc	/^static const char* o_from = 0;$/;"	v	file:
++o_from	src/inject.cc	/^static const char* o_from = 0;$/;"	v	file:
++o_from	src/sendmail.cc	/^static char* o_from;$/;"	v	file:
++o_int	lib/cli++/clitest.cc	/^int o_int = 0;$/;"	v
++o_mode	src/sendmail.cc	/^static const char* o_mode = 0;$/;"	v	file:
++o_sender	src/sendmail.cc	/^static const char* o_sender = 0;$/;"	v	file:
++o_string	lib/cli++/clitest.cc	/^char* o_string = "nostring";$/;"	v
++offset	lib/fdbuf/fdbuf.h	/^  unsigned offset;		\/\/ Current file read\/write offset$/;"	m	class:fdbuf
++open_trigger	.pc/03_syslog.diff/src/send.cc	/^bool open_trigger()$/;"	f
++open_trigger	src/send.cc	/^bool open_trigger()$/;"	f
++openflags	lib/fdbuf/fdobuf.h	/^  enum openflags { create=O_CREAT, $/;"	g	class:fdobuf
++operator !	.pc/06_nullenvsender.diff/lib/address.cc	/^  bool operator!() const$/;"	f	struct:result
++operator !	lib/address.cc	/^  bool operator!() const$/;"	f	struct:result
++operator !	lib/fdbuf/fdibuf.cc	/^bool fdibuf::operator!() const$/;"	f	class:fdibuf
++operator !	lib/fdbuf/fdobuf.cc	/^bool fdobuf::operator!() const$/;"	f	class:fdobuf
++operator !	lib/list.h	/^  bool operator!() const$/;"	f	class:const_list_iterator
++operator !	lib/list.h	/^  bool operator!() const$/;"	f	class:list_iterator
++operator !	lib/mystring/iter.h	/^  bool operator!() const { return pos < 0; }$/;"	f	class:mystring_iter
++operator !	lib/mystring/mystring.h	/^  bool operator!() const { return empty(); }$/;"	f	class:mystring
++operator !=	lib/mystring/mystring.cc	/^int mystring::operator!=(const char* in) const$/;"	f	class:mystring
++operator !=	lib/mystring/mystring.cc	/^int mystring::operator!=(const mystring& in) const$/;"	f	class:mystring
++operator *	lib/list.h	/^  T operator*() const$/;"	f	class:const_list_iterator
++operator *	lib/list.h	/^  T operator*() const$/;"	f	class:list_iterator
++operator *	lib/list.h	/^  T& operator*()$/;"	f	class:list_iterator
++operator *	lib/mystring/iter.h	/^  mystring operator*() const { return part; }$/;"	f	class:mystring_iter
++operator +	lib/mystring/join.h	/^inline mystringjoin operator+(const mystringjoin& a, const char* b)$/;"	f
++operator +	lib/mystring/join.h	/^inline mystringjoin operator+(const mystringjoin& a, const mystring& b)$/;"	f
++operator ++	lib/list.h	/^  void operator++()$/;"	f	class:const_list_iterator
++operator ++	lib/list.h	/^  void operator++()$/;"	f	class:list_iterator
++operator ++	lib/list.h	/^  void operator++(int) $/;"	f	class:const_list_iterator
++operator ++	lib/list.h	/^  void operator++(int) $/;"	f	class:list_iterator
++operator ++	lib/mystring/iter.h	/^  void operator++() { advance(); }$/;"	f	class:mystring_iter
++operator +=	lib/mystring/mystring.h	/^  void operator+=(char ch)$/;"	f	class:mystring
++operator +=	lib/mystring/mystring.h	/^  void operator+=(const char* str) { append(str); }$/;"	f	class:mystring
++operator +=	lib/mystring/mystring.h	/^  void operator+=(const mystring& str) {append(str.rep->buf, str.rep->length);}$/;"	f	class:mystring
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(char ch)$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(const char* str)$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(signed i) { return operator<<((signed long)i); }$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(signed short i) { return operator<<((signed long)i); }$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(unsigned i) { return operator<<((unsigned long)i); }$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf.h	/^  fdobuf& operator<<(unsigned short i) { return operator<<((unsigned long)i); }$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf_signed.cc	/^fdobuf& fdobuf::operator<<(signed long i)$/;"	f	class:fdobuf
++operator <<	lib/fdbuf/fdobuf_unsigned.cc	/^fdobuf& fdobuf::operator<<(unsigned long i)$/;"	f	class:fdobuf
++operator <<	lib/mystring/fdobuf.cc	/^fdobuf& operator<<(fdobuf& out, const mystring& str)$/;"	f
++operator =	lib/mystring/assign.cc	/^void mystring::operator=(const mystringjoin& in)$/;"	f	class:mystring
++operator =	lib/mystring/mystring.h	/^  void operator=(const char* in) { assign(in); }$/;"	f	class:mystring
++operator =	lib/mystring/mystring.h	/^  void operator=(const mystring& in) { assign(in.rep->buf, in.rep->length); }$/;"	f	class:mystring
++operator ==	lib/mystring/mystring.h	/^  bool operator==(const char* in) const$/;"	f	class:mystring
++operator ==	lib/mystring/mystring.h	/^  bool operator==(const mystring& in) const$/;"	f	class:mystring
++operator []	lib/mystring/mystring.h	/^  char operator[](size_t i) const { return rep->buf[i]; }$/;"	f	class:mystring
++operator bool	.pc/06_nullenvsender.diff/lib/address.cc	/^  operator bool() const$/;"	f	struct:result
++operator bool	lib/address.cc	/^  operator bool() const$/;"	f	struct:result
++operator bool	lib/fdbuf/fdibuf.h	/^  operator bool() const { return !operator!(); }$/;"	f	class:fdibuf
++operator bool	lib/fdbuf/fdobuf.h	/^  operator bool() const$/;"	f	class:fdobuf
++operator bool	lib/list.h	/^  operator bool() const$/;"	f	class:const_list_iterator
++operator bool	lib/list.h	/^  operator bool() const$/;"	f	class:list_iterator
++operator bool	lib/mystring/iter.h	/^  operator bool() const { return pos >= 0; }$/;"	f	class:mystring_iter
++operator bool	lib/selfpipe.cc	/^selfpipe::operator bool() const$/;"	f	class:selfpipe
++optionc	lib/cli++/main.cc	/^static unsigned optionc;$/;"	v	file:
++options	.pc/03_syslog.diff/src/send.cc	/^  slist options;$/;"	m	struct:remote	file:
++options	lib/cli++/main.cc	/^static cli_option** options;$/;"	v	file:
++options	src/send.cc	/^  slist options;$/;"	m	struct:remote	file:
++out	.pc/07_sendquit.diff/protocols/smtp.cc	/^  fdobuf out;$/;"	m	class:smtp	file:
++out	protocols/qmqp.cc	/^  fdobuf out;$/;"	m	class:qmqp	file:
++out	protocols/smtp.cc	/^  fdobuf out;$/;"	m	class:smtp	file:
++parse	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool parse(mystring& line, bool& rm) $/;"	f	struct:header_field
++parse	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool parse(mystring& line, bool& rm) $/;"	f	struct:header_field
++parse	src/inject.cc	/^  bool parse(mystring& line, bool& rm) $/;"	f	struct:header_field
++parse_addresses	.pc/06_nullenvsender.diff/lib/address.cc	/^bool parse_addresses(mystring& line, mystring& list)$/;"	f
++parse_addresses	lib/address.cc	/^bool parse_addresses(mystring& line, mystring& list)$/;"	f
++parse_args	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool parse_args(int argc, char* argv[])$/;"	f
++parse_args	.pc/06_nullenvsender.diff/src/inject.cc	/^bool parse_args(int argc, char* argv[])$/;"	f
++parse_args	lib/cli++/main.cc	/^static int parse_args(int argc, char* argv[])$/;"	f	file:
++parse_args	src/inject.cc	/^bool parse_args(int argc, char* argv[])$/;"	f
++parse_description	lib/cli++/cli++topod.pl	/^sub parse_description {$/;"	s
++parse_flags	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool parse_flags()$/;"	f
++parse_flags	.pc/06_nullenvsender.diff/src/inject.cc	/^bool parse_flags()$/;"	f
++parse_flags	src/inject.cc	/^bool parse_flags()$/;"	f
++parse_header	lib/cli++/cli++topod.pl	/^sub parse_header {$/;"	s
++parse_header_line	lib/cli++/cli++topod.pl	/^sub parse_header_line {$/;"	s
++parse_line	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool parse_line(mystring& line)$/;"	f
++parse_line	.pc/06_nullenvsender.diff/src/inject.cc	/^bool parse_line(mystring& line)$/;"	f
++parse_line	src/inject.cc	/^bool parse_line(mystring& line)$/;"	f
++parse_long	lib/cli++/main.cc	/^static int parse_long(int, char* argv[])$/;"	f	file:
++parse_long_eq	lib/cli++/main.cc	/^int cli_option::parse_long_eq(const char* arg)$/;"	f	class:cli_option
++parse_long_noeq	lib/cli++/main.cc	/^int cli_option::parse_long_noeq(const char* arg)$/;"	f	class:cli_option
++parse_notes	lib/cli++/cli++topod.pl	/^sub parse_notes {$/;"	s
++parse_option	lib/cli++/cli++topod.pl	/^sub parse_option {$/;"	s
++parse_options	lib/cli++/cli++topod.pl	/^sub parse_options {$/;"	s
++parse_recip_arg	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool parse_recip_arg(mystring str)$/;"	f
++parse_recip_arg	.pc/06_nullenvsender.diff/src/inject.cc	/^bool parse_recip_arg(mystring str)$/;"	f
++parse_recip_arg	src/inject.cc	/^bool parse_recip_arg(mystring str)$/;"	f
++parse_recips	.pc/05_errors_on_stderr.diff/src/inject.cc	/^void parse_recips(const mystring& list)$/;"	f
++parse_recips	.pc/06_nullenvsender.diff/src/inject.cc	/^void parse_recips(const mystring& list)$/;"	f
++parse_recips	src/inject.cc	/^void parse_recips(const mystring& list)$/;"	f
++parse_sender	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool parse_sender(const mystring& list)$/;"	f
++parse_sender	.pc/06_nullenvsender.diff/src/inject.cc	/^bool parse_sender(const mystring& list)$/;"	f
++parse_sender	src/inject.cc	/^bool parse_sender(const mystring& list)$/;"	f
++parse_short	lib/cli++/main.cc	/^static int parse_short(int argc, char* argv[])$/;"	f	file:
++parseargs	src/sendmail.cc	/^int parseargs()$/;"	f
++part	lib/mystring/iter.h	/^  mystring part;$/;"	m	class:mystring_iter
++pass	.pc/03_syslog.diff/protocols/protocol.cc	/^const char* pass = 0;$/;"	v
++pass	protocols/protocol.cc	/^const char* pass = 0;$/;"	v
++pausetime	.pc/03_syslog.diff/src/send.cc	/^static int pausetime = 60;$/;"	v	file:
++pausetime	src/send.cc	/^static int pausetime = 60;$/;"	v	file:
++pcnt	lib/mystring/rep.cc	/^  void pcnt(const char* name, unsigned denom, unsigned divis)$/;"	f	struct:_rep_stats
++pid	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static pid_t pid = 0;$/;"	v	file:
++pid	.pc/06_nullenvsender.diff/src/inject.cc	/^static pid_t pid = 0;$/;"	v	file:
++pid	.pc/06_nullenvsender.diff/src/queue.cc	/^pid_t pid = getpid();$/;"	v
++pid	src/inject.cc	/^static pid_t pid = 0;$/;"	v	file:
++pid	src/queue.cc	/^pid_t pid = getpid();$/;"	v
++port	.pc/07_sendquit.diff/protocols/smtp.cc	/^int port = 25;$/;"	v
++port	protocols/qmqp.cc	/^int port = 628;$/;"	v
++port	protocols/smtp.cc	/^int port = 25;$/;"	v
++pos	lib/mystring/iter.h	/^  int pos;$/;"	m	class:mystring_iter
++preload_data	protocols/qmqp.cc	/^bool preload_data(fdibuf* msg, unsigned long& size, mystring& env)$/;"	f
++prepend	lib/list.h	/^  bool prepend(T data)$/;"	f	class:list
++present	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool present;$/;"	m	struct:header_field	file:
++present	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool present;$/;"	m	struct:header_field	file:
++present	src/inject.cc	/^  bool present;$/;"	m	struct:header_field	file:
++prev	lib/list.h	/^  const typename list<T>::node* prev;$/;"	m	class:const_list_iterator
++prev	lib/list.h	/^  typename list<T>::node* prev;$/;"	m	class:list_iterator
++prev	lib/mystring/join.h	/^  const mystringjoin* prev;$/;"	m	class:mystringjoin
++proto	.pc/03_syslog.diff/src/send.cc	/^  mystring proto;$/;"	m	struct:remote	file:
++proto	src/send.cc	/^  mystring proto;$/;"	m	struct:remote	file:
++protocol_fail	.pc/03_syslog.diff/protocols/protocol.cc	/^void protocol_fail(int e, const char* msg)$/;"	f
++protocol_fail	protocols/protocol.cc	/^void protocol_fail(int e, const char* msg)$/;"	f
++protocol_prep	.pc/07_sendquit.diff/protocols/smtp.cc	/^void protocol_prep(fdibuf*)$/;"	f
++protocol_prep	protocols/qmqp.cc	/^void protocol_prep(fdibuf* in)$/;"	f
++protocol_prep	protocols/smtp.cc	/^void protocol_prep(fdibuf*)$/;"	f
++protocol_send	.pc/07_sendquit.diff/protocols/smtp.cc	/^void protocol_send(fdibuf* in, int fd)$/;"	f
++protocol_send	protocols/qmqp.cc	/^void protocol_send(fdibuf* in, int fd)$/;"	f
++protocol_send	protocols/smtp.cc	/^void protocol_send(fdibuf* in, int fd)$/;"	f
++protocol_succ	.pc/03_syslog.diff/protocols/protocol.cc	/^void protocol_succ(const char* msg)$/;"	f
++protocol_succ	protocols/protocol.cc	/^void protocol_succ(const char* msg)$/;"	f
++prototypes	configure	/^   function prototypes and stuff, but not '\\xHH' hex character constants.$/;"	f
++put	.pc/07_sendquit.diff/protocols/smtp.cc	/^int smtp::put(mystring cmd, mystring& result)$/;"	f	class:smtp
++put	protocols/smtp.cc	/^int smtp::put(mystring cmd, mystring& result)$/;"	f	class:smtp
++qmqp	protocols/qmqp.cc	/^class qmqp $/;"	c	file:
++qmqp	protocols/qmqp.cc	/^qmqp::qmqp(int fd)$/;"	f	class:qmqp
++quote	.pc/06_nullenvsender.diff/lib/address.cc	/^static mystring quote(const mystring& in)$/;"	f	file:
++quote	lib/address.cc	/^static mystring quote(const mystring& in)$/;"	f	file:
++read	lib/fdbuf/fdibuf.cc	/^bool fdibuf::read(char* data, unsigned datalen)$/;"	f	class:fdibuf
++read	lib/fdbuf/fdibuf.h	/^  bool read(signed char* b, unsigned l) { return read((char*)b, l); }$/;"	f	class:fdibuf
++read	lib/fdbuf/fdibuf.h	/^  bool read(unsigned char* b, unsigned l) { return read((char*)b, l); }$/;"	f	class:fdibuf
++read_config	.pc/05_errors_on_stderr.diff/src/inject.cc	/^void read_config()$/;"	f
++read_config	.pc/06_nullenvsender.diff/src/inject.cc	/^void read_config()$/;"	f
++read_config	src/inject.cc	/^void read_config()$/;"	f
++read_header	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool read_header()$/;"	f
++read_header	.pc/06_nullenvsender.diff/src/inject.cc	/^bool read_header()$/;"	f
++read_header	src/inject.cc	/^bool read_header()$/;"	f
++read_hostnames	.pc/01_manual.diff/lib/hostname.cc	/^void read_hostnames()$/;"	f
++read_hostnames	lib/hostname.cc	/^void read_hostnames()$/;"	f
++read_large	lib/fdbuf/fdibuf.cc	/^bool fdibuf::read_large(char* data, unsigned datalen)$/;"	f	class:fdibuf
++read_trigger	.pc/03_syslog.diff/src/send.cc	/^bool read_trigger()$/;"	f
++read_trigger	src/send.cc	/^bool read_trigger()$/;"	f
++recipients	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static slist recipients;$/;"	v	file:
++recipients	.pc/06_nullenvsender.diff/src/inject.cc	/^static slist recipients;$/;"	v	file:
++recipients	src/inject.cc	/^static slist recipients;$/;"	v	file:
++references	lib/mystring/rep.h	/^  unsigned references;$/;"	m	struct:mystringrep
++refill	lib/fdbuf/fdibuf.cc	/^bool fdibuf::refill()$/;"	f	class:fdibuf
++reload_files	.pc/03_syslog.diff/src/send.cc	/^static bool reload_files = false;$/;"	v	file:
++reload_files	src/send.cc	/^static bool reload_files = false;$/;"	v	file:
++remapadmin	.pc/06_nullenvsender.diff/src/queue.cc	/^bool remapadmin = false;$/;"	v
++remapadmin	src/queue.cc	/^bool remapadmin = false;$/;"	v
++remote	.pc/03_syslog.diff/src/send.cc	/^remote::remote(const slist& lst)$/;"	f	class:remote
++remote	.pc/03_syslog.diff/src/send.cc	/^struct remote$/;"	s	file:
++remote	src/send.cc	/^remote::remote(const slist& lst)$/;"	f	class:remote
++remote	src/send.cc	/^struct remote$/;"	s	file:
++remotes	.pc/03_syslog.diff/src/send.cc	/^static rlist remotes;$/;"	v	file:
++remotes	src/send.cc	/^static rlist remotes;$/;"	v	file:
++remove	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  bool remove;			\/\/ remove means strip after parsing$/;"	m	struct:header_field	file:
++remove	.pc/06_nullenvsender.diff/src/inject.cc	/^  bool remove;			\/\/ remove means strip after parsing$/;"	m	struct:header_field	file:
++remove	lib/list.h	/^bool list<T>::remove(list<T>::iter& iter)$/;"	f	class:list
++remove	src/inject.cc	/^  bool remove;			\/\/ remove means strip after parsing$/;"	m	struct:header_field	file:
++rep	lib/mystring/join.h	/^  mystringrep* rep;$/;"	m	class:mystringjoin
++rep	lib/mystring/mystring.h	/^  mystringrep* rep;$/;"	m	class:mystring
++replength	lib/mystring/rep.cc	/^static const unsigned replength = sizeof(unsigned)*3;$/;"	v	file:
++result	.pc/06_nullenvsender.diff/lib/address.cc	/^result::result()$/;"	f	class:result
++result	.pc/06_nullenvsender.diff/lib/address.cc	/^result::result(anode* n)$/;"	f	class:result
++result	.pc/06_nullenvsender.diff/lib/address.cc	/^result::result(anode* n, const mystring& s,$/;"	f	class:result
++result	.pc/06_nullenvsender.diff/lib/address.cc	/^result::result(const result& r)$/;"	f	class:result
++result	.pc/06_nullenvsender.diff/lib/address.cc	/^struct result$/;"	s	file:
++result	lib/address.cc	/^result::result()$/;"	f	class:result
++result	lib/address.cc	/^result::result(anode* n)$/;"	f	class:result
++result	lib/address.cc	/^result::result(anode* n, const mystring& s,$/;"	f	class:result
++result	lib/address.cc	/^result::result(const result& r)$/;"	f	class:result
++result	lib/address.cc	/^struct result$/;"	s	file:
++rewind	lib/fdbuf/fdibuf.h	/^  bool rewind() { return seek(0); }$/;"	f	class:fdibuf
++rewind	lib/fdbuf/fdobuf.h	/^  bool rewind() { return seek(0); }$/;"	f	class:fdobuf
++right	lib/mystring/sub.cc	/^mystring mystring::right(size_t offset) const$/;"	f	class:mystring
++rlist	.pc/03_syslog.diff/src/send.cc	/^typedef list<remote> rlist;$/;"	t	file:
++rlist	src/send.cc	/^typedef list<remote> rlist;$/;"	t	file:
++rstrip	lib/mystring/rstrip.cc	/^mystring mystring::rstrip() const$/;"	f	class:mystring
++seek	lib/fdbuf/fdibuf.cc	/^bool fdibuf::seek(unsigned o)$/;"	f	class:fdibuf
++seek	lib/fdbuf/fdobuf_seek.cc	/^bool fdobuf::seek(unsigned o)$/;"	f	class:fdobuf
++seekfwd	lib/fdbuf/fdibuf.cc	/^bool fdibuf::seekfwd(unsigned o)$/;"	f	class:fdibuf
++selfpipe	.pc/03_syslog.diff/src/send.cc	/^selfpipe selfpipe;$/;"	v
++selfpipe	lib/selfpipe.cc	/^selfpipe::selfpipe()$/;"	f	class:selfpipe
++selfpipe	lib/selfpipe.h	/^class selfpipe$/;"	c
++selfpipe	src/send.cc	/^selfpipe selfpipe;$/;"	v
++send	.pc/07_sendquit.diff/protocols/smtp.cc	/^void smtp::send(fdibuf* msg)$/;"	f	class:smtp
++send	protocols/qmqp.cc	/^void qmqp::send(fdibuf* msg, unsigned long size, const mystring& env)$/;"	f	class:qmqp
++send	protocols/smtp.cc	/^void smtp::send(fdibuf* msg)$/;"	f	class:smtp
++send_all	.pc/03_syslog.diff/src/send.cc	/^bool send_all()$/;"	f
++send_all	src/send.cc	/^bool send_all()$/;"	f
++send_body	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool send_body()$/;"	f
++send_body	.pc/06_nullenvsender.diff/src/inject.cc	/^bool send_body()$/;"	f
++send_body	src/inject.cc	/^bool send_body()$/;"	f
++send_data	.pc/07_sendquit.diff/protocols/smtp.cc	/^void smtp::send_data(fdibuf* msg)$/;"	f	class:smtp
++send_data	protocols/smtp.cc	/^void smtp::send_data(fdibuf* msg)$/;"	f	class:smtp
++send_env	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool send_env()$/;"	f
++send_env	.pc/06_nullenvsender.diff/src/inject.cc	/^bool send_env()$/;"	f
++send_env	src/inject.cc	/^bool send_env()$/;"	f
++send_envelope	.pc/07_sendquit.diff/protocols/smtp.cc	/^void smtp::send_envelope(fdibuf* msg)$/;"	f	class:smtp
++send_envelope	protocols/smtp.cc	/^void smtp::send_envelope(fdibuf* msg)$/;"	f	class:smtp
++send_header	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool send_header()$/;"	f
++send_header	.pc/06_nullenvsender.diff/src/inject.cc	/^bool send_header()$/;"	f
++send_header	src/inject.cc	/^bool send_header()$/;"	f
++send_message	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool send_message()$/;"	f
++send_message	.pc/06_nullenvsender.diff/src/inject.cc	/^bool send_message()$/;"	f
++send_message	src/inject.cc	/^bool send_message()$/;"	f
++send_one	.pc/03_syslog.diff/src/send.cc	/^bool send_one(mystring filename, remote& remote)$/;"	f
++send_one	src/send.cc	/^bool send_one(mystring filename, remote& remote)$/;"	f
++send_quit	protocols/smtp.cc	/^void smtp::send_quit()$/;"	f	class:smtp
++sender	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static mystring sender;$/;"	v	file:
++sender	.pc/06_nullenvsender.diff/src/inject.cc	/^static mystring sender;$/;"	v	file:
++sender	src/inject.cc	/^static mystring sender;$/;"	v	file:
++sendtimeout	.pc/03_syslog.diff/src/send.cc	/^static int sendtimeout = 60*60;$/;"	v	file:
++sendtimeout	src/send.cc	/^static int sendtimeout = 60*60;$/;"	v	file:
++sep	lib/mystring/iter.h	/^  const char sep;$/;"	m	class:mystring_iter
++set	lib/cli++/main.cc	/^int cli_option::set(const char* arg)$/;"	f	class:cli_option
++set_argv0	lib/cli++/main.cc	/^static void set_argv0(const char* p)$/;"	f	file:
++setenv	lib/setenv.cc	/^int setenv(const char* var, const char* val, int overwrite)$/;"	f
++setenvelope	src/sendmail.cc	/^bool setenvelope(char* str)$/;"	f
++sethostbyname	.pc/02_ipv6.diff/lib/tcpconnect.cc	/^static int sethostbyname(const mystring& hostname, struct sockaddr_in& sa)$/;"	f	file:
++sethostbyname	lib/tcpconnect.cc	/^static int sethostbyname(const mystring& hostname, struct sockaddr_in& sa)$/;"	f	file:
++setup_from	.pc/05_errors_on_stderr.diff/src/inject.cc	/^void setup_from()$/;"	f
++setup_from	.pc/06_nullenvsender.diff/src/inject.cc	/^void setup_from()$/;"	f
++setup_from	src/inject.cc	/^void setup_from()$/;"	f
++show_envelope	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static int show_envelope = false;$/;"	v	file:
++show_envelope	.pc/06_nullenvsender.diff/src/inject.cc	/^static int show_envelope = false;$/;"	v	file:
++show_envelope	src/inject.cc	/^static int show_envelope = false;$/;"	v	file:
++show_help	lib/cli++/main.cc	/^static void show_help()$/;"	f	file:
++show_message	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static int show_message = false;$/;"	v	file:
++show_message	.pc/06_nullenvsender.diff/src/inject.cc	/^static int show_message = false;$/;"	v	file:
++show_message	src/inject.cc	/^static int show_message = false;$/;"	v	file:
++show_option	lib/cli++/main.cc	/^static void show_option(cli_option* o, unsigned maxwidth)$/;"	f	file:
++show_usage	lib/cli++/main.cc	/^static void show_usage()$/;"	f	file:
++size	lib/mystring/rep.h	/^  unsigned size;$/;"	m	struct:mystringrep
++sizestep	lib/mystring/rep.cc	/^static const unsigned sizestep = sizeof(unsigned);$/;"	v	file:
++skip_envelope	protocols/qmqp.cc	/^bool skip_envelope(fdibuf* msg)$/;"	f
++skipcomment	.pc/06_nullenvsender.diff/lib/address.cc	/^anode* skipcomment(anode* node, mystring& comment)$/;"	f
++skipcomment	lib/address.cc	/^anode* skipcomment(anode* node, mystring& comment)$/;"	f
++slackdiv	lib/mystring/rep.cc	/^static const unsigned slackdiv = 4;$/;"	v	file:
++slackmax	lib/mystring/rep.cc	/^static const unsigned slackmax = 16;$/;"	v	file:
++slist	.pc/03_syslog.diff/src/send.cc	/^typedef list<mystring> slist;$/;"	t	file:
++slist	.pc/05_errors_on_stderr.diff/src/inject.cc	/^typedef list<mystring> slist;$/;"	t	file:
++slist	.pc/06_nullenvsender.diff/src/inject.cc	/^typedef list<mystring> slist;$/;"	t	file:
++slist	src/inject.cc	/^typedef list<mystring> slist;$/;"	t	file:
++slist	src/send.cc	/^typedef list<mystring> slist;$/;"	t	file:
++smtp	.pc/07_sendquit.diff/protocols/smtp.cc	/^class smtp $/;"	c	file:
++smtp	.pc/07_sendquit.diff/protocols/smtp.cc	/^smtp::smtp(int fd)$/;"	f	class:smtp
++smtp	protocols/smtp.cc	/^class smtp $/;"	c	file:
++smtp	protocols/smtp.cc	/^smtp::smtp(int fd)$/;"	f	class:smtp
++start_queue	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool start_queue()$/;"	f
++start_queue	.pc/06_nullenvsender.diff/src/inject.cc	/^bool start_queue()$/;"	f
++start_queue	src/inject.cc	/^bool start_queue()$/;"	f
++stat	lib/mystring/rep.cc	/^  void stat(const char* name, unsigned value)$/;"	f	struct:_rep_stats
++stats	lib/mystring/rep.cc	/^static _rep_stats stats;$/;"	v	file:
++str	.pc/06_nullenvsender.diff/lib/address.cc	/^  const mystring str;$/;"	m	struct:token	file:
++str	.pc/06_nullenvsender.diff/lib/address.cc	/^  mystring str;$/;"	m	struct:result	file:
++str	lib/address.cc	/^  const mystring str;$/;"	m	struct:token	file:
++str	lib/address.cc	/^  mystring str;$/;"	m	struct:result	file:
++str	lib/mystring/iter.h	/^  const mystring str;$/;"	m	class:mystring_iter
++str	lib/mystring/join.cc	/^  const char* str;$/;"	m	struct:tmpitem	file:
++str	lib/mystring/join.h	/^  const char* str;$/;"	m	class:mystringjoin
++str2net	lib/netstring.cc	/^mystring str2net(const mystring& s)$/;"	f
++string	lib/cli++/cli++.h	/^  const char* string;$/;"	m	struct:cli_stringlist
++string	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++string	lib/mystring/mystring.h	/^typedef mystring string;$/;"	t
++stringlist	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++stringlist_append	lib/cli++/main.cc	/^cli_stringlist* stringlist_append(cli_stringlist* node, const char* newstr)$/;"	f
++strip	lib/mystring/strip.cc	/^mystring mystring::strip() const$/;"	f	class:mystring
++strnl2net	lib/netstring.cc	/^mystring strnl2net(const mystring& s)$/;"	f
++sub	lib/mystring/sub.cc	/^mystring mystring::sub(size_t offset, size_t len) const$/;"	f	class:mystring
++subst	lib/mystring/subst.cc	/^mystring mystring::subst(char from, char to) const$/;"	f	class:mystring
++sync	lib/fdbuf/fdobuf.cc	/^bool fdobuf::sync()$/;"	f	class:fdobuf
++tail	lib/list.h	/^  node* tail;$/;"	m	class:list
++tcpconnect	.pc/02_ipv6.diff/lib/tcpconnect.cc	/^int tcpconnect(const mystring& hostname, int port)$/;"	f
++tcpconnect	lib/tcpconnect.cc	/^int tcpconnect(const mystring& hostname, int port)$/;"	f
++tell	lib/fdbuf/fdibuf.h	/^  unsigned tell() const { return offset-buflength+bufstart; }$/;"	f	class:fdibuf
++tell	lib/fdbuf/fdobuf.h	/^  unsigned tell() const { return offset + bufpos; }$/;"	f	class:fdobuf
++test	test/address-test.cc	/^static bool test(const mystring& in,$/;"	f	file:
++test_remove_first	lib/listtest.cc	/^void test_remove_first()$/;"	f
++test_remove_last	lib/listtest.cc	/^void test_remove_last()$/;"	f
++test_remove_mid	lib/listtest.cc	/^void test_remove_mid()$/;"	f
++timesecs	.pc/06_nullenvsender.diff/src/queue.cc	/^time_t timesecs = time(0);$/;"	v
++timesecs	src/queue.cc	/^time_t timesecs = time(0);$/;"	v
++tmpitem	lib/mystring/join.cc	/^struct tmpitem$/;"	s	file:
++token	.pc/06_nullenvsender.diff/lib/address.cc	/^struct token$/;"	s	file:
++token	.pc/06_nullenvsender.diff/lib/address.cc	/^token::token(node_type t)$/;"	f	class:token
++token	.pc/06_nullenvsender.diff/lib/address.cc	/^token::token(node_type t, bool w, mystring s)$/;"	f	class:token
++token	lib/address.cc	/^struct token$/;"	s	file:
++token	lib/address.cc	/^token::token(node_type t)$/;"	f	class:token
++token	lib/address.cc	/^token::token(node_type t, bool w, mystring s)$/;"	f	class:token
++tokenize	.pc/06_nullenvsender.diff/lib/address.cc	/^anode* tokenize(const mystring str)$/;"	f
++tokenize	.pc/06_nullenvsender.diff/lib/address.cc	/^static anode* tokenize(const char* &ptr)$/;"	f	file:
++tokenize	lib/address.cc	/^anode* tokenize(const mystring str)$/;"	f
++tokenize	lib/address.cc	/^static anode* tokenize(const char* &ptr)$/;"	f	file:
++tokenize_atom	.pc/06_nullenvsender.diff/lib/address.cc	/^static anode* tokenize_atom(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_atom	lib/address.cc	/^static anode* tokenize_atom(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_comment	.pc/06_nullenvsender.diff/lib/address.cc	/^static anode* tokenize_comment(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_comment	lib/address.cc	/^static anode* tokenize_comment(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_domain_literal	.pc/06_nullenvsender.diff/lib/address.cc	/^static anode* tokenize_domain_literal(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_domain_literal	lib/address.cc	/^static anode* tokenize_domain_literal(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_quoted_string	.pc/06_nullenvsender.diff/lib/address.cc	/^static anode* tokenize_quoted_string(const char* wstart, const char* &ptr)$/;"	f	file:
++tokenize_quoted_string	lib/address.cc	/^static anode* tokenize_quoted_string(const char* wstart, const char* &ptr)$/;"	f	file:
++trace	lib/mystring/trace.h	6;"	d
++trace	lib/mystring/trace.h	9;"	d
++trace_static	lib/mystring/trace.h	10;"	d
++trace_static	lib/mystring/trace.h	7;"	d
++traverse	lib/mystring/join.cc	/^mystringrep* mystringjoin::traverse() const$/;"	f	class:mystringjoin
++trigger	.pc/03_syslog.diff/src/send.cc	/^static int trigger;$/;"	v	file:
++trigger	.pc/06_nullenvsender.diff/src/queue.cc	/^void trigger()$/;"	f
++trigger	src/queue.cc	/^void trigger()$/;"	f
++trigger	src/send.cc	/^static int trigger;$/;"	v	file:
++trigger2	.pc/03_syslog.diff/src/send.cc	/^static int trigger2;$/;"	v	file:
++trigger2	src/send.cc	/^static int trigger2;$/;"	v	file:
++trunc	lib/fdbuf/fdobuf.h	/^		   trunc=O_TRUNC,$/;"	e	enum:fdobuf::openflags
++type	.pc/06_nullenvsender.diff/lib/address.cc	/^  const node_type type;$/;"	m	struct:token	file:
++type	lib/address.cc	/^  const node_type type;$/;"	m	struct:token	file:
++type	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	m	struct:cli_option	typeref:enum:cli_option::__anon3
++type2word	lib/cli++/cli++topod.pl	/^sub type2word {$/;"	s
++uid	.pc/06_nullenvsender.diff/src/queue.cc	/^uid_t uid = getuid();$/;"	v
++uid	src/queue.cc	/^uid_t uid = getuid();$/;"	v
++uinteger	lib/cli++/cli++.h	/^  enum { flag, counter, integer, string, stringlist, uinteger } type;$/;"	e	enum:cli_option::__anon3
++unlock	lib/fdbuf/fdbuf.cc	/^void fdbuf::unlock()$/;"	f	class:fdbuf
++unlock	lib/fdbuf/fdbuf.h	/^  void unlock() { pthread_mutex_unlock(&mutex); }$/;"	f	class:fdbuf
++unlock	lib/fdbuf/fdbuf.h	/^  void unlock() { }$/;"	f	class:fdbuf
++unquote	.pc/06_nullenvsender.diff/lib/address.cc	/^static mystring unquote(const mystring& in)$/;"	f	file:
++unquote	lib/address.cc	/^static mystring unquote(const mystring& in)$/;"	f	file:
++upper	lib/mystring/upper.cc	/^mystring mystring::upper() const$/;"	f	class:mystring
++usage	lib/cli++/main.cc	/^void usage(int exit_value, const char* errorstr)$/;"	f
++use_args	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon1	file:
++use_args	.pc/06_nullenvsender.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon2	file:
++use_args	src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon4	file:
++use_both	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon1	file:
++use_both	.pc/06_nullenvsender.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon2	file:
++use_both	src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon4	file:
++use_either	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon1	file:
++use_either	.pc/06_nullenvsender.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon2	file:
++use_either	src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon4	file:
++use_header	.pc/05_errors_on_stderr.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon1	file:
++use_header	.pc/06_nullenvsender.diff/src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon2	file:
++use_header	src/inject.cc	/^  use_args, use_both, use_either, use_header$/;"	e	enum:__anon4	file:
++use_header	src/sendmail.cc	/^static int use_header = false;$/;"	v	file:
++use_header_recips	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool use_header_recips = true;$/;"	v	file:
++use_header_recips	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool use_header_recips = true;$/;"	v	file:
++use_header_recips	src/inject.cc	/^static bool use_header_recips = true;$/;"	v	file:
++use_header_sender	src/inject.cc	/^static bool use_header_sender = true;$/;"	v	file:
++use_name_address_style	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static bool use_name_address_style = true;$/;"	v	file:
++use_name_address_style	.pc/06_nullenvsender.diff/src/inject.cc	/^static bool use_name_address_style = true;$/;"	v	file:
++use_name_address_style	src/inject.cc	/^static bool use_name_address_style = true;$/;"	v	file:
++use_recips	.pc/05_errors_on_stderr.diff/src/inject.cc	/^static int use_recips = use_either;$/;"	v	file:
++use_recips	.pc/06_nullenvsender.diff/src/inject.cc	/^static int use_recips = use_either;$/;"	v	file:
++use_recips	src/inject.cc	/^static int use_recips = use_either;$/;"	v	file:
++use_syslog	protocols/protocol.cc	/^static int use_syslog = 0;$/;"	v	file:
++use_syslog	src/send.cc	/^static int use_syslog = 0;$/;"	v	file:
++user	.pc/03_syslog.diff/protocols/protocol.cc	/^const char* user = 0;$/;"	v
++user	protocols/protocol.cc	/^const char* user = 0;$/;"	v
++validate_addr	.pc/06_nullenvsender.diff/src/queue.cc	/^bool validate_addr(mystring& addr, bool doremap)$/;"	f
++validate_addr	src/queue.cc	/^bool validate_addr(mystring& addr, bool doremap)$/;"	f
++wait_queue	.pc/05_errors_on_stderr.diff/src/inject.cc	/^bool wait_queue()$/;"	f
++wait_queue	.pc/06_nullenvsender.diff/src/inject.cc	/^bool wait_queue()$/;"	f
++wait_queue	src/inject.cc	/^bool wait_queue()$/;"	f
++waitsig	lib/selfpipe.cc	/^int selfpipe::waitsig(int timeout)$/;"	f	class:selfpipe
++write	lib/fdbuf/fdobuf.cc	/^bool fdobuf::write(char ch)$/;"	f	class:fdobuf
++write	lib/fdbuf/fdobuf.cc	/^bool fdobuf::write(const char* data, unsigned datalen)$/;"	f	class:fdobuf
++write	lib/fdbuf/fdobuf.h	/^  bool write(const signed char* b, unsigned l) { return write((char*)b, l); }$/;"	f	class:fdobuf
++write	lib/fdbuf/fdobuf.h	/^  bool write(const unsigned char* b, unsigned l) { return write((char*)b, l); }$/;"	f	class:fdobuf
++write	lib/fdbuf/fdobuf.h	/^  bool write(signed char c) { return write((char)c); }$/;"	f	class:fdobuf
++write	lib/fdbuf/fdobuf.h	/^  bool write(unsigned char c) { return write((char)c); }$/;"	f	class:fdobuf
++write_large	lib/fdbuf/fdobuf.cc	/^bool fdobuf::write_large(const char* data, unsigned datalen)$/;"	f	class:fdobuf
++ws_split	.pc/03_syslog.diff/src/send.cc	/^unsigned ws_split(const mystring& str, slist& lst)$/;"	f
++ws_split	src/send.cc	/^unsigned ws_split(const mystring& str, slist& lst)$/;"	f
++~_rep_stats	lib/mystring/rep.cc	/^  ~_rep_stats()$/;"	f	struct:_rep_stats
++~fdbuf	lib/fdbuf/fdbuf.cc	/^fdbuf::~fdbuf()$/;"	f	class:fdbuf
++~fdibuf	lib/fdbuf/fdibuf.cc	/^fdibuf::~fdibuf()$/;"	f	class:fdibuf
++~fdobuf	lib/fdbuf/fdobuf.cc	/^fdobuf::~fdobuf()$/;"	f	class:fdobuf
++~list	lib/list.h	/^  ~list()$/;"	f	class:list
++~list_node	lib/list.h	/^  ~list_node() { }$/;"	f	struct:list_node
++~mystring	lib/mystring/mystring.cc	/^mystring::~mystring()$/;"	f	class:mystring
++~mystring	lib/mystring/mystring.h	/^inline mystring::~mystring()$/;"	f	class:mystring
++~mystring_iter	lib/mystring/iter.cc	/^mystring_iter::~mystring_iter()$/;"	f	class:mystring_iter
++~mystringjoin	lib/mystring/join.h	/^  ~mystringjoin()$/;"	f	class:mystringjoin
++~qmqp	protocols/qmqp.cc	/^qmqp::~qmqp()$/;"	f	class:qmqp
++~remote	.pc/03_syslog.diff/src/send.cc	/^remote::~remote() { }$/;"	f	class:remote
++~remote	src/send.cc	/^remote::~remote() { }$/;"	f	class:remote
++~smtp	.pc/07_sendquit.diff/protocols/smtp.cc	/^smtp::~smtp()$/;"	f	class:smtp
++~smtp	protocols/smtp.cc	/^smtp::~smtp()$/;"	f	class:smtp

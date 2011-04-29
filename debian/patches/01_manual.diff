@@ -14,8 +14,10 @@ esac
 exit 0
 
 @DPATCH@
---- nullmailer-1.00RC7/lib/hostname.cc
-+++ nullmailer-1.00RC7/lib/hostname.cc
+Index: nullmailer-1.05/lib/hostname.cc
+===================================================================
+--- nullmailer-1.05.orig/lib/hostname.cc	2011-04-05 13:39:52.000000000 +0100
++++ nullmailer-1.05/lib/hostname.cc	2011-04-05 13:41:52.000000000 +0100
 @@ -33,7 +33,9 @@
  {
    int nome;
@@ -27,10 +29,29 @@ exit 0
      nome = 1;
      me = "me";
    }
---- nullmailer-1.00RC7.orig/doc/nullmailer-send.8
-+++ nullmailer-1.00RC7/doc/nullmailer-send.8
-@@ -76,16 +76,16 @@
+Index: nullmailer-1.05/doc/nullmailer-send.8
+===================================================================
+--- nullmailer-1.05.orig/doc/nullmailer-send.8	2011-04-05 13:39:52.000000000 +0100
++++ nullmailer-1.05/doc/nullmailer-send.8	2011-04-05 13:41:52.000000000 +0100
+@@ -71,14 +71,14 @@
+ which also requires SMTP authentication, use:
+ 
+ .EX
+-    smarthost.dom smtp --port=2525 --user=user --pass=pass
++    smarthost.dom smtp \-\-port=2525 \-\-user=user \-\-pass=pass
+ .EE
+ 
+ If your smarthost requires LOGIN authentication instead of the default
+ PLAIN method, use:
+ 
+ .EX
+-    smarthost.dom smtp --port=2525 --auth-login --user=user --pass=pass
++    smarthost.dom smtp \-\-port=2525 \-\-auth-login \-\-user=user \-\-pass=pass
+ .EE
+ 
  Blank lines and lines starting with a pound are ignored.
+@@ -94,16 +94,16 @@
+ will wait forever for messages to complete sending.
  .SH FILES
  .TP
 -.B /var/nullmailer/queue
@@ -50,8 +71,10 @@ exit 0
  The protocol program directory.
  .SH SEE ALSO
  nullmailer-queue(8),
---- nullmailer-1.00RC7.orig/doc/nullmailer-queue.8
-+++ nullmailer-1.00RC7/doc/nullmailer-queue.8
+Index: nullmailer-1.05/doc/nullmailer-queue.8
+===================================================================
+--- nullmailer-1.05.orig/doc/nullmailer-queue.8	2011-04-05 13:39:52.000000000 +0100
++++ nullmailer-1.05/doc/nullmailer-queue.8	2011-04-05 13:41:52.000000000 +0100
 @@ -22,21 +22,21 @@
  .TP
  .B adminaddr
@@ -80,9 +103,20 @@ exit 0
  A pipe used to trigger
  .BR nullmailer-send
  to immediately start sending the message from the queue.
---- nullmailer-1.00RC7.orig/doc/nullmailer-inject.1
-+++ nullmailer-1.00RC7/doc/nullmailer-inject.1
-@@ -218,16 +218,16 @@
+Index: nullmailer-1.05/doc/nullmailer-inject.1
+===================================================================
+--- nullmailer-1.05.orig/doc/nullmailer-inject.1	2011-04-05 13:39:52.000000000 +0100
++++ nullmailer-1.05/doc/nullmailer-inject.1	2011-04-05 13:42:10.000000000 +0100
+@@ -82,7 +82,7 @@
+ Address lists are expected to follow the syntax set out in RFC822.
+ The following is a simplified explanation of the syntax.
+ 
+-An address list is list of addresses seperated by commas.
++An address list is list of addresses separated by commas.
+ An individual address may have one of the following three forms:
+ .IR user@fqdn ,
+ .IR comment <user@fqdn> ,
+@@ -227,16 +227,16 @@
  and
  .BR idhost .
  Defaults to the value of the
@@ -103,7 +137,7 @@ exit 0
  .IR defaulthost .
  .TP
  .B idhost
-@@ -236,7 +236,7 @@
+@@ -245,7 +245,7 @@
  Defaults to the canonicalized value of
  .BR defaulthost .
  .TP
@@ -112,3 +146,16 @@ exit 0
  The fully-qualifiled host name of the computer running nullmailer.
  Defaults to the literal name
  .IR me .
+Index: nullmailer-1.05/doc/sendmail.1
+===================================================================
+--- nullmailer-1.05.orig/doc/sendmail.1	2011-04-05 13:39:52.000000000 +0100
++++ nullmailer-1.05/doc/sendmail.1	2011-04-05 13:41:52.000000000 +0100
+@@ -67,7 +67,7 @@
+ Sets the envelope sender address.
+ .TP
+ .B \-r ADDRESS
+-An alternate and obsolete form of the -f flag.
++An alternate and obsolete form of the \-f flag.
+ .TP
+ .B \-t
+ Read message for recipients and ignore the command-line arguments.

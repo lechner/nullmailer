@@ -1,3 +1,31 @@
+nullmailer (1:1.05-1) unstable; urgency=low
+
+  * Ack NMUs, thankyou for your care of this package.
+  * New maintainer (Closes: #461244)
+  * New upstream release (Closes: #570640, #589899).
+  * Update Policy from 3.7.3 to 3.9.2:
+    - initscript won't delete and recreate nullmailer-send trigger FIFO
+      if daemon already running.  Complements --oknodo for Policy 3.8.1.
+  * Upgrade to debhhelper 7 + dh so that Policy upgrades become easy.
+  * Update from dpatch to quilt + source format "3.0 (quilt)".
+  * Update automake build-dep to current version for current ./configure.
+  * Use CPPFLAGS instead of CFLAGS (dh 7).
+  * Don't do "set -e" in initscript (Closes: #562505).
+  * Add watch file (Closes: #583556).
+  * Set rsyslog as default system log daemon (Closes: #526921).
+  * Add 'status' support to initscript (Closes: #526813) and add Description.
+  * Use ferr instead of fout for errors (patch 05, Closes: #329970).
+  * Fix handling of null envelope sender "<>" (patch 06, Closes: #188251).
+  * Send QUIT on success as well as failure, for MTAs that care about
+    strict SMTP: see RFC 5321 s3.8 (patch 07, Closes: #375380).
+  * Fix patch 02_ipv6.diff to remove reference to debian/patched (lintian).
+  * Remove redundant configure options since we no longer use automake 1.4.
+  * Remove Conflicts: with suidmanager, the latter no longer exists.
+  * Fix some remaining manpage spelling and hyphenation issues (patch 01,03).
+  * Override lintian moans about our permissions and suid binary.
+
+ -- Nick Leverton <nick@leverton.org>  Fri, 29 Apr 2011 16:13:07 +0100
+
 nullmailer (1:1.04-1.2) unstable; urgency=low
 
   * Non-maintainer upload.

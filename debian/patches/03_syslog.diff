@@ -14,9 +14,10 @@ esac
 exit 0
 
 @DPATCH@
-diff -Nur nullmailer-1.04.orig/doc/nullmailer-send.8 nullmailer-1.04/doc/nullmailer-send.8
---- nullmailer-1.04.orig/doc/nullmailer-send.8	2007-10-09 18:35:44.000000000 +0200
-+++ nullmailer-1.04/doc/nullmailer-send.8	2008-01-06 14:58:18.000000000 +0100
+Index: nullmailer-1.05/doc/nullmailer-send.8
+===================================================================
+--- nullmailer-1.05.orig/doc/nullmailer-send.8	2011-04-05 13:58:01.000000000 +0100
++++ nullmailer-1.05/doc/nullmailer-send.8	2011-04-05 13:58:19.000000000 +0100
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -32,18 +33,19 @@ diff -Nur nullmailer-1.04.orig/doc/nullmailer-send.8 nullmailer-1.04/doc/nullmai
 +.SH OPTIONS
 +.TP
 +.BR \-d ,\  \-\-daemon
-+Fork into the background, implies --syslog.
++Fork into the background, implies \-\-syslog.
 +.TP
 +.BR \-s ,\  \-\-syslog
 +Use syslog for error and log messages.
-+With --daemon, syslog will be used exclusively, without --daemon,
++With \-\-daemon, syslog will be used exclusively, without \-\-daemon,
 +syslog will be used additionally.
  .SH CONTROL FILES
  All the control files are reread each time the queue is run.
  .TP
-diff -Nur nullmailer-1.04.orig/protocols/protocol.cc nullmailer-1.04/protocols/protocol.cc
---- nullmailer-1.04.orig/protocols/protocol.cc	2007-10-10 01:33:02.000000000 +0200
-+++ nullmailer-1.04/protocols/protocol.cc	2008-01-06 15:00:10.000000000 +0100
+Index: nullmailer-1.05/protocols/protocol.cc
+===================================================================
+--- nullmailer-1.05.orig/protocols/protocol.cc	2011-04-05 13:45:35.000000000 +0100
++++ nullmailer-1.05/protocols/protocol.cc	2011-04-05 13:58:05.000000000 +0100
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -100,9 +102,10 @@ diff -Nur nullmailer-1.04.orig/protocols/protocol.cc nullmailer-1.04/protocols/p
    const char* remote = argv[0];
    fdibuf in(0, true);
    protocol_prep(&in);
-diff -Nur nullmailer-1.04.orig/src/Makefile.in nullmailer-1.04/src/Makefile.in
---- nullmailer-1.04.orig/src/Makefile.in	2007-10-10 01:23:25.000000000 +0200
-+++ nullmailer-1.04/src/Makefile.in	2008-01-06 15:01:31.000000000 +0100
+Index: nullmailer-1.05/src/Makefile.in
+===================================================================
+--- nullmailer-1.05.orig/src/Makefile.in	2011-04-05 13:45:35.000000000 +0100
++++ nullmailer-1.05/src/Makefile.in	2011-04-05 13:58:05.000000000 +0100
 @@ -59,7 +59,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
@@ -112,7 +115,7 @@ diff -Nur nullmailer-1.04.orig/src/Makefile.in nullmailer-1.04/src/Makefile.in
  am_sendmail_OBJECTS = sendmail.$(OBJEXT)
  sendmail_OBJECTS = $(am_sendmail_OBJECTS)
  sendmail_DEPENDENCIES = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
-@@ -175,13 +175,13 @@
+@@ -176,13 +176,13 @@
  #noinst_PROGRAMS = address
  INCLUDES = -I../lib -I../lib/cli++
  mailq_SOURCES = mailq.cc
@@ -128,9 +131,10 @@ diff -Nur nullmailer-1.04.orig/src/Makefile.in nullmailer-1.04/src/Makefile.in
  sendmail_SOURCES = sendmail.cc
  sendmail_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
  all: all-am
-diff -Nur nullmailer-1.04.orig/src/send.cc nullmailer-1.04/src/send.cc
---- nullmailer-1.04.orig/src/send.cc	2007-10-09 18:33:53.000000000 +0200
-+++ nullmailer-1.04/src/send.cc	2008-01-06 15:10:23.000000000 +0100
+Index: nullmailer-1.05/src/send.cc
+===================================================================
+--- nullmailer-1.05.orig/src/send.cc	2011-04-05 13:45:35.000000000 +0100
++++ nullmailer-1.05/src/send.cc	2011-04-05 13:58:05.000000000 +0100
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
@@ -209,7 +213,7 @@ diff -Nur nullmailer-1.04.orig/src/send.cc nullmailer-1.04/src/send.cc
    args[i++] = remote.host.c_str();
 @@ -213,7 +240,10 @@
        if(status)
- 	fail2("Sending failed: ", errorstr[status]);
+ 	fail2("Sending failed: ", errorstr(status));
        else {
 -	fout << "Sent file." << endl;
 +        if (use_syslog)

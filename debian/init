@@ -6,6 +6,9 @@
 # Required-Stop:     $remote_fs $syslog $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
+# Short-Description: relay-only mail transport agent
+# Description:       Nullmailer is a replacement MTA which relays to a fixed
+#                    set of smart relays.
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -18,19 +21,24 @@ test -x $DAEMON || exit 0
 
 . /lib/lsb/init-functions
 
-set -e
-
 case "$1" in
   start)
 	log_begin_msg "Starting $DESC:" "$NAME"
-    if [ ! -c /var/spool/nullmailer/trigger ]; then                                                                                                        
-            rm -f /var/spool/nullmailer/trigger                                                                                                            
-            mkfifo /var/spool/nullmailer/trigger                                                                                                           
-    fi                                                                                                                                                     
-	chown mail:root /var/spool/nullmailer/trigger
-	chmod 0622 /var/spool/nullmailer/trigger
-	start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $DAEMON_OPTS
-	log_end_msg $?
+	PIDS=`pidof nullmailer-send`
+	# don't kill trigger if daemon already running
+	if [ -z "$PIDS" ]; then
+	    if [ ! -c /var/spool/nullmailer/trigger ]; then                                                                                                        
+		rm -f /var/spool/nullmailer/trigger                                                                                                            
+		mkfifo /var/spool/nullmailer/trigger                                                                                                           
+	    fi                                                                                                                                                     
+	    chown mail:root /var/spool/nullmailer/trigger
+	    chmod 0622 /var/spool/nullmailer/trigger
+	    # --oknodo in case of race condition on daemon start
+	    start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $DAEMON_OPTS
+	    log_end_msg $?
+	else
+	    log_end_msg $? "$NAME already running: $PIDS"
+	fi
 	;;
   stop)
 	log_begin_msg "Stopping $DESC:" "$NAME"
@@ -42,9 +50,13 @@ case "$1" in
 	sleep 1
 	$0 start
 	;;
+  status)
+	status_of_proc $DAEMON $NAME
+	exit $?
+	;;
   *)
 	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $N {start|stop|restart|reload|force-reload|status}" >&2
 	exit 1
 	;;
 esac

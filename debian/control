@@ -1,16 +1,17 @@
 Source: nullmailer
 Section: mail
 Priority: extra
-Maintainer: Norbert Tretkowski <nobse@debian.org>
-Build-Depends: debhelper (>= 5), po-debconf, automake1.9, autoconf, autotools-dev, dpatch
-Standards-Version: 3.7.3
+Maintainer: Nick Leverton <nick@leverton.org>
+Build-Depends: debhelper (>= 7.0.50), po-debconf, automake, autoconf,
+ autotools-dev (>= 20100122)
+Standards-Version: 3.9.2
 Homepage: http://untroubled.org/nullmailer/
 
 Package: nullmailer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base
-Recommends: sysklogd | system-log-daemon
-Conflicts: mail-transport-agent, suidmanager (<< 0.52), lsb
+Recommends: rsyslog | system-log-daemon
+Conflicts: mail-transport-agent, lsb
 Provides: mail-transport-agent
 Replaces: mail-transport-agent
 Description: simple relay-only mail transport agent

@@ -1,6 +1,6 @@
 This package was debianized by Adam D. McKenna <adam@flounder.net>
-on Wed, 21 Jun 2000 19:34:27 -0400. The current maintainer is Norbert
-Tretkowski <nobse@debian.org>.
+on Wed, 21 Jun 2000 19:34:27 -0400. The current maintainer is Nick
+Leverton <nick@leverton.org>
 
 It was downloaded from http://untroubled.org/nullmailer/.
 
@@ -23,4 +23,4 @@ Copyright (c) 1999-2003 Bruce Guenter <bruceg@em.ca>.
 
 
 On Debian GNU/Linux systems, the complete text of the GNU General Public
-License can be found in '/usr/share/common-licenses/GPL'.
+License can be found in '/usr/share/common-licenses/GPL-2'.

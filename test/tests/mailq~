@@ -1,3 +1,0 @@
-. functions
-echo To: nobody@nowhere | inject
-mailq

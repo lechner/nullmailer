@@ -1,0 +1,33 @@
+Description: nullmailer didn't send QUIT after a successful transfer.
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=375380
+Author: Nick Leverton <nick@leverton.org>
+
+Index: nullmailer-1.05/protocols/smtp.cc
+===================================================================
+--- nullmailer-1.05.orig/protocols/smtp.cc	2011-03-01 21:54:40.000000000 +0000
++++ nullmailer-1.05/protocols/smtp.cc	2011-03-01 21:54:44.000000000 +0000
+@@ -46,6 +46,7 @@
+   void docmd(mystring cmd, int range, bool show_succ=false);
+   void send_data(fdibuf* msg);
+   void send_envelope(fdibuf* msg);
++  void send_quit();
+   void send(fdibuf* msg);
+ };
+ 
+@@ -129,10 +130,16 @@
+   docmd(".", 200, true);
+ }
+ 
++void smtp::send_quit()
++{
++  docmd("QUIT", 200);
++}
++
+ void smtp::send(fdibuf* msg)
+ {
+   send_envelope(msg);
+   send_data(msg);
++  send_quit();
+ }
+ 
+ void protocol_prep(fdibuf*)

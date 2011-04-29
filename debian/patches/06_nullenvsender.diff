@@ -1,0 +1,115 @@
+Description: nullmailer didn't handle null return paths "<>" at all.
+Forwarded: nullmailer at lists.em.ca
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188251
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=356356
+Author: Nick Leverton <nick@leverton.org>
+
+Index: nullmailer-1.05/lib/address.cc
+===================================================================
+--- nullmailer-1.05.orig/lib/address.cc	2011-03-01 21:54:40.000000000 +0000
++++ nullmailer-1.05/lib/address.cc	2011-03-01 21:54:44.000000000 +0000
+@@ -517,6 +517,17 @@
+   RETURN(node, "<" + r2.str + ">" + comment, "", r2.addr);
+ }
+ 
++RULE(null_addr) 
++{
++  ENTER("LABRACKET RABRACKET");
++  mystring comment;
++  node = skipcomment(node, comment);
++  MATCHTOKEN(LABRACKET);
++  node = skipcomment(node, comment);
++  MATCHTOKEN(RABRACKET);
++  RETURN(node, "<>" + comment, "", "");
++}
++
+ RULE(phrase)
+ {
+   ENTER("word *(word / PERIOD / CFWS)");
+@@ -654,7 +665,8 @@
+   anode* tokenlist = tokenize(line.c_str());
+   if(!tokenlist)
+     return false;
+-  result r = match_addresses(tokenlist);
++  result r = match_null_addr(tokenlist);
++  if (!r) r = match_addresses(tokenlist);
+   del_tokens(tokenlist);
+   if(r) {
+     line = r.str;
+Index: nullmailer-1.05/src/inject.cc
+===================================================================
+--- nullmailer-1.05.orig/src/inject.cc	2011-03-01 21:54:44.000000000 +0000
++++ nullmailer-1.05/src/inject.cc	2011-03-01 21:54:44.000000000 +0000
+@@ -110,6 +110,7 @@
+ ///////////////////////////////////////////////////////////////////////////////
+ static slist recipients;
+ static mystring sender;
++static bool use_header_sender = true;
+ static bool use_header_recips = true;
+ 
+ void parse_recips(const mystring& list)
+@@ -136,6 +137,9 @@
+ bool parse_sender(const mystring& list)
+ {
+   int end = list.find_first('\n');
++  if(end == -1) {
++    return true;	// null sender
++  }
+   if(end > 0 && list.find_first('\n', end+1) < 0) {
+     sender = list.sub(0, end);
+     return true;
+@@ -175,7 +179,8 @@
+ 	return true;
+       if(is_resent) {
+ 	if(!header_is_resent) {
+-	  sender = "";
++	  // if(use_header_sender)	// There is no Resent-Return-Path
++	  //   sender = "";
+ 	  if(use_header_recips)
+ 	    recipients.empty();
+ 	}
+@@ -197,8 +202,10 @@
+ 	      parse_recips(list);
+ 	  }
+ 	  else if(is_sender) {
+-	    if(is_resent == header_is_resent && !sender)
++	    if(is_resent == header_is_resent && use_header_sender) {
+ 	      parse_sender(list);
++	      use_header_sender = 0;
++	    }
+ 	  }
+ 	}
+       }
+@@ -296,7 +303,7 @@
+   if(!shost) shost = host;
+   canonicalize(shost);
+   
+-  if(!sender)
++  if(use_header_sender && !sender)
+     sender = suser + "@" + shost;
+ }
+ 
+@@ -552,6 +559,7 @@
+       ferr << "nullmailer-inject: Invalid sender address: " << o_from << endl;
+       return false;
+     }
++    use_header_sender = false;
+   }
+   use_header_recips = (use_recips != use_args);
+   if(use_recips == use_header)
+Index: nullmailer-1.05/src/queue.cc
+===================================================================
+--- nullmailer-1.05.orig/src/queue.cc	2011-03-01 21:54:40.000000000 +0000
++++ nullmailer-1.05/src/queue.cc	2011-03-01 21:54:44.000000000 +0000
+@@ -93,9 +93,9 @@
+ bool copyenv(fdobuf& out)
+ {
+   mystring str;
+-  if(!fin.getline(str) || !str)
++  if(!fin.getline(str))
+     fail("Could not read envelope sender.");
+-  if(!validate_addr(str, false))
++  if(!validate_addr(str, false) && str != "")
+     fail("Envelope sender address is invalid.");
+   if(!(out << str << endl))
+     fail("Could not write envelope sender.");

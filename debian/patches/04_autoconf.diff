@@ -14,10 +14,11 @@ esac
 exit 0
 
 @DPATCH@
-diff -Nur nullmailer-1.02.orig/Makefile.in nullmailer-1.02/Makefile.in
---- nullmailer-1.02.orig/Makefile.in	2005-12-07 23:35:01.000000000 +0100
-+++ nullmailer-1.02/Makefile.in	2006-06-15 23:35:40.000000000 +0200
-@@ -161,7 +161,7 @@
+Index: nullmailer-1.05/Makefile.in
+===================================================================
+--- nullmailer-1.05.orig/Makefile.in	2011-03-01 21:54:40.000000000 +0000
++++ nullmailer-1.05/Makefile.in	2011-03-01 21:54:44.000000000 +0000
+@@ -169,7 +169,7 @@
  .SUFFIXES:
  am--refresh:
  	@:
