@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer 1:1.03-3\n"
-"Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2007-03-18 12:14+0100\n"
+"Report-Msgid-Bugs-To: nullmailer@packages.debian.org\n"
+"POT-Creation-Date: 2012-03-01 09:23+0000\n"
 "PO-Revision-Date: 2006-10-19 00:52+0900\n"
 "Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -43,13 +43,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Smarthosts:"
 msgstr "スマートホスト:"
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid ""
 "This is a colon-separated list of remote servers to which to send each "
 "message. Each entry contains a remote host name or address followed by an "
@@ -63,31 +63,19 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Examples:"
 msgstr "例: "
 
 #. Type: string
 #. Description
-#: ../templates:2001
-msgid ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost smtp --user=foo --pass=bar"
-msgstr ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost smtp --user=foo --pass=bar"
-
-#. Type: string
-#. Description
-#: ../templates:3001
+#: ../templates:4001
 msgid "Where to send local emails (optional):"
 msgstr "どのアドレスにローカルのメールを送るか (オプション):"
 
 #. Type: string
 #. Description
-#: ../templates:3001
+#: ../templates:4001
 msgid ""
 "If not empty, all recipients to users at either 'localhost' (the literal "
 "string) or the canonical host name (from /etc/mailname) are remapped to this "
@@ -100,6 +88,22 @@ msgstr ""
 "られます。これはローカルのデーモンに対して 'somebody@localhost' へのメールを"
 "送信可能にし、あなたが指定したリレーホストへバウンスするのではなく、別のどこ"
 "かへ送ります。"
+
+#, fuzzy
+#~| msgid ""
+#~| "  smarthost\n"
+#~| "  smarthost smtp --port=10025\n"
+#~| "  smarthost smtp --user=foo --pass=bar"
+#~ msgid ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost smtp --user=foo --pass=bar\n"
+#~ "  192.168.1.254 qmqp\n"
+#~ "  [fe80::5054:ff:fef4:ef81] smtp"
+#~ msgstr ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost smtp --user=foo --pass=bar"
 
 #~ msgid "Please specify your smarthosts:"
 #~ msgstr "smarthost を定義してください: "

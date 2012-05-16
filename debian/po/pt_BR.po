@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer-1.00rc7-8\n"
-"Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2007-03-18 12:14+0100\n"
+"Report-Msgid-Bugs-To: nullmailer@packages.debian.org\n"
+"POT-Creation-Date: 2012-03-01 09:23+0000\n"
 "PO-Revision-Date: 2003-03-20 21:46-0300\n"
 "Last-Translator: André Luís Lopes <andrelop@ig.com.br>\n"
 "Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
@@ -43,13 +43,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Smarthosts:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid ""
 "This is a colon-separated list of remote servers to which to send each "
 "message. Each entry contains a remote host name or address followed by an "
@@ -64,26 +64,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Examples:"
 msgstr "Exemplos :"
 
 #. Type: string
 #. Description
-#: ../templates:2001
-#, fuzzy
-msgid ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost smtp --user=foo --pass=bar"
-msgstr ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost:mx.domain:192.168.1.1"
-
-#. Type: string
-#. Description
-#: ../templates:3001
+#: ../templates:4001
 #, fuzzy
 msgid "Where to send local emails (optional):"
 msgstr ""
@@ -91,7 +78,7 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3001
+#: ../templates:4001
 msgid ""
 "If not empty, all recipients to users at either 'localhost' (the literal "
 "string) or the canonical host name (from /etc/mailname) are remapped to this "
@@ -105,6 +92,18 @@ msgstr ""
 "para permitir que daemons locais sejam capazes de enviar mensagens para "
 "'alguem@localhost' e poder ir para algum local sensível ao invés ser "
 "devolvido por seu relay host."
+
+#, fuzzy
+#~ msgid ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost smtp --user=foo --pass=bar\n"
+#~ "  192.168.1.254 qmqp\n"
+#~ "  [fe80::5054:ff:fef4:ef81] smtp"
+#~ msgstr ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost:mx.domain:192.168.1.1"
 
 #~ msgid "Please specify your smarthosts:"
 #~ msgstr "Por favor especifique seus smarthosts :"

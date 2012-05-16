@@ -1,3 +1,2 @@
 debian/logcheck etc
-debian/man/newaliases.1 usr/share/man/man1
 debian/lintian usr/share

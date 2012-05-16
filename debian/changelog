@@ -1,3 +1,28 @@
+nullmailer (1:1.10-1) unstable; urgency=low
+
+  * New upstream release (Closes: #271662, #540758, #359994, #583564, #540758,
+    LP:660089).  We now provide Sendmail's "-bs" functionality and therefore
+    no longer conflict with LSB.
+  * Upgrade to dh compat level 9 and dpkg 1.16 dpkg-buildflags.
+  * Update Policy to 3.9.3 (no change).
+  * Set defaultdomain from the domain part of /etc/mailname and allow it to
+    be empty, meaning "don't add a defaultdomain" (patch 12, Closes: #504184).
+  * Fix IPv6 autoconf check to #include stddef.h (patch 02, Closes: #605899).
+  * Support IPv6 address literals in debconf smarthost field (Closes: #625246) 
+    and update debian/templates with the new format.
+  * Use LOG_INFO not LOG_ERR when logging success (patch 03, Closes: #632015,
+    LP:531796).
+  * Ensure no cruft in source package using debian/clean (Closes: #643228).
+  * Use correct test for socket existence in initscript (Closes: #646355).
+  * Proof ourselves against multi-line mailname (Closes: #657773).
+  * New debconf translations: Danish (Closes: #659446).
+  * Fix patch 06 to correctly apply Return-Path when requested in resent mails.
+  * Mention helohost and sendtimeout in nullmailer.7 (patch 08).
+  * Update upstream info in debian/copyright and convert to DEP-5 format.
+  * Thanks to Harald Jenny for the 1.10 changes.
+
+ -- Nick Leverton <nick@leverton.org>  Wed, 16 May 2012 19:52:06 +0100
+
 nullmailer (1:1.05-1) unstable; urgency=low
 
   * Ack NMUs, thankyou for your care of this package.

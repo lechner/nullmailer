@@ -27,14 +27,14 @@ case "$1" in
 	PIDS=`pidof nullmailer-send`
 	# don't kill trigger if daemon already running
 	if [ -z "$PIDS" ]; then
-	    if [ ! -c /var/spool/nullmailer/trigger ]; then                                                                                                        
+	    if [ ! -p /var/spool/nullmailer/trigger ]; then                                                                                                        
 		rm -f /var/spool/nullmailer/trigger                                                                                                            
 		mkfifo /var/spool/nullmailer/trigger                                                                                                           
 	    fi                                                                                                                                                     
 	    chown mail:root /var/spool/nullmailer/trigger
 	    chmod 0622 /var/spool/nullmailer/trigger
 	    # --oknodo in case of race condition on daemon start
-	    start-stop-daemon --start --quiet --chuid mail --exec "$DAEMON" --oknodo -- $DAEMON_OPTS
+	    start-stop-daemon --start --quiet --user mail --exec "$DAEMON" --chuid mail --oknodo -- $DAEMON_OPTS
 	    log_end_msg $?
 	else
 	    log_end_msg $? "$NAME already running: $PIDS"

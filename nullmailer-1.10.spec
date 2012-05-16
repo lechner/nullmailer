@@ -1,6 +1,6 @@
 Name: nullmailer
 Summary: Simple relay-only mail transport agent
-Version: 1.05
+Version: 1.10
 Release: 1
 License: GPL
 Group: Networking/Daemons
@@ -12,6 +12,8 @@ Provides: smtpdaemon
 Conflicts: sendmail
 Conflicts: qmail
 Requires: supervise-scripts >= 3.2
+Requires: gnutls
+BuildRequires: gnutls-devel
 PreReq: shadow-utils
 
 %description
@@ -24,7 +26,7 @@ to be secure.
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" \
-./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-tls
 
 make
 
@@ -76,10 +78,11 @@ fi
 
 %files
 %defattr(-,nullmail,nullmail)
-%doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO YEAR2000
+%doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO
 %dir /etc/nullmailer
 %attr(04711,nullmail,nullmail) /usr/bin/mailq
 /usr/bin/nullmailer-inject
+/usr/bin/nullmailer-smtpd
 /usr/lib/sendmail
 %dir /usr/libexec/nullmailer
 /usr/libexec/nullmailer/*

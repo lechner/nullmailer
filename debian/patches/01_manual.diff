@@ -14,25 +14,10 @@ esac
 exit 0
 
 @DPATCH@
-Index: nullmailer-1.05/lib/hostname.cc
+Index: nullmailer-1.10/doc/nullmailer-send.8
 ===================================================================
---- nullmailer-1.05.orig/lib/hostname.cc	2011-04-05 13:39:52.000000000 +0100
-+++ nullmailer-1.05/lib/hostname.cc	2011-04-05 13:41:52.000000000 +0100
-@@ -33,7 +33,9 @@
- {
-   int nome;
-   nome = 0;
--  if (!config_read("me", me)) {
-+  // introduced as bufix for #120660, #157259, #158412 in 1.00RC5-17;
-+  // still there since it's more appropriate for Debian systems
-+  if (!config_read("../mailname", me)) {
-     nome = 1;
-     me = "me";
-   }
-Index: nullmailer-1.05/doc/nullmailer-send.8
-===================================================================
---- nullmailer-1.05.orig/doc/nullmailer-send.8	2011-04-05 13:39:52.000000000 +0100
-+++ nullmailer-1.05/doc/nullmailer-send.8	2011-04-05 13:41:52.000000000 +0100
+--- nullmailer-1.10.orig/doc/nullmailer-send.8	2012-05-16 08:03:38.000000000 +0100
++++ nullmailer-1.10/doc/nullmailer-send.8	2012-05-16 20:06:52.000000000 +0100
 @@ -71,14 +71,14 @@
  which also requires SMTP authentication, use:
  
@@ -71,10 +56,10 @@ Index: nullmailer-1.05/doc/nullmailer-send.8
  The protocol program directory.
  .SH SEE ALSO
  nullmailer-queue(8),
-Index: nullmailer-1.05/doc/nullmailer-queue.8
+Index: nullmailer-1.10/doc/nullmailer-queue.8
 ===================================================================
---- nullmailer-1.05.orig/doc/nullmailer-queue.8	2011-04-05 13:39:52.000000000 +0100
-+++ nullmailer-1.05/doc/nullmailer-queue.8	2011-04-05 13:41:52.000000000 +0100
+--- nullmailer-1.10.orig/doc/nullmailer-queue.8	2012-05-16 08:03:38.000000000 +0100
++++ nullmailer-1.10/doc/nullmailer-queue.8	2012-05-16 08:03:41.000000000 +0100
 @@ -22,21 +22,21 @@
  .TP
  .B adminaddr
@@ -103,10 +88,10 @@ Index: nullmailer-1.05/doc/nullmailer-queue.8
  A pipe used to trigger
  .BR nullmailer-send
  to immediately start sending the message from the queue.
-Index: nullmailer-1.05/doc/nullmailer-inject.1
+Index: nullmailer-1.10/doc/nullmailer-inject.1
 ===================================================================
---- nullmailer-1.05.orig/doc/nullmailer-inject.1	2011-04-05 13:39:52.000000000 +0100
-+++ nullmailer-1.05/doc/nullmailer-inject.1	2011-04-05 13:42:10.000000000 +0100
+--- nullmailer-1.10.orig/doc/nullmailer-inject.1	2012-05-16 08:03:38.000000000 +0100
++++ nullmailer-1.10/doc/nullmailer-inject.1	2012-05-16 08:03:41.000000000 +0100
 @@ -82,7 +82,7 @@
  Address lists are expected to follow the syntax set out in RFC822.
  The following is a simplified explanation of the syntax.
@@ -146,11 +131,35 @@ Index: nullmailer-1.05/doc/nullmailer-inject.1
  The fully-qualifiled host name of the computer running nullmailer.
  Defaults to the literal name
  .IR me .
-Index: nullmailer-1.05/doc/sendmail.1
+Index: nullmailer-1.10/doc/sendmail.1
 ===================================================================
---- nullmailer-1.05.orig/doc/sendmail.1	2011-04-05 13:39:52.000000000 +0100
-+++ nullmailer-1.05/doc/sendmail.1	2011-04-05 13:41:52.000000000 +0100
-@@ -67,7 +67,7 @@
+--- nullmailer-1.10.orig/doc/sendmail.1	2012-05-16 08:03:38.000000000 +0100
++++ nullmailer-1.10/doc/sendmail.1	2012-05-16 20:19:01.000000000 +0100
+@@ -17,8 +17,11 @@
+ interface for sending email.
+ After parsing the command-line arguments, this program executes
+ .B nullmailer-inject
+-directly.
+-See the documentation for
++directly, unless the
++.I \-bs
++option is specified in which case this program executes
++.B nullmailer-smtpd
++to inject the mail.  See the documentation for
+ .B nullmailer-inject
+ for details on how messages are reformatted and queued.
+ .SH OPTIONS
+@@ -26,6 +29,9 @@
+ .B \-B TYPE
+ .TP
+ .B \-b MODE
++ \-bm        Read mail from standard input (default)
++ \-bp        List information about mail queue
++ \-bs        Handle SMTP commands on standard input
+ .TP
+ .B \-C FILE
+ .TP
+@@ -67,9 +73,9 @@
  Sets the envelope sender address.
  .TP
  .B \-r ADDRESS
@@ -159,3 +168,6 @@ Index: nullmailer-1.05/doc/sendmail.1
  .TP
  .B \-t
  Read message for recipients and ignore the command-line arguments.
+ .SH SEE ALSO
+-nullmailer-inject(1)
++nullmailer-inject(1), nullmailer-smtpd(8)

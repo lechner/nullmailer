@@ -5,4 +5,5 @@
 05_errors_on_stderr.diff
 06_nullenvsender.diff
 07_sendquit.diff
-debian-changes-1:1.05-1
+08_manpages.diff
+12_allow_no_dots.diff

@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nullmailer 1.00RC7-6\n"
-"Report-Msgid-Bugs-To: nobse@debian.org\n"
-"POT-Creation-Date: 2007-03-18 12:14+0100\n"
+"Report-Msgid-Bugs-To: nullmailer@packages.debian.org\n"
+"POT-Creation-Date: 2012-03-01 09:23+0000\n"
 "PO-Revision-Date: 2006-06-19 14:58+0200\n"
 "Last-Translator: Florentin Duneau <f.baced@wanadoo.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -46,13 +46,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Smarthosts:"
 msgstr "Machines relais :"
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid ""
 "This is a colon-separated list of remote servers to which to send each "
 "message. Each entry contains a remote host name or address followed by an "
@@ -67,31 +67,19 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:2001
+#: ../templates:3001
 msgid "Examples:"
 msgstr "Exemples :"
 
 #. Type: string
 #. Description
-#: ../templates:2001
-msgid ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost smtp --user=foo --pass=bar"
-msgstr ""
-"  smarthost\n"
-"  smarthost smtp --port=10025\n"
-"  smarthost smtp --user=utilisateur --pass=mot_de_passe"
-
-#. Type: string
-#. Description
-#: ../templates:3001
+#: ../templates:4001
 msgid "Where to send local emails (optional):"
 msgstr "Adresse où envoyer les courriers locaux (facultatif) :"
 
 #. Type: string
 #. Description
-#: ../templates:3001
+#: ../templates:4001
 msgid ""
 "If not empty, all recipients to users at either 'localhost' (the literal "
 "string) or the canonical host name (from /etc/mailname) are remapped to this "
@@ -105,3 +93,19 @@ msgstr ""
 "locaux peuvent ainsi envoyer des courriers à une adresse sensée, comme "
 "« compte@localhost ». Cela évite que le courrier soit renvoyé par la machine "
 "relais."
+
+#, fuzzy
+#~| msgid ""
+#~| "  smarthost\n"
+#~| "  smarthost smtp --port=10025\n"
+#~| "  smarthost smtp --user=foo --pass=bar"
+#~ msgid ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost smtp --user=foo --pass=bar\n"
+#~ "  192.168.1.254 qmqp\n"
+#~ "  [fe80::5054:ff:fef4:ef81] smtp"
+#~ msgstr ""
+#~ "  smarthost\n"
+#~ "  smarthost smtp --port=10025\n"
+#~ "  smarthost smtp --user=utilisateur --pass=mot_de_passe"

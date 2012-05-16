@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -139,7 +139,7 @@ bool dump(int fd)
     return false;
   if(!fdbuf_copy(fin, out))
     fail("Error copying the message to the queue file.");
-  if(!out.flush())
+  if(!out.sync())
     fail("Error flushing the output file.");
   if(!out.close())
     fail("Error closing the output file.");

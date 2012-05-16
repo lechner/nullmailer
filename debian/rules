@@ -10,27 +10,26 @@
 #export DH_VERBOSE=1
 
 %:
-	dh --with autotools-dev $@
+	dh $@ --with autotools-dev
 
 override_dh_prep:
 	dh_prep
 	debconf-updatepo
 
 override_dh_auto_configure:
-	# Add here commands to configure the package.
-	CPPFLAGS="$(CPPFLAGS) -D_GNU_SOURCE -Wl,-z,defs" dh_auto_configure -- --libexecdir=/usr/lib --localstatedir=/var/spool
-
-# override_dh_build:
-	#dh_build
-	#docbook-to-man debian/nullmailer.sgml > nullmailer.1
+	dh_auto_configure -- LDFLAGS="-Wl,-z,defs $(LDFLAGS)" --libexecdir=/usr/lib --localstatedir=/var/spool --enable-tls
 
 PKGDIR = $(CURDIR)/debian/nullmailer
-SPOOLDIR = $(CURDIR)/debian/nullmailer/var/spool/nullmailer
+SPOOLDIR = $(PKGDIR)/var/spool/nullmailer
 
 # remove trigger from the .deb (Policy 3.8.4 s10.6) - it must be created in initscript
 override_dh_auto_install:
 	dh_auto_install
-	rm -f $(SPOOLDIR)/trigger
+	$(RM) $(SPOOLDIR)/trigger
+
+# mutter, I thought dh_installchangelogs Did The Right Thing with GNU-style NEWS changelogs
+override_dh_installchangelogs:
+	dh_installchangelogs -k NEWS
 
 override_dh_fixperms:
 	dh_fixperms

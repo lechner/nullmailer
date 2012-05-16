@@ -14,10 +14,10 @@ esac
 exit 0
 
 @DPATCH@
-Index: nullmailer-1.05/doc/nullmailer-send.8
+Index: nullmailer-1.10/doc/nullmailer-send.8
 ===================================================================
---- nullmailer-1.05.orig/doc/nullmailer-send.8	2011-04-05 13:58:01.000000000 +0100
-+++ nullmailer-1.05/doc/nullmailer-send.8	2011-04-05 13:58:19.000000000 +0100
+--- nullmailer-1.10.orig/doc/nullmailer-send.8	2012-05-12 17:59:14.000000000 +0100
++++ nullmailer-1.10/doc/nullmailer-send.8	2012-05-12 17:59:39.000000000 +0100
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -42,10 +42,10 @@ Index: nullmailer-1.05/doc/nullmailer-send.8
  .SH CONTROL FILES
  All the control files are reread each time the queue is run.
  .TP
-Index: nullmailer-1.05/protocols/protocol.cc
+Index: nullmailer-1.10/protocols/protocol.cc
 ===================================================================
---- nullmailer-1.05.orig/protocols/protocol.cc	2011-04-05 13:45:35.000000000 +0100
-+++ nullmailer-1.05/protocols/protocol.cc	2011-04-05 13:58:05.000000000 +0100
+--- nullmailer-1.10.orig/protocols/protocol.cc	2012-04-20 00:10:16.000000000 +0100
++++ nullmailer-1.10/protocols/protocol.cc	2012-05-12 18:00:51.000000000 +0100
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -61,17 +61,17 @@ Index: nullmailer-1.05/protocols/protocol.cc
 +
  const char* user = 0;
  const char* pass = 0;
- int auth_method = AUTH_PLAIN;
-@@ -41,6 +45,8 @@
+ int port = 0;
+@@ -44,6 +48,8 @@
      "Set the user name for authentication", 0 },
    { 0, "pass", cli_option::string, 0, &pass,
      "Set the password for authentication", 0 },
 +  { 'd', "daemon", cli_option::flag, 1, &daemonize,  "use syslog exclusively ", 0 },
 +  { 's', "syslog", cli_option::flag, 1, &use_syslog, "use syslog additionally", 0 },
    { 0, "auth-login", cli_option::flag, AUTH_LOGIN, &auth_method,
-     "Use AUTH LOGIN instead of AUTH PLAIN in SMTP", 0 },
-   {0, 0, cli_option::flag, 0, 0, 0, 0}
-@@ -48,18 +54,28 @@
+     "Use AUTH LOGIN instead of auto-detecting in SMTP", 0 },
+ #ifdef HAVE_TLS
+@@ -65,13 +71,19 @@
  
  void protocol_fail(int e, const char* msg)
  {
@@ -93,6 +93,8 @@ Index: nullmailer-1.05/protocols/protocol.cc
    exit(0);
  }
  
+@@ -91,6 +103,10 @@
+ 
  int cli_main(int, char* argv[])
  {
 +  if (daemonize)
@@ -100,22 +102,22 @@ Index: nullmailer-1.05/protocols/protocol.cc
 +  if (use_syslog)
 +    openlog("nullmailer", LOG_CONS | LOG_PID, LOG_MAIL);
    const char* remote = argv[0];
-   fdibuf in(0, true);
-   protocol_prep(&in);
-Index: nullmailer-1.05/src/Makefile.in
+   if (port == 0)
+     port = use_ssl ? default_ssl_port : default_port;
+Index: nullmailer-1.10/src/Makefile.in
 ===================================================================
---- nullmailer-1.05.orig/src/Makefile.in	2011-04-05 13:45:35.000000000 +0100
-+++ nullmailer-1.05/src/Makefile.in	2011-04-05 13:58:05.000000000 +0100
-@@ -59,7 +59,7 @@
+--- nullmailer-1.10.orig/src/Makefile.in	2012-04-23 18:00:46.000000000 +0100
++++ nullmailer-1.10/src/Makefile.in	2012-05-12 18:01:48.000000000 +0100
+@@ -61,7 +61,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
  nullmailer_send_OBJECTS = $(am_nullmailer_send_OBJECTS)
 -nullmailer_send_DEPENDENCIES = ../lib/libnullmailer.a
 +nullmailer_send_DEPENDENCIES = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
- am_sendmail_OBJECTS = sendmail.$(OBJEXT)
- sendmail_OBJECTS = $(am_sendmail_OBJECTS)
- sendmail_DEPENDENCIES = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
-@@ -176,13 +176,13 @@
+ am_nullmailer_smtpd_OBJECTS = smtpd.$(OBJEXT)
+ nullmailer_smtpd_OBJECTS = $(am_nullmailer_smtpd_OBJECTS)
+ nullmailer_smtpd_DEPENDENCIES = ../lib/libnullmailer.a
+@@ -182,13 +182,13 @@
  #noinst_PROGRAMS = address
  INCLUDES = -I../lib -I../lib/cli++
  mailq_SOURCES = mailq.cc
@@ -128,13 +130,13 @@ Index: nullmailer-1.05/src/Makefile.in
  nullmailer_send_SOURCES = send.cc
 -nullmailer_send_LDADD = ../lib/libnullmailer.a
 +nullmailer_send_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
+ nullmailer_smtpd_SOURCES = smtpd.cc
+ nullmailer_smtpd_LDADD = ../lib/libnullmailer.a
  sendmail_SOURCES = sendmail.cc
- sendmail_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
- all: all-am
-Index: nullmailer-1.05/src/send.cc
+Index: nullmailer-1.10/src/send.cc
 ===================================================================
---- nullmailer-1.05.orig/src/send.cc	2011-04-05 13:45:35.000000000 +0100
-+++ nullmailer-1.05/src/send.cc	2011-04-05 13:58:05.000000000 +0100
+--- nullmailer-1.10.orig/src/send.cc	2012-03-01 02:44:06.000000000 +0000
++++ nullmailer-1.10/src/send.cc	2012-05-12 17:59:39.000000000 +0100
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
@@ -211,7 +213,7 @@ Index: nullmailer-1.05/src/send.cc
    for(slist::const_iter opt(remote.options); opt; opt++)
      args[i++] = strdup((*opt).c_str());
    args[i++] = remote.host.c_str();
-@@ -213,7 +240,10 @@
+@@ -214,7 +241,10 @@
        if(status)
  	fail2("Sending failed: ", errorstr(status));
        else {
@@ -223,7 +225,7 @@ Index: nullmailer-1.05/src/send.cc
  	return true;
        }
      }
-@@ -226,10 +256,20 @@
+@@ -227,10 +257,20 @@
  {
    int fd = open(filename.c_str(), O_RDONLY);
    if(fd == -1) {
@@ -246,7 +248,7 @@ Index: nullmailer-1.05/src/send.cc
         << " host: " << remote.host
         << " file: " << filename << endl;
    pid_t pid = fork();
-@@ -268,7 +308,10 @@
+@@ -269,7 +309,10 @@
  	file++;
      }
    }
@@ -258,7 +260,7 @@ Index: nullmailer-1.05/src/send.cc
         << itoa(files.count()) << " message(s) remain." << endl;
    return true;
  }
-@@ -313,7 +356,10 @@
+@@ -314,7 +357,10 @@
    int s = select(trigger+1, &readfds, 0, 0,
  		 (files.count() == 0) ? 0 : &timeout);
    if(s == 1) {
@@ -270,7 +272,7 @@ Index: nullmailer-1.05/src/send.cc
      read_trigger();
      reload_files = true;
    }
-@@ -326,8 +372,14 @@
+@@ -327,8 +373,14 @@
    return true;
  }
  
@@ -286,7 +288,7 @@ Index: nullmailer-1.05/src/send.cc
    read_hostnames();
  
    if(!selfpipe) {
-@@ -336,13 +388,34 @@
+@@ -337,13 +389,34 @@
    }
    selfpipe.catchsig(SIGCHLD);
    

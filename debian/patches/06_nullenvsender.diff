@@ -4,15 +4,15 @@ Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188251
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=356356
 Author: Nick Leverton <nick@leverton.org>
 
-Index: nullmailer-1.05/lib/address.cc
+Index: nullmailer-1.10/lib/address.cc
 ===================================================================
---- nullmailer-1.05.orig/lib/address.cc	2011-03-01 21:54:40.000000000 +0000
-+++ nullmailer-1.05/lib/address.cc	2011-03-01 21:54:44.000000000 +0000
-@@ -517,6 +517,17 @@
+--- nullmailer-1.10.orig/lib/address.cc	2012-03-01 02:44:18.000000000 +0000
++++ nullmailer-1.10/lib/address.cc	2012-05-12 18:02:05.000000000 +0100
+@@ -523,6 +523,17 @@
    RETURN(node, "<" + r2.str + ">" + comment, "", r2.addr);
  }
  
-+RULE(null_addr) 
++RULE(null_addr)
 +{
 +  ENTER("LABRACKET RABRACKET");
 +  mystring comment;
@@ -26,7 +26,7 @@ Index: nullmailer-1.05/lib/address.cc
  RULE(phrase)
  {
    ENTER("word *(word / PERIOD / CFWS)");
-@@ -654,7 +665,8 @@
+@@ -660,7 +671,8 @@
    anode* tokenlist = tokenize(line.c_str());
    if(!tokenlist)
      return false;
@@ -36,10 +36,10 @@ Index: nullmailer-1.05/lib/address.cc
    del_tokens(tokenlist);
    if(r) {
      line = r.str;
-Index: nullmailer-1.05/src/inject.cc
+Index: nullmailer-1.10/src/inject.cc
 ===================================================================
---- nullmailer-1.05.orig/src/inject.cc	2011-03-01 21:54:44.000000000 +0000
-+++ nullmailer-1.05/src/inject.cc	2011-03-01 21:54:44.000000000 +0000
+--- nullmailer-1.10.orig/src/inject.cc	2012-05-12 18:02:05.000000000 +0100
++++ nullmailer-1.10/src/inject.cc	2012-05-12 18:02:05.000000000 +0100
 @@ -110,6 +110,7 @@
  ///////////////////////////////////////////////////////////////////////////////
  static slist recipients;
@@ -58,29 +58,27 @@ Index: nullmailer-1.05/src/inject.cc
    if(end > 0 && list.find_first('\n', end+1) < 0) {
      sender = list.sub(0, end);
      return true;
-@@ -175,7 +179,8 @@
+@@ -175,7 +179,6 @@
  	return true;
        if(is_resent) {
  	if(!header_is_resent) {
 -	  sender = "";
-+	  // if(use_header_sender)	// There is no Resent-Return-Path
-+	  //   sender = "";
  	  if(use_header_recips)
  	    recipients.empty();
  	}
-@@ -197,8 +202,10 @@
+@@ -197,8 +200,10 @@
  	      parse_recips(list);
  	  }
  	  else if(is_sender) {
 -	    if(is_resent == header_is_resent && !sender)
-+	    if(is_resent == header_is_resent && use_header_sender) {
++	    if(use_header_sender) {	// There is no Resent-Return-Path
  	      parse_sender(list);
 +	      use_header_sender = 0;
 +	    }
  	  }
  	}
        }
-@@ -296,7 +303,7 @@
+@@ -296,7 +301,7 @@
    if(!shost) shost = host;
    canonicalize(shost);
    
@@ -89,7 +87,7 @@ Index: nullmailer-1.05/src/inject.cc
      sender = suser + "@" + shost;
  }
  
-@@ -552,6 +559,7 @@
+@@ -552,6 +557,7 @@
        ferr << "nullmailer-inject: Invalid sender address: " << o_from << endl;
        return false;
      }
@@ -97,10 +95,10 @@ Index: nullmailer-1.05/src/inject.cc
    }
    use_header_recips = (use_recips != use_args);
    if(use_recips == use_header)
-Index: nullmailer-1.05/src/queue.cc
+Index: nullmailer-1.10/src/queue.cc
 ===================================================================
---- nullmailer-1.05.orig/src/queue.cc	2011-03-01 21:54:40.000000000 +0000
-+++ nullmailer-1.05/src/queue.cc	2011-03-01 21:54:44.000000000 +0000
+--- nullmailer-1.10.orig/src/queue.cc	2012-03-01 02:44:06.000000000 +0000
++++ nullmailer-1.10/src/queue.cc	2012-05-12 18:02:05.000000000 +0100
 @@ -93,9 +93,9 @@
  bool copyenv(fdobuf& out)
  {

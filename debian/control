@@ -2,22 +2,19 @@ Source: nullmailer
 Section: mail
 Priority: extra
 Maintainer: Nick Leverton <nick@leverton.org>
-Build-Depends: debhelper (>= 7.0.50), po-debconf, automake, autoconf,
- autotools-dev (>= 20100122)
-Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9), po-debconf, automake1.10, autoconf,
+ autotools-dev (>= 20110508.1~), libgnutls-dev
+Standards-Version: 3.9.3
 Homepage: http://untroubled.org/nullmailer/
 
 Package: nullmailer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base
 Recommends: rsyslog | system-log-daemon
-Conflicts: mail-transport-agent, lsb
+Conflicts: mail-transport-agent
 Provides: mail-transport-agent
 Replaces: mail-transport-agent
 Description: simple relay-only mail transport agent
  Nullmailer is a replacement MTA for hosts, which relay to a fixed set of
  smart relays. It is designed to be simple to configure and especially
  useful on slave machines and in chroots.
- .
- The sendmail interface of this package doesn't provide the -bs switch,
- hence it's not LSB compatible!

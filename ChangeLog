@@ -1,3 +1,691 @@
+commit 221121d4d568e6e3922654641645dbace6f1cc43
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 24 09:41:44 2012 -0600
+
+    test: Sleep a little longer in the send test to prevent a race
+
+ test/tests/send |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit b34be1b1b7f3c9b1f5755251e62833b7ce4ece4f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 24 08:55:52 2012 -0600
+
+    makedist.in: Stop building RPMs
+
+ makedist.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 56a60e2fd00370ef3ad04959144aed23dd35d43d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 24 08:55:27 2012 -0600
+
+    spec: Updates for tls and nullmailer-smtpd
+
+ spec |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+commit 5e32780d7c9c57acb5c18c255d95271deb40e885
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 24 07:49:21 2012 -0600
+
+    README: Stamp with today's date
+
+ README |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 871c21f821416ddcb93e4e1bc87ec82bdd8aba12
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 23 13:44:33 2012 -0600
+
+    test: Fix typo in find command
+
+ test/Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit c24509e9b0cd8fe4430bdd3daa0bcf733ea1eb6d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 23 11:01:58 2012 -0600
+
+    src/smtpd: Add missing #include
+
+ src/smtpd.cc |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit fb6326ff2e5eb767e53f7f1e30748bcf489d26df
+Merge: d0cc453 75f4a52
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 23 10:59:54 2012 -0600
+
+    Merge branch 'lsb'
+    
+    Conflicts:
+    	NEWS
+    	src/sendmail.cc
+
+commit d0cc4538313204a434982a42aa1182fca5c032e2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 23 10:28:07 2012 -0600
+
+    src/sendmail: Eliminate a few compiler warnings
+
+ src/sendmail.cc |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 81f0d6fdf65401a6fbd63b83e1a711812906b6f5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 23 10:09:19 2012 -0600
+
+    protocols/tls: Added support for gnutls prior to version 2.10
+    
+    gnutls-2.10 introduced the gnutls_certificate_set_verify_function, which
+    allows for verifying server certificates as soon as they're sent instead
+    of after the handshake is complete.  This adds a workaround for the
+    function not being present in older versions by calling the cert
+    verification after the handshake.
+
+ configure.in            |    7 ++++++-
+ protocols/tls_gnutls.cc |   12 ++++++++++--
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+
+commit b635aef827d8455e9a0eb02a6f9e93fbf250bbcd
+Merge: 9e94d29 dd57bf9
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 19 17:10:16 2012 -0600
+
+    Merge branch 'tls'
+
+commit 9e94d298adc142b0ff68044869f20d2450429b63
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 19 17:06:45 2012 -0600
+
+    Fix a few warnings in autoconf files
+
+ acinclude.m4 |    8 ++++----
+ configure.in |    1 +
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+commit dd57bf991c9aa1e9ee8721c8c64b2021162c1f1a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 19 16:32:06 2012 -0600
+
+    protocols: Add support for server certificate verification
+
+ TODO                    |    3 ---
+ protocols/protocol.cc   |    8 ++++++++
+ protocols/protocol.h    |    7 +++++++
+ protocols/tls_gnutls.cc |   46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 61 insertions(+), 3 deletions(-)
+
+commit eb902c3a5808718f59d0009565900104bca55f04
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 17 16:07:02 2012 -0600
+
+    protocols: Add support for STARTTLS
+
+ NEWS                  |    2 +-
+ TODO                  |    1 -
+ protocols/protocol.cc |   12 ++++++++++--
+ protocols/protocol.h  |    2 ++
+ protocols/qmqp.cc     |    7 +++++++
+ protocols/smtp.cc     |   14 +++++++++++++-
+ 6 files changed, 33 insertions(+), 5 deletions(-)
+
+commit 436afd26338d319cec9f854bb524c740a1639656
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 17 15:33:32 2012 -0600
+
+    protocols: Make SSL/TLS support optional in configure
+
+ INSTALL                                        |    3 +++
+ TODO                                           |    1 -
+ configure.in                                   |    9 +++++++++
+ lib/fdbuf/Makefile.am                          |   11 +++++++----
+ protocols/Makefile.am                          |   16 ++++++++++++----
+ protocols/protocol.cc                          |    6 ++----
+ protocols/{tls.cc => tls_gnutls.cc}            |    0
+ lib/config_readint.cc => protocols/tls_none.cc |   24 ++++++++++++------------
+ 8 files changed, 45 insertions(+), 25 deletions(-)
+ rename protocols/{tls.cc => tls_gnutls.cc} (100%)
+ copy lib/config_readint.cc => protocols/tls_none.cc (76%)
+
+commit 14568cc6fe479bfd3a5fab160d7f87e0e3abbe51
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 17 15:11:13 2012 -0600
+
+    protocols: Move TLS code into separate source
+
+ TODO                  |    1 -
+ protocols/Makefile.am |    4 +-
+ protocols/protocol.cc |   54 ++-------------------------------
+ protocols/protocol.h  |    3 ++
+ protocols/tls.cc      |   79 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 87 insertions(+), 54 deletions(-)
+ create mode 100644 protocols/tls.cc
+
+commit 450b50fb579dc0d0bc911029245b394e1088c7de
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Apr 17 14:36:34 2012 -0600
+
+    protocols: Add support for SSL connections using gnutls
+
+ NEWS                  |    2 +
+ TODO                  |    8 +++--
+ protocols/Makefile.am |    4 +-
+ protocols/protocol.cc |   72 +++++++++++++++++++++++++++++++++++++++++++++---
+ 4 files changed, 76 insertions(+), 10 deletions(-)
+
+commit 1d31cee72dc3af76590f07156d55c6b2733a5d04
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 15:14:57 2012 -0600
+
+    protocols: Add --ssl option (unimplemented)
+
+ protocols/protocol.cc |    7 +++++--
+ protocols/protocol.h  |    2 ++
+ protocols/qmqp.cc     |    1 +
+ protocols/smtp.cc     |    1 +
+ 4 files changed, 9 insertions(+), 2 deletions(-)
+
+commit e938f48e637584d4e7198a45a5849fcf0f7d03b1
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 15:00:47 2012 -0600
+
+    lib/fdbuf: Add TLS ibuf and obuf classes, using gnutls
+
+ lib/fdbuf/Makefile.am                       |    4 +++
+ lib/fdbuf/{fdbuf_copy.cc => tlsibuf.cc}     |   29 +++++++++----------------
+ lib/fdbuf/{fdobuf_chownmod.cc => tlsibuf.h} |   30 ++++++++++++--------------
+ lib/fdbuf/{fdbuf_copy.cc => tlsobuf.cc}     |   29 +++++++++----------------
+ lib/fdbuf/{fdobuf_chownmod.cc => tlsobuf.h} |   30 ++++++++++++--------------
+ 5 files changed, 54 insertions(+), 68 deletions(-)
+ copy lib/fdbuf/{fdbuf_copy.cc => tlsibuf.cc} (63%)
+ copy lib/fdbuf/{fdobuf_chownmod.cc => tlsibuf.h} (65%)
+ copy lib/fdbuf/{fdbuf_copy.cc => tlsobuf.cc} (63%)
+ copy lib/fdbuf/{fdobuf_chownmod.cc => tlsobuf.h} (65%)
+
+commit e275797c5ab06f1cd1683f735127605352b477ee
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 13:01:41 2012 -0600
+
+    lib/fdbuf: Fix header include issues
+
+ lib/fdbuf/fdbuf.h  |    4 ++--
+ lib/fdbuf/fdibuf.h |    2 ++
+ lib/fdbuf/fdobuf.h |    2 +-
+ 3 files changed, 5 insertions(+), 3 deletions(-)
+
+commit 4ee43718cd83a25562c853e24ebe45ce3141d62d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 12:39:53 2012 -0600
+
+    lib/fdbuf: Implement virtual read/write functions for better extending
+
+ lib/fdbuf/fdibuf.cc |   13 +++++++++----
+ lib/fdbuf/fdibuf.h  |    1 +
+ lib/fdbuf/fdobuf.cc |   13 +++++++++----
+ lib/fdbuf/fdobuf.h  |    1 +
+ 4 files changed, 20 insertions(+), 8 deletions(-)
+
+commit 3539a0e83a2307b2d60b1c10cbd50c5930b6719e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 15:28:48 2012 -0600
+
+    protocols: Allocate I/O fdbuf objects in protocol wrapper
+
+ protocols/protocol.cc |    6 +++++-
+ protocols/protocol.h  |    2 +-
+ protocols/qmqp.cc     |   14 +++++++-------
+ protocols/smtp.cc     |   14 +++++++-------
+ 4 files changed, 20 insertions(+), 16 deletions(-)
+
+commit 245971bc0f9856ee98f6505d952a91c59546c3aa
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 15:21:28 2012 -0600
+
+    protocols: Use reference instead of pointer in protocol_* calling convention
+
+ protocols/protocol.cc |    4 ++--
+ protocols/protocol.h  |    4 ++--
+ protocols/qmqp.cc     |   32 ++++++++++++++++----------------
+ protocols/smtp.cc     |   22 +++++++++++-----------
+ 4 files changed, 31 insertions(+), 31 deletions(-)
+
+commit 3c23536837b00123f3fa8671c2c7e37322212cda
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Apr 16 15:11:39 2012 -0600
+
+    protocols: Handle default port numbers in the wrapper code
+
+ protocols/protocol.cc |    5 +++++
+ protocols/protocol.h  |    3 +--
+ protocols/qmqp.cc     |    2 +-
+ protocols/smtp.cc     |    2 +-
+ 4 files changed, 8 insertions(+), 4 deletions(-)
+
+commit f16c5b15f468c18d3867fbf33cae17bb4b1ca288
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Apr 15 13:21:05 2012 -0600
+
+    protocols/smtp: Add autodetection of authentication mode
+
+ NEWS                  |    2 +
+ protocols/protocol.cc |    4 +-
+ protocols/protocol.h  |    3 +-
+ protocols/smtp.cc     |   62 ++++++++++++++++++++++++++++++++++++++++++++----
+ 4 files changed, 62 insertions(+), 9 deletions(-)
+
+commit acd189b0c581b73ea5ffaa4b4cb8ba5c5bf2d242
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Apr 15 13:12:03 2012 -0600
+
+    protocols/smtp: Move auth code into smtp class
+
+ protocols/smtp.cc |   46 ++++++++++++++++++++++++++++------------------
+ 1 files changed, 28 insertions(+), 18 deletions(-)
+
+commit 53e7cfcaa4916023d047187abfb4d9ed8adcfd08
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Apr 15 12:33:51 2012 -0600
+
+    protocol/smtp: Provide interface for recording command responses
+
+ protocols/smtp.cc |   23 ++++++++++++++---------
+ 1 files changed, 14 insertions(+), 9 deletions(-)
+
+commit 75f4a52ba1fa1916a5c64cf279ef883ecb24c142
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 10:18:16 2012 -0600
+
+    Add tests for nullmailer-smtpd
+
+ test/functions   |    1 +
+ test/tests/smtpd |   71 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 72 insertions(+), 0 deletions(-)
+ create mode 100644 test/tests/smtpd
+
+commit c8559d15c070c1846fe37306a9611c9dd02510cc
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 10:04:14 2012 -0600
+
+    nullmailer-smtpd: Make sure commands that require a parameter have one
+
+ src/smtpd.cc |    9 ++++++++-
+ 1 files changed, 8 insertions(+), 1 deletions(-)
+
+commit 9c8e3bd1155113cfef6a0fc215e128baf37ea7ff
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 09:56:48 2012 -0600
+
+    test: Drop the grep against .svn since it's not used any more
+
+ test/Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5b85b41aa188e38dfb984d744b19cb6713b75fea
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 09:04:30 2012 -0600
+
+    sendmail: Add support for -bs (SMTP) mode
+
+ NEWS            |    2 +-
+ src/sendmail.cc |    3 +--
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 7970d43393021a5b7603f94f11aab0152af4f325
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 09:01:17 2012 -0600
+
+    nullmailer-smtpd: Add simple SMTP agent, for sendmail -bs mode
+
+ .gitignore      |    1 +
+ src/Makefile.am |    6 +-
+ src/smtpd.cc    |  295 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 301 insertions(+), 1 deletions(-)
+ create mode 100644 src/smtpd.cc
+
+commit f0b2f36a1f8c8dbc11f6392964b5570d90d1d26c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 14 09:00:35 2012 -0600
+
+    mystring: Fix (previously unused) implementation of mystring::upper
+
+ lib/mystring/upper.cc |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit cb1a4b414d0f80e2066d7daf35b7eba622be693e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Mar 12 16:02:10 2012 -0600
+
+    sendmail: Add support for -bp (mailq) mode
+
+ NEWS            |    2 ++
+ src/sendmail.cc |   51 +++++++++++++++++++++++++--------------------------
+ 2 files changed, 27 insertions(+), 26 deletions(-)
+
+commit df9818e90dc9130291916a1d96fc4789f768a603
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Mar 12 15:49:05 2012 -0600
+
+    lib/cli++: Fix handling of error messages from short options
+
+ lib/cli++/cli++.h |    4 ++--
+ lib/cli++/main.cc |   28 ++++++++++++++++++----------
+ 2 files changed, 20 insertions(+), 12 deletions(-)
+
+commit e301f0e28a97424d9b163959a43b251137731ca3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Mar 12 15:34:42 2012 -0600
+
+    sendmail: Break out options using hew cli_only_long mode
+
+ src/sendmail.cc |   79 +++++++++++++++++++++++++++++++++++++------------------
+ 1 files changed, 53 insertions(+), 26 deletions(-)
+
+commit 0a7dab3bc20691e450c2cd61d927c74723003cc3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Mar 12 15:21:49 2012 -0600
+
+    lib/cli++: Complete implementation of cli_only_long option
+    
+    This change adds support on the command line for "-long" options
+    alongside "--long" options if cli_only_long is set.
+
+ lib/cli++/main.cc |   21 ++++++++++++++++-----
+ 1 files changed, 16 insertions(+), 5 deletions(-)
+
+commit 7a30893489004e4c462164e6ae2dc984ea189056
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 22:27:01 2012 -0600
+
+    lib/cli++: Add start of cli_only_long option
+    
+    A new boolean, cli_only_long implements a new mode of operation, where
+    both long and short options can be prefixed with a single "-".
+    
+    This change only implements the help text output.
+
+ lib/cli++/Makefile.am  |    2 +-
+ lib/cli++/cli++.h      |    3 ++
+ lib/cli++/main.cc      |   67 +++++++++++++++++++++++++----------------------
+ lib/cli++/only_long.cc |    3 ++
+ 4 files changed, 43 insertions(+), 32 deletions(-)
+ create mode 100644 lib/cli++/only_long.cc
+
+commit 16a1e560761de3a1deba807adc758e4e1dd07be3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Mar 12 16:03:26 2012 -0600
+
+    Bump version to 1.10
+
+ NEWS         |    5 +++++
+ README       |    2 +-
+ configure.in |    2 +-
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
+commit b445376bbb00d64a6e4a54f426658027832a0ce8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 21:00:10 2012 -0600
+
+    lib/fdbuf: Initial commit from current sources
+
+ lib/fdbuf/Makefile.am                              |   22 ++
+ lib/fdbuf/fdbuf.cc                                 |  107 ++++++++++
+ lib/fdbuf/fdbuf.h                                  |   82 ++++++++
+ lib/{mystring/count.cc => fdbuf/fdbuf_copy.cc}     |   25 ++-
+ lib/fdbuf/fdbuf_test.cc                            |   16 ++
+ lib/fdbuf/fdibuf.cc                                |  192 ++++++++++++++++++
+ lib/fdbuf/fdibuf.h                                 |   50 +++++
+ lib/{mystring/iter.cc => fdbuf/fdibuf_mystring.cc} |   54 +++---
+ .../count.cc => fdbuf/fdibuf_netstring.cc}         |   28 ++-
+ lib/fdbuf/fdobuf.cc                                |  209 ++++++++++++++++++++
+ lib/fdbuf/fdobuf.h                                 |   91 +++++++++
+ .../count.cc => fdbuf/fdobuf_chownmod.cc}          |   21 ++-
+ lib/{mystring/iter.cc => fdbuf/fdobuf_seek.cc}     |   50 +++---
+ lib/{mystring/count.cc => fdbuf/fdobuf_signed.cc}  |   25 ++-
+ .../count.cc => fdbuf/fdobuf_unsigned.cc}          |   21 ++-
+ 15 files changed, 913 insertions(+), 80 deletions(-)
+ create mode 100644 lib/fdbuf/Makefile.am
+ create mode 100644 lib/fdbuf/fdbuf.cc
+ create mode 100644 lib/fdbuf/fdbuf.h
+ copy lib/{mystring/count.cc => fdbuf/fdbuf_copy.cc} (56%)
+ create mode 100644 lib/fdbuf/fdbuf_test.cc
+ create mode 100644 lib/fdbuf/fdibuf.cc
+ create mode 100644 lib/fdbuf/fdibuf.h
+ copy lib/{mystring/iter.cc => fdbuf/fdibuf_mystring.cc} (53%)
+ copy lib/{mystring/count.cc => fdbuf/fdibuf_netstring.cc} (62%)
+ create mode 100644 lib/fdbuf/fdobuf.cc
+ create mode 100644 lib/fdbuf/fdobuf.h
+ copy lib/{mystring/count.cc => fdbuf/fdobuf_chownmod.cc} (72%)
+ copy lib/{mystring/iter.cc => fdbuf/fdobuf_seek.cc} (61%)
+ copy lib/{mystring/count.cc => fdbuf/fdobuf_signed.cc} (67%)
+ copy lib/{mystring/count.cc => fdbuf/fdobuf_unsigned.cc} (70%)
+
+commit 46fa7fa8eb1f1aa8f787e186db7f3d1208ea2451
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 20:59:55 2012 -0600
+
+    lib/mystring: Initial commit from current sources
+
+ lib/mystring/Makefile.am                     |   25 ++++
+ lib/mystring/append.cc                       |   19 +++
+ lib/mystring/assign.cc                       |   55 +++++++++
+ lib/{config_readint.cc => mystring/count.cc} |   25 +---
+ lib/mystring/fdobuf.cc                       |    9 ++
+ lib/mystring/find_first_ch.cc                |   11 ++
+ lib/mystring/find_first_of.cc                |   22 ++++
+ lib/mystring/find_last_ch.cc                 |   14 +++
+ lib/mystring/find_last_of.cc                 |   24 ++++
+ lib/{canonicalize.cc => mystring/iter.cc}    |   46 +++++---
+ lib/{config_readint.cc => mystring/iter.h}   |   41 ++++---
+ lib/mystring/join.cc                         |   61 ++++++++++
+ lib/mystring/join.h                          |   76 +++++++++++++
+ lib/mystring/lower.cc                        |   19 +++
+ lib/mystring/lstrip.cc                       |   10 ++
+ lib/mystring/mystring.cc                     |   28 +++++
+ lib/mystring/mystring.h                      |  127 +++++++++++++++++++++
+ lib/mystring/operator_in.cc                  |   33 ++++++
+ lib/mystring/rep.cc                          |  157 ++++++++++++++++++++++++++
+ lib/{config_readint.cc => mystring/rep.h}    |   47 +++++---
+ lib/mystring/rstrip.cc                       |   10 ++
+ lib/mystring/strip.cc                        |   13 ++
+ lib/mystring/sub.cc                          |   37 ++++++
+ lib/mystring/subst.cc                        |   18 +++
+ lib/mystring/trace.h                         |   11 ++
+ lib/mystring/upper.cc                        |   21 ++++
+ 26 files changed, 886 insertions(+), 73 deletions(-)
+ create mode 100644 lib/mystring/Makefile.am
+ create mode 100644 lib/mystring/append.cc
+ create mode 100644 lib/mystring/assign.cc
+ copy lib/{config_readint.cc => mystring/count.cc} (53%)
+ create mode 100644 lib/mystring/fdobuf.cc
+ create mode 100644 lib/mystring/find_first_ch.cc
+ create mode 100644 lib/mystring/find_first_of.cc
+ create mode 100644 lib/mystring/find_last_ch.cc
+ create mode 100644 lib/mystring/find_last_of.cc
+ copy lib/{canonicalize.cc => mystring/iter.cc} (53%)
+ copy lib/{config_readint.cc => mystring/iter.h} (53%)
+ create mode 100644 lib/mystring/join.cc
+ create mode 100644 lib/mystring/join.h
+ create mode 100644 lib/mystring/lower.cc
+ create mode 100644 lib/mystring/lstrip.cc
+ create mode 100644 lib/mystring/mystring.cc
+ create mode 100644 lib/mystring/mystring.h
+ create mode 100644 lib/mystring/operator_in.cc
+ create mode 100644 lib/mystring/rep.cc
+ copy lib/{config_readint.cc => mystring/rep.h} (53%)
+ create mode 100644 lib/mystring/rstrip.cc
+ create mode 100644 lib/mystring/strip.cc
+ create mode 100644 lib/mystring/sub.cc
+ create mode 100644 lib/mystring/subst.cc
+ create mode 100644 lib/mystring/trace.h
+ create mode 100644 lib/mystring/upper.cc
+
+commit 530d4bd52120d252cdd53fcb71ce611723917e91
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 20:58:54 2012 -0600
+
+    lib/ac: Initial commit of current sources
+
+ lib/ac/dirent.h |   17 +++++++++++++++++
+ lib/ac/time.h   |   10 ++++++++++
+ lib/ac/wait.h   |   10 ++++++++++
+ 3 files changed, 37 insertions(+), 0 deletions(-)
+ create mode 100644 lib/ac/dirent.h
+ create mode 100644 lib/ac/time.h
+ create mode 100644 lib/ac/wait.h
+
+commit a935e2d5bbe59ae2002eadb599f7c914530d7562
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 20:56:28 2012 -0600
+
+    lib/cli++: Initial commit of current sources from bglibs
+
+ lib/cli++/Makefile.am   |    9 ++
+ lib/cli++/cli++.h       |   59 ++++++++
+ lib/cli++/cli++topod.pl |  213 +++++++++++++++++++++++++++++
+ lib/cli++/clitest.cc    |   47 +++++++
+ lib/cli++/main.cc       |  342 +++++++++++++++++++++++++++++++++++++++++++++++
+ lib/cli++/messages.cc   |   44 ++++++
+ 6 files changed, 714 insertions(+), 0 deletions(-)
+ create mode 100644 lib/cli++/Makefile.am
+ create mode 100644 lib/cli++/cli++.h
+ create mode 100644 lib/cli++/cli++topod.pl
+ create mode 100644 lib/cli++/clitest.cc
+ create mode 100644 lib/cli++/main.cc
+ create mode 100644 lib/cli++/messages.cc
+
+commit 860dabe191d28d0002391b3d2395c9524d13f3ff
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 20:46:07 2012 -0600
+
+    Remove unneeded Year 2000 statement
+
+ Makefile.am |    2 +-
+ YEAR2000    |   10 ----------
+ makedist.in |    2 +-
+ spec        |    2 +-
+ 4 files changed, 3 insertions(+), 13 deletions(-)
+ delete mode 100644 YEAR2000
+
+commit c5d104702d2ff30989368897b9a2b66a1d2544bd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Feb 29 20:44:45 2012 -0600
+
+    Update copyright year
+
+ README                 |    4 ++--
+ lib/address-old.cc     |    2 +-
+ lib/address.cc         |    2 +-
+ lib/base64.cc          |    2 +-
+ lib/canonicalize.cc    |    2 +-
+ lib/config_read.cc     |    2 +-
+ lib/config_readint.cc  |    2 +-
+ lib/config_readlist.cc |    2 +-
+ lib/errcodes.cc        |    2 +-
+ lib/hostname.cc        |    2 +-
+ lib/makefield.cc       |    2 +-
+ lib/selfpipe.cc        |    2 +-
+ lib/setenv.cc          |    2 +-
+ lib/tcpconnect.cc      |    2 +-
+ protocols/protocol.cc  |    2 +-
+ protocols/qmqp.cc      |    2 +-
+ protocols/smtp.cc      |    2 +-
+ src/inject.cc          |    2 +-
+ src/mailq.cc           |    2 +-
+ src/queue.cc           |    2 +-
+ src/send.cc            |    2 +-
+ src/sendmail.cc        |    2 +-
+ 22 files changed, 23 insertions(+), 23 deletions(-)
+
+commit 88218043763357b339d5cf6d7667444e41e4bbbe
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 25 22:55:17 2012 -0600
+
+    Reworded the past NEWS items.
+
+ NEWS |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 494f72e2279a90b6b095715929a008e2c8e4708b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 25 22:48:44 2012 -0600
+
+    selfpipe: Only use select if the timeout is positive
+    
+    If the timeout is zero (or negative), the select will return
+    immediately.  Since the pipe being read from is marked as non-blocking,
+    this becomes equivalent to just reading from the socket unconditionally
+    without the select.
+
+ lib/selfpipe.cc |   28 +++++++++++++++-------------
+ 1 files changed, 15 insertions(+), 13 deletions(-)
+
+commit 63c54b2ea2cdece784e9f1de61ec0a4a8d73dc87
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 25 22:39:20 2012 -0600
+
+    send: Fix handling of protocol timeouts
+    
+    When the protocol takes too long to send a message to the remote, send
+    will kill that protocol and retry later.  However, it never fully deals
+    with the signal caused by the child process exiting.  So, when it later
+    resends the message, it appears that the protocol exits immediately,
+    causing further problems.
+    
+    The obvious fix is to make sure we deal with the generated SIGCHLD after
+    killing the protocol.
+    
+    Thanks Nick Leverton <nick@leverton.org> for catching this.
+
+ NEWS        |    2 ++
+ src/send.cc |    1 +
+ 2 files changed, 3 insertions(+), 0 deletions(-)
+
+commit 5c87b96d2d9524b3a059cab5f60aebb5a482449e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Feb 25 13:53:26 2012 -0600
+
+    Update includes for new ac/time.h include
+    
+    Old one was named ac/systime.h
+
+ lib/makefield.cc |    2 +-
+ src/send.cc      |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 8cba9d7f74ba853c30daeafe09f809aa3c2263c1
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Mar 16 16:57:02 2010 -0600
+
+    Fix handling of whitespace in quoted strings in headers
+
+ NEWS                 |    2 ++
+ lib/address.cc       |    8 +++++++-
+ test/address-test.cc |    9 ++++++++-
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+commit ec087b5409d038554fadbac73909e83d7905c59a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 5 15:42:20 2010 -0600
+
+    sync instead of just flush when writing the queue file
+
+ NEWS         |    3 +++
+ src/queue.cc |    2 +-
+ 2 files changed, 4 insertions(+), 1 deletions(-)
+
+commit ece5c7bb0d21712272826bc79783c98bf85a658e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Feb 5 15:38:13 2010 -0600
+
+    Bump version to 1.06
+
+ NEWS         |    5 +++++
+ README       |    2 +-
+ configure.in |    2 +-
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
 commit 9bcc733516a02260d3e468a87486aed9d0a3b621
 Author: Bruce Guenter <bruce@untroubled.org>
 Date:   Mon Oct 19 11:00:09 2009 -0600

@@ -7,26 +7,40 @@ db_version 2.0
 db_capb backup
 
 if [ -e /etc/mailname ]; then
-	db_set shared/mailname "`cat /etc/mailname`"
+	db_set shared/mailname "`head -n1 /etc/mailname`"
 else
 	db_get shared/mailname
 	if [ -z "$RET" ]; then
 		db_set shared/mailname "`hostname --fqdn`"
 	fi
 fi
+db_get shared/mailname; DOMAIN=`echo -n $RET | cut -s -d. -f2-`
+
+if [ -e /etc/nullmailer/defaultdomain ]; then
+	db_set nullmailer/defaultdomain "`head -n1 /etc/nullmailer/defaultdomain`"
+else
+	db_get nullmailer/defaultdomain
+	if [ -z "$RET" ]; then
+		db_set nullmailer/defaultdomain "$DOMAIN"
+	fi
+fi
 
 if [ -e /etc/nullmailer/remotes ]; then
 	# Replace newlines with :, then fix any extra : that might turn up.
-	db_set nullmailer/relayhost "`cat /etc/nullmailer/remotes | tr '\n' ':' | sed 's/::*/:/g;s/:$//'`"
+	# db_set nullmailer/relayhost "`cat /etc/nullmailer/remotes | tr '\n' ':' | sed 's/::*/:/g;s/:$//'`"
+	db_set nullmailer/relayhost `awk -vORS=" : " 'NF == 0 { next } \
+					  $1 ~ /:/ && $1 ~ /^[0-9a-fA-F:]+(%[0-9a-z]+)?$/ \
+					   	{ sub($1,"[&]",$0) } \
+					  { print }' /etc/nullmailer/remotes | sed 's/ *: *$//'`
 else
 	db_get nullmailer/relayhost
 	if [ -z "$RET" ]; then
-		db_set nullmailer/relayhost "mail.`hostname --domain`"
+		db_set nullmailer/relayhost "mail${DOMAIN:+.$DOMAIN}"
 	fi
 fi
 
 if [ -e /etc/nullmailer/adminaddr ]; then
-	db_set nullmailer/adminaddr "`cat /etc/nullmailer/adminaddr`"
+	db_set nullmailer/adminaddr "`head -n1 /etc/nullmailer/adminaddr`"
 else
 	db_get nullmailer/adminaddr
 fi

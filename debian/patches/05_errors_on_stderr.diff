@@ -2,10 +2,10 @@ Description: Output errors on STDERR, not STDOUT
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=329970
 Author: Micha Lenk <micha@lenk.info>
 
-Index: nullmailer-1.05/src/inject.cc
+Index: nullmailer-1.10/src/inject.cc
 ===================================================================
---- nullmailer-1.05.orig/src/inject.cc	2011-03-01 21:54:40.000000000 +0000
-+++ nullmailer-1.05/src/inject.cc	2011-03-01 21:54:44.000000000 +0000
+--- nullmailer-1.10.orig/src/inject.cc	2012-03-01 02:44:06.000000000 +0000
++++ nullmailer-1.10/src/inject.cc	2012-05-12 18:05:29.000000000 +0100
 @@ -71,9 +71,9 @@
    {0, 0, cli_option::flag, 0, 0, 0, 0}
  };
