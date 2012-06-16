@@ -1,6 +1,6 @@
 Name: nullmailer
 Summary: Simple relay-only mail transport agent
-Version: 1.10
+Version: 1.11
 Release: 1
 License: GPL
 Group: Networking/Daemons

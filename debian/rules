@@ -9,6 +9,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+export DEB_LDFLAGS_MAINT_APPEND += -Wl,-z,defs -Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS = hardening=+pie,+bindnow
+
 %:
 	dh $@ --with autotools-dev
 
@@ -17,7 +20,7 @@ override_dh_prep:
 	debconf-updatepo
 
 override_dh_auto_configure:
-	dh_auto_configure -- LDFLAGS="-Wl,-z,defs $(LDFLAGS)" --libexecdir=/usr/lib --localstatedir=/var/spool --enable-tls
+	dh_auto_configure -- --libexecdir=/usr/lib --localstatedir=/var/spool --enable-tls
 
 PKGDIR = $(CURDIR)/debian/nullmailer
 SPOOLDIR = $(PKGDIR)/var/spool/nullmailer

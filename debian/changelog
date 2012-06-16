@@ -1,3 +1,14 @@
+nullmailer (1:1.11-1) unstable; urgency=low
+
+  * New upstream release
+  * Increase hardening level - note current lintian gives false positives,
+    c'mon lintian if you fink we ain't 'ard enough.
+  * Really use LOG_INFO on success (really Closes: #632015, LP:531796)
+  * Create and use a pidfile with start-stop-daemon so that we only stop,
+    at most, our own instance of nullmailer-send (Closes: 674125).
+
+ -- Nick Leverton <nick@leverton.org>  Sat, 16 Jun 2012 16:35:57 +0100
+
 nullmailer (1:1.10-1) unstable; urgency=low
 
   * New upstream release (Closes: #271662, #540758, #359994, #583564, #540758,

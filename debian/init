@@ -15,7 +15,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/nullmailer-send
 NAME=nullmailer
 DESC=mail-transfer-agent
-DAEMON_OPTS=-d
+PIDFILE=/var/run/$NAME.pid
+DAEMON_OPTS=-s
 
 test -x $DAEMON || exit 0
 
@@ -34,7 +35,9 @@ case "$1" in
 	    chown mail:root /var/spool/nullmailer/trigger
 	    chmod 0622 /var/spool/nullmailer/trigger
 	    # --oknodo in case of race condition on daemon start
-	    start-stop-daemon --start --quiet --user mail --exec "$DAEMON" --chuid mail --oknodo -- $DAEMON_OPTS
+	    start-stop-daemon --start --quiet --user mail --chuid mail \
+				--pidfile $PIDFILE --make-pidfile --background \
+				--oknodo --exec "$DAEMON" -- $DAEMON_OPTS
 	    log_end_msg $?
 	else
 	    log_end_msg $? "$NAME already running: $PIDS"
@@ -42,7 +45,7 @@ case "$1" in
 	;;
   stop)
 	log_begin_msg "Stopping $DESC:" "$NAME"
-	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --oknodo
+	start-stop-daemon --stop --quiet --user mail --exec "$DAEMON" --pidfile $PIDFILE --oknodo
 	log_end_msg $?
 	;;
   restart|reload|force-reload)

@@ -1,5 +1,16 @@
 This file lists all the major user-visible changes to nullmailer.
 -------------------------------------------------------------------------------
+Changes in version 1.11
+
+- Simplify (and expand) handling of ignored sendmail options.
+
+- Fixed command-line interpretation of short options with values.
+
+- Added support for SSL/TLS client certificates.
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
+-------------------------------------------------------------------------------
 Changes in version 1.10
 
 - Added support for SMTPS (SMTP over SSL/TLS) and STARTTLS.

@@ -87,7 +87,7 @@ Index: nullmailer-1.10/protocols/protocol.cc
  {
 -  ferr << cli_program << ": Succeeded: " << msg << endl;
 +  if (use_syslog)
-+    syslog(LOG_ERR, "%s: Succeeded: %s", cli_program, msg);
++    syslog(LOG_INFO, "%s: Succeeded: %s", cli_program, msg);
 +  if (!daemonize)
 +    ferr << cli_program << ": Succeeded: " << msg << endl;
    exit(0);

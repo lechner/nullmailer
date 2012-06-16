@@ -1,3 +1,82 @@
+commit ef77697eafa9033063fe9e3c546f2f1e451da005
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jun 14 09:44:38 2012 -0600
+
+    Tagged the README with today's date
+
+ README |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit d5a7ce0be1d08d3a3636af471241346e219306a4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 12 14:52:50 2012 -0600
+
+    protocols: Add support for client certificate files.
+
+ NEWS                    |    2 ++
+ protocols/protocol.cc   |    2 ++
+ protocols/protocol.h    |    1 +
+ protocols/tls_gnutls.cc |    4 ++++
+ 4 files changed, 9 insertions(+), 0 deletions(-)
+
+commit 16674b30624c3240aad4b4ad1b9e85e6c08f7e8e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 12 14:47:15 2012 -0600
+
+    sendmail: Ignore all sendmail options
+
+ NEWS            |    2 +-
+ src/sendmail.cc |   21 +--------------------
+ 2 files changed, 2 insertions(+), 21 deletions(-)
+
+commit 2704d1305f3d7c474520b3c5cb0063d36b180698
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 12 14:21:44 2012 -0600
+
+    lib/cli++: Fix handling of single-char options with values
+    
+    Invoking 'sendmail -FNAME' fails without this patch.
+    
+    This change also introduces a set of self-tests.
+
+ NEWS              |    2 +
+ lib/cli++/main.cc |   29 ++++++++++++-------
+ test/Makefile.am  |   13 +++++++-
+ test/clitest.cc   |   45 +++++++++++++++++++++++++++++
+ test/clitest.sh   |   81 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 157 insertions(+), 13 deletions(-)
+ create mode 100644 test/clitest.cc
+ create mode 100644 test/clitest.sh
+
+commit dd9bb3ece55d2ce2b940b67e069d4ce800f54b5e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 12 08:31:13 2012 -0600
+
+    sendmail: Add -odd -odi and -odq options for compatibility
+
+ NEWS            |    2 ++
+ src/sendmail.cc |    6 ++++++
+ 2 files changed, 8 insertions(+), 0 deletions(-)
+
+commit f6f6a935463211a4e2fccb12448824bf82fd2362
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jun 12 08:30:43 2012 -0600
+
+    Bump version to 1.11
+
+ NEWS         |    5 +++++
+ configure.in |    2 +-
+ 2 files changed, 6 insertions(+), 1 deletions(-)
+
+commit e6bc62f9ba314c024c8cb96574b9e9897d1624c2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu May 24 15:49:00 2012 -0600
+
+    protocols: Remove unneeded (?) gnutls/abstract.h include
+
+ protocols/tls_gnutls.cc |    3 ---
+ 1 files changed, 0 insertions(+), 3 deletions(-)
+
 commit 221121d4d568e6e3922654641645dbace6f1cc43
 Author: Bruce Guenter <bruce@untroubled.org>
 Date:   Tue Apr 24 09:41:44 2012 -0600

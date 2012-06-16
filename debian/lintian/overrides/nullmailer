@@ -1,4 +1,0 @@
-nullmailer: setuid-binary usr/bin/mailq 4755 mail/root
-nullmailer: setuid-binary usr/sbin/nullmailer-queue 4755 mail/root
-nullmailer: non-standard-dir-perm var/spool/nullmailer/queue/ 0750 != 0755
-nullmailer: non-standard-dir-perm var/spool/nullmailer/tmp/ 0750 != 0755
