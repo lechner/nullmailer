@@ -1,3 +1,9 @@
+nullmailer (1:1.11-2) unstable; urgency=low
+
+  * Make 'remotes' not world-readable (Closes: #684619)
+
+ -- Nick Leverton <nick@leverton.org>  Tue, 21 Aug 2012 09:01:38 +0100
+
 nullmailer (1:1.11-1) unstable; urgency=low
 
   * New upstream release

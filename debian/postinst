@@ -24,6 +24,15 @@ case "$1" in
 		fi
 
 		db_get nullmailer/relayhost
+		# securely create nullmailer/remotes with mode 0600
+		if [ ! -e /etc/nullmailer/remotes ]
+		then
+			M=$( umask )
+			umask 077
+			> /etc/nullmailer/remotes
+			chown mail:mail /etc/nullmailer/remotes
+			umask $M
+		fi
 		echo "$RET" | sed -r -e ':a s/(\[[^]:]*):/\1=/; ta' \
 				     -e 's/[[:space:]]*:[[:space:]]*/\n/g' \
 				     -e ':b s/(\[[^]=]*)=/\1:/; tb' \
