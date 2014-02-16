@@ -1,3 +1,10 @@
+nullmailer (1:1.11-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * debian/control: Switch to automake1.11. (Closes: #724423)
+
+ -- Eric Dorland <eric@debian.org>  Sun, 16 Feb 2014 16:16:57 -0500
+
 nullmailer (1:1.11-2) unstable; urgency=low
 
   * Make 'remotes' not world-readable (Closes: #684619)
