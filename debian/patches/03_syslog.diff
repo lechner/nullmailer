@@ -14,10 +14,10 @@ esac
 exit 0
 
 @DPATCH@
-Index: nullmailer-1.10/doc/nullmailer-send.8
+Index: nullmailer-1.13/doc/nullmailer-send.8
 ===================================================================
---- nullmailer-1.10.orig/doc/nullmailer-send.8	2012-05-12 17:59:14.000000000 +0100
-+++ nullmailer-1.10/doc/nullmailer-send.8	2012-05-12 17:59:39.000000000 +0100
+--- nullmailer-1.13.orig/doc/nullmailer-send.8	2014-07-31 21:25:35.000000000 +0100
++++ nullmailer-1.13/doc/nullmailer-send.8	2014-07-31 21:25:36.000000000 +0100
 @@ -3,6 +3,7 @@
  nullmailer-send \- Send queued messages
  .SH SYNOPSIS
@@ -26,7 +26,7 @@ Index: nullmailer-1.10/doc/nullmailer-send.8
  .SH DESCRIPTION
  This program is responsible for coordinating the transmission of
  messages that have been queued by
-@@ -37,6 +38,15 @@
+@@ -42,6 +43,15 @@
  sleeps for a number of seconds specified by
  .B pausetime
  before retrying sending the contents of the queue.
@@ -42,10 +42,10 @@ Index: nullmailer-1.10/doc/nullmailer-send.8
  .SH CONTROL FILES
  All the control files are reread each time the queue is run.
  .TP
-Index: nullmailer-1.10/protocols/protocol.cc
+Index: nullmailer-1.13/protocols/protocol.cc
 ===================================================================
---- nullmailer-1.10.orig/protocols/protocol.cc	2012-04-20 00:10:16.000000000 +0100
-+++ nullmailer-1.10/protocols/protocol.cc	2012-05-12 18:00:51.000000000 +0100
+--- nullmailer-1.13.orig/protocols/protocol.cc	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/protocols/protocol.cc	2014-07-31 21:25:36.000000000 +0100
 @@ -22,11 +22,15 @@
  #include <config.h>
  #include <stdio.h>
@@ -71,7 +71,7 @@ Index: nullmailer-1.10/protocols/protocol.cc
    { 0, "auth-login", cli_option::flag, AUTH_LOGIN, &auth_method,
      "Use AUTH LOGIN instead of auto-detecting in SMTP", 0 },
  #ifdef HAVE_TLS
-@@ -65,13 +71,19 @@
+@@ -67,13 +73,19 @@
  
  void protocol_fail(int e, const char* msg)
  {
@@ -93,7 +93,7 @@ Index: nullmailer-1.10/protocols/protocol.cc
    exit(0);
  }
  
-@@ -91,6 +103,10 @@
+@@ -93,6 +105,10 @@
  
  int cli_main(int, char* argv[])
  {
@@ -104,10 +104,10 @@ Index: nullmailer-1.10/protocols/protocol.cc
    const char* remote = argv[0];
    if (port == 0)
      port = use_ssl ? default_ssl_port : default_port;
-Index: nullmailer-1.10/src/Makefile.in
+Index: nullmailer-1.13/src/Makefile.in
 ===================================================================
---- nullmailer-1.10.orig/src/Makefile.in	2012-04-23 18:00:46.000000000 +0100
-+++ nullmailer-1.10/src/Makefile.in	2012-05-12 18:01:48.000000000 +0100
+--- nullmailer-1.13.orig/src/Makefile.in	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/src/Makefile.in	2014-07-31 21:25:36.000000000 +0100
 @@ -61,7 +61,7 @@
  nullmailer_queue_DEPENDENCIES = ../lib/libnullmailer.a
  am_nullmailer_send_OBJECTS = send.$(OBJEXT)
@@ -133,10 +133,10 @@ Index: nullmailer-1.10/src/Makefile.in
  nullmailer_smtpd_SOURCES = smtpd.cc
  nullmailer_smtpd_LDADD = ../lib/libnullmailer.a
  sendmail_SOURCES = sendmail.cc
-Index: nullmailer-1.10/src/send.cc
+Index: nullmailer-1.13/src/send.cc
 ===================================================================
---- nullmailer-1.10.orig/src/send.cc	2012-03-01 02:44:06.000000000 +0000
-+++ nullmailer-1.10/src/send.cc	2012-05-12 17:59:39.000000000 +0100
+--- nullmailer-1.13.orig/src/send.cc	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/src/send.cc	2014-07-31 21:25:36.000000000 +0100
 @@ -27,6 +27,7 @@
  #include <stdlib.h>
  #include <string.h>
@@ -179,7 +179,7 @@ Index: nullmailer-1.10/src/send.cc
  
  struct remote
  {
-@@ -154,7 +171,10 @@
+@@ -162,7 +179,10 @@
  bool load_files()
  {
    reload_files = false;
@@ -191,7 +191,7 @@ Index: nullmailer-1.10/src/send.cc
    DIR* dir = opendir(".");
    if(!dir)
      fail_sys("Cannot open queue directory: ");
-@@ -172,12 +192,19 @@
+@@ -180,12 +200,19 @@
  
  void exec_protocol(int fd, remote& remote)
  {
@@ -213,7 +213,7 @@ Index: nullmailer-1.10/src/send.cc
    for(slist::const_iter opt(remote.options); opt; opt++)
      args[i++] = strdup((*opt).c_str());
    args[i++] = remote.host.c_str();
-@@ -214,7 +241,10 @@
+@@ -222,7 +249,10 @@
        if(status)
  	fail2("Sending failed: ", errorstr(status));
        else {
@@ -225,7 +225,7 @@ Index: nullmailer-1.10/src/send.cc
  	return true;
        }
      }
-@@ -227,10 +257,20 @@
+@@ -235,10 +265,20 @@
  {
    int fd = open(filename.c_str(), O_RDONLY);
    if(fd == -1) {
@@ -248,7 +248,7 @@ Index: nullmailer-1.10/src/send.cc
         << " host: " << remote.host
         << " file: " << filename << endl;
    pid_t pid = fork();
-@@ -269,7 +309,10 @@
+@@ -277,7 +317,10 @@
  	file++;
      }
    }
@@ -260,9 +260,9 @@ Index: nullmailer-1.10/src/send.cc
         << itoa(files.count()) << " message(s) remain." << endl;
    return true;
  }
-@@ -314,7 +357,10 @@
-   int s = select(trigger+1, &readfds, 0, 0,
- 		 (files.count() == 0) ? 0 : &timeout);
+@@ -329,7 +372,10 @@
+ 
+   int s = select(trigger+1, &readfds, 0, 0, &timeout);
    if(s == 1) {
 -    fout << "Trigger pulled." << endl;
 +    if (use_syslog)
@@ -271,8 +271,8 @@ Index: nullmailer-1.10/src/send.cc
 +      fout << "Trigger pulled." << endl;
      read_trigger();
      reload_files = true;
-   }
-@@ -327,8 +373,14 @@
+     pausetime = minpause;
+@@ -343,8 +389,14 @@
    return true;
  }
  
@@ -288,7 +288,7 @@ Index: nullmailer-1.10/src/send.cc
    read_hostnames();
  
    if(!selfpipe) {
-@@ -337,13 +389,34 @@
+@@ -353,13 +405,34 @@
    }
    selfpipe.catchsig(SIGCHLD);
    

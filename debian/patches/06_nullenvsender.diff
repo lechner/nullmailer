@@ -4,10 +4,10 @@ Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188251
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=356356
 Author: Nick Leverton <nick@leverton.org>
 
-Index: nullmailer-1.10/lib/address.cc
+Index: nullmailer-1.13/lib/address.cc
 ===================================================================
---- nullmailer-1.10.orig/lib/address.cc	2012-03-01 02:44:18.000000000 +0000
-+++ nullmailer-1.10/lib/address.cc	2012-05-12 18:02:05.000000000 +0100
+--- nullmailer-1.13.orig/lib/address.cc	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/lib/address.cc	2014-07-31 21:25:37.000000000 +0100
 @@ -523,6 +523,17 @@
    RETURN(node, "<" + r2.str + ">" + comment, "", r2.addr);
  }
@@ -36,10 +36,10 @@ Index: nullmailer-1.10/lib/address.cc
    del_tokens(tokenlist);
    if(r) {
      line = r.str;
-Index: nullmailer-1.10/src/inject.cc
+Index: nullmailer-1.13/src/inject.cc
 ===================================================================
---- nullmailer-1.10.orig/src/inject.cc	2012-05-12 18:02:05.000000000 +0100
-+++ nullmailer-1.10/src/inject.cc	2012-05-12 18:02:05.000000000 +0100
+--- nullmailer-1.13.orig/src/inject.cc	2014-07-31 21:25:37.000000000 +0100
++++ nullmailer-1.13/src/inject.cc	2014-07-31 21:25:37.000000000 +0100
 @@ -110,6 +110,7 @@
  ///////////////////////////////////////////////////////////////////////////////
  static slist recipients;
@@ -87,7 +87,7 @@ Index: nullmailer-1.10/src/inject.cc
      sender = suser + "@" + shost;
  }
  
-@@ -552,6 +557,7 @@
+@@ -555,6 +560,7 @@
        ferr << "nullmailer-inject: Invalid sender address: " << o_from << endl;
        return false;
      }
@@ -95,10 +95,10 @@ Index: nullmailer-1.10/src/inject.cc
    }
    use_header_recips = (use_recips != use_args);
    if(use_recips == use_header)
-Index: nullmailer-1.10/src/queue.cc
+Index: nullmailer-1.13/src/queue.cc
 ===================================================================
---- nullmailer-1.10.orig/src/queue.cc	2012-03-01 02:44:06.000000000 +0000
-+++ nullmailer-1.10/src/queue.cc	2012-05-12 18:02:05.000000000 +0100
+--- nullmailer-1.13.orig/src/queue.cc	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/src/queue.cc	2014-07-31 21:25:37.000000000 +0100
 @@ -93,9 +93,9 @@
  bool copyenv(fdobuf& out)
  {

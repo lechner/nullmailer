@@ -14,10 +14,10 @@ esac
 exit 0
 
 @DPATCH@
-Index: nullmailer-1.10/configure.in
+Index: nullmailer-1.13/configure.in
 ===================================================================
---- nullmailer-1.10.orig/configure.in	2012-04-23 04:34:26.000000000 +0100
-+++ nullmailer-1.10/configure.in	2012-05-12 17:59:14.000000000 +0100
+--- nullmailer-1.13.orig/configure.in	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/configure.in	2014-07-31 21:25:35.000000000 +0100
 @@ -48,6 +48,25 @@
  dnl AC_CHECK_FUNCS(gettimeofday mkdir putenv rmdir socket)
  AC_CHECK_FUNCS(setenv srandom)
@@ -44,10 +44,10 @@ Index: nullmailer-1.10/configure.in
  AC_DEFINE(BUFSIZE, 4096, [Generic buffer size])
  AM_CONDITIONAL(FDBUF_NO_MYSTRING, false)
  
-Index: nullmailer-1.10/lib/tcpconnect.cc
+Index: nullmailer-1.13/lib/tcpconnect.cc
 ===================================================================
---- nullmailer-1.10.orig/lib/tcpconnect.cc	2012-03-01 02:44:06.000000000 +0000
-+++ nullmailer-1.10/lib/tcpconnect.cc	2012-05-12 17:59:14.000000000 +0100
+--- nullmailer-1.13.orig/lib/tcpconnect.cc	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/lib/tcpconnect.cc	2014-07-31 21:25:35.000000000 +0100
 @@ -28,7 +28,11 @@
  #include <netinet/in.h>
  #include "errcodes.h"

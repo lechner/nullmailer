@@ -2,10 +2,10 @@ Description: When "defaultdomain" is null, don't add an FQDN to hostnames.
 Author: Nick Leverton <nick@leverton.org>
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504184
 
-Index: nullmailer-1.10/lib/hostname.cc
+Index: nullmailer-1.13/lib/hostname.cc
 ===================================================================
---- nullmailer-1.10.orig/lib/hostname.cc	2012-05-16 08:03:37.000000000 +0100
-+++ nullmailer-1.10/lib/hostname.cc	2012-05-16 08:32:04.000000000 +0100
+--- nullmailer-1.13.orig/lib/hostname.cc	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/lib/hostname.cc	2014-07-31 21:25:38.000000000 +0100
 @@ -33,12 +33,16 @@
  {
    int nome;
@@ -26,10 +26,10 @@ Index: nullmailer-1.10/lib/hostname.cc
    if (!config_read("defaulthost", defaulthost))
      defaulthost = nome ? "defaulthost" : me.c_str();
    canonicalize(defaulthost);
-Index: nullmailer-1.10/src/queue.cc
+Index: nullmailer-1.13/src/queue.cc
 ===================================================================
---- nullmailer-1.10.orig/src/queue.cc	2012-05-16 08:03:41.000000000 +0100
-+++ nullmailer-1.10/src/queue.cc	2012-05-16 08:03:42.000000000 +0100
+--- nullmailer-1.13.orig/src/queue.cc	2014-07-31 21:25:37.000000000 +0100
++++ nullmailer-1.13/src/queue.cc	2014-07-31 21:25:38.000000000 +0100
 @@ -85,8 +85,8 @@
      if(hostname == me || hostname == "localhost")
        addr = adminaddr;

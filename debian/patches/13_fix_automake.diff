@@ -1,0 +1,13 @@
+Index: nullmailer-1.13/src/Makefile.am
+===================================================================
+--- nullmailer-1.13.orig/src/Makefile.am	2012-04-23 17:59:01.000000000 +0100
++++ nullmailer-1.13/src/Makefile.am	2014-07-31 22:36:38.000000000 +0100
+@@ -21,7 +21,7 @@
+ nullmailer_queue_LDADD = ../lib/libnullmailer.a
+ 
+ nullmailer_send_SOURCES = send.cc
+-nullmailer_send_LDADD = ../lib/libnullmailer.a
++nullmailer_send_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
+ 
+ nullmailer_smtpd_SOURCES = smtpd.cc
+ nullmailer_smtpd_LDADD = ../lib/libnullmailer.a

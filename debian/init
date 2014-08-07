@@ -25,9 +25,8 @@ test -x $DAEMON || exit 0
 case "$1" in
   start)
 	log_begin_msg "Starting $DESC:" "$NAME"
-	PIDS=`pidof nullmailer-send`
 	# don't kill trigger if daemon already running
-	if [ -z "$PIDS" ]; then
+	if ! pidofproc -p $PIDFILE $DAEMON; then
 	    if [ ! -p /var/spool/nullmailer/trigger ]; then                                                                                                        
 		rm -f /var/spool/nullmailer/trigger                                                                                                            
 		mkfifo /var/spool/nullmailer/trigger                                                                                                           
@@ -54,7 +53,7 @@ case "$1" in
 	$0 start
 	;;
   status)
-	status_of_proc $DAEMON $NAME
+	status_of_proc -p $PIDFILE $DAEMON $NAME
 	exit $?
 	;;
   *)

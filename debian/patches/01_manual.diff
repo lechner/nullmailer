@@ -14,11 +14,11 @@ esac
 exit 0
 
 @DPATCH@
-Index: nullmailer-1.10/doc/nullmailer-send.8
+Index: nullmailer-1.13/doc/nullmailer-send.8
 ===================================================================
---- nullmailer-1.10.orig/doc/nullmailer-send.8	2012-05-16 08:03:38.000000000 +0100
-+++ nullmailer-1.10/doc/nullmailer-send.8	2012-05-16 20:06:52.000000000 +0100
-@@ -71,14 +71,14 @@
+--- nullmailer-1.13.orig/doc/nullmailer-send.8	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/doc/nullmailer-send.8	2014-07-31 21:25:35.000000000 +0100
+@@ -85,14 +85,14 @@
  which also requires SMTP authentication, use:
  
  .EX
@@ -34,8 +34,8 @@ Index: nullmailer-1.10/doc/nullmailer-send.8
 +    smarthost.dom smtp \-\-port=2525 \-\-auth-login \-\-user=user \-\-pass=pass
  .EE
  
- Blank lines and lines starting with a pound are ignored.
-@@ -94,16 +94,16 @@
+ Blank lines and lines starting with a pound are ignored. When called with
+@@ -115,16 +115,16 @@
  will wait forever for messages to complete sending.
  .SH FILES
  .TP
@@ -56,11 +56,11 @@ Index: nullmailer-1.10/doc/nullmailer-send.8
  The protocol program directory.
  .SH SEE ALSO
  nullmailer-queue(8),
-Index: nullmailer-1.10/doc/nullmailer-queue.8
+Index: nullmailer-1.13/doc/nullmailer-queue.8
 ===================================================================
---- nullmailer-1.10.orig/doc/nullmailer-queue.8	2012-05-16 08:03:38.000000000 +0100
-+++ nullmailer-1.10/doc/nullmailer-queue.8	2012-05-16 08:03:41.000000000 +0100
-@@ -22,21 +22,21 @@
+--- nullmailer-1.13.orig/doc/nullmailer-queue.8	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/doc/nullmailer-queue.8	2014-07-31 21:25:35.000000000 +0100
+@@ -22,22 +22,22 @@
  .TP
  .B adminaddr
  If this file is not empty, all recipients to users at either
@@ -72,7 +72,8 @@ Index: nullmailer-1.10/doc/nullmailer-queue.8
 +are remapped to this address.
  This is provided to allow local daemons to be able to send email to
  "somebody@localhost" and have it go somewhere sensible instead of
- being bounced by your relay host.
+ being bounced by your relay host. To send to multiple addresses, put
+ them all on one line separated by a comma.
  .SH OTHER FILES
  .TP
 -.B /var/nullmailer/queue
@@ -88,10 +89,10 @@ Index: nullmailer-1.10/doc/nullmailer-queue.8
  A pipe used to trigger
  .BR nullmailer-send
  to immediately start sending the message from the queue.
-Index: nullmailer-1.10/doc/nullmailer-inject.1
+Index: nullmailer-1.13/doc/nullmailer-inject.1
 ===================================================================
---- nullmailer-1.10.orig/doc/nullmailer-inject.1	2012-05-16 08:03:38.000000000 +0100
-+++ nullmailer-1.10/doc/nullmailer-inject.1	2012-05-16 08:03:41.000000000 +0100
+--- nullmailer-1.13.orig/doc/nullmailer-inject.1	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/doc/nullmailer-inject.1	2014-07-31 21:25:35.000000000 +0100
 @@ -82,7 +82,7 @@
  Address lists are expected to follow the syntax set out in RFC822.
  The following is a simplified explanation of the syntax.
@@ -131,10 +132,10 @@ Index: nullmailer-1.10/doc/nullmailer-inject.1
  The fully-qualifiled host name of the computer running nullmailer.
  Defaults to the literal name
  .IR me .
-Index: nullmailer-1.10/doc/sendmail.1
+Index: nullmailer-1.13/doc/sendmail.1
 ===================================================================
---- nullmailer-1.10.orig/doc/sendmail.1	2012-05-16 08:03:38.000000000 +0100
-+++ nullmailer-1.10/doc/sendmail.1	2012-05-16 20:19:01.000000000 +0100
+--- nullmailer-1.13.orig/doc/sendmail.1	2014-07-31 21:25:16.000000000 +0100
++++ nullmailer-1.13/doc/sendmail.1	2014-07-31 21:25:35.000000000 +0100
 @@ -17,8 +17,11 @@
  interface for sending email.
  After parsing the command-line arguments, this program executes
@@ -149,17 +150,7 @@ Index: nullmailer-1.10/doc/sendmail.1
  .B nullmailer-inject
  for details on how messages are reformatted and queued.
  .SH OPTIONS
-@@ -26,6 +29,9 @@
- .B \-B TYPE
- .TP
- .B \-b MODE
-+ \-bm        Read mail from standard input (default)
-+ \-bp        List information about mail queue
-+ \-bs        Handle SMTP commands on standard input
- .TP
- .B \-C FILE
- .TP
-@@ -67,9 +73,9 @@
+@@ -77,9 +80,9 @@
  Sets the envelope sender address.
  .TP
  .B \-r ADDRESS

@@ -4,6 +4,7 @@
 04_autoconf.diff
 05_errors_on_stderr.diff
 06_nullenvsender.diff
-07_sendquit.diff
 08_manpages.diff
 12_allow_no_dots.diff
+13_fix_automake.diff
+14_more_manpages.diff

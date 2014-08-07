@@ -1,10 +1,10 @@
 Description: Trivial patch to mention new config files under "man nullmailer"
 Author: Nick Leverton <nick@leverton.org>
 
-Index: nullmailer-1.10/doc/nullmailer.7
+Index: nullmailer-1.13/doc/nullmailer.7
 ===================================================================
---- nullmailer-1.10.orig/doc/nullmailer.7	2007-10-07 23:48:27.000000000 +0100
-+++ nullmailer-1.10/doc/nullmailer.7	2012-05-12 18:04:12.000000000 +0100
+--- nullmailer-1.13.orig/doc/nullmailer.7	2014-07-31 21:25:15.000000000 +0100
++++ nullmailer-1.13/doc/nullmailer.7	2014-07-31 21:25:37.000000000 +0100
 @@ -23,9 +23,11 @@
  .I adminaddr	\fBnullmailer-queue
  .I defaultdomain	\fBnullmailer-inject

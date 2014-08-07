@@ -10,10 +10,10 @@
 #export DH_VERBOSE=1
 
 export DEB_LDFLAGS_MAINT_APPEND += -Wl,-z,defs -Wl,--as-needed
-export DEB_BUILD_MAINT_OPTIONS = hardening=+pie,+bindnow
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --with autotools-dev
+	dh $@ --with autoreconf
 
 override_dh_prep:
 	dh_prep
