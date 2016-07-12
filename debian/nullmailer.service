@@ -1,0 +1,11 @@
+[Unit]
+Description=Mail Transport Agent
+Documentation=man:nullmailer(7)
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nullmailer-send --daemon
+User=mail
+
+[Install]
+WantedBy=multi-user.target

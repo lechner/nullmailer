@@ -1,0 +1,16 @@
+Description: Sort files in archive
+ Sort files when using mergelib to create libnullmailer.a, to get
+ reproducible build
+Author: Alexis Bienvenüe <pado@passoire.fr>
+
+Index: nullmailer-1.13/lib/mergelib.sh
+===================================================================
+--- nullmailer-1.13.orig/lib/mergelib.sh
++++ nullmailer-1.13/lib/mergelib.sh
+@@ -12,5 +12,5 @@ for input in "$@"; do
+ 	ar x ../../"$input"
+ 	cd ..
+ done
+-ar rc ../"$archive" */*
++ar rc ../"$archive" `LC_ALL=C ls */*`
+ ranlib ../"$archive"

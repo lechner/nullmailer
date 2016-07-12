@@ -13,7 +13,7 @@ export DEB_LDFLAGS_MAINT_APPEND += -Wl,-z,defs -Wl,--as-needed
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --with autoreconf
+	dh $@ --with autoreconf --with systemd
 
 override_dh_prep:
 	dh_prep

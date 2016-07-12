@@ -1,11 +1,16 @@
-nullmailer (1:1.13-1+deb8u1) jessie; urgency=medium
+nullmailer (1:1.13-1.1) unstable; urgency=medium
 
   * Non-maintainer upload.
-  * Do not keep relayhost data in debconf database longer than
-    strictly needed. (Closes: #831813)
-    Backport of 1:1.13-1.2 from unstable.
 
- -- Christian Hofstaedtler <zeha@debian.org>  Sat, 06 Aug 2016 17:36:35 +0000
+  [ Alexis Bienvenüe ]
+  * Deterministic file order in archives. (Closes: #820661)
+
+  [ Christian Hofstaedtler ]
+  * Bump Standards-Version to 3.9.8.
+  * Add native systemd units, based on initial patch supplied
+    by Viktar Vauchkevich. (Closes: #760041)
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Wed, 13 Jul 2016 01:15:46 +0200
 
 nullmailer (1:1.13-1) unstable; urgency=low
 

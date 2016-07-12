@@ -2,14 +2,21 @@ Source: nullmailer
 Section: mail
 Priority: extra
 Maintainer: Nick Leverton <nick@leverton.org>
-Build-Depends: debhelper (>= 9), po-debconf, automake, autoconf,
- dh-autoreconf, libgnutls28-dev | libgnutls-dev
-Standards-Version: 3.9.5
+Build-Depends: autoconf,
+               automake,
+               debhelper (>= 9),
+               dh-autoreconf,
+               dh-systemd,
+               libgnutls28-dev | libgnutls-dev,
+               po-debconf
+Standards-Version: 3.9.8
 Homepage: http://untroubled.org/nullmailer/
 
 Package: nullmailer
 Architecture: any
-Depends: lsb-base, ${misc:Depends}, ${shlibs:Depends}
+Depends: lsb-base,
+         ${misc:Depends},
+         ${shlibs:Depends}
 Recommends: rsyslog | system-log-daemon
 Conflicts: mail-transport-agent
 Provides: mail-transport-agent

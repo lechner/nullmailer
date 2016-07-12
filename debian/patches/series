@@ -8,3 +8,4 @@
 12_allow_no_dots.diff
 13_fix_automake.diff
 14_more_manpages.diff
+15_sort_files_in_archive.diff
