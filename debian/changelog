@@ -1,3 +1,11 @@
+nullmailer (1:1.13-1.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Do not keep relayhost data in debconf database longer than
+    strictly needed. (Closes: #831813)
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Sun, 31 Jul 2016 20:57:13 +0000
+
 nullmailer (1:1.13-1.1) unstable; urgency=medium
 
   * Non-maintainer upload.

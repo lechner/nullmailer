@@ -37,6 +37,8 @@ case "$1" in
 				     -e 's/[[:space:]]*:[[:space:]]*/\n/g' \
 				     -e ':b s/(\[[^]=]*)=/\1:/; tb' \
 				     -e 's/[][]//g' > /etc/nullmailer/remotes
+		# zap debconf entry, as this key may contain sensitive data.
+		db_set nullmailer/relayhost ""
 
 		db_get nullmailer/adminaddr
 		if [ "$RET" ]; then
