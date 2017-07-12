@@ -1,3 +1,1158 @@
+commit 6567de3d2f5936692fd2e272688386efa95f11fb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 22 11:02:45 2016 -0600
+
+    Add a trivial autogen.sh script, to generate autoconf/automake files
+
+ autogen.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 autogen.sh
+
+commit 471b1b42c931129f78a5054f323223549d0ab268
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 22 10:51:09 2016 -0600
+
+    Update dates in sources and README
+
+ README                        | 4 ++--
+ lib/address-old.cc            | 2 +-
+ lib/address.cc                | 2 +-
+ lib/base64.cc                 | 2 +-
+ lib/canonicalize.cc           | 2 +-
+ lib/cli++/clitest.cc          | 2 +-
+ lib/cli++/main.cc             | 2 +-
+ lib/cli++/messages.cc         | 2 +-
+ lib/config_read.cc            | 2 +-
+ lib/config_readint.cc         | 2 +-
+ lib/config_readlist.cc        | 2 +-
+ lib/config_syserr.cc          | 2 +-
+ lib/errcodes.cc               | 2 +-
+ lib/fdbuf/fdbuf.cc            | 2 +-
+ lib/fdbuf/fdbuf.h             | 2 +-
+ lib/fdbuf/fdbuf_copy.cc       | 2 +-
+ lib/fdbuf/fdibuf.cc           | 2 +-
+ lib/fdbuf/fdibuf.h            | 2 +-
+ lib/fdbuf/fdibuf_mystring.cc  | 2 +-
+ lib/fdbuf/fdibuf_netstring.cc | 2 +-
+ lib/fdbuf/fdobuf.cc           | 2 +-
+ lib/fdbuf/fdobuf.h            | 2 +-
+ lib/fdbuf/fdobuf_chownmod.cc  | 2 +-
+ lib/fdbuf/fdobuf_seek.cc      | 2 +-
+ lib/fdbuf/fdobuf_signed.cc    | 2 +-
+ lib/fdbuf/fdobuf_unsigned.cc  | 2 +-
+ lib/fdbuf/tlsibuf.cc          | 2 +-
+ lib/fdbuf/tlsibuf.h           | 2 +-
+ lib/fdbuf/tlsobuf.cc          | 2 +-
+ lib/fdbuf/tlsobuf.h           | 2 +-
+ lib/hostname.cc               | 2 +-
+ lib/makefield.cc              | 2 +-
+ lib/mystring/count.cc         | 2 +-
+ lib/mystring/iter.cc          | 2 +-
+ lib/mystring/iter.h           | 2 +-
+ lib/mystring/join.h           | 2 +-
+ lib/mystring/mystring.h       | 2 +-
+ lib/mystring/rep.h            | 2 +-
+ lib/selfpipe.cc               | 2 +-
+ lib/setenv.cc                 | 2 +-
+ lib/tcpconnect.cc             | 2 +-
+ protocols/protocol.cc         | 2 +-
+ protocols/qmqp.cc             | 2 +-
+ protocols/smtp.cc             | 2 +-
+ protocols/tls_gnutls.cc       | 2 +-
+ protocols/tls_none.cc         | 2 +-
+ src/dsn.cc                    | 2 +-
+ src/inject.cc                 | 2 +-
+ src/mailq.cc                  | 2 +-
+ src/queue.cc                  | 2 +-
+ src/send.cc                   | 2 +-
+ src/sendmail.cc               | 2 +-
+ src/smtpd.cc                  | 2 +-
+ 53 files changed, 54 insertions(+), 54 deletions(-)
+
+commit 1971c4506e336d60439ae4539b0742cea2a648fb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 22 10:35:22 2016 -0600
+
+    Remove done items from the TODO list
+
+ TODO | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
+
+commit 9819b7b97b42255e9f8f25d951d9ac91989c0066
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 16:08:03 2016 -0600
+
+    Add a "check" make target and fix distcheck problems
+
+ Makefile.am                    |  3 ---
+ test/Makefile.am               | 18 +++++++++---------
+ test/functions.in              | 22 +++++++++++++++++-----
+ test/{runtests.in => runtests} |  9 +++------
+ test/tests/dsn                 |  2 +-
+ test/tests/mailq               |  4 ++--
+ test/tests/send                |  2 +-
+ test/tests/smtpd               |  1 -
+ 8 files changed, 33 insertions(+), 28 deletions(-)
+ rename test/{runtests.in => runtests} (63%)
+ mode change 100644 => 100755
+
+commit 80260ff8cf0761bfa50598fe166ca965afaa3a85
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 16:45:56 2016 -0600
+
+    Rework path handling to allow for testing anywhere
+    
+    This introduces a $NULLMAILER_TEST_PREFIX environment variable that may
+    be used to override built-in paths to programs, the queue, etc.
+    
+    In particular:
+    
+    $NULLMAILER_TEST_PREFIX/bin is used for programs
+    
+    $NULLMAILER_TEST_PREFIX/conf is used for config files
+    
+    $NULLMAILER_TEST_PREFIX/queue is used for the queue directories
+    
+    $NULLMAILER_TEST_PREFIX/protocols is used for protocol programs
+    
+    $NULLMAILER_TEST_PREFIX/sbin is used for system programs (nullmailer-queue)
+    
+    These overrides are not used by programs such as mailq and
+    nullmailer-queue when they are running setuid to avoid privilege
+    escalation problems.
+
+ lib/Makefile.am                           |  3 ++-
+ lib/{config_readint.cc => config_path.cc} | 40 ++++++++++++++++++++++++-------
+ lib/config_read.cc                        |  3 +--
+ lib/config_readlist.cc                    |  3 +--
+ lib/configio.h                            |  3 +++
+ lib/defines.h                             | 11 +++++----
+ lib/forkexec.cc                           | 21 +++++++---------
+ lib/forkexec.h                            |  3 ++-
+ lib/make_defines.sh                       | 13 ++++------
+ src/mailq.cc                              | 14 ++++++-----
+ src/queue.cc                              | 20 +++++++++++-----
+ src/send.cc                               | 16 +++++++++----
+ src/sendmail.cc                           |  5 ++--
+ test/Makefile.am                          |  2 +-
+ test/functions.in                         | 17 +++++++------
+ test/runtests.in                          |  9 +------
+ test/tests/inject/queue                   |  9 +++----
+ test/tests/mailq                          |  4 ++--
+ test/tests/queue/rewrite                  |  8 +++----
+ test/tests/send                           |  4 ++--
+ 20 files changed, 120 insertions(+), 88 deletions(-)
+ copy lib/{config_readint.cc => config_path.cc} (57%)
+
+commit 0f4f095ff406eb8ece43732d61ada0ca4f501ec5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 16:30:27 2016 -0600
+
+    dsn: Add controls to limit how much of the message to copy
+
+ doc/nullmailer-dsn.1 | 14 ++++++++++++++
+ src/dsn.cc           | 19 ++++++++++++++++---
+ test/tests/dsn       | 22 +++++++++++++++++++++-
+ 3 files changed, 51 insertions(+), 4 deletions(-)
+
+commit 0aa713238549bafcae6d5a1d805b69e3396b4458
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 12:45:08 2016 -0600
+
+    Move spool directory to /var/spool/nullmailer, like other MTAs
+
+ Makefile.am                |  2 +-
+ NEWS                       |  2 ++
+ doc/nullmailer-queue.8     |  6 +++---
+ doc/nullmailer-send.8      |  6 +++---
+ lib/Makefile.am            |  2 +-
+ scripts/nullmailer.service |  4 ++--
+ spec                       | 11 ++++++-----
+ test/functions.in          |  2 +-
+ test/tests/inject/queue    |  8 ++++----
+ test/tests/queue/rewrite   |  4 ++--
+ test/tests/smtpd           |  2 +-
+ 11 files changed, 26 insertions(+), 23 deletions(-)
+
+commit 1ff9b88936b4a6463ca0813361f8e88f811d2629
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 11:41:52 2016 -0600
+
+    Fix problems found by "make distcheck"
+
+ Makefile.am              |  7 ++++---
+ lib/Makefile.am          | 16 +++++++---------
+ lib/cli++/Makefile.am    |  2 +-
+ lib/fdbuf/Makefile.am    |  2 +-
+ lib/mystring/Makefile.am |  2 +-
+ protocols/Makefile.am    |  2 +-
+ protocols/protocol.cc    |  2 +-
+ src/Makefile.am          |  2 +-
+ src/smtpd.cc             |  2 +-
+ test/Makefile.am         |  8 ++++----
+ 10 files changed, 22 insertions(+), 23 deletions(-)
+
+commit 8f5cd1d90861d0a2133c2112c157b01138645f67
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 21 08:37:12 2016 -0600
+
+    test: Drop use of $PWD in tests
+
+ test/functions.in | 2 +-
+ test/tests/send   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit eab2761bfaccf4fa1da39d33c1534236ffc1d725
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 20 15:29:58 2016 -0600
+
+    test: Move temporary directory out of test
+
+ .gitignore       | 2 +-
+ test/runtests.in | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 54314296ed1753e83782e1856c14ca5615418331
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 20 15:18:17 2016 -0600
+
+    dsn: Allow for directing all bounces to a fixed address
+
+ doc/nullmailer-dsn.1 | 6 +++++-
+ src/dsn.cc           | 5 ++++-
+ test/tests/dsn       | 7 ++++++-
+ 3 files changed, 15 insertions(+), 3 deletions(-)
+
+commit 481224fb15502629b7f688ed4c66cf6feefd6fc7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 20 15:07:46 2016 -0600
+
+    dsn: Fix Content-Type header and add a test
+
+ src/dsn.cc        |  2 +-
+ test/functions.in | 15 ++++++++++
+ test/tests/dsn    | 83 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 99 insertions(+), 1 deletion(-)
+ create mode 100644 test/tests/dsn
+
+commit a0d1b330ce00fa22ee469d03f50930f4a65b3243
+Merge: a8261e0 97f0512
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 20 09:20:07 2016 -0600
+
+    Merge branch 'bounce'
+
+commit a8261e028286a719b4ff4e81a2ce9e39ce4216ae
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 20 06:47:14 2016 -0600
+
+    test: Fix up location of log for send test
+
+ test/tests/send | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit 958b9015d0f2f0bb0995197afaaceda6a061867a
+Merge: 9ac7c4d 9e1b54f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 19 09:27:44 2016 -0600
+
+    Merge branch 'log-envelope'
+
+commit 97f05128cdc483387e7826c4a9dd9f174910329c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 19 08:14:13 2016 -0600
+
+    send: Catch the output from protocols for the DSN diagnostic codes
+
+ lib/forkexec.h        |  1 +
+ protocols/protocol.cc |  6 ++++--
+ src/send.cc           | 52 +++++++++++++++++++++++++++++++++++++++++++--------
+ test/tests/send       | 12 ++++++++++--
+ 4 files changed, 59 insertions(+), 12 deletions(-)
+
+commit 56e90a1774b81462c5ca738d9a3dcc747d77d2c5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 21:31:22 2016 -0600
+
+    doc: Updated diagram
+
+ doc/DIAGRAM     | 25 +++++++++++++++++++++++++
+ doc/Makefile.am |  2 +-
+ doc/diagram     | 21 ---------------------
+ spec            |  2 +-
+ 4 files changed, 27 insertions(+), 23 deletions(-)
+ create mode 100644 doc/DIAGRAM
+ delete mode 100644 doc/diagram
+
+commit aaa77ab70dd499f2e768108ed9e3e406271cf787
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 20:58:22 2016 -0600
+
+    doc: Add man page for nullmailer-dsn to Makefile
+
+ doc/Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit c347e63bcec01e28774d4050a89382e60dff29bf
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 20:50:47 2016 -0600
+
+    send: Ignore dotfiles in the queue
+
+ src/send.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 4dc827163034eb721c6f1e743bfaa1a447d64a8e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 20:49:51 2016 -0600
+
+    send: Add support for generating bounce messages
+
+ NEWS                  |  2 +-
+ doc/nullmailer-send.8 |  6 ++++--
+ lib/forkexec.cc       | 11 ++++++++---
+ lib/forkexec.h        |  1 +
+ src/send.cc           | 25 ++++++++++++++++++++++---
+ test/functions.in     |  3 ++-
+ test/tests/send       | 37 +++++++++++++++++++++++++++++++------
+ 7 files changed, 69 insertions(+), 16 deletions(-)
+
+commit b83af86a6fe9f308e51ed9528df700acce1626fd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 12:04:41 2016 -0600
+
+    lib: Add program_path function for calculating program names
+
+ lib/forkexec.cc | 24 +++++++++++++++---------
+ lib/forkexec.h  |  3 +++
+ src/sendmail.cc |  8 +++-----
+ 3 files changed, 21 insertions(+), 14 deletions(-)
+
+commit 84e4916f1a3fed45ac55611b342f661e9b0c7644
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 11:39:45 2016 -0600
+
+    doc: Add notes to -send man page about the failed queue, and other fixes
+
+ doc/nullmailer-send.8 | 53 +++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 34 insertions(+), 19 deletions(-)
+
+commit 58a361cad086e3f71dbb5152878d174f5616ac59
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 09:00:30 2016 -0600
+
+    lib: Add support for generic FD redirection in fork_exec
+
+ lib/forkexec.cc | 76 +++++++++++++++++++++++++++++++--------------------------
+ lib/forkexec.h  | 11 +++++----
+ src/inject.cc   |  6 +++--
+ src/send.cc     |  7 +++---
+ src/smtpd.cc    | 13 +++++-----
+ 5 files changed, 63 insertions(+), 50 deletions(-)
+
+commit de98c6ccc2a3aef3c5302e1ce52ecb6ac53c5fbf
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 09:31:29 2016 -0600
+
+    lib: Add autoclose_pipe class to simplify use of pipes
+
+ lib/autoclose.h | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+commit 28f6d9561599365f00c5a0a25166e45a2bd1334d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 15:40:55 2016 -0600
+
+    send: Use fork_exec to execute the protocol
+
+ lib/forkexec.cc | 17 +++++++++++++---
+ lib/forkexec.h  |  3 +++
+ src/send.cc     | 60 +++++++++++++++++----------------------------------------
+ 3 files changed, 35 insertions(+), 45 deletions(-)
+
+commit a712b0845da4ee3a1fc7b801713e15c3c193eb01
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 15:40:31 2016 -0600
+
+    lib: Add support for redirecting a (single) FD in fork_exec
+
+ lib/forkexec.cc | 7 ++++++-
+ lib/forkexec.h  | 2 +-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+commit 5850a49ade78d36ce33d70c28198b9cf2fb8fbdd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 11:40:38 2016 -0600
+
+    lib: Add fork_exec wrapper class for launching sub-programs
+
+ lib/Makefile.am |   1 +
+ lib/autoclose.h |   7 ++-
+ lib/forkexec.cc | 136 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/forkexec.h  |  32 +++++++++++++
+ src/inject.cc   | 108 +++++++++++++-------------------------------
+ src/send.cc     |   1 +
+ src/smtpd.cc    |  63 +++++---------------------
+ 7 files changed, 217 insertions(+), 131 deletions(-)
+ create mode 100644 lib/forkexec.cc
+ create mode 100644 lib/forkexec.h
+
+commit 2e3075039213af49353a6bff781fddba1c601300
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 16:27:26 2016 -0600
+
+    lib: Add helper to close FDs at function return
+
+ lib/autoclose.h | 25 +++++++++++++++++++++++++
+ src/queue.cc    |  7 +++----
+ src/send.cc     |  7 +++----
+ src/smtpd.cc    | 37 +++++++++++++++++++------------------
+ 4 files changed, 50 insertions(+), 26 deletions(-)
+ create mode 100644 lib/autoclose.h
+
+commit ecd433c8311c08cc328422f8d98dffd8a4a0f21d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 14:53:35 2016 -0600
+
+    doc: Added documentation for -dsn
+
+ NEWS                    |   2 +
+ doc/nullmailer-dsn.1    | 107 ++++++++++++++++++++++++++++++++++++++++++++++++
+ doc/nullmailer-inject.1 |  16 ++++----
+ doc/nullmailer.7        |  11 ++---
+ 4 files changed, 123 insertions(+), 13 deletions(-)
+ create mode 100644 doc/nullmailer-dsn.1
+
+commit a5917e4b0a5cde4709da6bcdd2bc0f04700f65eb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 14:52:44 2016 -0600
+
+    dsn: Generalized --smtp-diagnostic option to --diagnostic-code
+
+ src/dsn.cc | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+commit 3bf1ff020640d74ab292e57858c2f9c0cd86d378
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 12:07:58 2016 -0600
+
+    Add NEWS note about -send changes and bump version to 2.00
+
+ NEWS         | 5 ++++-
+ README       | 2 +-
+ configure.ac | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+commit 9e1b54fa242abf87e4170ac819f8a0e3edcc2799
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 19 09:25:39 2016 -0600
+
+    send: Also log the Message-Id header
+
+ src/send.cc     | 16 +++++++++++-----
+ test/tests/send |  2 ++
+ 2 files changed, 13 insertions(+), 5 deletions(-)
+
+commit b53e20452fba446b8fb81662b053e7256b20fada
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 16:36:59 2016 -0600
+
+    send: Add support for logging envelope contents
+
+ NEWS            |  2 ++
+ src/send.cc     | 36 +++++++++++++++++++++++++++++++++---
+ test/tests/send |  5 +++++
+ 3 files changed, 40 insertions(+), 3 deletions(-)
+
+commit 9ac7c4d60a730bb3cd83cb727468e9455c0bbfd1
+Merge: 861d78f d3afb60
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Jan 18 09:32:32 2016 -0600
+
+    Merge branch 'bind-source'
+
+commit 861d78f55a2e82aa13792300d4a7502fb056b05a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 17:15:44 2016 -0600
+
+    Add "tests" make target to simplify testing
+
+ Makefile.am | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 01eebcc594ab3c86fcbad38abdecd0ee9d546e0b
+Merge: be238ba 0f358eb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 17:14:35 2016 -0600
+
+    Merge branch 'empty-sender'
+
+commit d3afb601c93e36cfd0cbf5b0962baacc1e88e956
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 16:36:44 2016 -0600
+
+    protocols: Add support for binding the source address
+
+ NEWS                  |  2 ++
+ doc/nullmailer-send.8 |  3 +++
+ lib/connect.h         |  2 +-
+ lib/errcodes.cc       |  1 +
+ lib/errcodes.h        |  1 +
+ lib/tcpconnect.cc     | 62 +++++++++++++++++++++++++++++++++++++++++++--------
+ protocols/protocol.cc |  5 ++++-
+ test/tests/protocols  |  9 ++++++++
+ 8 files changed, 74 insertions(+), 11 deletions(-)
+
+commit 5e91ef61f7ec0638d8d7aa42da328161fa232aa8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 16:01:12 2016 -0600
+
+    lib: Move getaddrinfo bits out of tcpconnect function
+
+ lib/tcpconnect.cc | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+commit 4431872a97c331dfe363c1e492dfe3da75063f00
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Jan 15 16:50:29 2016 -0600
+
+    lib: Drop use of mystring for tcpconnect hostname parameter
+
+ lib/connect.h         |  4 +---
+ lib/tcpconnect.cc     | 10 +++++-----
+ protocols/protocol.cc |  1 +
+ 3 files changed, 7 insertions(+), 8 deletions(-)
+
+commit 798daf0b27cf56fea497ef125c440f81133a0bfc
+Merge: 9bb74bc 2cb6ea2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 11:40:01 2016 -0600
+
+    Merge branch 'master' into bounce
+
+commit be238baba9de88dd71bd3217494fe1c8c263427a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 12:24:52 2016 -0600
+
+    doc: -inject prints diagnostics to stderr not stdout
+
+ doc/nullmailer-inject.1 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2cb6ea21c0006cf0aa4ab4041616f1b394eb754e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 11:30:43 2016 -0600
+
+    test: Choose a random port for protocol tests
+
+ test/functions.in    |  3 +--
+ test/tests/protocols | 18 ++++++++++--------
+ test/tests/send      |  1 -
+ 3 files changed, 11 insertions(+), 11 deletions(-)
+
+commit 0f358ebb11684e5a6c3ae55c89a2e3f43bc2bf4b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 10:11:03 2016 -0600
+
+    inject: Add support for setting a null sender with -f
+
+ NEWS                     |  3 ++-
+ src/inject.cc            |  6 ++++--
+ test/tests/inject/sender | 14 +++++++++++++-
+ 3 files changed, 19 insertions(+), 4 deletions(-)
+
+commit e390910b70099586f7e2c4540feae0d44682807a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 10:26:11 2016 -0600
+
+    test: Ignore all dotfiles in tests, not just .*.swp from vim
+
+ test/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 65a86687c2314b3164a8648dd98eca79b44061e0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 10:08:04 2016 -0600
+
+    Add note about -queue accepting the null sender
+
+ NEWS | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 5f275304189782b1bd48b0c62f3e96f2cd18d979
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 09:51:40 2016 -0600
+
+    inject: Add a use_header_sender flag
+    
+    This removes the dependency on sender being empty when it is not set.
+
+ src/inject.cc | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+commit 10de6736ac67d86c16cf9fe7abdc22515c7cbfd5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 09:34:19 2016 -0600
+
+    doc: Some fixes to the -inject man page
+
+ doc/nullmailer-inject.1 | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit fcc790e023c44c9775c8532a11dde5fb39802165
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 07:15:01 2016 -0600
+
+    test: Make sure -smtpd accepts empty sender
+
+ test/tests/smtpd | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 716df3be126923cfefbc9086a08183e6543cf055
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 21:06:02 2016 -0600
+
+    test: Normalize the smtp/qmqp accept success tests
+
+ test/accept-qmqp.sh  |  1 +
+ test/accept-smtp.sh  |  7 +++++++
+ test/tests/protocols | 39 ++++++++++++++-------------------------
+ 3 files changed, 22 insertions(+), 25 deletions(-)
+ create mode 100644 test/accept-qmqp.sh
+ create mode 100644 test/accept-smtp.sh
+
+commit 04c248a52bd00c7ceb044e62f35424c2e182f4c4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 21:05:21 2016 -0600
+
+    test: Add srcdir to runtests script
+
+ test/Makefile.am  | 2 +-
+ test/functions.in | 1 +
+ test/runtests.in  | 5 +++--
+ 3 files changed, 5 insertions(+), 3 deletions(-)
+
+commit 6c4434b5e1835c529c72243287df282dcf9650de
+Merge: 894fcc1 aaf2026
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Jan 14 07:20:08 2016 -0600
+
+    Merge branch 'ipv6'
+
+commit 894fcc11df471356d7ddff6bca7e2b4397c3e314
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 20:00:03 2016 -0600
+
+    Update the configure system for newer autoconf/automake
+
+ .gitignore                   | 1 +
+ configure.in => configure.ac | 4 ++--
+ lib/cli++/Makefile.am        | 2 +-
+ lib/fdbuf/Makefile.am        | 2 +-
+ lib/mystring/Makefile.am     | 2 +-
+ protocols/Makefile.am        | 2 +-
+ src/Makefile.am              | 2 +-
+ test/Makefile.am             | 6 +++---
+ 8 files changed, 11 insertions(+), 10 deletions(-)
+ rename configure.in => configure.ac (97%)
+
+commit aaf202655000d98ba15379cbd33f78527c5a5c36
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 20:48:02 2016 -0600
+
+    lib: Add support for IPv6 for outgoing connections
+
+ NEWS                 |  2 ++
+ lib/tcpconnect.cc    | 75 +++++++++++++++++++++++++++++++++++++++++-----------
+ test/tests/protocols |  8 +++++-
+ 3 files changed, 69 insertions(+), 16 deletions(-)
+
+commit 2c0812b0c2045a8f0aed0b3318d0ff5c9930dcb5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 20:10:50 2016 -0600
+
+    Add test for getaddrinfo to configure
+
+ configure.in | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+commit 5206846d7fe19537ebceff61d300622d06a78fa3
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 17:34:37 2016 -0600
+
+    queue: Accept empty envelope sender address
+
+ src/queue.cc              | 4 ++--
+ test/tests/queue/validate | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 3278522a7f271dbabe813925b6582a341d6dbf2d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 17:33:15 2016 -0600
+
+    queue: Fix an envelope validation check and add tests
+
+ src/queue.cc              |  2 +-
+ test/functions.in         | 24 ++++++++++++++++++---
+ test/tests/queue/validate | 55 +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 77 insertions(+), 4 deletions(-)
+ create mode 100755 test/tests/queue/validate
+
+commit 6c0ce505a7618caa5c493741c53c1f2591749358
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Jan 13 09:31:06 2016 -0600
+
+    protocols: Fix gnutls integer pointer size mismatch warning
+
+ NEWS                    | 2 ++
+ protocols/tls_gnutls.cc | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+commit 9284992b5eabeb420b98ce6717aba1136710b859
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 17:11:31 2016 -0600
+
+    doc: Some fixes for the sendmail man page
+
+ doc/sendmail.1 | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+commit 4a6e47edbae0bafe7bb9ad578e119031fe4d0210
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 17:00:10 2016 -0600
+
+    Fix typo: seperate => separate
+
+ NEWS                    | 2 +-
+ TODO                    | 4 ++--
+ doc/nullmailer-inject.1 | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 3d73290d5745eb97687ae8ff4440f5c660b6f99b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 16:56:47 2016 -0600
+
+    doc: Add missing control files to nullmailer.7
+
+ doc/nullmailer.7 | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 397a1d3332a0631ccf6a2743786592dc5297a464
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 16:47:39 2016 -0600
+
+    inject: Report errors on stderr, not stdout
+
+ NEWS          |  2 ++
+ src/inject.cc | 14 +++++++-------
+ 2 files changed, 9 insertions(+), 7 deletions(-)
+
+commit d158280e4b79a97e7e292c19af1430ac3d61e3cb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 16:37:18 2016 -0600
+
+    Add systemd nullmailer service file
+
+ scripts/nullmailer.service | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+ create mode 100644 scripts/nullmailer.service
+
+commit ce2b78cf827905124fba6de4d4efbb097cf2b717
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 15:45:40 2016 -0600
+
+    protocols: Fix handling of options passed from -send
+
+ protocols/protocol.cc |  7 +++++--
+ test/functions.in     | 17 ++++++++++++++++-
+ test/tests/protocols  | 36 +++++++++++++++++++++++++++++-------
+ 3 files changed, 50 insertions(+), 10 deletions(-)
+
+commit 856ed189ebd5179924c442f131aa45cdfacb83a8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 15:25:58 2016 -0600
+
+    lib/cli++: Move call to build_options into main out of cli_parse_args
+
+ lib/cli++/main.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 5188f0b560ab192f18b01f420164202d384b5ffd
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 09:45:46 2016 -0600
+
+    test: Make sure -send sets host in dummy protocol
+
+ test/tests/send | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit eeb0fba50b92564ada32f03858237c507d61ea57
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 09:45:12 2016 -0600
+
+    test: Move temporary directory to test/tmp
+    
+    This moves the temporary test directory out of /tmp and into test/tmp,
+    and verifies that the sources were configured with the proper prefix
+    path.
+
+ .gitignore                       |  3 +++
+ test/Makefile.am                 |  2 +-
+ test/{functions => functions.in} |  3 ++-
+ test/runtests.in                 | 16 ++++++++++++++--
+ test/tests/queue/rewrite         | 12 ++++++------
+ 5 files changed, 26 insertions(+), 10 deletions(-)
+ rename test/{functions => functions.in} (96%)
+
+commit f9d326fcc74ab941e232b7aebe784f89ccad54d5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 09:28:48 2016 -0600
+
+    test: Move running tests into a script
+    
+    This makes it a little simpler to run the individual tests by hand.
+
+ .gitignore       |  3 +++
+ test/Makefile.am | 17 ++++++++---------
+ test/runtests.in | 14 ++++++++++++++
+ 3 files changed, 25 insertions(+), 9 deletions(-)
+ create mode 100644 test/runtests.in
+
+commit 9663b43742381466855d64112b254a1d095b7a34
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Jan 12 10:26:03 2016 -0600
+
+    lib/defines: Turn defines into real constant strings, not just pointers
+
+ lib/defines.h       | 16 ++++++++--------
+ lib/make_defines.sh | 18 ++++++++++--------
+ 2 files changed, 18 insertions(+), 16 deletions(-)
+
+commit cb6098a4f111abf86b34337b8a28333c370e443a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu May 21 11:50:17 2015 -0600
+
+    protocols: Log success/failure to stdout instead of stderr
+
+ protocols/protocol.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit be8a42054b7ce0f39fd2d077ca62b9e899762a15
+Merge: a5b4dd2 a8420e9
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue May 26 17:27:03 2015 -0600
+
+    Merge pull request #16 from abh/patch-1
+    
+    Update spec file to use Requires(pre,preun)
+
+commit a5b4dd2d1d3291ddd5dda7b422a987795cc58606
+Author: Michael T. Babcock <mike@triplepc.ca>
+Date:   Thu May 21 11:06:04 2015 -0600
+
+    protocols: Add support for older versions of gnutls
+    
+    I have had a problem compiling nullmailer 1.13 with gnutls 1.4.1 (CentOS
+    5), so I added the following patch to make it work:
+
+ protocols/tls_gnutls.cc | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit ed80ca125fbf418f6437fd166b921907cd3a70bf
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu May 21 11:01:01 2015 -0600
+
+    protocols: Add option to set a separate TLS client cert private key file
+
+ NEWS                    | 2 ++
+ doc/nullmailer-send.8   | 5 +++++
+ protocols/protocol.cc   | 2 ++
+ protocols/protocol.h    | 1 +
+ protocols/tls_gnutls.cc | 5 ++++-
+ 5 files changed, 14 insertions(+), 1 deletion(-)
+
+commit ee3082c960c0de4764b4bfef688bac97a6346a9a
+Merge: 70b4498 5e9316c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu May 21 10:38:46 2015 -0600
+
+    Merge pull request #25 from blueness/musl
+    
+    lib/fdbuf/fdbuf.h: include <unistd.h>
+
+commit 70b449872633ff288189ea0cc41f00b082c97b5a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu May 21 09:09:35 2015 -0600
+
+    protocols: Rename ssl options to tls
+
+ doc/nullmailer-send.8 | 10 ++++++++--
+ protocols/protocol.cc | 14 ++++++++------
+ protocols/protocol.h  |  4 ++--
+ protocols/qmqp.cc     |  2 +-
+ protocols/smtp.cc     |  2 +-
+ 5 files changed, 20 insertions(+), 12 deletions(-)
+
+commit 1978cd40a5dde7359075c63c68b6e1f294c92c34
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed May 20 20:57:43 2015 -0600
+
+    send: Document the protocol options in the man page
+
+ doc/nullmailer-send.8 | 70 +++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 48 insertions(+), 22 deletions(-)
+
+commit 3d2aa642dc7215b36afa494ff2e3631617781df5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed May 20 20:43:59 2015 -0600
+
+    send: Note that the leading "--" before protocol options is optional
+
+ doc/nullmailer-send.8 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 74aeb537149c92eb4b8ba8173fc2d60eec086038
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed May 20 20:28:08 2015 -0600
+
+    send: Add support for quoted options to the "remotes" file
+
+ NEWS                  |  2 ++
+ doc/nullmailer-send.8 |  3 ++-
+ src/send.cc           | 25 +++----------------------
+ 3 files changed, 7 insertions(+), 23 deletions(-)
+
+commit a5e04f340d62962f378b27a3bccc85bc0050389e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed May 20 20:04:20 2015 -0600
+
+    lib/argparse: Add sh-like argument parsing, for use in remotes file
+
+ .gitignore            |  1 +
+ lib/Makefile.am       |  1 +
+ lib/argparse.cc       | 60 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/argparse.h        | 10 +++++++++
+ test/Makefile.am      |  8 +++++--
+ test/argparse-test.cc | 49 +++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 127 insertions(+), 2 deletions(-)
+ create mode 100644 lib/argparse.cc
+ create mode 100644 lib/argparse.h
+ create mode 100644 test/argparse-test.cc
+
+commit 29734e270ab05f9493c4c8bce189ccda1e5669a5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun May 17 17:11:14 2015 -0600
+
+    Add NEWS note about command line handling change
+
+ NEWS | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 4f6672db2117920e2ec1b53cbeb837d5857bb169
+Merge: da55b71 b181a6d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun May 17 17:09:58 2015 -0600
+
+    Merge branch 'pipe-options'
+
+commit b181a6d6ea363b52d8fa35949f61719300e3d9ca
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Apr 19 11:21:53 2013 -0600
+
+    send: Send all options to protocol modules on a pipe on FD 0, and message on FD 3
+
+ src/send.cc | 36 +++++++++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
+
+commit 3588792105373e243cef3462aa2e0797f43a0a8b
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Apr 19 11:09:07 2013 -0600
+
+    send: Turn options list into string (dummy commit)
+
+ src/send.cc | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+commit c540d9ee8961e216da58583891ca8738176e827c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Apr 19 11:04:27 2013 -0600
+
+    protocols: Handle configuration options on stdin, message on FD 3
+    
+    Options are read in one per line, terminated by an empty line. Format is
+    	name=value
+    where "name" is one of the long cli options (see --help output).
+
+ protocols/protocol.cc | 41 ++++++++++++++++++++++++++++++++++-------
+ test/functions        |  3 ++-
+ test/tests/protocols  | 14 +++++++-------
+ test/tests/send       |  5 ++---
+ 4 files changed, 45 insertions(+), 18 deletions(-)
+
+commit 304992617a4f27be6e501244c3d91ae1aba13c5a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sun Apr 21 16:25:47 2013 -0600
+
+    lib/cli++: Expose command-line parsing function
+
+ lib/cli++/cli++.h | 1 +
+ lib/cli++/main.cc | 6 +++---
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 5e9316c669e752fcd9058b28952919bccd967640
+Author: Anthony G. Basile <blueness@gentoo.org>
+Date:   Sat Jan 31 23:55:48 2015 +0000
+
+    lib/fdbuf/fdbuf.h: include <unistd.h>
+    
+    class fdobuf in lib/fdbuf/fdobuf.h makes use of uid_t and gid_t,
+    but these are defined in <unistd.h> according to POSIX.  With libc's
+    that adhere strictly to standards, like musl, this breaks the build.
+    
+    We add <unistd.h> to fdbuf.h which is included by fdbuf.h.
+    
+    Signed-off-by: Anthony G. Basile <blueness@gentoo.org>
+
+ lib/fdbuf/fdbuf.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a8420e922854f01cd35c74d2a362d5197f4f5000
+Author: Ask Bjørn Hansen <ask@develooper.com>
+Date:   Sun Mar 2 15:20:08 2014 -0800
+
+    Update spec file to use Requires(pre,preun)
+    
+    PreReq appears to be deprecated since some old version of RPM in favor of "Requires(pre,preun)".
+
+ spec | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit da55b71b6136bcefc7aa784a7f9fd45987670a7a
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Sep 13 13:56:24 2013 -0600
+
+    queue: Add an "allmailfrom" control file, to force a fixed sender
+
+ NEWS                     |  3 +++
+ doc/nullmailer-queue.8   |  4 ++++
+ src/queue.cc             |  4 ++++
+ test/tests/queue/rewrite | 26 ++++++++++++++++++++++++++
+ 4 files changed, 37 insertions(+)
+
+commit 43601e41dd9160c09751a15fd7fcbe6003a61755
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Sep 13 13:54:22 2013 -0600
+
+    Drop extraneous -q in tests/queue/rewrite
+
+ test/tests/queue/rewrite | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit f2c74f27ad9ea1786efc7c66a831dd6eb8d60cc5
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Sep 13 13:30:21 2013 -0600
+
+    Add news note for error handling changes
+
+ NEWS | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit c3a800acde4aab80e05a4ca31f1ff0912640368c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Sep 13 13:29:26 2013 -0600
+
+    Bump version to 1.14
+
+ NEWS         | 5 +++++
+ README       | 2 +-
+ configure.in | 2 +-
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
+commit d799dc705629b91de4d54959e7e9621d99a76dc4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Sep 13 13:23:02 2013 -0600
+
+    queue: Drop the remapadmin boolean
+    
+    It is completely unneeded, since adminaddr will always be non-empty when
+    it would be true.
+
+ src/queue.cc | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit 3f93a80fc2ff3fa99e7149c8d56d70db8c638233
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Sep 4 13:06:45 2013 -0600
+
+    queue: Rename parameter to validate_addr to avoid confusion
+
+ src/queue.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 24f33039863c99e3d466a723b0b21fa2e808b4fa
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Aug 27 16:26:43 2013 -0600
+
+    nullmailer-send: Reword multiple remote documentation to match actual behavior
+
+ doc/nullmailer-send.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3cde27af63d6509aaf52c45bc1595f90a4574680
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 18 11:48:54 2013 -0600
+
+    send: Reorganize exec_remote to be a member of struct remote
+
+ src/send.cc | 35 +++++++++++++++++++----------------
+ 1 file changed, 19 insertions(+), 16 deletions(-)
+
+commit 1d4d8405b3b3011061f35369eaec9bee2fa004e0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 18 11:35:03 2013 -0600
+
+    send: Improve error messages when reading config files
+
+ src/send.cc | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
+
+commit 9de2e74f64f7daf017ebf4c5220c797b380994b2
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Apr 18 07:53:27 2013 -0600
+
+    Make system errors on reading config files fatal (with useful message)
+
+ lib/Makefile.am                               |  2 +-
+ lib/config_read.cc                            |  2 ++
+ lib/config_readlist.cc                        |  2 +-
+ protocols/tls_none.cc => lib/config_syserr.cc | 21 +++++++++------------
+ lib/configio.h                                |  1 +
+ src/Makefile.am                               |  6 +++---
+ src/queue.cc                                  |  2 ++
+ src/send.cc                                   |  2 ++
+ 8 files changed, 21 insertions(+), 17 deletions(-)
+ copy protocols/tls_none.cc => lib/config_syserr.cc (74%)
+
+commit 4aff5a4e9251a0f189015b90f02c6e8edd3c3ffc
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Apr 17 17:36:49 2013 -0600
+
+    lib/cli++: Add helper function for outputting fatal system errors
+
+ lib/cli++/cli++.h     |  6 ++++++
+ lib/cli++/messages.cc | 54 +++++++++++++++++++++++++++++++++++++--------------
+ 2 files changed, 45 insertions(+), 15 deletions(-)
+
+commit 437bb66c9c468c9bc8cc5e21bdcd6c6a28291b75
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Apr 17 17:36:31 2013 -0600
+
+    Add ERR_CONFIG error code for problems reading config files
+
+ lib/errcodes.cc | 1 +
+ lib/errcodes.h  | 1 +
+ 2 files changed, 2 insertions(+)
+
 commit 048f87ccd1f6e3c86a3b27b6ed69ddb1201ec669
 Author: Bruce Guenter <bruce@untroubled.org>
 Date:   Mon Apr 15 08:47:46 2013 -0600
@@ -935,6 +2090,105 @@ Date:   Fri Feb 5 15:38:13 2010 -0600
  README       | 2 +-
  configure.in | 2 +-
  3 files changed, 7 insertions(+), 2 deletions(-)
+
+commit 9bb74bcc71b5fdbdcc52e5e159d1083edab08892
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Sat Oct 13 09:09:23 2007 -0600
+
+    Modified -send to move permanently failed messages into a failed directory.
+
+ Makefile.am     |   2 +
+ src/send.cc     | 114 ++++++++++++++++++++++++++++++++++++++++----------------
+ test/functions  |   4 +-
+ test/tests/send |   3 ++
+ 4 files changed, 88 insertions(+), 35 deletions(-)
+
+commit bab6faf0c17a1bdc4685d66c6df953ff8939810d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 20:22:55 2007 -0600
+
+    Added a timestamp to the internal per-message data in -send.
+
+ src/send.cc | 58 ++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 36 insertions(+), 22 deletions(-)
+
+commit 78f74e66c0b28e660aec15f81dbb8607e316fe36
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 12:18:53 2007 -0600
+
+    Modified -dsn to automatically generate DDNs for 4.#.# status codes.
+
+ TODO       |  1 -
+ src/dsn.cc | 46 +++++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 37 insertions(+), 10 deletions(-)
+
+commit 4d17a0346ff11bc47628b33b8700b53c31c1e7e7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 11:45:58 2007 -0600
+
+    Completed the implementation of nullmailer-dsn
+    
+    I'm not particularly happy with the human-readable portion of the
+    message.  This program also needs to be extended to support delay
+    notifications.
+
+ TODO       |  5 +----
+ src/dsn.cc | 71 ++++++++++++++++++++++++++++++++++++++++++--------------------
+ 2 files changed, 49 insertions(+), 27 deletions(-)
+
+commit 8705f91a8f48605c817a5782fcdefe1cf268ddfb
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 10:32:06 2007 -0600
+
+    Renamed nullmailer-bounce to -dsn, as it will be used to create DDNs too.
+
+ .gitignore      |   1 +
+ src/Makefile.am |   6 +--
+ src/bounce.cc   |  90 ---------------------------------
+ src/dsn.cc      | 154 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 158 insertions(+), 93 deletions(-)
+ delete mode 100644 src/bounce.cc
+ create mode 100644 src/dsn.cc
+
+commit 5ac20a731071d2c2c7f10171a07a4eddce56c76c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 10:29:34 2007 -0600
+
+    Allow make_date to use timestamps other than now.
+
+ lib/makefield.cc | 5 +++--
+ lib/makefield.h  | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 2752949f790f1f11ff532a97da954e72b9fe3a69
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Oct 12 09:52:04 2007 -0600
+
+    Add the PID to the boundary string.
+
+ lib/makefield.cc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 663c30da1177b0d2bd50bf95f9d0549eeb5f3af8
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:19:36 2007 -0600
+
+    Started implementation of the nullmailer-bounce program.
+
+ src/Makefile.am |  4 +++
+ src/bounce.cc   | 90 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 94 insertions(+)
+ create mode 100644 src/bounce.cc
+
+commit 3d2d9a4e4ff7033edc6a221961a4906d4bb5baf4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 9 15:18:34 2007 -0600
+
+    Added a simple boundary string generator make_boundary().
+
+ lib/makefield.cc | 10 ++++++++++
+ lib/makefield.h  |  1 +
+ 2 files changed, 11 insertions(+)
 
 commit 9bcc733516a02260d3e468a87486aed9d0a3b621
 Author: Bruce Guenter <bruce@untroubled.org>

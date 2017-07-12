@@ -3,7 +3,6 @@
 echo "Testing the nullmailer-smtpd program"
 
 out=$tmpdir/smtpd.out.$$
-trap 'rm -f $out' EXIT
 
 smtpd <<EOF 2>&1 | cat -v >$out
 HELO
@@ -21,6 +20,8 @@ RCPT
 RCPT TO:<r@example.com>
 RSET
 RCPT TO:<r@example.com>
+MAIL FROM:<>
+RSET
 MAIL FROM:<f0@example.com>
 RCPT TO:<r0@example.com>
 mail from f@example.com
@@ -55,6 +56,8 @@ diff -u - $out <<EOF
 250 2.3.0 OK^M
 503 5.5.1 You must send a valid sender first^M
 250 2.1.0 Sender accepted^M
+250 2.3.0 OK^M
+250 2.1.0 Sender accepted^M
 250 2.1.5 Recipient accepted^M
 250 2.1.0 Sender accepted^M
 250 2.1.5 Recipient accepted^M
@@ -65,7 +68,7 @@ diff -u - $out <<EOF
 EOF
 
 echo '  testing queued message envelope'
-qf=$tmpdir/var/nullmailer/queue/*
+qf=$QUEUEDIR/queue/*
 grep -q '^f@example.com$' $qf
 grep -q '^r@example.com$' $qf
 grep -q '^r2@example.com$' $qf

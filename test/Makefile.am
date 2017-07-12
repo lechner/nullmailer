@@ -1,32 +1,35 @@
-noinst_PROGRAMS = address-test clitest0 clitest1
-EXTRA_DIST = address-trace.cc clitest.cc clitest.sh
+noinst_PROGRAMS = address-test argparse-test clitest0 clitest1
+EXTRA_DIST = address-trace.cc clitest.cc clitest.sh functions.in runtests \
+	accept-qmqp.sh accept-smtp.sh
+noinst_SCRIPTS = functions
+CLEANFILES = functions
 
-INCLUDES = -I../lib
+AM_CPPFLAGS = -I$(top_srcdir)/lib
 
 address_test_SOURCES = address-test.cc # address-trace.cc
 address_test_LDADD = ../lib/libnullmailer.a
 
-clitest0_CPPFLAGS = -DCLI_ONLY_LONG=false
+argparse_test_SOURCES = argparse-test.cc
+argparse_test_LDADD = ../lib/libnullmailer.a
+
+clitest0_CPPFLAGS = $(AM_CPPFLAGS) -DCLI_ONLY_LONG=false
 clitest0_SOURCES = clitest.cc
 clitest0_LDADD = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
 
-clitest1_CPPFLAGS = -DCLI_ONLY_LONG=true
+clitest1_CPPFLAGS = $(AM_CPPFLAGS) -DCLI_ONLY_LONG=true
 clitest1_SOURCES = clitest.cc
 clitest1_LDADD = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
 
+functions: functions.in Makefile
+	sed -e 's,[@]SRCDIR[@],$(abs_top_srcdir),g; s,[@]BUILDDIR[@],$(abs_top_builddir),g;' < $< > $@
+
 # The following makes sure that we can't produce a package without the
 # tests executing properly
-dist-hook: test
-	cp -r tests $(distdir)
+dist-hook:
+	cp -r $(srcdir)/tests $(distdir)
 
-test: all
+check: all
 	./address-test
-	sh clitest.sh
-	@failed=0; \
-	for test in `find tests -type f -not -name '.*.swp'`; do \
-		echo Running test $$test...; \
-		if env - SYSCONFDIR=$(sysconfdir)/nullmailer bash $$test; \
-			then echo 'Done.'; \
-			else echo '******************************Failed!******************************'; failed=1; \
-		fi; \
-	done 2>&1; exit $$failed
+	./argparse-test
+	sh $(srcdir)/clitest.sh
+	$(srcdir)/runtests `find $(abs_srcdir)/tests -type f -not -name '.*'`

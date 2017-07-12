@@ -1,4 +1,4 @@
-// Copyright (C) 1999,2000 Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016 Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #include "config.h"
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #ifdef _REENTRANT
 #include <pthread.h>
