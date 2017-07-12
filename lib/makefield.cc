@@ -36,7 +36,7 @@ mystring make_date()
   long tznum = l->TM_HAS_GMTOFF/60;
 #else
   long tznum = -timezone/60;
-#if TM_HAS_ISDST
+#ifdef TM_HAS_ISDST
   int daylight = l->TM_HAS_ISDST;
 #endif // TM_HAS_ISDST
   if(daylight)
@@ -63,7 +63,14 @@ mystring make_messageid(const mystring& idhost)
 {
   struct timeval tv;
   gettimeofday(&tv, 0);
-  mystring tmp = mystringjoin("<") + itoa(tv.tv_sec) + ".";
-  tmp = tmp + itoa(tv.tv_usec, 6) + ".";
-  return tmp + itoa(getpid()) + ".nullmailer@" + idhost + ">";
+  mystring tmp = "<";
+  tmp += itoa(tv.tv_sec);
+  tmp += '.';
+  tmp += itoa(tv.tv_usec, 6);
+  tmp += '.';
+  tmp += itoa(getpid());
+  tmp += ".nullmailer@";
+  tmp += idhost;
+  tmp += '>';
+  return tmp;
 }

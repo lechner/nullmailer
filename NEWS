@@ -1,5 +1,16 @@
 This file lists all the major user-visible changes to nullmailer.
 -------------------------------------------------------------------------------
+Changes in version 1.05
+
+- Fixed compilation of src/selfpipe.cc on Solaris and other OSes.
+
+- Fixed handling of TM_HAS_ISDST on Solaris.
+
+- Fixed a few address parsing glitches.
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
+-------------------------------------------------------------------------------
 Changes in version 1.04
 
 - Fixed rewriting mail to @localhost if defaultdomain is set by not
