@@ -208,13 +208,21 @@ host name set above, but may be overridden by
 .BR NULLMAILER_SUSER
 and
 .BR NULLMAILER_SHOST .
+
+If
+.BR NULLMAILER_QUEUE
+is set, the program named is used in place of
+.B nullmailer-queue
+to queue the formatted message.
 .SH CONTROL FILES
 When reading the following files, a single line is read and stripped
 of all leading and trailing whitespace characters.
 .TP
 .B defaultdomain
 The content of this file is appended to any host name that does not
-contain a period, including
+contain a period (except
+.IR localhost ),
+including
 .BR defaulthost
 and
 .BR idhost .

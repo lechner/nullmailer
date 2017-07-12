@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2005  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,12 +38,16 @@
 #include "hostname.h"
 #include "itoa.h"
 #include "list.h"
+#include "selfpipe.h"
 #include "setenv.h"
+
+selfpipe selfpipe;
 
 typedef list<mystring> slist;
 
-#define fail(MSG) do { ferr << MSG << endl; return false; } while(0)
-#define fail_sys(MSG) do{ ferr << MSG << strerror(errno) << endl; return false; }while(0)
+#define fail(MSG) do { fout << MSG << endl; return false; } while(0)
+#define fail2(MSG1,MSG2) do{ fout << MSG1 << MSG2 << endl; return false; }while(0)
+#define fail_sys(MSG) do{ fout << MSG << strerror(errno) << endl; return false; }while(0)
 
 struct remote
 {
@@ -98,6 +102,7 @@ unsigned ws_split(const mystring& str, slist& lst)
 
 static rlist remotes;
 static int pausetime = 60;
+static int sendtimeout = 60*60;
 
 bool load_remotes()
 {
@@ -119,13 +124,20 @@ bool load_remotes()
 
 bool load_config()
 {
+  mystring hh;
   bool result = true;
+
+  if (!config_read("helohost", hh))
+    hh = me;
+  setenv("HELOHOST", hh.c_str(), 1);
 
   if(!load_remotes())
     result = false;
   
   if(!config_readint("pausetime", pausetime))
     pausetime = 60;
+  if(!config_readint("sendtimeout", sendtimeout))
+    sendtimeout = 60*60;
 
   return result;
 }
@@ -173,15 +185,28 @@ void exec_protocol(int fd, remote& remote)
   execv(args[0], (char**)args);
 }
 
-#undef fail
-#define fail(MSG) do { fout << MSG << endl; return false; } while(0)
-#define fail2(MSG1,MSG2) do{ fout << MSG1 << MSG2 << endl; return false; }while(0)
-
 bool catchsender(pid_t pid)
 {
   int status;
+
+  for (;;) {
+    switch (selfpipe.waitsig(sendtimeout)) {
+    case 0:			// timeout
+      kill(pid, SIGTERM);
+      waitpid(pid, &status, 0);
+      fail("Sending timed out, killing protocol");
+    case -1:
+      fail_sys("Error waiting for the child signal: ");
+    case SIGCHLD:
+      break;
+    default:
+      continue;
+    }
+    break;
+  }
+
   if(waitpid(pid, &status, 0) == -1)
-    fail("Error catching the child process return value.");
+    fail_sys("Error catching the child process return value: ");
   else {
     if(WIFEXITED(status)) {
       status = WEXITSTATUS(status);
@@ -210,7 +235,7 @@ bool send_one(mystring filename, remote& remote)
   pid_t pid = fork();
   switch(pid) {
   case -1:
-    fail("Fork failed.");
+    fail_sys("Fork failed: ");
   case 0:
     exec_protocol(fd, remote);
     exit(ERR_EXEC_FAILED);
@@ -219,7 +244,7 @@ bool send_one(mystring filename, remote& remote)
     if(!catchsender(pid))
       return false;
     if(unlink(filename.c_str()) == -1)
-      fail("Can't unlink file.");
+      fail_sys("Can't unlink file: ");
   }
   return true;
 }
@@ -260,7 +285,7 @@ bool open_trigger()
   trigger2 = open(QUEUE_TRIGGER, O_WRONLY|O_NONBLOCK);
 #endif
   if(trigger == -1)
-    fail("Could not open trigger file.");
+    fail_sys("Could not open trigger file: ");
   return true;
 }
 
@@ -293,7 +318,7 @@ bool do_select()
     reload_files = true;
   }
   else if(s == -1 && errno != EINTR)
-    fail("Internal error in select.");
+    fail_sys("Internal error in select: ");
   else if(s == 0)
     reload_files = true;
   if(reload_files)
@@ -303,11 +328,13 @@ bool do_select()
 
 int main(int, char*[])
 {
-  mystring hh;
-
   read_hostnames();
-  if (!config_read("helohost", hh)) hh = me;
-  setenv("HELOHOST", hh.c_str(), 1);
+
+  if(!selfpipe) {
+    fout << "Could not set up self-pipe." << endl;
+    return 1;
+  }
+  selfpipe.catchsig(SIGCHLD);
   
   if(!open_trigger())
     return 1;
