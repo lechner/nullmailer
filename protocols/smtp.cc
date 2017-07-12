@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2005  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 2005  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,13 +15,14 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
-// You can contact me at <bruceg@em.ca>.  There is also a mailing list
+// You can contact me at <bruce@untroubled.org>.  There is also a mailing list
 // available to discuss this package.  To subscribe, send an email to
-// <nullmailer-subscribe@lists.em.ca>.
+// <nullmailer-subscribe@lists.untroubled.org>.
 
 #include "config.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "base64.h"
 #include "connect.h"
 #include "errcodes.h"
 #include "fdbuf/fdbuf.h"
@@ -143,5 +144,18 @@ void protocol_send(fdibuf* in, int fd)
   smtp conn(fd);
   conn.docmd("", 200);
   conn.docmd("HELO " + hh, 200);
+
+  if (user != 0 && pass != 0)
+  {
+    mystring plain(user);
+    plain += '\0';
+    plain += user;
+    plain += '\0';
+    plain += pass;
+    mystring encoded = "AUTH PLAIN ";
+    base64_encode(plain, encoded);
+    conn.docmd(encoded, 200);
+  }
+
   conn.send(in);
 }

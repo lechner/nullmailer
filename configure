@@ -1613,7 +1613,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=nullmailer
- VERSION=1.00
+ VERSION=1.02
 
 
 cat >>confdefs.h <<_ACEOF

@@ -9,18 +9,19 @@
    last-author="bruce"
    kind="dir"
    uuid="a3c634dd-31b8-0310-b618-c134e0681c74"
-   revision="130"/>
+   revision="135"/>
 <entry
    name="queue"
    kind="dir"/>
 <entry
-   committed-rev="80"
+   committed-rev="142"
    name="protocols"
-   text-time="2002-12-23T17:20:09.000000Z"
-   committed-date="2002-12-23T17:22:36.924974Z"
-   checksum="ofYA6lHlPgHRxdl8D1lJGw=="
+   text-time="2005-11-10T16:10:23.000000Z"
+   committed-date="2005-11-10T16:12:06.571191Z"
+   checksum="1ce2253dc7c546023715057a099786b5"
    last-author="bruce"
-   kind="file"/>
+   kind="file"
+   revision="142"/>
 <entry
    name="inject"
    kind="dir"/>

@@ -1,4 +1,5 @@
-// Copyright (C) 1999,2000 Bruce Guenter <bruceg@em.ca>
+/* $Id: join.h 616 2005-08-19 20:11:01Z bruce $ */
+// Copyright (C) 1999,2000 Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
