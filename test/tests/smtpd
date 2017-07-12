@@ -21,6 +21,8 @@ RCPT
 RCPT TO:<r@example.com>
 RSET
 RCPT TO:<r@example.com>
+MAIL FROM:<f0@example.com>
+RCPT TO:<r0@example.com>
 mail from f@example.com
 rcpt to r@example.com
 rcpt <@example.org:r2@example.com>
@@ -28,6 +30,8 @@ DATA
 Subject: test
 
 testing SMTP
+.line 2
+..line 3
 .
 QUIT
 QUIT
@@ -52,6 +56,8 @@ diff -u - $out <<EOF
 503 5.5.1 You must send a valid sender first^M
 250 2.1.0 Sender accepted^M
 250 2.1.5 Recipient accepted^M
+250 2.1.0 Sender accepted^M
+250 2.1.5 Recipient accepted^M
 250 2.1.5 Recipient accepted^M
 354 End your message with a period on a line by itself^M
 250 2.6.0 Accepted message^M
@@ -63,9 +69,13 @@ qf=$tmpdir/var/nullmailer/queue/*
 grep -q '^f@example.com$' $qf
 grep -q '^r@example.com$' $qf
 grep -q '^r2@example.com$' $qf
+not grep -q '^f0@example.com$' $qf
+not grep -q '^r0@example.com$' $qf
 echo '  testing queued message contents'
 grep -q '^Subject: test$' $qf
 grep -q '^Received: ' $qf
 grep -q '^testing SMTP$' $qf
-test $( wc -l < $qf ) = 9
-test $( wc -w < $qf ) = 21
+grep -q '^line 2$' $qf
+grep -q '^\.line 3$' $qf
+test $( wc -l < $qf ) = 11
+test $( wc -w < $qf ) = 25
