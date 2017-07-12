@@ -1,0 +1,22 @@
+. functions
+
+tst() {
+  injectlines "$@" | \
+  sed -e '/^Message-Id:/d' -e '/^Date:/d' -e '/^From:/d' >testmessage.out
+  cmp testmessage.in testmessage.out
+}
+
+cat <<EOF >testmessage.in
+To: bruceg@em.ca
+
+data
+done
+EOF
+
+echo Testing header seperation with a blank line
+tst 'To: bruceg@em.ca' '' 'data' 'done'
+
+echo Testing header seperation without a blank line
+tst 'To: bruceg@em.ca' 'data' 'done'
+
+rm -f testmessage.{in,out}

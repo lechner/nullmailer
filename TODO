@@ -1,0 +1,5 @@
+- For version 2: three-state queueing
+  - Queue message partially (tmp -> holding)
+  - Send to recipient immediately
+  - Remove from holding if sending succeeds
+  - Complete queueing (holding -> queue) if sending fails
