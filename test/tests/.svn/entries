@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1"
+   name="svn:this_dir"
+   committed-date="2000-02-17T00:24:45.000000Z"
+   url="file:///home/subversion/nullmailer/trunk/test/tests"
+   last-author="bruce"
+   kind="dir"
+   revision="76"/>
+<entry
+   name="queue"
+   kind="dir"/>
+<entry
+   committed-rev="80"
+   name="protocols"
+   text-time="2002-12-23T17:20:09.000000Z"
+   committed-date="2002-12-23T17:22:36.924974Z"
+   checksum="ofYA6lHlPgHRxdl8D1lJGw=="
+   last-author="bruce"
+   kind="file"
+   revision="80"/>
+<entry
+   name="inject"
+   kind="dir"/>
+</wc-entries>

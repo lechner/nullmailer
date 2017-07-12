@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -97,36 +97,43 @@ anode::anode(node_type t, mystring s)
 struct result
 {
   anode* next;
+  bool good;
   mystring str;
   mystring comment;
   mystring addr;
 
+  result();
   result(const result&);
-  result(anode* = 0);
+  result(anode*);
   result(anode*, const mystring&, const mystring&, const mystring&);
   bool operator!() const
     {
-      return !next;
+      return !good;
     }
   operator bool() const
     {
-      return next;
+      return good;
     }
 };
 
+result::result()
+  : next(0), good(0)
+{
+}
+
 result::result(anode* n)
-  : next(n)
+  : next(n), good(1)
 {
 }
 
 result::result(anode* n, const mystring& s,
 	       const mystring& c, const mystring& l)
-  : next(n), str(s), comment(c), addr(l)
+  : next(n), good(1), str(s), comment(c), addr(l)
 {
 }
 
 result::result(const result& r)
-  : next(r.next), str(r.str), comment(r.comment), addr(r.addr)
+  : next(r.next), good(r.good), str(r.str), comment(r.comment), addr(r.addr)
 {
 }
 
@@ -594,7 +601,13 @@ RULE(address)
 
 RULE(addresses)
 {
-  ENTER("address *(*(COMMA) address) EOF");
+  ENTER("[address *(*(COMMA) address)] EOF");
+
+  // Special-case handling for empty address lists
+  if(node->type == EOT) RETURN(0, "", "", "");
+  if(node->type == COMMENT && node->next->type == EOT)
+    RETURN(0, node->str, "", "");
+
   MATCHRULE(r1, address);
   r1.str += r1.comment;
   r1.comment = "";

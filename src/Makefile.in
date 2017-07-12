@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -46,10 +46,9 @@ AUTOMAKE = @AUTOMAKE@
 AUTOHEADER = @AUTOHEADER@
 
 INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -68,21 +67,25 @@ RM = @RM@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
-bin_PROGRAMS =  	mailq 	nullmailer-inject
+bin_PROGRAMS = \
+	mailq \
+	nullmailer-inject
 
-sbin_PROGRAMS =  	nullmailer-queue 	nullmailer-send 	sendmail
+sbin_PROGRAMS = \
+	nullmailer-queue \
+	nullmailer-send \
+	sendmail
 
 
 #noinst_PROGRAMS = address
 
-CXXLINK = $(CC) $(CXXFLAGS) $(LDFLAGS) -o $@
-INCLUDES = -I../lib -I../lib/cli
+INCLUDES = -I../lib -I../lib/cli++
 
 mailq_SOURCES = mailq.cc
 mailq_LDADD = ../lib/libnullmailer.a
 
 nullmailer_inject_SOURCES = inject.cc
-nullmailer_inject_LDADD = ../lib/cli/libcli.a ../lib/libnullmailer.a
+nullmailer_inject_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
 
 nullmailer_queue_SOURCES = queue.cc
 nullmailer_queue_LDADD = ../lib/libnullmailer.a
@@ -91,7 +94,7 @@ nullmailer_send_SOURCES = send.cc
 nullmailer_send_LDADD = ../lib/libnullmailer.a
 
 sendmail_SOURCES = sendmail.cc
-sendmail_LDADD = ../lib/cli/libcli.a ../lib/libnullmailer.a
+sendmail_LDADD = ../lib/cli++/libcli++.a ../lib/libnullmailer.a
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
@@ -106,7 +109,7 @@ mailq_OBJECTS =  mailq.o
 mailq_DEPENDENCIES =  ../lib/libnullmailer.a
 mailq_LDFLAGS = 
 nullmailer_inject_OBJECTS =  inject.o
-nullmailer_inject_DEPENDENCIES =  ../lib/cli/libcli.a \
+nullmailer_inject_DEPENDENCIES =  ../lib/cli++/libcli++.a \
 ../lib/libnullmailer.a
 nullmailer_inject_LDFLAGS = 
 nullmailer_queue_OBJECTS =  queue.o
@@ -116,11 +119,12 @@ nullmailer_send_OBJECTS =  send.o
 nullmailer_send_DEPENDENCIES =  ../lib/libnullmailer.a
 nullmailer_send_LDFLAGS = 
 sendmail_OBJECTS =  sendmail.o
-sendmail_DEPENDENCIES =  ../lib/cli/libcli.a ../lib/libnullmailer.a
+sendmail_DEPENDENCIES =  ../lib/cli++/libcli++.a ../lib/libnullmailer.a
 sendmail_LDFLAGS = 
 CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
+CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  Makefile.am Makefile.in
 
 
@@ -156,8 +160,8 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "  $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
-	     $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	  else :; fi; \
 	done
 
@@ -181,8 +185,8 @@ install-sbinPROGRAMS: $(sbin_PROGRAMS)
 	$(mkinstalldirs) $(DESTDIR)$(sbindir)
 	@list='$(sbin_PROGRAMS)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "  $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(sbindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
-	     $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(sbindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(sbindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(sbindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	  else :; fi; \
 	done
 
@@ -282,7 +286,7 @@ inject.o: inject.cc ../config.h ../lib/defines.h \
 	../lib/mystring/iter.h ../lib/mystring/join.h ../lib/list.h \
 	../lib/hostname.h ../lib/fdbuf/fdbuf.h ../lib/fdbuf/fdibuf.h \
 	../lib/fdbuf/fdobuf.h ../lib/itoa.h ../lib/address.h \
-	../lib/canonicalize.h ../lib/configio.h ../lib/cli/cli.h
+	../lib/canonicalize.h ../lib/configio.h ../lib/cli++/cli++.h
 mailq.o: mailq.cc ../config.h ../lib/defines.h ../lib/fdbuf/fdbuf.h \
 	../lib/fdbuf/fdibuf.h ../lib/fdbuf/fdobuf.h ../lib/itoa.h
 queue.o: queue.cc ../config.h ../lib/itoa.h ../lib/defines.h \
@@ -291,14 +295,15 @@ queue.o: queue.cc ../config.h ../lib/itoa.h ../lib/defines.h \
 	../lib/fdbuf/fdbuf.h ../lib/fdbuf/fdibuf.h \
 	../lib/fdbuf/fdobuf.h ../lib/configio.h ../lib/list.h \
 	../lib/canonicalize.h ../lib/hostname.h
-send.o: send.cc ../config.h ../lib/configio.h ../lib/mystring/mystring.h \
-	../lib/mystring/rep.h ../lib/mystring/iter.h \
-	../lib/mystring/join.h ../lib/list.h ../lib/defines.h \
-	../lib/errcodes.h ../lib/fdbuf/fdbuf.h ../lib/fdbuf/fdibuf.h \
-	../lib/fdbuf/fdobuf.h ../lib/itoa.h
+send.o: send.cc ../config.h ../lib/ac/time.h ../lib/configio.h \
+	../lib/mystring/mystring.h ../lib/mystring/rep.h \
+	../lib/mystring/iter.h ../lib/mystring/join.h ../lib/list.h \
+	../lib/defines.h ../lib/errcodes.h ../lib/fdbuf/fdbuf.h \
+	../lib/fdbuf/fdibuf.h ../lib/fdbuf/fdobuf.h ../lib/hostname.h \
+	../lib/itoa.h
 sendmail.o: sendmail.cc ../config.h ../lib/fdbuf/fdbuf.h \
 	../lib/fdbuf/fdibuf.h ../lib/fdbuf/fdobuf.h ../lib/defines.h \
-	../lib/cli/cli.h
+	../lib/cli++/cli++.h
 
 info-am:
 info: info-am
@@ -322,7 +327,7 @@ uninstall: uninstall-am
 all-am: Makefile $(PROGRAMS)
 all-redirect: all-am
 install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
 	$(mkinstalldirs)  $(DESTDIR)$(bindir) $(DESTDIR)$(sbindir)
 

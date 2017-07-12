@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,65 +21,25 @@
 
 #include "config.h"
 #include "mystring/mystring.h"
-#include <unistd.h>
-#include <sys/utsname.h>
+#include "configio.h"
+#include "hostname.h"
+#include "canonicalize.h"
 
-static mystring* hostname_cache = 0;
-static mystring* domainname_cache = 0;
+mystring me;
+mystring defaulthost;
+mystring defaultdomain;
 
-#ifdef HAVE_GETDOMAINNAME
-// Re-declare the prototype here, as some systems don't declare it
-// in a predictable header file.
-extern "C" int getdomainname();
-#endif
-
-static void getnames()
+void read_hostnames()
 {
-  if(hostname_cache)
-    return;
-  struct utsname buf;
-  uname(&buf);
-  hostname_cache = new mystring(buf.nodename);
-
-#ifdef UTSNAME_HAS_DOMAINNAME
-  domainname_cache = new mystring(buf.UTSNAME_HAS_DOMAINNAME);
-#else
-#ifdef HAVE_GETDOMAINNAME
-  char hbuf[256];
-  getdomainname(hbuf, 255);
-  domainname_cache = new mystring(hbuf);
-#else
-  domainname_cache = new mystring;
-#endif // HAVE_GETDOMAINNAME
-#endif // UTSNAME_HAS_DOMAINNAME
-
-  // Tricky logic: if the node name does not contains the domain name
-  // as a proper suffix, paste them together.
-  char* nodename_end = buf.nodename + hostname_cache->length() -
-    domainname_cache->length() - 1;
-  if(domainname_cache->length() > 0) {
-    if(nodename_end <= buf.nodename ||
-       strcmp(nodename_end + 1, domainname_cache->c_str()) ||
-       *nodename_end != '.')
-      *hostname_cache = *hostname_cache + "." + *domainname_cache;
+  int nome;
+  nome = 0;
+  if (!config_read("me", me)) {
+    nome = 1;
+    me = "me";
   }
-  // Otherwise, the domain name is empty, try to determine it from
-  // the host name.
-  else {
-    int i = hostname_cache->find_first('.');
-    if(i != -1)
-      *domainname_cache = hostname_cache->right(i+1);
-  }
-}
-
-mystring hostname()
-{
-  getnames();
-  return *hostname_cache;
-}
-
-mystring domainname()
-{
-  getnames();
-  return *domainname_cache;
+  if (!config_read("defaultdomain", defaultdomain))
+    defaultdomain = nome ? "defaultdomain" : me.c_str();
+  if (!config_read("defaulthost", defaulthost))
+    defaulthost = nome ? "defaulthost" : me.c_str();
+  canonicalize(defaulthost);
 }

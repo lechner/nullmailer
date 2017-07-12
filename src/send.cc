@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,16 +24,18 @@
 #include <dirent.h>
 #include <errno.h>
 #include <signal.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include "ac/time.h"
 #include "configio.h"
 #include "defines.h"
 #include "errcodes.h"
 #include "fdbuf/fdbuf.h"
+#include "hostname.h"
 #include "itoa.h"
 #include "list.h"
 
@@ -138,6 +140,7 @@ void catch_alrm(int)
 
 bool load_files()
 {
+  reload_files = false;
   fout << "Rescanning queue." << endl;
   DIR* dir = opendir(".");
   if(!dir)
@@ -156,8 +159,7 @@ bool load_files()
 
 void exec_protocol(int fd, remote& remote)
 {
-  if(close(0) == -1 || dup2(fd, 0) == -1 || close(fd) == -1 ||
-     close(1) == -1 || close(2) == -1)
+  if(close(0) == -1 || dup2(fd, 0) == -1 || close(fd) == -1)
     return;
   mystring program = PROTOCOL_DIR + remote.proto;
   const char* args[3+remote.options.count()];
@@ -232,9 +234,12 @@ bool send_all()
   fout << "Starting delivery, "
        << itoa(files.count()) << " message(s) in queue." << endl;
   for(rlist::iter remote(remotes); remote; remote++) {
-    for(slist::iter file(files); file; files.remove(file)) {
-      if(!send_one(*file, *remote))
-	break;
+    slist::iter file(files);
+    while(file) {
+      if(send_one(*file, *remote))
+	files.remove(file);
+      else
+	file++;
     }
   }
   fout << "Delivery complete, "
@@ -284,7 +289,7 @@ bool do_select()
   if(s == 1) {
     fout << "Trigger pulled." << endl;
     read_trigger();
-    reload_files = 1;
+    reload_files = true;
   }
   else if(s == -1 && errno != EINTR)
     fail("Internal error in select.");
@@ -297,6 +302,12 @@ bool do_select()
 
 int main(int, char*[])
 {
+  mystring hh;
+
+  read_hostnames();
+  if (!config_read("helohost", hh)) hh = me;
+  setenv("HELOHOST", hh.c_str(), 1);
+  
   if(!open_trigger())
     return 1;
   if(chdir(QUEUE_MSG_DIR) == -1) {
@@ -310,6 +321,7 @@ int main(int, char*[])
   load_files();
   for(;;) {
     send_all();
+    if (pausetime == 0) break;
     do_select();
   }
   return 0;

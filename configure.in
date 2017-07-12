@@ -1,5 +1,5 @@
 AC_INIT(lib/defines.h)
-AM_INIT_AUTOMAKE(nullmailer, 1.00RC5)
+AM_INIT_AUTOMAKE(nullmailer, 1.00RC7)
 AM_CONFIG_HEADER(config.h)
 AC_PROG_MAKE_SET
 
@@ -28,8 +28,8 @@ AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_HEADER_TIME
-dnl AC_CHECK_HEADERS(fcntl.h sys/time.h shadow.h crypt.h)
-AC_CHECK_HEADERS(unistd.h)
+dnl AC_CHECK_HEADERS(fcntl.h shadow.h crypt.h)
+AC_CHECK_HEADERS(sys/time.h unistd.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl AC_TYPE_UID_T
@@ -43,11 +43,10 @@ TEST_STRUCT_UTSNAME
 CHECK_NAMED_PIPE_BUG
 
 dnl Checks for library functions.
-AC_CHECK_FUNCS(gethostname getdomainname setenv)
 dnl AC_CHECK_FUNCS(gettimeofday mkdir putenv rmdir socket)
-AC_CHECK_FUNCS(srandom)
+AC_CHECK_FUNCS(setenv srandom)
 
 AC_DEFINE(BUFSIZE, 4096)
 AM_CONDITIONAL(FDBUF_NO_MYSTRING, false)
 
-AC_OUTPUT(Makefile doc/Makefile lib/Makefile lib/cli/Makefile lib/fdbuf/Makefile lib/mystring/Makefile protocols/Makefile src/Makefile test/Makefile)
+AC_OUTPUT(Makefile doc/Makefile lib/Makefile lib/cli++/Makefile lib/fdbuf/Makefile lib/mystring/Makefile protocols/Makefile src/Makefile test/Makefile)

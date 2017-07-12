@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@
 #include "address.h"
 #include "canonicalize.h"
 #include "configio.h"
-#include "cli/cli.h"
+#include "cli++/cli++.h"
 
 enum {
   use_args, use_both, use_either, use_header
@@ -81,8 +81,6 @@ static mystring cur_line;
 ///////////////////////////////////////////////////////////////////////////////
 // Configuration
 ///////////////////////////////////////////////////////////////////////////////
-mystring defaultdomain;
-mystring defaulthost;
 mystring idhost;
 
 extern void canonicalize(mystring& domain);
@@ -90,14 +88,11 @@ extern void canonicalize(mystring& domain);
 void read_config()
 {
   mystring tmp;
-  if(!config_read("defaultdomain", defaultdomain))
-    defaultdomain = domainname();
-  if(!config_read("defaulthost", defaulthost))
-    defaulthost = hostname();
+  read_hostnames();
   if(!config_read("idhost", idhost))
-    idhost = defaulthost;
-  canonicalize(defaulthost);
-  canonicalize(idhost);
+    idhost = me;
+  else
+    canonicalize(idhost);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -161,10 +156,11 @@ struct header_field
 
   bool present;
 
-  bool parse(mystring& line) 
+  bool parse(mystring& line, bool& rm) 
     {
       if(strncasecmp(line.c_str(), name, length))
 	return false;
+      rm = remove;
       if(ignore)
 	return true;
       if(is_resent) {
@@ -175,11 +171,15 @@ struct header_field
 	}
 	header_is_resent = true;
       }
-      mystring tmp = line.right(length);
       if(is_address) {
+	mystring tmp = line.right(length);
 	mystring list;
 	if(!parse_addresses(tmp, list))
 	  bad_hdr(line, "Unable to parse the addresses.");
+	else if(!tmp) {
+	  rm = true;
+	  return true;
+	}
 	else {
 	  line = mystringjoin(name) + " " + tmp;
 	  if(is_recipient) {
@@ -304,10 +304,8 @@ bool parse_line(mystring& line)
   bool remove = false;
   for(unsigned i = 0; i < header_field_count; i++) {
     header_field& h = header_fields[i];
-    if(h.parse(line)) {
-      remove = h.remove;
+    if(h.parse(line, remove))
       break;
-    }
   }
   if(!remove)
     headers.append(line);

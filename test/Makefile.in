@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -46,10 +46,9 @@ AUTOMAKE = @AUTOMAKE@
 AUTOHEADER = @AUTOHEADER@
 
 INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -71,7 +70,6 @@ VERSION = @VERSION@
 noinst_PROGRAMS = address-test
 EXTRA_DIST = address-trace.cc
 
-CXXLINK = $(CC) $(CXXFLAGS) $(LDFLAGS) -o $@
 INCLUDES = -I../lib
 
 address_test_SOURCES = address-test.cc # address-trace.cc
@@ -92,6 +90,7 @@ address_test_LDFLAGS =
 CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
+CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  Makefile.am Makefile.in
 
 
@@ -197,11 +196,6 @@ address-test.o: address-test.cc ../config.h ../lib/canonicalize.h \
 	../lib/mystring/iter.h ../lib/mystring/join.h ../lib/address.h \
 	../lib/fdbuf/fdbuf.h ../lib/fdbuf/fdibuf.h \
 	../lib/fdbuf/fdobuf.h ../lib/itoa.h
-address-trace.o: address-trace.cc ../lib/address.cc ../config.h \
-	../lib/canonicalize.h ../lib/mystring/mystring.h \
-	../lib/mystring/rep.h ../lib/mystring/iter.h \
-	../lib/mystring/join.h ../lib/list.h ../lib/fdbuf/fdbuf.h \
-	../lib/fdbuf/fdibuf.h ../lib/fdbuf/fdobuf.h
 
 info-am:
 info: info-am
@@ -225,7 +219,7 @@ uninstall: uninstall-am
 all-am: Makefile $(PROGRAMS)
 all-redirect: all-am
 install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
 
 
@@ -281,7 +275,7 @@ dist-hook: test
 test: all
 	./address-test
 	@failed=0; \
-	for test in `find tests -type f | fgrep -v CVS`; do \
+	for test in `find tests -type f | fgrep -v .svn`; do \
 		echo Running test $$test...; \
 		if env - SYSCONFDIR=$(sysconfdir)/nullmailer bash $$test; \
 			then echo 'Done.'; \

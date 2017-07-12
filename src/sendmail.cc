@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include "fdbuf/fdbuf.h"
 #include "defines.h"
-#include "cli/cli.h"
+#include "cli++/cli++.h"
 
 const char* cli_program = "sendmail";
 const char* cli_help_prefix = "Nullmailer sendmail emulator\n";
@@ -52,6 +52,7 @@ cli_option cli_options[] = {
   { 'h', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
   { 'i', 0, cli_option::flag, 0, &o_dummyi, "Ignored", 0 },
   { 'L', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
+  { 'm', 0, cli_option::flag,   0, &o_dummyi, "Ignored", 0 },
   { 'N', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
   { 'n', 0, cli_option::flag, 0, &o_dummyi, "Ignored", 0 },
   { 'O', 0, cli_option::string, 0, &o_dummys, "Ignored", 0 },
@@ -79,7 +80,8 @@ int setenv(const char* var, const char* val, int overwrite)
 {
   size_t varlen = strlen(var);
   size_t vallen = strlen(val);
-  char str[varlen+vallen+2];
+  char* str = malloc(varlen+vallen+2);
+  if (str == 0) return -1;
   memcpy(str, var, varlen);
   str[varlen] = '=';
   memcpy(str+varlen+1, val, vallen);

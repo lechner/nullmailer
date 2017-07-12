@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -40,7 +40,6 @@ pid_t pid = getpid();
 uid_t uid = getuid();
 time_t timesecs = time(0);
 mystring adminaddr;
-mystring localhost;
 bool remapadmin = false;
 
 bool is_dir(const char* path)
@@ -84,7 +83,7 @@ bool validate_addr(mystring& addr, bool doremap)
     return false;
   mystring hostname = addr.right(i+1);
   if(doremap && remapadmin) {
-    if(hostname == localhost || hostname == "localhost")
+    if(hostname == me || hostname == "localhost")
       addr = adminaddr;
   }
   else if(hostname.find_first('.') < 0)
@@ -181,16 +180,11 @@ bool deliver()
   return true;
 }
 
-mystring defaulthost;
-mystring defaultdomain;
-
 int main(int, char*[])
 {
   if(config_read("adminaddr", adminaddr) && !!adminaddr) {
     remapadmin = true;
-    defaulthost = hostname();
-    defaultdomain = domainname();
-    canonicalize(localhost);
+    read_hostnames();
   }
   
   if(!deliver())

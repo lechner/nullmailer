@@ -23,12 +23,6 @@
 
 #undef NAMEDPIPEBUG
 
-/* Define if you have the getdomainname function.  */
-#undef HAVE_GETDOMAINNAME
-
-/* Define if you have the gethostname function.  */
-#undef HAVE_GETHOSTNAME
-
 /* Define if you have the setenv function.  */
 #undef HAVE_SETENV
 
@@ -46,6 +40,9 @@
 
 /* Define if you have the <sys/ndir.h> header file.  */
 #undef HAVE_SYS_NDIR_H
+
+/* Define if you have the <sys/time.h> header file.  */
+#undef HAVE_SYS_TIME_H
 
 /* Define if you have the <unistd.h> header file.  */
 #undef HAVE_UNISTD_H

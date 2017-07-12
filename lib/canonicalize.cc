@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,7 @@
 #include "config.h"
 #include "mystring/mystring.h"
 #include "canonicalize.h"
-
-extern mystring defaultdomain;
-extern mystring defaulthost;
+#include "hostname.h"
 
 void canonicalize(mystring& domain)
 {
@@ -32,7 +30,7 @@ void canonicalize(mystring& domain)
     domain = defaulthost;
   if(domain.find_first('.') < 0) {
     if(!!defaultdomain) {
-      domain += ".";
+      if (!!domain) domain += ".";
       domain += defaultdomain;
     }
   }

@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 1999,2000  Bruce Guenter <bruceg@em.ca>
+// Copyright (C) 1999-2003  Bruce Guenter <bruceg@em.ca>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include "connect.h"
 #include "errcodes.h"
 #include "protocol.h"
-#include "cli.h"
+#include "cli++.h"
 
 const char* cli_help_suffix = "";
 const char* cli_args_usage = "remote-address < mail-file";
@@ -37,16 +37,27 @@ cli_option cli_options[] = {
   {0}
 };
 
+void protocol_fail(int e, const char* msg)
+{
+  ferr << cli_program << ": Failed: " << msg << endl;
+  exit(e);
+}
+
+void protocol_succ(const char* msg)
+{
+  ferr << cli_program << ": Succeeded: " << msg << endl;
+  exit(0);
+}
+
 int cli_main(int, char* argv[])
 {
   const char* remote = argv[0];
   fdibuf in(0, true);
-  int tmp = protocol_prep(&in);
-  if(tmp)
-    return tmp;
+  protocol_prep(&in);
   int fd = tcpconnect(remote, port);
   if(fd < 0)
-    return -fd;
-  return protocol_send(&in, fd);
+    protocol_fail(-fd, "Connect failed");
+  protocol_send(&in, fd);
+  return 0;
 }
 
