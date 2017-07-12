@@ -31,7 +31,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-noinst_PROGRAMS = address-test$(EXEEXT)
+noinst_PROGRAMS = address-test$(EXEEXT) clitest0$(EXEEXT) \
+	clitest1$(EXEEXT)
 subdir = test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -46,6 +47,12 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_address_test_OBJECTS = address-test.$(OBJEXT)
 address_test_OBJECTS = $(am_address_test_OBJECTS)
 address_test_DEPENDENCIES = ../lib/libnullmailer.a
+am_clitest0_OBJECTS = clitest0-clitest.$(OBJEXT)
+clitest0_OBJECTS = $(am_clitest0_OBJECTS)
+clitest0_DEPENDENCIES = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
+am_clitest1_OBJECTS = clitest1-clitest.$(OBJEXT)
+clitest1_OBJECTS = $(am_clitest1_OBJECTS)
+clitest1_DEPENDENCIES = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -54,8 +61,10 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(address_test_SOURCES)
-DIST_SOURCES = $(address_test_SOURCES)
+SOURCES = $(address_test_SOURCES) $(clitest0_SOURCES) \
+	$(clitest1_SOURCES)
+DIST_SOURCES = $(address_test_SOURCES) $(clitest0_SOURCES) \
+	$(clitest1_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -152,10 +161,16 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = address-trace.cc
+EXTRA_DIST = address-trace.cc clitest.cc clitest.sh
 INCLUDES = -I../lib
 address_test_SOURCES = address-test.cc # address-trace.cc
 address_test_LDADD = ../lib/libnullmailer.a
+clitest0_CPPFLAGS = -DCLI_ONLY_LONG=false
+clitest0_SOURCES = clitest.cc
+clitest0_LDADD = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
+clitest1_CPPFLAGS = -DCLI_ONLY_LONG=true
+clitest1_SOURCES = clitest.cc
+clitest1_LDADD = ../lib/libnullmailer.a ../lib/cli++/libcli++.a
 all: all-am
 
 .SUFFIXES:
@@ -195,6 +210,12 @@ clean-noinstPROGRAMS:
 address-test$(EXEEXT): $(address_test_OBJECTS) $(address_test_DEPENDENCIES) 
 	@rm -f address-test$(EXEEXT)
 	$(CXXLINK) $(address_test_OBJECTS) $(address_test_LDADD) $(LIBS)
+clitest0$(EXEEXT): $(clitest0_OBJECTS) $(clitest0_DEPENDENCIES) 
+	@rm -f clitest0$(EXEEXT)
+	$(CXXLINK) $(clitest0_OBJECTS) $(clitest0_LDADD) $(LIBS)
+clitest1$(EXEEXT): $(clitest1_OBJECTS) $(clitest1_DEPENDENCIES) 
+	@rm -f clitest1$(EXEEXT)
+	$(CXXLINK) $(clitest1_OBJECTS) $(clitest1_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -203,6 +224,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/address-test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/clitest0-clitest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/clitest1-clitest.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -217,6 +240,34 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+clitest0-clitest.o: clitest.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest0_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT clitest0-clitest.o -MD -MP -MF $(DEPDIR)/clitest0-clitest.Tpo -c -o clitest0-clitest.o `test -f 'clitest.cc' || echo '$(srcdir)/'`clitest.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/clitest0-clitest.Tpo $(DEPDIR)/clitest0-clitest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='clitest.cc' object='clitest0-clitest.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest0_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o clitest0-clitest.o `test -f 'clitest.cc' || echo '$(srcdir)/'`clitest.cc
+
+clitest0-clitest.obj: clitest.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest0_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT clitest0-clitest.obj -MD -MP -MF $(DEPDIR)/clitest0-clitest.Tpo -c -o clitest0-clitest.obj `if test -f 'clitest.cc'; then $(CYGPATH_W) 'clitest.cc'; else $(CYGPATH_W) '$(srcdir)/clitest.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/clitest0-clitest.Tpo $(DEPDIR)/clitest0-clitest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='clitest.cc' object='clitest0-clitest.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest0_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o clitest0-clitest.obj `if test -f 'clitest.cc'; then $(CYGPATH_W) 'clitest.cc'; else $(CYGPATH_W) '$(srcdir)/clitest.cc'; fi`
+
+clitest1-clitest.o: clitest.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest1_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT clitest1-clitest.o -MD -MP -MF $(DEPDIR)/clitest1-clitest.Tpo -c -o clitest1-clitest.o `test -f 'clitest.cc' || echo '$(srcdir)/'`clitest.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/clitest1-clitest.Tpo $(DEPDIR)/clitest1-clitest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='clitest.cc' object='clitest1-clitest.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest1_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o clitest1-clitest.o `test -f 'clitest.cc' || echo '$(srcdir)/'`clitest.cc
+
+clitest1-clitest.obj: clitest.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest1_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT clitest1-clitest.obj -MD -MP -MF $(DEPDIR)/clitest1-clitest.Tpo -c -o clitest1-clitest.obj `if test -f 'clitest.cc'; then $(CYGPATH_W) 'clitest.cc'; else $(CYGPATH_W) '$(srcdir)/clitest.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/clitest1-clitest.Tpo $(DEPDIR)/clitest1-clitest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='clitest.cc' object='clitest1-clitest.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(clitest1_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o clitest1-clitest.obj `if test -f 'clitest.cc'; then $(CYGPATH_W) 'clitest.cc'; else $(CYGPATH_W) '$(srcdir)/clitest.cc'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -414,6 +465,7 @@ dist-hook: test
 
 test: all
 	./address-test
+	sh clitest.sh
 	@failed=0; \
 	for test in `find tests -type f -not -name '.*.swp'`; do \
 		echo Running test $$test...; \
