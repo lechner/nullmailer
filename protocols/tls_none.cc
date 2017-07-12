@@ -19,18 +19,18 @@
 // available to discuss this package.  To subscribe, send an email to
 // <nullmailer-subscribe@lists.untroubled.org>.
 
-#include "config.h"
-#include <stdlib.h>
-#include "defines.h"
-#include "configio.h"
-#include "fdbuf/fdbuf.h"
+#include "errcodes.h"
+#include "protocol.h"
 
-bool config_readint(const char* filename, int& result)
+void tls_init(const char* remote)
 {
-  mystring tmp;
-  if(!config_read(filename, tmp))
-    return false;
-  char* endptr;
-  result = strtol(tmp.c_str(), &endptr, 10);
-  return endptr > tmp.c_str();
+  protocol_fail(ERR_USAGE, "SSL/TLS not supported in this build");
+  (void)remote;
+}
+
+void tls_send(fdibuf& in, int fd)
+{
+  protocol_fail(ERR_USAGE, "SSL/TLS not supported in this build");
+  (void)in;
+  (void)fd;
 }

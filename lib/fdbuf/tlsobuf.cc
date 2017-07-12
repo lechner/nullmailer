@@ -1,5 +1,4 @@
-// nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2012 Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,23 +13,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-// You can contact me at <bruce@untroubled.org>.  There is also a mailing list
-// available to discuss this package.  To subscribe, send an email to
-// <nullmailer-subscribe@lists.untroubled.org>.
 
-#include "config.h"
-#include <stdlib.h>
-#include "defines.h"
-#include "configio.h"
-#include "fdbuf/fdbuf.h"
+#include "tlsobuf.h"
 
-bool config_readint(const char* filename, int& result)
+///////////////////////////////////////////////////////////////////////////////
+// Class tlsobuf
+///////////////////////////////////////////////////////////////////////////////
+tlsobuf::tlsobuf(gnutls_session_t s, unsigned bufsz)
+  : fdobuf(-1, false, bufsz), session(s)
 {
-  mystring tmp;
-  if(!config_read(filename, tmp))
-    return false;
-  char* endptr;
-  result = strtol(tmp.c_str(), &endptr, 10);
-  return endptr > tmp.c_str();
+  flags &= ~flag_closed;
+}
+
+ssize_t tlsobuf::_write(const char* buf, ssize_t len)
+{
+  return gnutls_record_send(session, buf, len);
 }

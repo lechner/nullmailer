@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2007  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "ac/systime.h"
+#include "ac/time.h"
 #include "configio.h"
 #include "defines.h"
 #include "errcodes.h"
@@ -194,6 +194,7 @@ bool catchsender(pid_t pid)
     case 0:			// timeout
       kill(pid, SIGTERM);
       waitpid(pid, &status, 0);
+      selfpipe.waitsig();	// catch the signal from killing the child
       fail("Sending timed out, killing protocol");
     case -1:
       fail_sys("Error waiting for the child signal: ");
