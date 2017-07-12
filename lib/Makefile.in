@@ -56,7 +56,7 @@ am_libmisc_a_OBJECTS = address.$(OBJEXT) base64.$(OBJEXT) \
 	config_readlist.$(OBJEXT) config_readint.$(OBJEXT) \
 	tcpconnect.$(OBJEXT) defines.$(OBJEXT) errcodes.$(OBJEXT) \
 	hostname.$(OBJEXT) itoa.$(OBJEXT) makefield.$(OBJEXT) \
-	netstring.$(OBJEXT)
+	netstring.$(OBJEXT) setenv.$(OBJEXT)
 libmisc_a_OBJECTS = $(am_libmisc_a_OBJECTS)
 libnullmailer_a_AR = $(AR) $(ARFLAGS)
 libnullmailer_a_LIBADD =
@@ -186,7 +186,8 @@ libmisc_a_SOURCES = \
 	hostname.h hostname.cc \
 	itoa.h itoa.cc \
 	makefield.cc \
-	netstring.h netstring.cc
+	netstring.h netstring.cc \
+	setenv.cc setenv.h
 
 libnullmailer_a_SOURCES = 
 all: all-recursive
@@ -248,6 +249,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/itoa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/makefield.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netstring.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/setenv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tcpconnect.Po@am__quote@
 
 .cc.o:
