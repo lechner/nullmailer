@@ -2,13 +2,14 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   committed-rev="1"
-   name="svn:this_dir"
-   committed-date="2000-02-17T00:24:45.000000Z"
-   url="file:///home/subversion/nullmailer/trunk/test/tests/queue"
+   committed-rev="80"
+   name=""
+   committed-date="2002-12-23T17:22:36.924974Z"
+   url="file:///home/subversion/repos/nullmailer/trunk/test/tests/queue"
    last-author="bruce"
    kind="dir"
-   revision="76"/>
+   uuid="a3c634dd-31b8-0310-b618-c134e0681c74"
+   revision="130"/>
 <entry
    committed-rev="80"
    name="rewrite"
@@ -16,6 +17,5 @@
    committed-date="2002-12-23T17:22:36.924974Z"
    checksum="UJsy+Hrv1a0Md+ymTi+6Fw=="
    last-author="bruce"
-   kind="file"
-   revision="80"/>
+   kind="file"/>
 </wc-entries>

@@ -1,5 +1,26 @@
 This file lists all the major user-visible changes to nullmailer.
 -------------------------------------------------------------------------------
+Changes in version 1.00
+
+- Fixed problem with multiple arguments to protocol modules.
+  Thanks Sascha Silbe.
+
+- Fixed extraneous spaces in SMTP sender.
+
+- Made permissions on queued files more strict.
+
+- Handle the "-bs" flag in the sendmail wrapper by dieing when we see it.
+
+- Fixed the address parser handling domain names with trailing periods.
+
+- Fixed bug in header parsing that would cause the last header line to
+  be repeated if there was no body.
+
+- Fixed bug in handling headers containing CR+LF line endings.
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
+-------------------------------------------------------------------------------
 Changes in version 1.00RC7
 
 - Fixed typo in smtp protocol module that caused HELO to be sent without
@@ -7,9 +28,6 @@ Changes in version 1.00RC7
 
 - Added a one-shot mode to nullmailer-send, triggered by setting the
   pausetime to zero.
-
-Note:  If no further bugs are found, this will become the official
-version 1.00 release.
 
 Development of this version has been sponsored by FutureQuest, Inc.
 ossi@FutureQuest.net  http://www.FutureQuest.net/
