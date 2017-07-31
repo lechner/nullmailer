@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,9 +26,10 @@
 
 bool config_read(const char* filename, mystring& result)
 {
-  mystring fullname = CONFIG_DIR;
-  fullname += filename;
+  const mystring fullname = CONFIG_PATH(CONFIG, NULL, filename);
   fdibuf in(fullname.c_str());
+  if (!in)
+    return config_syserr(fullname.c_str());
   if(!in.getline(result))
     return false;
   result = result.strip();

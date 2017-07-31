@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 #include "protocol.h"
 
 const int default_port = 628;
-const int default_ssl_port = -1; // No standard for QMQP over SSL exists
+const int default_tls_port = -1; // No standard for QMQP over SSL exists
 const char* cli_program = "qmqp";
 const char* cli_help_prefix = "Send an emal message via QMQP\n";
 

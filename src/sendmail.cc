@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,12 +19,14 @@
 // available to discuss this package.  To subscribe, send an email to
 // <nullmailer-subscribe@lists.untroubled.org>.
 
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "configio.h"
 #include "fdbuf/fdbuf.h"
 #include "defines.h"
+#include "forkexec.h"
 #include "setenv.h"
 #include "cli++/cli++.h"
 
@@ -100,13 +102,10 @@ bool setenvelope(char* str)
 
 int do_exec(const char* program, const char* xarg1, int argc, char* argv[])
 {
-  if(chdir(BIN_DIR) == -1) {
-    ferr << "sendmail: Could not change directory to " << BIN_DIR << endl;
-    return 1;
-  }
+  mystring path = program_path(program);
 
   const char* newargv[argc+3];
-  newargv[0] = program;
+  newargv[0] = path.c_str();
   int j = 1;
   if (xarg1)
     newargv[j++] = xarg1;

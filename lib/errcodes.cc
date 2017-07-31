@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -40,8 +40,10 @@ const char* errorstr(int code)
   case ERR_MSG_WRITE: return "Could not write message";
   case ERR_EXEC_FAILED: return "Could not exec program";
   case ERR_MSG_TEMPFAIL: return "Temporary error in sending the message";
+  case ERR_CONFIG: return "Could not read config files";
   case ERR_MSG_REFUSED: return "Server refused the message";
   case ERR_MSG_PERMFAIL: return "Permanent error in sending the message";
+  case ERR_BIND_FAILED: return "Failed to bind source address";
   }
   return (code & ERR_PERMANENT_FLAG)
     ? "Unspecified permanent error"

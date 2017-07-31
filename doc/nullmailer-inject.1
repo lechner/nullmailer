@@ -82,7 +82,7 @@ fields, the following line is appended to the message:
 Address lists are expected to follow the syntax set out in RFC822.
 The following is a simplified explanation of the syntax.
 
-An address list is list of addresses seperated by commas.
+An address list is list of addresses separated by commas.
 An individual address may have one of the following three forms:
 .IR user@fqdn ,
 .IR comment <user@fqdn> ,
@@ -102,36 +102,36 @@ If an address is missing a fqdn,
 adds one.
 .SH OPTIONS
 .TP
-.I -a
+.I \-a
 Use only the command line arguments as recipient addresses.
 Ignore the header recipient lines.
 .TP
-.I -b
+.I \-b
 Use both the command line arguments and data from the message header
 as recipient addresses.
 .TP
-.I -e
+.I \-e
 Use either the command line arguments (if there are any) or data from
 the message header (if there are no arguments) as the recipient
 addresses.
 .TP
-.I -f sender
+.I \-f sender
 Set the envelope sender address to
-.I sender .
+.IR sender .
 .TP
-.I -h
+.I \-h
 Use only data from the message header as the recipient addresses.
 .TP
-.I -n
+.I \-n
 Do not queue the message, but print the reformatted contents to
 standard output.
 .TP
-.I -v
+.I \-v
 Print out the envelope (sender and recipient addresses) preceding the
 message when printing the message to standard output.
 .SH RETURN VALUE
 Exits 0 if it was successful, otherwise it prints a diagnostic message
-to standard output and exits 1.
+to standard error and exits 1.
 .SH ENVIRONMENT
 The environment variable
 .BR NULLMAILER_FLAGS
@@ -221,15 +221,15 @@ of all leading and trailing whitespace characters.
 .B defaultdomain
 The content of this file is appended to any host name that does not
 contain a period (except
-.IR localhost ),
+.BR localhost ),
 including
-.BR defaulthost
+.I defaulthost
 and
-.BR idhost .
+.IR idhost .
 Defaults to the value of the
-.I me
+.B me
 control file, if it exists, otherwise the literal name
-.IR defauldomain .
+.BR defauldomain .
 .TP
 .B defaulthost
 The content of this file is appended to any address that is missing a
@@ -237,18 +237,18 @@ host name.
 Defaults to the value of the
 .I me
 control file, if it exists, otherwise the literal name
-.IR defaulthost .
+.BR defaulthost .
 .TP
 .B idhost
 The content of this file is used when building the message-id string
 for the message.
 Defaults to the canonicalized value of
-.BR defaulthost .
+.IR defaulthost .
 .TP
 .B me
 The fully-qualifiled host name of the computer running nullmailer.
 Defaults to the literal name
-.IR me .
+.BR me .
 .SH SEE ALSO
 nullmailer-queue(8)
 .SH NOTES

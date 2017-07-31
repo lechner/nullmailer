@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include "autoclose.h"
+#include "configio.h"
 #include "itoa.h"
 #include "defines.h"
 #include "mystring/mystring.h"
@@ -33,13 +35,19 @@
 #include "configio.h"
 #include "hostname.h"
 
+const char* cli_program = "nullmailer-queue";
+
 #define fail(MSG) do{ fout << "nullmailer-queue: " << MSG << endl; return false; }while(0)
 
 pid_t pid = getpid();
 uid_t uid = getuid();
 time_t timesecs = time(0);
 mystring adminaddr;
-bool remapadmin = false;
+mystring allmailfrom;
+
+static mystring trigger_path;
+static mystring msg_dir;
+static mystring tmp_dir;
 
 bool is_dir(const char* path)
 {
@@ -55,36 +63,34 @@ bool is_exist(const char* path)
 
 int fsyncdir(const char* path)
 {
-  int fd = open(path, O_RDONLY);
+  autoclose fd = open(path, O_RDONLY);
   if(fd == -1)
     return 0;
   int result = fsync(fd);
   if(result == -1 && errno != EIO)
     result = 0;
-  close(fd);
   return result;
 }
 
 void trigger()
 {
-  int fd = open(QUEUE_TRIGGER, O_WRONLY|O_NONBLOCK, 0666);
+  autoclose fd = open(trigger_path.c_str(), O_WRONLY|O_NONBLOCK, 0666);
   if(fd == -1)
     return;
   char x = 0;
   write(fd, &x, 1);
-  close(fd);
 }
 
-bool validate_addr(mystring& addr, bool doremap)
+bool validate_addr(mystring& addr, bool recipient)
 {
   int i = addr.find_last('@');
-  if(i < 0)
+  if(i <= 0)
     return false;
   mystring hostname = addr.right(i+1);
-  if(doremap && remapadmin) {
-    if(hostname == me || hostname == "localhost")
-      addr = adminaddr;
-  }
+  if (recipient && !!adminaddr && (hostname == me || hostname == "localhost"))
+    addr = adminaddr;
+  else if (!recipient && !!allmailfrom)
+    addr = allmailfrom;
   else if(hostname.find_first('.') < 0)
     return false;
   return true;
@@ -93,9 +99,9 @@ bool validate_addr(mystring& addr, bool doremap)
 bool copyenv(fdobuf& out)
 {
   mystring str;
-  if(!fin.getline(str) || !str)
+  if(!fin.getline(str))
     fail("Could not read envelope sender.");
-  if(!validate_addr(str, false))
+  if(!!str && !validate_addr(str, false))
     fail("Envelope sender address is invalid.");
   if(!(out << str << endl))
     fail("Could not write envelope sender.");
@@ -148,7 +154,7 @@ bool dump(int fd)
 
 bool deliver()
 {
-  if(!is_dir(QUEUE_MSG_DIR) || !is_dir(QUEUE_TMP_DIR))
+  if(!is_dir(msg_dir.c_str()) || !is_dir(tmp_dir.c_str()))
     fail("Installation error: queue directory is invalid.");
 
   // Notes:
@@ -159,9 +165,8 @@ bool deliver()
   //   the previous nullmailer-queue process crashed, and it can be
   //   safely overwritten
   const mystring pidstr = itoa(pid);
-  const mystring timestr = itoa(timesecs);
-  const mystring tmpfile = QUEUE_TMP_DIR + pidstr;
-  const mystring newfile = QUEUE_MSG_DIR + timestr + "." + pidstr;
+  const mystring tmpfile = tmp_dir + pidstr;
+  const mystring newfile = msg_dir + itoa(timesecs) + "." + pidstr;
 
   int out = open(tmpfile.c_str(), O_CREAT|O_WRONLY|O_TRUNC, 0600);
   if(out < 0)
@@ -172,7 +177,7 @@ bool deliver()
   }
   if(link(tmpfile.c_str(), newfile.c_str()))
     fail("Error linking the temp file to the new file.");
-  if(fsyncdir(QUEUE_MSG_DIR))
+  if(fsyncdir(msg_dir.c_str()))
     fail("Error syncing the new directory.");
   if(unlink(tmpfile.c_str()))
     fail("Error unlinking the temp file.");
@@ -181,12 +186,16 @@ bool deliver()
 
 int main(int, char*[])
 {
+  trigger_path = CONFIG_PATH(QUEUE, NULL, "trigger");
+  msg_dir = CONFIG_PATH(QUEUE, "queue", "");
+  tmp_dir = CONFIG_PATH(QUEUE, "tmp", "");
+
   umask(077);
   if(config_read("adminaddr", adminaddr) && !!adminaddr) {
     adminaddr = adminaddr.subst(',', '\n');
-    remapadmin = true;
     read_hostnames();
   }
+  config_read("allmailfrom", allmailfrom);
   
   if(!deliver())
     return 1;
