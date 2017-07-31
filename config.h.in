@@ -1,4 +1,4 @@
-/* config.h.in.  Generated from configure.in by autoheader.  */
+/* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Generic buffer size */
 #undef BUFSIZE
@@ -6,6 +6,9 @@
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
    */
 #undef HAVE_DIRENT_H
+
+/* getaddrinfo code enabled */
+#undef HAVE_GETADDRINFO
 
 /* libgnutls has gnutls_certificate_set_verify_function */
 #undef HAVE_GNUTLS_SET_VERIFY_FUNCTION
