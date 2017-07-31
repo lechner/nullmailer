@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2012  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,6 +38,7 @@
 #include "configio.h"
 #include "cli++/cli++.h"
 #include "makefield.h"
+#include "forkexec.h"
 
 enum {
   use_args, use_both, use_either, use_header
@@ -71,15 +72,14 @@ cli_option cli_options[] = {
   {0, 0, cli_option::flag, 0, 0, 0, 0}
 };
 
-#define fail(MSG) do{ fout << "nullmailer-inject: " << MSG << endl; return false; }while(0)
-#define fail_sys(MSG) do{ fout << "nullmailer-inject: " << MSG << ": " << strerror(errno) << endl; return false; }while(0)
-#define bad_hdr(LINE,MSG) do{ header_has_errors = true; fout << "nullmailer-inject: Invalid header line:\n  " << LINE << "\n  " MSG << endl; }while(0)
+#define fail(MSG) do{ ferr << "nullmailer-inject: " << MSG << endl; return false; }while(0)
+#define fail_sys(MSG) do{ ferr << "nullmailer-inject: " << MSG << ": " << strerror(errno) << endl; return false; }while(0)
+#define bad_hdr(LINE,MSG) do{ header_has_errors = true; ferr << "nullmailer-inject: Invalid header line:\n  " << LINE << "\n  " MSG << endl; }while(0)
 
 typedef list<mystring> slist;
 // static bool do_debug = false;
 
 static mystring cur_line;
-static mystring nqueue;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Configuration
@@ -90,19 +90,12 @@ extern void canonicalize(mystring& domain);
 
 void read_config()
 {
-  const char* env;
   mystring tmp;
   read_hostnames();
   if(!config_read("idhost", idhost))
     idhost = me;
   else
     canonicalize(idhost);
-  if ((env = getenv("NULLMAILER_QUEUE")) != 0)
-    nqueue = env;
-  else {
-    nqueue = SBIN_DIR;
-    nqueue += "/nullmailer-queue";
-  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,6 +104,7 @@ void read_config()
 static slist recipients;
 static mystring sender;
 static bool use_header_recips = true;
+static bool use_header_sender = true;
 
 void parse_recips(const mystring& list)
 {
@@ -175,7 +169,8 @@ struct header_field
 	return true;
       if(is_resent) {
 	if(!header_is_resent) {
-	  sender = "";
+	  if(use_header_sender)
+            sender = "";
 	  if(use_header_recips)
 	    recipients.empty();
 	}
@@ -197,7 +192,7 @@ struct header_field
 	      parse_recips(list);
 	  }
 	  else if(is_sender) {
-	    if(is_resent == header_is_resent && !sender)
+	    if(is_resent == header_is_resent && use_header_sender)
 	      parse_sender(list);
 	  }
 	}
@@ -296,7 +291,7 @@ void setup_from()
   if(!shost) shost = host;
   canonicalize(shost);
   
-  if(!sender)
+  if(use_header_sender && !sender)
     sender = suser + "@" + shost;
 }
 
@@ -425,101 +420,62 @@ bool fix_header()
 ///////////////////////////////////////////////////////////////////////////////
 // Message sending
 ///////////////////////////////////////////////////////////////////////////////
-static fdobuf* nqpipe = 0;
-static pid_t pid = 0;
-
-void exec_queue()
+bool send_env(fdobuf& out)
 {
-  execl(nqueue.c_str(), nqueue.c_str(), NULL);
-  fout << "nullmailer-inject: Could not exec " << nqueue << ": "
-       << strerror(errno) << endl;
-  exit(1);
-}
-
-bool start_queue()
-{
-  int pipe1[2];
-  if(pipe(pipe1) == -1)
-    fail_sys("Could not create pipe to nullmailer-queue");
-  fout.flush();
-  pid = fork();
-  if(pid == -1)
-    fail_sys("Could not fork");
-  if(pid == 0) {
-    close(pipe1[1]);
-    close(0);
-    dup2(pipe1[0], 0);
-    exec_queue();
-  }
-  else {
-    close(pipe1[0]);
-    nqpipe = new fdobuf(pipe1[1], true);
-  }
-  return true;
-}
-
-bool send_env()
-{
-  if(!(*nqpipe << sender << "\n"))
+  if(!(out << sender << "\n"))
     fail("Error sending sender to nullmailer-queue.");
   for(slist::iter iter(recipients); iter; iter++)
-    if(!(*nqpipe << *iter << "\n"))
+    if(!(out << *iter << "\n"))
       fail("Error sending recipients to nullmailer-queue.");
-  if(!(*nqpipe << endl))
+  if(!(out << endl))
     fail("Error sending recipients to nullmailer-queue.");
   return true;
 }
 
-bool send_header()
+bool send_header(fdobuf& out)
 {
   for(slist::iter iter(headers); iter; iter++)
-    if(!(*nqpipe << *iter << "\n"))
+    if(!(out << *iter << "\n"))
       fail("Error sending header to nullmailer-queue.");
-  if(!(*nqpipe << endl))
+  if(!(out << endl))
     fail("Error sending header to nullmailer-queue.");
   return true;
 }
 
-bool send_body()
+bool send_body(fdobuf& out)
 {
-  if(!(*nqpipe << cur_line) ||
-     !fdbuf_copy(fin, *nqpipe))
+  if(!(out << cur_line) ||
+     !fdbuf_copy(fin, out))
     fail("Error sending message body to nullmailer-queue.");
   return true;
 }
 
-bool wait_queue()
+bool send_message_stdout()
 {
-  if(!nqpipe->close())
-    fail("Error closing pipe to nullmailer-queue.");
-  int status;
-  if(waitpid(pid, &status, 0) == -1)
-    fail("Error catching the return value from nullmailer-queue.");
-  if(WIFEXITED(status)) {
-    status = WEXITSTATUS(status);
-    if(status)
-      fail("nullmailer-queue failed.");
-    else
-      return true;
-  }
-  else
-    fail("nullmailer-queue crashed or was killed.");
+  if(show_envelope)
+    send_env(fout);
+  send_header(fout);
+  send_body(fout);
+  return true;
+}
+
+bool send_message_nqueue()
+{
+  queue_pipe nq;
+  autoclose wfd = nq.start();
+  if (wfd < 0)
+    return false;
+  fdobuf nqout(wfd);
+  if (!send_env(nqout) || !send_header(nqout) || !send_body(nqout))
+    return false;
+  nqout.flush();
+  wfd.close();
+  return nq.wait();
 }
 
 bool send_message()
 {
-  if(show_message) {
-    nqpipe = &fout;
-    if(show_envelope)
-      send_env();
-    send_header();
-    send_body();
-    return true;
-  }
-  else
-    return start_queue() &&
-      send_env() && send_header() && send_body() &&
-      wait_queue();
+  return show_message ? send_message_stdout() : send_message_nqueue();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -550,11 +506,14 @@ bool parse_args(int argc, char* argv[])
   if(o_from) {
     mystring list;
     mystring tmp(o_from);
-    if(!parse_addresses(tmp, list) ||
-       !parse_sender(list)) {
-      fout << "nullmailer-inject: Invalid sender address: " << o_from << endl;
+    if(tmp == "" || tmp == "<>")
+      sender = "";
+    else if(!parse_addresses(tmp, list) ||
+            !parse_sender(list)) {
+      ferr << "nullmailer-inject: Invalid sender address: " << o_from << endl;
       return false;
     }
+    use_header_sender = false;
   }
   use_header_recips = (use_recips != use_args);
   if(use_recips == use_header)
@@ -564,7 +523,7 @@ bool parse_args(int argc, char* argv[])
   bool result = true;
   for(int i = 0; i < argc; i++) {
     if(!parse_recip_arg(argv[i])) {
-      fout << "Invalid recipient: " << argv[i] << endl;
+      ferr << "Invalid recipient: " << argv[i] << endl;
       result = false;
     }
   }
@@ -579,7 +538,7 @@ int cli_main(int argc, char* argv[])
      !fix_header())
     return 1;
   if(recipients.count() == 0) {
-    fout << "No recipients were listed." << endl;
+    ferr << "No recipients were listed." << endl;
     return 1;
   }
   if(!send_message())

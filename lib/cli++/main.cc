@@ -1,4 +1,4 @@
-// Copyright (C) 1999,2000,2005 Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2016 Bruce Guenter <bruce@untroubled.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -81,7 +81,7 @@ static void show_usage()
   fout << "usage: " << cli_program << " [flags] " << cli_args_usage << endl;
 }
 
-int calc_width(const cli_option* o)
+static int calc_width(const cli_option* o)
 {
   int width = (o->ch || !cli_only_long) ? 4 : 2;
   if (o->name) {
@@ -304,9 +304,8 @@ static int parse_either(int argc, char* argv[])
     : parse_long(argc, argv);
 }
 
-static int parse_args(int argc, char* argv[])
+int cli_parse_args(int argc, char* argv[])
 {
-  build_options();
   int i;
   for(i = 1; i < argc; i++) {
     const char* arg = argv[i];
@@ -357,7 +356,8 @@ int main(int argc, char* argv[])
   srandom(tv.tv_usec ^ tv.tv_sec);
   
   set_argv0(argv[0]);
-  int lastarg = parse_args(argc, argv);
+  build_options();
+  int lastarg = cli_parse_args(argc, argv);
 
   if(do_show_usage)
     usage(0);
