@@ -1,3 +1,14 @@
+nullmailer (1:2.0-1) unstable; urgency=medium
+
+  * New upstream version
+  * New maintainer
+  * Bug fix: "New upstream version (2.0) resolves various bugs", thanks to
+    David R. Hedges (Closes: #826026).
+  * Bug fix: "nullmailer ignores permanent SMTP errors", thanks to Roy
+    Hills (Closes: #329192).
+
+ -- David Bremner <bremner@debian.org>  Tue, 01 Aug 2017 11:01:21 -0400
+
 nullmailer (1:1.13-1.2) unstable; urgency=medium
 
   * Non-maintainer upload.
