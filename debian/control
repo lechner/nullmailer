@@ -8,7 +8,8 @@ Build-Depends: autoconf,
                dh-autoreconf,
                dh-systemd,
                libgnutls28-dev | libgnutls-dev,
-               po-debconf
+               po-debconf,
+	       daemontools
 Standards-Version: 3.9.8
 Homepage: http://untroubled.org/nullmailer/
 
