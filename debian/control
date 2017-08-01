@@ -1,7 +1,7 @@
 Source: nullmailer
 Section: mail
 Priority: extra
-Maintainer: Nick Leverton <nick@leverton.org>
+Maintainer: David Bremner <bremner@debian.org>
 Build-Depends: autoconf,
                automake,
                debhelper (>= 9),
