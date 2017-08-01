@@ -1,11 +1,6 @@
-01_manual.diff
-02_ipv6.diff
-03_syslog.diff
-04_autoconf.diff
-05_errors_on_stderr.diff
-06_nullenvsender.diff
-08_manpages.diff
-12_allow_no_dots.diff
-13_fix_automake.diff
-14_more_manpages.diff
-15_sort_files_in_archive.diff
+0001-01_manual.diff.patch
+0002-04_autoconf.diff.patch
+0003-12_allow_no_dots.diff.patch
+0004-Add-documentation-for-the-smtp-qmqp-and-smtpd-module.patch
+0005-15_sort_files_in_archive.diff.patch
+

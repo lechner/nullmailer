@@ -1,0 +1,25 @@
+From f3ff3e07dd3ea2931fc267d7d373cecd16a5c082 Mon Sep 17 00:00:00 2001
+From: Nick Leverton <nick@leverton.org>
+Date: Tue, 11 Jul 2017 22:23:30 -0300
+Subject: [PATCH 2/5] 04_autoconf.diff
+
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 245704f..319d94b 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -307,7 +307,7 @@ all: config.h
+ .SUFFIXES:
+ am--refresh: Makefile
+ 	@:
+-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
++$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+ 	    *$$dep*) \
+-- 
+2.13.2
+

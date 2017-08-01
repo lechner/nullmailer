@@ -1,0 +1,74 @@
+From c2efb528bcb88f3e152ba937e6c2b283411d94f2 Mon Sep 17 00:00:00 2001
+From: Nick Leverton <nick@leverton.org>
+Date: Tue, 11 Jul 2017 22:22:35 -0300
+Subject: [PATCH 1/5] 01_manual.diff
+
+---
+ doc/nullmailer-inject.1 | 8 ++++----
+ doc/nullmailer-queue.8  | 6 +++---
+ doc/nullmailer-send.8   | 4 ++--
+ 3 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/doc/nullmailer-inject.1 b/doc/nullmailer-inject.1
+index 208add0..e53e5e3 100644
+--- a/doc/nullmailer-inject.1
++++ b/doc/nullmailer-inject.1
+@@ -235,9 +235,9 @@ control file, if it exists, otherwise the literal name
+ The content of this file is appended to any address that is missing a
+ host name.
+ Defaults to the value of the
+-.I me
+-control file, if it exists, otherwise the literal name
+-.BR defaulthost .
++.I /etc/mailname
++system file, if it exists, otherwise the literal name
++.IR defaulthost .
+ .TP
+ .B idhost
+ The content of this file is used when building the message-id string
+@@ -245,7 +245,7 @@ for the message.
+ Defaults to the canonicalized value of
+ .IR defaulthost .
+ .TP
+-.B me
++.B /etc/mailname
+ The fully-qualifiled host name of the computer running nullmailer.
+ Defaults to the literal name
+ .BR me .
+diff --git a/doc/nullmailer-queue.8 b/doc/nullmailer-queue.8
+index 291ea65..ce88725 100644
+--- a/doc/nullmailer-queue.8
++++ b/doc/nullmailer-queue.8
+@@ -22,9 +22,9 @@ message to stdandard output.
+ .TP
+ .B adminaddr
+ If this file is not empty, all recipients to users at either
+-"localhost" (the literal string) or the canonical host name (from the
+-.I me
+-control file) are remapped to this address.
++"localhost" (the literal string) or the canonical host name (from
++.IR /etc/mailname )
++are remapped to this address.
+ This is provided to allow local daemons to be able to send email to
+ "somebody@localhost" and have it go somewhere sensible instead of
+ being bounced by your relay host. To send to multiple addresses, put
+diff --git a/doc/nullmailer-send.8 b/doc/nullmailer-send.8
+index d7835d4..59f5ff7 100644
+--- a/doc/nullmailer-send.8
++++ b/doc/nullmailer-send.8
+@@ -184,10 +184,10 @@ The outgoing message queue.
+ .B /var/spool/nullmailer/trigger
+ A trigger file to cause immediate delivery.
+ .TP
+-.B /usr/local/etc/nullmailer
++.B /etc/nullmailer
+ The configuration directory.
+ .TP
+-.B /usr/local/libexec/nullmailer
++.B /usr/lib/nullmailer
+ The protocol program directory.
+ .SH SEE ALSO
+ nullmailer-dsn(1),
+-- 
+2.13.2
+

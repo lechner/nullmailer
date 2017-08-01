@@ -1,0 +1,23 @@
+From ba9f8ed002a8a43ef416b7c633be693661e550cf Mon Sep 17 00:00:00 2001
+From: Nick Leverton <nick@leverton.org>
+Date: Tue, 11 Jul 2017 22:25:43 -0300
+Subject: [PATCH 5/5] 15_sort_files_in_archive.diff
+
+---
+ lib/mergelib.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/mergelib.sh b/lib/mergelib.sh
+index 88dba1a..a05d112 100644
+--- a/lib/mergelib.sh
++++ b/lib/mergelib.sh
+@@ -12,5 +12,5 @@ for input in "$@"; do
+ 	ar x ../../"$input"
+ 	cd ..
+ done
+-ar rc ../"$archive" */*
++ar rc ../"$archive" `LC_ALL=C ls */*`
+ ranlib ../"$archive"
+-- 
+2.13.2
+
