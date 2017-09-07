@@ -9,7 +9,8 @@ Build-Depends: autoconf,
                dh-systemd,
                libgnutls28-dev | libgnutls-dev,
                po-debconf,
-	       daemontools
+	       daemontools,
+	       ucspi-tcp-ipv6
 Standards-Version: 3.9.8
 Homepage: http://untroubled.org/nullmailer/
 
