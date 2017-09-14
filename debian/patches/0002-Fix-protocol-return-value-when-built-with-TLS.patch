@@ -1,0 +1,27 @@
+From: Felix Lechner <felix.lechner@lease-up.com>
+Date: Sat, 2 Sep 2017 09:57:43 -0300
+Subject: Fix protocol return value when built with TLS
+
+When building from source, the protocol test for smtp ('make check')
+fails with an unexpected retval (5 vs. 10) when configured with
+--enable-tls. The error may occur only when getaddrinfo() is
+available. A stray errno survived past a somewhat convoluted series of
+conditionals, and should to be cleared before it.
+
+Forwarded: no
+---
+ lib/tcpconnect.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/tcpconnect.cc b/lib/tcpconnect.cc
+index ae004fa..6aecf0a 100644
+--- a/lib/tcpconnect.cc
++++ b/lib/tcpconnect.cc
+@@ -91,6 +91,7 @@ int tcpconnect(const char* hostname, int port, const char* source)
+       return err;
+   }
+   int s = -1;
++  errno = 0;
+   err = ERR_CONN_FAILED;
+   struct addrinfo* orig_res = res;
+ 

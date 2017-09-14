@@ -1,6 +1,5 @@
-0001-01_manual.diff.patch
-0002-04_autoconf.diff.patch
-0003-12_allow_no_dots.diff.patch
-0004-Add-documentation-for-the-smtp-qmqp-and-smtpd-module.patch
-0005-15_sort_files_in_archive.diff.patch
-
+0001-Remove-race-conditions-from-tests.patch
+0002-Fix-protocol-return-value-when-built-with-TLS.patch
+0004-Sort-files-in-archive-reproducible-builds.patch
+0004-Allow-unqualified-sender-address.patch
+0005-Provide-for-etc-mailname.patch

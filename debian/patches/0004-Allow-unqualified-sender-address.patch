@@ -1,0 +1,55 @@
+From: David Bremner <david@tethera.net>
+Date: Wed, 13 Sep 2017 22:33:53 -0300
+Subject: Allow unqualified sender address
+
+ This patch allows unqualified domain names for senders and recipients,
+ because are required in some use cases (Debian bug #504184). The
+ associated post-build tests were also disabled.
+Author: Felix Lechner <felix.lechner@lease-up.com>
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504184
+Last-Update: 2017-09-07
+---
+ lib/hostname.cc           | 4 ++--
+ src/queue.cc              | 2 --
+ test/tests/queue/validate | 2 --
+ 3 files changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/lib/hostname.cc b/lib/hostname.cc
+index c0b2832..43fe26e 100644
+--- a/lib/hostname.cc
++++ b/lib/hostname.cc
+@@ -37,8 +37,8 @@ void read_hostnames()
+     nome = 1;
+     me = "me";
+   }
+-  if (!config_read("defaultdomain", defaultdomain))
+-    defaultdomain = nome ? "defaultdomain" : me.c_str();
++  // allow defaultdomain to be empty for Debian
++  config_read("defaultdomain", defaultdomain);
+   if (!config_read("defaulthost", defaulthost))
+     defaulthost = nome ? "defaulthost" : me.c_str();
+   canonicalize(defaulthost);
+diff --git a/src/queue.cc b/src/queue.cc
+index 9868a13..96315a5 100644
+--- a/src/queue.cc
++++ b/src/queue.cc
+@@ -91,8 +91,6 @@ bool validate_addr(mystring& addr, bool recipient)
+     addr = adminaddr;
+   else if (!recipient && !!allmailfrom)
+     addr = allmailfrom;
+-  else if(hostname.find_first('.') < 0)
+-    return false;
+   return true;
+ }
+ 
+diff --git a/test/tests/queue/validate b/test/tests/queue/validate
+index 0ea71cd..47c817d 100755
+--- a/test/tests/queue/validate
++++ b/test/tests/queue/validate
+@@ -51,6 +51,4 @@ queue-bad() {
+ queue-good "a@b.c" "d@e.f"
+ queue-bad "@b.c" "d@e.f"
+ queue-bad "a@b.c" "@e.f"
+-queue-bad "a@b" "d@e.f"
+-queue-bad "a@b.c" "d@e"
+ queue-good "" "d@e.f"

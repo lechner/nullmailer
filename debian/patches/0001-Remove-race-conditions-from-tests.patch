@@ -1,0 +1,40 @@
+From: Felix Lechner <felix.lechner@lease-up.com>
+Date: Sat, 2 Sep 2017 09:57:43 -0300
+Subject: Remove race conditions from tests
+
+Testing the qmqp protocol fails because the testing server cannot
+acquire the lock.  This is solved by sleeping for one second so the
+previous server has time to exit gracefully and clear the lock. Also,
+sleep before removing temporary directories.
+
+Forwarded: no
+Last-Update: 2017-08-31
+---
+ test/functions.in    | 1 +
+ test/tests/protocols | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/test/functions.in b/test/functions.in
+index 0ce02bd..3d06da5 100644
+--- a/test/functions.in
++++ b/test/functions.in
+@@ -20,6 +20,7 @@ exit_cleanup() {
+     # Remove all temporary files on success
+     if [ $? -eq 0 ]
+     then
++        sleep 1
+         rm -rf $tmpdir
+     fi
+ }
+diff --git a/test/tests/protocols b/test/tests/protocols
+index 49ca530..556a14a 100644
+--- a/test/tests/protocols
++++ b/test/tests/protocols
+@@ -66,6 +66,7 @@ do
+ 	echo "Testing protocol failure with $p."
+ 	error 11 protocol $p -p $port --host=localhost 3<testmail
+ 	stop server
++	sleep 1
+ done
+ 
+ rm -f testmail

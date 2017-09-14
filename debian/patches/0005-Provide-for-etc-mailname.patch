@@ -1,0 +1,110 @@
+From: David Bremner <david@tethera.net>
+Date: Wed, 13 Sep 2017 22:36:02 -0300
+Subject: Provide for '/etc/mailname'
+
+ This patch provides code and documentation changes to accomodate
+ Debian's '/etc/mailname'. The patch includes related modifications,
+ for example not to add a domain to the hostname when 'defaultdomain'
+ is empty, as it might reasonably be on a Debian system. The
+ presently also disables tests related to 'me'. It is not clear how
+ the '/etc/mailname' behavior is tested best.
+Author: Felix Lechner <felix.lechner@lease-up.com>
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504184
+Last-Update: 2017-08-31
+---
+ doc/nullmailer-inject.1 | 10 +++++-----
+ doc/nullmailer-queue.8  |  6 +++---
+ lib/hostname.cc         |  9 ++++++++-
+ test/functions.in       |  2 +-
+ 4 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/doc/nullmailer-inject.1 b/doc/nullmailer-inject.1
+index 208add0..26a7c1c 100644
+--- a/doc/nullmailer-inject.1
++++ b/doc/nullmailer-inject.1
+@@ -227,16 +227,16 @@ including
+ and
+ .IR idhost .
+ Defaults to the value of the
+-.B me
+-control file, if it exists, otherwise the literal name
++.B /etc/mailname
++system file, if it exists, otherwise the literal name
+ .BR defauldomain .
+ .TP
+ .B defaulthost
+ The content of this file is appended to any address that is missing a
+ host name.
+ Defaults to the value of the
+-.I me
+-control file, if it exists, otherwise the literal name
++.I /etc/mailname
++system file, if it exists, otherwise the literal name
+ .BR defaulthost .
+ .TP
+ .B idhost
+@@ -245,7 +245,7 @@ for the message.
+ Defaults to the canonicalized value of
+ .IR defaulthost .
+ .TP
+-.B me
++.B /etc/mailname
+ The fully-qualifiled host name of the computer running nullmailer.
+ Defaults to the literal name
+ .BR me .
+diff --git a/doc/nullmailer-queue.8 b/doc/nullmailer-queue.8
+index 291ea65..2cdc890 100644
+--- a/doc/nullmailer-queue.8
++++ b/doc/nullmailer-queue.8
+@@ -22,9 +22,9 @@ message to stdandard output.
+ .TP
+ .B adminaddr
+ If this file is not empty, all recipients to users at either
+-"localhost" (the literal string) or the canonical host name (from the
+-.I me
+-control file) are remapped to this address.
++"localhost" (the literal string) or the canonical host name (from
++.I /etc/mailname )
++are remapped to this address.
+ This is provided to allow local daemons to be able to send email to
+ "somebody@localhost" and have it go somewhere sensible instead of
+ being bounced by your relay host. To send to multiple addresses, put
+diff --git a/lib/hostname.cc b/lib/hostname.cc
+index 43fe26e..9c6b715 100644
+--- a/lib/hostname.cc
++++ b/lib/hostname.cc
+@@ -24,6 +24,7 @@
+ #include "configio.h"
+ #include "hostname.h"
+ #include "canonicalize.h"
++#include "fdbuf/fdbuf.h"
+ 
+ mystring me;
+ mystring defaulthost;
+@@ -33,7 +34,13 @@ void read_hostnames()
+ {
+   int nome;
+   nome = 0;
+-  if (!config_read("me", me)) {
++  // introduced as bugfix for #120660, #157259, #158412 in 1.00RC5-17;
++  // still there since it's more appropriate for Debian systems
++  mystring disregard;
++  if (config_read("me", disregard)) {
++    ferr << "Warning: On Debian systems, nullmailer's 'me' is disregarded; please use '/etc/mailname' instead." << endl;
++  }
++  if (!config_read("../mailname", me)) {
+     nome = 1;
+     me = "me";
+   }
+diff --git a/test/functions.in b/test/functions.in
+index 3d06da5..32da9e5 100644
+--- a/test/functions.in
++++ b/test/functions.in
+@@ -128,6 +128,6 @@ splitblank() {
+ 
+ export PATH=/bin:/usr/bin:/usr/local/bin
+ rm -f $SYSCONFDIR/*
+-echo f.q.d.n >$SYSCONFDIR/me
++echo f.q.d.n >$SYSCONFDIR/../mailname
+ echo q.d.n >$SYSCONFDIR/defaultdomain
+ set -e
