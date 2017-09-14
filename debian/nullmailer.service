@@ -1,6 +1,6 @@
 [Unit]
-Description=Mail Transport Agent
 Wants=network-online.target
+Description=Nullmailer relay-only MTA
 After=local-fs.target
 ConditionPathExists=/var/spool/nullmailer/queue
 Documentation=man:nullmailer(7)
