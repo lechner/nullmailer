@@ -6,8 +6,9 @@ nullmailer (1:2.0-1) unstable; urgency=medium
     David R. Hedges (Closes: #826026).
   * Bug fix: "nullmailer ignores permanent SMTP errors", thanks to Roy
     Hills (Closes: #329192).
+  * Drop support for sysvinit, due to dropping --daemon divergence from upstream
 
- -- David Bremner <bremner@debian.org>  Tue, 01 Aug 2017 11:01:21 -0400
+ -- David Bremner <bremner@debian.org>  Sun, 17 Sep 2017 22:00:16 -0300
 
 nullmailer (1:1.13-1.2) unstable; urgency=medium
 
