@@ -34,10 +34,6 @@ override_dh_auto_install:
 override_dh_installchangelogs:
 	dh_installchangelogs -k NEWS
 
-
-override_dh_installinit:
-	@echo skipping dh_installinit
-
 override_dh_fixperms:
 	dh_fixperms
 	chown mail $(PKGDIR)/usr/sbin/nullmailer-queue $(PKGDIR)/usr/bin/mailq
