@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: David Bremner <bremner@debian.org>
 Build-Depends: autoconf,
                automake,
-               debhelper (>= 9),
+               debhelper (>= 10.8),
                dh-autoreconf,
                libgnutls28-dev | libgnutls-dev,
                po-debconf,
