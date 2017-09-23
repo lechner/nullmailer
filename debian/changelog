@@ -7,8 +7,9 @@ nullmailer (1:2.0-1) unstable; urgency=medium
   * Bug fix: "nullmailer ignores permanent SMTP errors", thanks to Roy
     Hills (Closes: #329192).
   * Drop support for sysvinit, due to dropping --daemon divergence from upstream
+  * Switch to debhelper compat level 10
 
- -- David Bremner <bremner@debian.org>  Sun, 17 Sep 2017 22:00:16 -0300
+ -- David Bremner <bremner@debian.org>  Fri, 22 Sep 2017 22:47:43 -0300
 
 nullmailer (1:1.13-1.2) unstable; urgency=medium
 
