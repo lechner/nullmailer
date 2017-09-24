@@ -1,7 +1,7 @@
 nullmailer (1:2.0-1) experimental; urgency=medium
 
   * New upstream version
-  * New maintainer
+  * New maintainer (Closes: #857248)
   * Bug fix: "New upstream version (2.0) resolves various bugs", thanks to
     David R. Hedges (Closes: #826026).
   * Bug fix: "nullmailer ignores permanent SMTP errors", thanks to Roy
