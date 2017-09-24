@@ -6,11 +6,14 @@ nullmailer (1:2.0-1) experimental; urgency=medium
     David R. Hedges (Closes: #826026).
   * Bug fix: "nullmailer ignores permanent SMTP errors", thanks to Roy
     Hills (Closes: #329192).
+  * Now provides option to set system wide envelope-from address (Closes: #757690).
+  * Now logs (via systemd) start/stop of daemon (Closes: #432637).
+  * Documentation for nullmailer-send is updated (Closes: #709250).
   * Drop support for sysvinit, due to dropping --daemon divergence from upstream
   * Switch to debhelper compat level 10
   * Assert compliance with policy 4.1.0
 
- -- David Bremner <bremner@debian.org>  Sat, 23 Sep 2017 23:00:29 -0300
+ -- David Bremner <bremner@debian.org>  Sat, 23 Sep 2017 23:08:51 -0300
 
 nullmailer (1:1.13-1.2) unstable; urgency=medium
 
