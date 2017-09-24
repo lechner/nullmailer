@@ -2,9 +2,7 @@ Source: nullmailer
 Section: mail
 Priority: extra
 Maintainer: David Bremner <bremner@debian.org>
-Build-Depends: autoconf,
-               automake,
-               debhelper (>= 10.8),
+Build-Depends: debhelper (>= 10.8),
                libgnutls28-dev | libgnutls-dev,
                po-debconf,
 	       daemontools,
