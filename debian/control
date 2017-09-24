@@ -2,6 +2,7 @@ Source: nullmailer
 Section: mail
 Priority: extra
 Maintainer: David Bremner <bremner@debian.org>
+Uploaders: Felix Lechner <felix.lechner@lease-up.com>
 Build-Depends: debhelper (>= 10.8),
                libgnutls28-dev | libgnutls-dev,
                po-debconf,
