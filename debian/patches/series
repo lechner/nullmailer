@@ -3,3 +3,4 @@
 0004-Sort-files-in-archive-reproducible-builds.patch
 0004-Allow-unqualified-sender-address.patch
 0005-Provide-for-etc-mailname.patch
+0006-Refer-to-manpages-and-locations-provided-by-Debian.patch

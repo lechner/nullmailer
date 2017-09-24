@@ -1,0 +1,30 @@
+From: Felix Lechner <felix.lechner@lease-up.com>
+Date: Sat, 2 Sep 2017 09:57:43 -0300
+Subject: Refer to manpages and locations provided by Debian
+
+Forwarded: no
+---
+ doc/nullmailer-send.8 | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/doc/nullmailer-send.8 b/doc/nullmailer-send.8
+index d7835d4..f59e6dc 100644
+--- a/doc/nullmailer-send.8
++++ b/doc/nullmailer-send.8
+@@ -184,12 +184,14 @@ The outgoing message queue.
+ .B /var/spool/nullmailer/trigger
+ A trigger file to cause immediate delivery.
+ .TP
+-.B /usr/local/etc/nullmailer
++.B /etc/nullmailer
+ The configuration directory.
+ .TP
+-.B /usr/local/libexec/nullmailer
++.B /usr/lib/nullmailer
+ The protocol program directory.
+ .SH SEE ALSO
++nullmailer-smtp(8),
++nullmailer-qmqp(8)
+ nullmailer-dsn(1),
+ nullmailer-inject(1),
+ nullmailer-queue(8),
