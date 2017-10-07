@@ -1,3 +1,10 @@
+nullmailer (1:2.0-2) experimental; urgency=medium
+
+  * Update patch for test suite race-conditions to use 'wait' instead of
+    'sleep'
+
+ -- David Bremner <bremner@debian.org>  Sat, 07 Oct 2017 08:11:59 -0300
+
 nullmailer (1:2.0-1) experimental; urgency=medium
 
   * New upstream version
