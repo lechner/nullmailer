@@ -1,3 +1,9 @@
+nullmailer (1:2.0-3) experimental; urgency=medium
+
+  * New patch from Felix Lechner to fix 32/64 bit problem (cli) on s390x
+
+ -- David Bremner <bremner@debian.org>  Tue, 10 Oct 2017 08:09:16 -0300
+
 nullmailer (1:2.0-2) experimental; urgency=medium
 
   * Update patch for test suite race-conditions to use 'wait' instead of
