@@ -1,3 +1,411 @@
+commit 1a544303beca771ab4d9c90703934d9897eafbe4
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Oct 25 17:36:41 2017 -0600
+
+    Bump copyright year to 2017
+
+ lib/address-old.cc            | 2 +-
+ lib/address.cc                | 2 +-
+ lib/base64.cc                 | 2 +-
+ lib/canonicalize.cc           | 2 +-
+ lib/cli++/clitest.cc          | 2 +-
+ lib/cli++/main.cc             | 2 +-
+ lib/cli++/messages.cc         | 2 +-
+ lib/config_path.cc            | 2 +-
+ lib/config_read.cc            | 2 +-
+ lib/config_readint.cc         | 2 +-
+ lib/config_readlist.cc        | 2 +-
+ lib/config_syserr.cc          | 2 +-
+ lib/errcodes.cc               | 2 +-
+ lib/fdbuf/fdbuf.cc            | 2 +-
+ lib/fdbuf/fdbuf.h             | 2 +-
+ lib/fdbuf/fdbuf_copy.cc       | 2 +-
+ lib/fdbuf/fdibuf.cc           | 2 +-
+ lib/fdbuf/fdibuf.h            | 2 +-
+ lib/fdbuf/fdibuf_mystring.cc  | 2 +-
+ lib/fdbuf/fdibuf_netstring.cc | 2 +-
+ lib/fdbuf/fdobuf.cc           | 2 +-
+ lib/fdbuf/fdobuf.h            | 2 +-
+ lib/fdbuf/fdobuf_chownmod.cc  | 2 +-
+ lib/fdbuf/fdobuf_seek.cc      | 2 +-
+ lib/fdbuf/fdobuf_signed.cc    | 2 +-
+ lib/fdbuf/fdobuf_unsigned.cc  | 2 +-
+ lib/fdbuf/tlsibuf.cc          | 2 +-
+ lib/fdbuf/tlsibuf.h           | 2 +-
+ lib/fdbuf/tlsobuf.cc          | 2 +-
+ lib/fdbuf/tlsobuf.h           | 2 +-
+ lib/forkexec.cc               | 2 +-
+ lib/hostname.cc               | 2 +-
+ lib/makefield.cc              | 2 +-
+ lib/mystring/count.cc         | 2 +-
+ lib/mystring/iter.cc          | 2 +-
+ lib/mystring/iter.h           | 2 +-
+ lib/mystring/join.h           | 2 +-
+ lib/mystring/mystring.h       | 2 +-
+ lib/mystring/rep.h            | 2 +-
+ lib/selfpipe.cc               | 2 +-
+ lib/setenv.cc                 | 2 +-
+ lib/tcpconnect.cc             | 2 +-
+ protocols/protocol.cc         | 2 +-
+ protocols/qmqp.cc             | 2 +-
+ protocols/smtp.cc             | 2 +-
+ protocols/tls_gnutls.cc       | 2 +-
+ protocols/tls_none.cc         | 2 +-
+ src/dsn.cc                    | 2 +-
+ src/inject.cc                 | 2 +-
+ src/mailq.cc                  | 2 +-
+ src/queue.cc                  | 2 +-
+ src/send.cc                   | 2 +-
+ src/sendmail.cc               | 2 +-
+ src/smtpd.cc                  | 2 +-
+ 54 files changed, 54 insertions(+), 54 deletions(-)
+
+commit be41e8eeb1bab4ce22299ff388cbb825ce09b41e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 24 11:00:45 2017 -0600
+
+    lib/cli++: Fix build breakages from previous patch to cli++
+
+ lib/cli++/cli++topod.pl | 2 +-
+ lib/cli++/main.cc       | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 70af22a74be3f70cb3a4696c86ee04c0ed446968
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 24 09:17:38 2017 -0600
+
+    NEWS: Add more notes and thanks
+
+ NEWS | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit c739463519ad0265488cb457630bd839ac1f003d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 24 09:02:25 2017 -0600
+
+    doc: Add man pages for mailq and nullmailer-smtpd
+
+ doc/mailq.1            | 19 +++++++++++++++++++
+ doc/nullmailer-smtpd.1 | 26 ++++++++++++++++++++++++++
+ doc/sendmail.1         |  1 +
+ 3 files changed, 46 insertions(+)
+ create mode 100644 doc/mailq.1
+ create mode 100644 doc/nullmailer-smtpd.1
+
+commit f8ba4dba5ea5b3207d83f5c8cbf5644e36f37090
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Oct 24 08:55:24 2017 -0600
+
+    NEWS: Add note about previous time fix
+
+ NEWS | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 6ef3727a86583d1ae60f1b2083c84aa6b2c6c541
+Author: Felix Lechner <felix.lechner@lease-up.com>
+Date:   Sun Oct 22 06:13:23 2017 -0700
+
+    On architectures where the type (time_t) resolves to (ulong),
+    command line arguments to 'dsn' are not processed correctly. The
+    (void) pointer passed to lib/cli++/main.cc is cast to
+    (unsigned int) instead of (ulong). On 64-bit little endian
+    architectures such as amd64 this is not readily apparent as long
+    as the higher bits were initialized, but it causes grave errors
+    on big-endian architectures such as Debian's powerpc or s390x.
+    
+    This patch processes the timestamps given on the command line
+    correctly.
+
+ lib/cli++/cli++.h     |  2 +-
+ lib/cli++/main.cc     | 17 ++++++++++-------
+ lib/config_readint.cc |  6 ++++--
+ src/dsn.cc            |  6 +++---
+ 4 files changed, 18 insertions(+), 13 deletions(-)
+
+commit 18fcc92801f9b0a00fdf1da23e8f3e12dab4789d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Oct 23 20:55:14 2017 -0600
+
+    test: Fix some potential races by waiting for subprocesses
+
+ NEWS                 | 3 +++
+ test/functions.in    | 3 +++
+ test/tests/protocols | 2 --
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 5fd6be940792553ce7d9826dc85f9f4813e3bcaa
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Mon Oct 23 20:48:45 2017 -0600
+
+    lib/tcpconnect.cc: Clarify logic srrounding source addresses
+    
+    If no address could be used to bind the source address, the resulting
+    error code from tcpconnect would be incorrect (temporary gethostbyname
+    failure). This rewrites it to a more sensible failure to bind source.
+
+ NEWS                 |  3 +++
+ lib/tcpconnect.cc    | 10 +++++++++-
+ test/tests/protocols |  4 ++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
+
+commit 6c937ce0243019b5891ecd3840ed2d9bf0a155be
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:05:10 2017 +0000
+
+    spelling: succeeded
+
+ lib/address-old.cc | 2 +-
+ lib/address.cc     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 6466a0d6d8ae7b792dea36d9a694e82d52c14370
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:04:20 2017 +0000
+
+    spelling: qualified
+
+ doc/nullmailer-dsn.1    | 2 +-
+ doc/nullmailer-inject.1 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 1b7c4cc6afe1334d094fd2c2b5c29fe6aaae393b
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:04:10 2017 +0000
+
+    spelling: privileged
+
+ HOWTO | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit a2232df7cbda9dc3f8b9dfa7b529a721d66b31b4
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:02:57 2017 +0000
+
+    spelling: needed
+
+ ChangeLog.old | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 11b393d1ef77d3330ec5a9baa24367f4754af1ca
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:00:36 2017 +0000
+
+    spelling: escalation
+
+ lib/config_path.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ed19003083b7ab5de1cffe2e474a15c19ee5407e
+Author: Josh Soref <jsoref@users.noreply.github.com>
+Date:   Thu Oct 19 05:00:21 2017 +0000
+
+    spelling: email
+
+ protocols/qmqp.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit fbdd0ba6613188ab375f6bdbb5747d18b583b90c
+Merge: a85d249 178b025
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Sep 28 11:53:30 2017 -0600
+
+    Merge branch 'empty-sender' of https://github.com/wiedi/nullmailer
+
+commit a85d2498a27a31897b0364041eaec6cd07496309
+Merge: cdbdf35 cce9a89
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Thu Sep 28 11:50:53 2017 -0600
+
+    Merge branch 'tls_anon_auth' of git://github.com/uffejakobsen/nullmailer
+
+commit cdbdf35d370168b23f5e34f486da927f26ba601a
+Author: Mihai Moldovan <ionic@ionic.de>
+Date:   Tue Sep 26 15:21:20 2017 +0200
+
+    lib/argparse: fix parsing of shell-like quoting structures when encountered mid-string.
+    
+    Includes test cases for both double and single quotes.
+    
+    Fixes: https://github.com/bruceg/nullmailer/issues/45
+
+ lib/argparse.cc       | 7 ++++---
+ test/argparse-test.cc | 2 ++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+commit 7587abe5f2252af94dbee3000875dd239f0b9eb0
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Sep 27 07:18:09 2017 -0600
+
+    lib/mergelib.sh: Use configured AR/RANLIB also in mergelib.sh
+    
+    Fixes: #41
+
+ lib/mergelib.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit a16964649311955e3d9201f40a2b2b07828497f7
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Sep 27 07:16:25 2017 -0600
+
+    INSTALL: Add note to run autogen.sh before configure
+    
+    Fixes: #40
+
+ INSTALL | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 178b025932ca8bf7a3f1f0004fc7c227b574d223
+Author: Sebastian Wiedenroth <wiedi@frubar.net>
+Date:   Tue Jun 13 13:20:24 2017 +0200
+
+    sendmail: explicitly pass along empty sender
+
+ src/sendmail.cc | 48 ++++++++++++++++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
+
+commit ac63ab24326266172d289896cceda534dc0bb84c
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Fri Mar 3 14:16:18 2017 -0600
+
+    Bump version to 2.1
+
+ NEWS         | 11 +++++++++--
+ README       |  6 +++---
+ configure.ac |  2 +-
+ 3 files changed, 13 insertions(+), 6 deletions(-)
+
+commit aa3adbfcc7852b3c2cc89fbb8ebd3f819609b4ec
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 1 14:54:40 2017 -0600
+
+    test: Fix test for nullmailer-send bounce message output
+
+ test/tests/send | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c973edcd8150dfdbd4ae0451df003a046015f06d
+Author: Uffe Jakobsen <uffe@uffe.org>
+Date:   Thu May 5 11:52:54 2016 +0200
+
+    autogen.sh: test and create phony ChangeLog for automake to succeed
+
+ autogen.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 2dec8d22e1f3ea926069899ed20707669f2d3bf9
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 1 12:38:03 2017 -0600
+
+    nullmailer-dsn: Restore the --max-lines options and fix tests
+
+ src/dsn.cc     | 10 ++++++++--
+ test/tests/dsn |  2 +-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+commit e4cc153582dc1acf5515108f063245e2f001f68a
+Author: klemens <ka7@github.com>
+Date:   Thu Apr 14 22:03:35 2016 +0200
+
+    spelling fix, as of lintian.debian.org
+
+ doc/nullmailer-send.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 30d4097db6dfb3b84459da1f5ae73db8305a054f
+Author: Mike Frysinger <vapier@gentoo.org>
+Date:   Mon Mar 7 16:36:11 2016 -0500
+
+    enable transparent large file support
+    
+    Historically LFS mattered only to open/read large files.  A few programs
+    here use open/seek, but not generally on files that are large.  However,
+    LFS also applies to stat which procps does in a bunch of places -- some
+    filesystems have 64bit inodes and attempts to do a 32bit stat will throw
+    an error.
+    
+    Enable transparent LFS everywhere to avoid this.
+
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 2bba417e4171ce0e90f70047431a8ba74f9a598b
+Author: W. Trevor King <wking@tremily.us>
+Date:   Thu Sep 15 11:36:30 2016 -0700
+
+    doc: Fix "defauldomain" -> "defaultdomain" typos
+
+ doc/nullmailer-dsn.1    | 2 +-
+ doc/nullmailer-inject.1 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit babec3b1054a370b18fd156b1a60490bd952783e
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Wed Mar 1 09:49:48 2017 -0600
+
+    nullmailer-inject: Drop leading "From " lines
+    
+    This fixes problems with some broken mail senders that mistakenly add
+    them. Patch suggested by Sebastian Wiedenroth <wiedi@frubar.net>
+
+ NEWS                    |  2 ++
+ src/inject.cc           |  5 +++++
+ test/tests/inject/from_ | 10 ++++++++++
+ 3 files changed, 17 insertions(+)
+ create mode 100644 test/tests/inject/from_
+
+commit 541e456a6ba31ecc39c1e19c3121f81d8f6da26f
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Feb 28 17:12:04 2017 -0600
+
+    lib/mystring: Add mystring::starts_with methods
+
+ lib/mystring/Makefile.am    |  1 +
+ lib/mystring/mystring.h     |  4 ++++
+ lib/mystring/starts_with.cc | 17 +++++++++++++++++
+ 3 files changed, 22 insertions(+)
+ create mode 100644 lib/mystring/starts_with.cc
+
+commit f50b29ff16101941e5bfb3d3774c0d3cf1997b0d
+Author: Sebastian Wiedenroth <wiedi@frubar.net>
+Date:   Mon Nov 14 22:52:02 2016 +0000
+
+    fix build on illumos
+
+ lib/tcpconnect.cc | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
+
+commit 2a33bea069c69199eda8e9ded26b33f8caeeba3d
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Feb 28 13:38:25 2017 -0600
+
+    nullmailer-dsn: Default to copying only the header instead of whole message
+
+ doc/nullmailer-dsn.1 | 2 +-
+ src/dsn.cc           | 8 ++------
+ 2 files changed, 3 insertions(+), 7 deletions(-)
+
+commit 05469b7b2c91d626e3c451fdf2401d0568cca9a1
+Author: Bruce Guenter <bruce@untroubled.org>
+Date:   Tue Feb 28 13:32:23 2017 -0600
+
+    lib/forkexec.h: Add missing #include <signal.h>
+
+ lib/forkexec.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit cce9a89f138d943fa70a37e166a8b04d276ec5b3
+Author: Uffe Jakobsen <uffe@uffe.org>
+Date:   Thu May 5 13:41:14 2016 +0200
+
+    Implement TLS anonymous authentication in smtp
+
+ configure.ac            |  2 ++
+ doc/nullmailer-send.8   |  8 ++++++++
+ protocols/protocol.cc   |  3 ++-
+ protocols/protocol.h    |  2 +-
+ protocols/tls_gnutls.cc | 43 +++++++++++++++++++++++++++++++++++++++++--
+ 5 files changed, 54 insertions(+), 4 deletions(-)
+
 commit 6567de3d2f5936692fd2e272688386efa95f11fb
 Author: Bruce Guenter <bruce@untroubled.org>
 Date:   Fri Jan 22 11:02:45 2016 -0600
@@ -980,7 +1388,7 @@ Date:   Fri Apr 19 11:04:27 2013 -0600
     protocols: Handle configuration options on stdin, message on FD 3
     
     Options are read in one per line, terminated by an empty line. Format is
-    	name=value
+            name=value
     where "name" is one of the long cli options (see --help output).
 
  protocols/protocol.cc | 41 ++++++++++++++++++++++++++++++++++-------
@@ -1465,8 +1873,8 @@ Date:   Mon Apr 23 10:59:54 2012 -0600
     Merge branch 'lsb'
     
     Conflicts:
-    	NEWS
-    	src/sendmail.cc
+            NEWS
+            src/sendmail.cc
 
 commit d0cc4538313204a434982a42aa1182fca5c032e2
 Author: Bruce Guenter <bruce@untroubled.org>

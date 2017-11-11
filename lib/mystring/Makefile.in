@@ -111,8 +111,8 @@ am_libmystring_a_OBJECTS = append.$(OBJEXT) assign.$(OBJEXT) \
 	find_first_of.$(OBJEXT) find_last_ch.$(OBJEXT) \
 	find_last_of.$(OBJEXT) iter.$(OBJEXT) join.$(OBJEXT) \
 	lower.$(OBJEXT) lstrip.$(OBJEXT) mystring.$(OBJEXT) \
-	rep.$(OBJEXT) rstrip.$(OBJEXT) sub.$(OBJEXT) subst.$(OBJEXT) \
-	strip.$(OBJEXT) upper.$(OBJEXT)
+	rep.$(OBJEXT) starts_with.$(OBJEXT) rstrip.$(OBJEXT) \
+	sub.$(OBJEXT) subst.$(OBJEXT) strip.$(OBJEXT) upper.$(OBJEXT)
 libmystring_a_OBJECTS = $(am_libmystring_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -285,6 +285,7 @@ libmystring_a_SOURCES = \
 	lstrip.cc \
 	mystring.cc \
 	rep.cc \
+	starts_with.cc \
 	rstrip.cc \
 	sub.cc \
 	subst.cc \
@@ -354,6 +355,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mystring.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rep.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rstrip.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/starts_with.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sub.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/subst.Po@am__quote@
