@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ static bool initialized = false;
 mystring config_path(const char* dflt, const char* testdir, const char* subdir, const char* filename)
 {
   if (!initialized) {
-    // Check if the program is running setuid, to avoid privilege escallation.
+    // Check if the program is running setuid, to avoid privilege escalation.
     if (getuid() == geteuid())
       test_prefix = getenv("NULLMAILER_TEST_PREFIX");
   }

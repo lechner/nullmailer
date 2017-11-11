@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -342,11 +342,16 @@ bool read_header()
 {
   mystring cur_line;
   mystring whole;
+  bool first = true;
   for (;;) {
     if (!fin.getline(cur_line))
       cur_line = "";
     if(!cur_line || cur_line == "\r")
       break;
+    // Ignore a leading RFC 976 "From " line mistakenly inserted by some programs.
+    if(first && (cur_line.starts_with("From ") || cur_line.starts_with(">From ")))
+      continue;
+    first = false;
     if(!!whole && is_continuation(cur_line)) {
       //if(!whole)
       //bad_hdr(cur_line, "First line cannot be a continuation line.");

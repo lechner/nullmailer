@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -67,19 +67,18 @@ cli_option cli_options[] = {
     "Diagnostic code message", 0 },
   { 0, "envelope-id", cli_option::string, 0, &opt_envelope_id,
     "Original envelope ID", 0 },
-  { 0, "last-attempt", cli_option::uinteger, 0, &opt_last_attempt,
+  { 0, "last-attempt", cli_option::ulong, 0, &opt_last_attempt,
     "UNIX timestamp of the last attempt",
     "access time on the input message" },
-  { 0, "orig-timestamp", cli_option::uinteger, 0, &opt_timestamp,
+  { 0, "orig-timestamp", cli_option::ulong, 0, &opt_timestamp,
     "UNIX timestamp on the original message",
     "ctime on the input message" },
   { 0, "remote", cli_option::string, 0, &opt_remote,
     "Name of remote server", 0 },
-  { 0, "retry-until", cli_option::uinteger, 0, &opt_retry_until,
+  { 0, "retry-until", cli_option::ulong, 0, &opt_retry_until,
     "UNIX timestamp of the (future) final attempt", 0 },
   { 0, "max-lines", cli_option::integer, 0, &opt_lines,
-    "Maximum number of lines of the original message to copy",
-    "the whole message" },
+    "Maximum number of lines of the original message to copy", "none" },
   {0, 0, cli_option::flag, 0, 0, 0, 0}
 };
 
@@ -113,8 +112,11 @@ int cli_main(int, char* argv[])
       || opt_status[5] != '\0')
     die1("Status must be in the format 4.#.# or 5.#.#");
   opt_ddn = opt_status[0] == '4';
-  if (opt_lines < 0)
+  if (opt_lines < 0) {
     config_readint("bouncelines", opt_lines);
+    if (opt_lines < 0)
+      opt_lines = 0;
+  }
 
   if (!config_read("doublebounceto", doublebounceto)
       || !doublebounceto)

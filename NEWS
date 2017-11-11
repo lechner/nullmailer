@@ -1,5 +1,32 @@
 This file lists all the major user-visible changes to nullmailer.
 -------------------------------------------------------------------------------
+Changes in version 2.1
+
+- Added support for TLS anonymous authentication.
+  Thanks Uffe Jakobsen.
+
+- Fixed sendmail wrapper handling of empty sender on command line.
+  Thanks Sebastian Wiedenroth.
+
+- Fixed handling of quoted strings in the "remotes" file.
+  Thanks Mihai Moldovan.
+
+- Fixed nullmailer-inject handling of leading "From " lines.
+
+- Some build fixes.
+
+- Fixed bogus temporary gethostbyname error message when the protocol
+  source address was incorrect.
+
+- Fixed potential race condition in tests.
+  Thanks Felix Lechner.
+
+- Fixed handling of time values on 32-bit big-endian systems.
+  Thanks Felix Lechner.
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
+-------------------------------------------------------------------------------
 Changes in version 2.0
 
 - Added support to nullmailer-send to move permanently failing messages
