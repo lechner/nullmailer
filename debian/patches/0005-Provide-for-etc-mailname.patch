@@ -12,14 +12,14 @@ Author: Felix Lechner <felix.lechner@lease-up.com>
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504184
 Last-Update: 2017-08-31
 ---
- doc/nullmailer-inject.1 | 10 +++++-----
+ doc/nullmailer-inject.1 | 14 +++++++-------
  doc/nullmailer-queue.8  |  6 +++---
  lib/hostname.cc         |  9 ++++++++-
  test/functions.in       |  2 +-
- 4 files changed, 17 insertions(+), 10 deletions(-)
+ 4 files changed, 19 insertions(+), 12 deletions(-)
 
 diff --git a/doc/nullmailer-inject.1 b/doc/nullmailer-inject.1
-index 208add0..26a7c1c 100644
+index 6acae7b..26a7c1c 100644
 --- a/doc/nullmailer-inject.1
 +++ b/doc/nullmailer-inject.1
 @@ -227,16 +227,16 @@ including
@@ -28,9 +28,10 @@ index 208add0..26a7c1c 100644
  Defaults to the value of the
 -.B me
 -control file, if it exists, otherwise the literal name
+-.BR defaultdomain .
 +.B /etc/mailname
 +system file, if it exists, otherwise the literal name
- .BR defauldomain .
++.BR defauldomain .
  .TP
  .B defaulthost
  The content of this file is appended to any address that is missing a
@@ -43,15 +44,17 @@ index 208add0..26a7c1c 100644
  .BR defaulthost .
  .TP
  .B idhost
-@@ -245,7 +245,7 @@ for the message.
+@@ -245,8 +245,8 @@ for the message.
  Defaults to the canonicalized value of
  .IR defaulthost .
  .TP
 -.B me
+-The fully-qualified host name of the computer running nullmailer.
 +.B /etc/mailname
- The fully-qualifiled host name of the computer running nullmailer.
++The fully-qualifiled host name of the computer running nullmailer.
  Defaults to the literal name
  .BR me .
+ .SH SEE ALSO
 diff --git a/doc/nullmailer-queue.8 b/doc/nullmailer-queue.8
 index 291ea65..2cdc890 100644
 --- a/doc/nullmailer-queue.8
@@ -70,7 +73,7 @@ index 291ea65..2cdc890 100644
  "somebody@localhost" and have it go somewhere sensible instead of
  being bounced by your relay host. To send to multiple addresses, put
 diff --git a/lib/hostname.cc b/lib/hostname.cc
-index 43fe26e..9c6b715 100644
+index d50022e..55ff04d 100644
 --- a/lib/hostname.cc
 +++ b/lib/hostname.cc
 @@ -24,6 +24,7 @@
@@ -97,10 +100,10 @@ index 43fe26e..9c6b715 100644
      me = "me";
    }
 diff --git a/test/functions.in b/test/functions.in
-index 2a8ab8d..18dcc6b 100644
+index 8df4e3d..8636698 100644
 --- a/test/functions.in
 +++ b/test/functions.in
-@@ -128,6 +128,6 @@ splitblank() {
+@@ -130,6 +130,6 @@ splitblank() {
  
  export PATH=/bin:/usr/bin:/usr/local/bin
  rm -f $SYSCONFDIR/*

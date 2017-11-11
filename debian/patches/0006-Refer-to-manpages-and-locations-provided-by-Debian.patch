@@ -8,10 +8,10 @@ Forwarded: no
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/doc/nullmailer-send.8 b/doc/nullmailer-send.8
-index d7835d4..f59e6dc 100644
+index 34e5f96..389c457 100644
 --- a/doc/nullmailer-send.8
 +++ b/doc/nullmailer-send.8
-@@ -184,12 +184,14 @@ The outgoing message queue.
+@@ -191,12 +191,14 @@ The outgoing message queue.
  .B /var/spool/nullmailer/trigger
  A trigger file to cause immediate delivery.
  .TP

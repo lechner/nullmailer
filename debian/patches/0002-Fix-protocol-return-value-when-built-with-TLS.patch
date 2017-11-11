@@ -14,10 +14,10 @@ Forwarded: no
  1 file changed, 1 insertion(+)
 
 diff --git a/lib/tcpconnect.cc b/lib/tcpconnect.cc
-index ae004fa..6aecf0a 100644
+index d4cf9a9..683ff24 100644
 --- a/lib/tcpconnect.cc
 +++ b/lib/tcpconnect.cc
-@@ -91,6 +91,7 @@ int tcpconnect(const char* hostname, int port, const char* source)
+@@ -95,6 +95,7 @@ int tcpconnect(const char* hostname, int port, const char* source)
        return err;
    }
    int s = -1;
