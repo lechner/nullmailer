@@ -1,4 +1,3 @@
-0001-Remove-race-conditions-from-tests.patch
 0002-Fix-protocol-return-value-when-built-with-TLS.patch
 0004-Sort-files-in-archive-reproducible-builds.patch
 0004-Allow-unqualified-sender-address.patch
