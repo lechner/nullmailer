@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -73,6 +73,8 @@ cli_option cli_options[] = {
     "X.509 files are in DER format", "PEM format" },
   { 0, "insecure", cli_option::flag, true, &tls_insecure,
     "Don't abort if server certificate fails validation", 0 },
+  { 0, "tls-anon-auth", cli_option::flag, true, &tls_anon_auth,
+    "Use TLS anonymous authentication - needs --insecure option", 0 },
 #endif
   {0, 0, cli_option::flag, 0, 0, 0, 0}
 };
@@ -151,4 +153,3 @@ int cli_main(int, char*[])
     plain_send(in, fd);
   return 0;
 }
-

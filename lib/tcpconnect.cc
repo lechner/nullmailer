@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -33,19 +33,23 @@
 
 static int err_return(int errn, int dflt)
 {
-  switch(errn) {
-  case HOST_NOT_FOUND: return -ERR_HOST_NOT_FOUND;
-  case NO_ADDRESS: return -ERR_NO_ADDRESS;
-  case NO_RECOVERY: return -ERR_GHBN_FATAL;
-  case TRY_AGAIN: return -ERR_GHBN_TEMP;
-  case EAI_AGAIN: return -ERR_GHBN_TEMP;
-  case EAI_NONAME: return -ERR_HOST_NOT_FOUND;
-  case EAI_FAIL: return -ERR_GHBN_FATAL;
-  case ECONNREFUSED: return -ERR_CONN_REFUSED;
-  case ETIMEDOUT: return -ERR_CONN_TIMEDOUT;
-  case ENETUNREACH: return -ERR_CONN_UNREACHABLE;
-  default: return -dflt;
-  }
+  if (errn == HOST_NOT_FOUND)
+    return -ERR_HOST_NOT_FOUND;
+  if (errn == NO_ADDRESS)
+    return -ERR_NO_ADDRESS;
+  if (errn == NO_RECOVERY || errn == EAI_FAIL)
+    return -ERR_GHBN_FATAL;
+  if (errn == TRY_AGAIN || errn == EAI_AGAIN)
+    return -ERR_GHBN_TEMP;
+  if (errn == EAI_NONAME)
+    return -ERR_HOST_NOT_FOUND;
+  if (errn == ECONNREFUSED)
+    return -ERR_CONN_REFUSED;
+  if (errn == ETIMEDOUT)
+    return -ERR_CONN_TIMEDOUT;
+  if (errn == ENETUNREACH)
+    return -ERR_CONN_UNREACHABLE;
+  return -dflt;
 }
 
 #ifdef HAVE_GETADDRINFO
@@ -94,7 +98,15 @@ int tcpconnect(const char* hostname, int port, const char* source)
   err = ERR_CONN_FAILED;
   struct addrinfo* orig_res = res;
 
-  for (; res; res = res->ai_next ) {
+  if (source_addr)
+    // Check if some address is the same family as the source
+    for (; res != NULL; res = res->ai_next)
+      if (canbind(res->ai_family, source_addr))
+        break;
+  if (res == NULL)
+    return -ERR_BIND_FAILED;
+
+  for (; res != NULL; res = res->ai_next) {
     if (!source_addr || canbind(res->ai_family, source_addr)) {
       s = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
       if(s > 0) {

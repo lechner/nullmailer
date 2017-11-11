@@ -1,5 +1,5 @@
 // nullmailer -- a simple relay-only MTA
-// Copyright (C) 2016  Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017  Bruce Guenter <bruce@untroubled.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -146,7 +146,7 @@ static const char indentstr[] = "                       ";
 static const char* indent = indentstr + sizeof indentstr - 1;
 #define ENTER(R) do{ fout << indent-- << __FUNCTION__ << ": \"" << node->str << "\": " << R << endl; }while(0)
 #define FAIL(MSG) do{ fout << ++indent << __FUNCTION__ << ": failed: " << MSG << endl; return result(); }while(0)
-#define RETURNR(R) do{ fout << ++indent << __FUNCTION__ << ": succeded str=" << R.str << " comment=" << R.comment << " addr=" << R.addr << endl; return (R); }while(0)
+#define RETURNR(R) do{ fout << ++indent << __FUNCTION__ << ": succeeded str=" << R.str << " comment=" << R.comment << " addr=" << R.addr << endl; return (R); }while(0)
 #define RETURN(N,S,C,L) do{ result _result(N,S,C,L); RETURNR(_result); }while(0)
 #endif
 

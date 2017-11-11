@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Bruce Guenter <bruce@untroubled.org>
+// Copyright (C) 2017 Bruce Guenter <bruce@untroubled.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 #include <config.h>
 #include "ac/time.h"
 #include "fdbuf/fdbuf.h"
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include "cli++.h"
@@ -89,7 +90,7 @@ static int calc_width(const cli_option* o)
     switch (o->type) {
     case cli_option::string:     width += 6; break;
     case cli_option::integer:    width += 4; break;
-    case cli_option::uinteger:   width += 4; break;
+    case cli_option::ulong:      width += 4; break;
     case cli_option::stringlist: width += 5; break;
     case cli_option::flag:       break;
     case cli_option::counter:    break;
@@ -123,7 +124,7 @@ static void show_option(const cli_option* o, int maxwidth)
     switch(o->type) {
     case cli_option::string:     extra = "=VALUE"; break;
     case cli_option::integer:    extra = "=INT"; break;
-    case cli_option::uinteger:   extra = "=UNS"; break;
+    case cli_option::ulong:      extra = "=UNS"; break;
     case cli_option::stringlist: extra = "=ITEM"; break;
     case cli_option::flag:       break;
     case cli_option::counter:    break;
@@ -184,14 +185,17 @@ int cli_option::set(const char* arg)
     *(int*)dataptr += flag_value;
     return 0;
   case integer:
-    *(int*)dataptr = strtol(arg, &endptr, 10);
-    if(*endptr) {
-      ferr << argv0 << ": invalid integer: " << arg << endl;
-      return -1;
+    {
+      long longresult = strtol(arg, &endptr, 10);
+      if(*endptr || longresult < INT_MIN || longresult > INT_MAX) {
+        ferr << argv0 << ": invalid integer: " << arg << endl;
+        return -1;
+      }
+      *(int*)dataptr = (int) longresult;
+      return 1;
     }
-    return 1;
-  case uinteger:
-    *(unsigned*)dataptr = strtoul(arg, &endptr, 10);
+  case ulong:
+    *(unsigned long*)dataptr = strtoul(arg, &endptr, 10);
     if(*endptr) {
       ferr << argv0 << ": invalid unsigned integer: " << arg << endl;
       return -1;
