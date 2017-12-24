@@ -11,6 +11,7 @@ ExecStart=/usr/sbin/nullmailer-send
 User=mail
 Group=mail
 Restart=always
+SyslogFacility=mail
 
 [Install]
 WantedBy=multi-user.target
