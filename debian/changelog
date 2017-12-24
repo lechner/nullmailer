@@ -8,8 +8,9 @@ nullmailer (1:2.1-6) UNRELEASED; urgency=medium
 
 nullmailer (1:2.1-5) unstable; urgency=medium
 
-  * add SyslogFacility=mail to nullmailer.service; with an appropriately configured
-    syslog (e.g. rsyslog) this will also log to /var/log/mail (Closes: #885131).
+  * add SyslogFacility=mail to nullmailer.service; with an appropriately
+    configured syslog (e.g. rsyslog) this will also log to /var/log/mail
+    (Closes: #885131).
 
  -- David Bremner <bremner@debian.org>  Sun, 24 Dec 2017 10:44:20 -0400
 
