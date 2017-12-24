@@ -8,7 +8,7 @@ Build-Depends: daemontools,
                libgnutls28-dev | libgnutls-dev,
                po-debconf,
                ucspi-tcp-ipv6
-Standards-Version: 4.1.0
+Standards-Version: 4.1.2
 Homepage: http://untroubled.org/nullmailer/
 
 Package: nullmailer

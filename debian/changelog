@@ -4,8 +4,9 @@ nullmailer (1:2.1-6) UNRELEASED; urgency=medium
     nullmailer is probably in minimizing installed packages. Logging is
     available via the systemd journal.
   * Replace "Priority: extra" with "Priority: optional"
+  * Assert conformance with standards version 4.1.2
 
- -- David Bremner <bremner@debian.org>  Sun, 24 Dec 2017 13:28:18 -0400
+ -- David Bremner <bremner@debian.org>  Sun, 24 Dec 2017 13:30:02 -0400
 
 nullmailer (1:2.1-5) unstable; urgency=medium
 
