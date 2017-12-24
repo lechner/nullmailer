@@ -14,7 +14,6 @@ Homepage: http://untroubled.org/nullmailer/
 Package: nullmailer
 Architecture: any
 Depends: lsb-base, systemd-sysv, ${misc:Depends}, ${shlibs:Depends}
-Recommends: rsyslog | system-log-daemon
 Conflicts: mail-transport-agent
 Provides: mail-transport-agent
 Replaces: mail-transport-agent
