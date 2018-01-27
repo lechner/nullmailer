@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 ### BEGIN INIT INFO
 # Provides:          nullmailer
@@ -16,7 +16,6 @@ DAEMON=/usr/sbin/nullmailer-send
 NAME=nullmailer
 DESC=mail-transfer-agent
 PIDFILE=/var/run/$NAME.pid
-DAEMON_OPTS=-s
 
 test -x $DAEMON || exit 0
 
@@ -27,16 +26,16 @@ case "$1" in
 	log_begin_msg "Starting $DESC:" "$NAME"
 	# don't kill trigger if daemon already running
 	if ! pidofproc -p $PIDFILE $DAEMON; then
-	    if [ ! -p /var/spool/nullmailer/trigger ]; then                                                                                                        
-		rm -f /var/spool/nullmailer/trigger                                                                                                            
-		mkfifo /var/spool/nullmailer/trigger                                                                                                           
-	    fi                                                                                                                                                     
+	    if [ ! -p /var/spool/nullmailer/trigger ]; then
+		rm -f /var/spool/nullmailer/trigger
+		mkfifo /var/spool/nullmailer/trigger
+	    fi
 	    chown mail:root /var/spool/nullmailer/trigger
 	    chmod 0622 /var/spool/nullmailer/trigger
 	    # --oknodo in case of race condition on daemon start
-	    start-stop-daemon --start --quiet --user mail --chuid mail \
-				--pidfile $PIDFILE --make-pidfile --background \
-				--oknodo --exec "$DAEMON" -- $DAEMON_OPTS
+	    start-stop-daemon --start --quiet --user mail --chuid mail --no-close \
+			      --pidfile $PIDFILE --make-pidfile --background \
+			      --oknodo --exec "$DAEMON" > >(logger -p mail.notice -t nullmailer) 2>&1
 	    log_end_msg $?
 	else
 	    log_end_msg $? "$NAME already running: $PIDS"
