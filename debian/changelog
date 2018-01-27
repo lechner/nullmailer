@@ -1,17 +1,20 @@
-nullmailer (1:2.1-6) UNRELEASED; urgency=medium
+nullmailer (1:2.1-6) experimental; urgency=medium
 
+  [ David Bremner]
   * Drop "Recommends: rsyslog | system-log-daemon"; a typical user for
     nullmailer is probably in minimizing installed packages. Logging is
     available via the systemd journal.
   * Replace "Priority: extra" with "Priority: optional"
   * Assert conformance with standards version 4.1.2
+  * Restore /etc/init.d/nullmailer, drop dependency on systemd-sysv
+   (Closes: #886121, #885537).
 
   [ Felix Lechner ]
   * Removed patch fixing protocol test for TLS (was fixed in 2.1)
   * Re-enabled patch avoid race conditions in tests
   * Changed watch file to Github
 
- -- David Bremner <bremner@debian.org>  Sat, 27 Jan 2018 12:01:26 -0400
+ -- David Bremner <bremner@debian.org>  Sat, 27 Jan 2018 12:06:09 -0400
 
 nullmailer (1:2.1-5) unstable; urgency=medium
 
