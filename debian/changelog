@@ -1,3 +1,9 @@
+nullmailer (1:2.1-7) unstable; urgency=medium
+
+  * upload to unstable
+
+ -- David Bremner <bremner@debian.org>  Fri, 16 Mar 2018 22:48:17 -0300
+
 nullmailer (1:2.1-6) experimental; urgency=medium
 
   [ David Bremner]
